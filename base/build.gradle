@@ -33,6 +33,8 @@ dependencies {
     api versions.dependencies.material
     api versions.dependencies.coreKtx
     api versions.dependencies.coroutines
+    api versions.dependencies.glide
+    annotationProcessor versions.dependencies.glide_complier
 
     testImplementation versions.test.junit
     androidTestImplementation versions.test.extJunit

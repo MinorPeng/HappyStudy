@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">HappyStudy</string>
+    <string name="move">移动</string>
+    <string name="step">步</string>
 </resources>

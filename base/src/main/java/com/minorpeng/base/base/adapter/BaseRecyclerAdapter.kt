@@ -78,7 +78,7 @@ abstract class BaseRecyclerAdapter<T> : RecyclerView.Adapter<BaseViewHolder> {
     }
 
     /**
-     * item layout id
+     * item layout_block_edit_text id
      * @return resId
      */
     protected abstract fun getItemLayoutId(): Int

@@ -55,7 +55,7 @@ abstract class BaseActivity<P : BasePresenter<out IBaseView, out IBaseModel>> : 
 
     /**
      * 获取布局id
-     * @return layout id
+     * @return layout_block_edit_text id
      */
     protected abstract fun getLayoutId(): Int
 

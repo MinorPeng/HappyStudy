@@ -1,6 +1,7 @@
 package com.minorpeng.happystudy.modules.home.v
 
 import com.minorpeng.base.base.BaseActivity
+import com.minorpeng.happystudy.R
 import com.minorpeng.happystudy.modules.home.p.HomePresenter
 
 /**
@@ -9,15 +10,15 @@ import com.minorpeng.happystudy.modules.home.p.HomePresenter
  * @date 2020/3/19 9:37
  */
 class HomeActivity : BaseActivity<HomePresenter>(), IHomeView {
+
     override fun getLayoutId(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return R.layout.test
     }
 
     override fun createPresenter(): HomePresenter {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return HomePresenter(this)
     }
 
     override fun initView() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
