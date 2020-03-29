@@ -1,4 +1,4 @@
-package com.minorpeng.happystudy.custom.blocks.appearence
+package com.minorpeng.happystudy.custom.blocks.appearance
 
 import android.annotation.SuppressLint
 import android.content.Context

@@ -32,7 +32,6 @@ abstract class BaseBlockView : FrameLayout, IRoleListener {
         defStyleAttr: Int,
         defStyleRes: Int
     ) : super(context, attrs, defStyleAttr, defStyleRes) {
-
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {

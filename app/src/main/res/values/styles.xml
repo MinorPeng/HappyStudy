@@ -12,11 +12,13 @@
     <style name="BlockWhiteTextStyle" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textSize">@dimen/sp14</item>
+        <item name="android:gravity">center</item>
     </style>
 
     <style name="BlockBlackTextStyle" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@android:color/black</item>
         <item name="android:textSize">@dimen/sp14</item>
+        <item name="android:gravity">center</item>
     </style>
 
 </resources>

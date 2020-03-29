@@ -2,4 +2,17 @@
     <string name="app_name">HappyStudy</string>
     <string name="move">移动</string>
     <string name="step">步</string>
+    <string name="ten">10</string>
+    <string name="zero">0</string>
+    <string name="move_x">移到x:</string>
+    <string name="y">y:</string>
+    <string name="degree">度</string>
+    <string name="left_rotate">左转</string>
+    <string name="right_rotate">右转</string>
+    <string name="add_x">将x坐标增加</string>
+    <string name="add_y">将y坐标增加</string>
+    <string name="reduce_x">将x坐标减少</string>
+    <string name="reduce_y">将y坐标减少</string>
+    <string name="set_x">将x坐标设为</string>
+    <string name="set_y">将y坐标设为</string>
 </resources>

@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    tools:background="@color/colorMotionBlue">
+
+    <TextView
+        style="@style/BlockWhiteTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp8"
+        android:labelFor="@id/et_reduce_y"
+        android:text="@string/reduce_y" />
+
+    <EditText
+        android:id="@+id/et_reduce_y"
+        style="@style/BlockBlackTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp4"
+        android:layout_marginEnd="@dimen/dp8"
+        android:layout_marginBottom="@dimen/dp4"
+        android:background="@drawable/bg_et_circle"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:text="@string/ten" />
 
 </LinearLayout>
