@@ -7,6 +7,7 @@
     <color name="colorMotionBlue">#2979FF</color>
     <color name="colorAppearancePurple">#947CDC</color>
     <color name="colorVoicePurple">#D500F9</color>
+    <color name="colorVoicePurpleDark">#B500F9</color>
     <color name="colorEventYellow">#FFEA00</color>
     <color name="colorControlYellow">#FFC400</color>
     <color name="colorCalculateGreen">#76FF03</color>

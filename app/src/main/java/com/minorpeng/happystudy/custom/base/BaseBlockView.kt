@@ -3,14 +3,14 @@ package com.minorpeng.happystudy.custom.base
 import android.content.Context
 import android.util.AttributeSet
 import android.view.MotionEvent
-import android.widget.FrameLayout
+import android.widget.LinearLayout
 
 /**
  *
  * @author MinorPeng
  * @date 2020/3/24 18:00
  */
-abstract class BaseBlockView : FrameLayout, IRoleListener {
+abstract class BaseBlockView : LinearLayout, IRoleListener {
 
     private var mLastX: Float = 0f
     private var mLastY: Float = 0f

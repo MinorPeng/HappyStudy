@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HappyStudy</string>
+    <string name="app_name">乐学</string>
     <string name="move">移动</string>
     <string name="step">步</string>
     <string name="ten">10</string>
@@ -9,10 +9,19 @@
     <string name="degree">度</string>
     <string name="left_rotate">左转</string>
     <string name="right_rotate">右转</string>
-    <string name="add_x">将x坐标增加</string>
-    <string name="add_y">将y坐标增加</string>
-    <string name="reduce_x">将x坐标减少</string>
-    <string name="reduce_y">将y坐标减少</string>
+    <string name="increase_x">将x坐标增加</string>
+    <string name="increase_y">将y坐标增加</string>
+    <string name="decrease_x">将x坐标减少</string>
+    <string name="decrease_y">将y坐标减少</string>
     <string name="set_x">将x坐标设为</string>
     <string name="set_y">将y坐标设为</string>
+    <string name="say">说</string>
+    <string name="hello">你好！</string>
+    <string name="next_bg">下一个背景</string>
+    <string name="show">显示</string>
+    <string name="hide">隐藏</string>
+    <string name="stop_all_voice">停止所有声音</string>
+    <string name="increase_voice">将音量增加</string>
+    <string name="decrease_voice">将音量减少</string>
+    <string name="play_voice">播放声音</string>
 </resources>

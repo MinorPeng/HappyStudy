@@ -4,15 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.minorpeng.happystudy.custom.blocks.motion.MoveBlockView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <com.minorpeng.happystudy.custom.blocks.motion.MoveToXYBlockView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <com.minorpeng.happystudy.custom.blocks.motion.LeftRotateBlockView
+    <com.minorpeng.happystudy.custom.blocks.appearance.SayBlockView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 

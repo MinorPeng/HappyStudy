@@ -6,32 +6,35 @@ import android.graphics.CornerPathEffect
 import android.graphics.Paint
 import android.graphics.Path
 import android.util.AttributeSet
+import android.view.Gravity
 import androidx.core.content.ContextCompat
 import com.minorpeng.base.utils.DensityUtil
-import com.minorpeng.happystudy.R
 
 /**
  *
  * @author MinorPeng
  * @date 2020/3/29 17:39
  */
-abstract class BaseMotionBlockView : BaseBlockView {
+abstract class BaseBgBlockView : BaseBlockView {
 
     private val mDis2Left: Float
     private val mDis2Top: Float
     private val mLineLen: Float
     private val mPaint = Paint()
 
-    constructor(
-        context: Context,
-        attrs: AttributeSet?,
-        defStyleAttr: Int,
-        defStyleRes: Int
-    ) : super(context, attrs, defStyleAttr, defStyleRes) {
-        setWillNotDraw(false)
-        mDis2Left = DensityUtil.dp2px(context, 10f).toFloat()
+    constructor(context: Context) : this(context, null)
+
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
+
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context, attrs, defStyleAttr, 0)
+
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes) {
+        mDis2Left = DensityUtil.dp2px(context, 8f).toFloat()
         mDis2Top = DensityUtil.dp2px(context, 4f).toFloat()
-        mLineLen = DensityUtil.dp2px(context, 8f).toFloat()
+        mLineLen = DensityUtil.dp2px(context, 10f).toFloat()
+        this.setWillNotDraw(false)
+        this.setPadding((mDis2Top * 2).toInt(), (mDis2Top * 2).toInt(), (mDis2Top * 2).toInt(), (mDis2Top * 3).toInt())
+        gravity = Gravity.CENTER
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -62,8 +65,10 @@ abstract class BaseMotionBlockView : BaseBlockView {
         path.lineTo(0f, measuredHeight.toFloat() - mDis2Top)
         path.lineTo(0f, 0f)
         mPaint.style = Paint.Style.FILL
-        mPaint.color = ContextCompat.getColor(context, R.color.colorMotionBlue)
+        mPaint.color = ContextCompat.getColor(context, getBgColorId())
         mPaint.pathEffect = CornerPathEffect(4f)
         canvas.drawPath(path, mPaint)
     }
+
+    abstract fun getBgColorId(): Int
 }

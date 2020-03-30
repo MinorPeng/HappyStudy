@@ -5,14 +5,14 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import com.minorpeng.happystudy.R
-import com.minorpeng.happystudy.custom.base.BaseMotionBlockView
+import com.minorpeng.happystudy.custom.base.BaseBgBlockView
 
 /**
  *
  * @author MinorPeng
  * @date 2020/3/24 18:12
  */
-class MoveBlockView : BaseMotionBlockView {
+class MoveBlockView : BaseBgBlockView {
 
     constructor(context: Context): this(context, null)
 
@@ -20,6 +20,10 @@ class MoveBlockView : BaseMotionBlockView {
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int): super(context, attrs, defStyleAttr, 0) {
         LayoutInflater.from(context).inflate(R.layout.layout_move_block, this)
+    }
+
+    override fun getBgColorId(): Int {
+        return R.color.colorMotionBlue
     }
 
    override fun onRun(role: View) {
