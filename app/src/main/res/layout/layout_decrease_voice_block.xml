@@ -4,7 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center"
-    tools:background="@color/colorMotionBlue"
+    tools:background="@color/colorVoicePurple"
     tools:padding="@dimen/dp8">
 
     <TextView

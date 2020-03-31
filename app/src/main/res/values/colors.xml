@@ -4,12 +4,13 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
 
-    <color name="colorMotionBlue">#2979FF</color>
-    <color name="colorAppearancePurple">#947CDC</color>
-    <color name="colorVoicePurple">#D500F9</color>
-    <color name="colorVoicePurpleDark">#B500F9</color>
-    <color name="colorEventYellow">#FFEA00</color>
-    <color name="colorControlYellow">#FFC400</color>
-    <color name="colorCalculateGreen">#76FF03</color>
+    <color name="colorMotionBlue">#4C97FF</color>
+    <color name="colorAppearancePurple">#9966FF</color>
+    <color name="colorVoicePurple">#CF63CF</color>
+    <color name="colorVoicePurpleDark">#C94FC9</color>
+    <color name="colorEventYellow">#FFBF00</color>
+    <color name="colorControlYellow">#FFAB19</color>
+    <color name="colorCalculateGreen">#59C059</color>
+    <color name="colorCalculateGreenDark">#389438</color>
 
 </resources>

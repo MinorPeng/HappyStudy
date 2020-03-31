@@ -4,21 +4,17 @@ import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.Gravity
-import android.view.MotionEvent
-import android.view.View
-import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import com.minorpeng.base.utils.DensityUtil
 import com.minorpeng.happystudy.R
-import com.minorpeng.happystudy.custom.base.BaseTextBlockView
-import com.minorpeng.happystudy.custom.base.IRoleListener
+import com.minorpeng.happystudy.custom.base.BaseBgBlockView
 
 /**
  *
  * @author MinorPeng
- * @date 2020/3/30 21:44
+ * @date 2020/3/31 10:15
  */
-class ClickRoleBlockView : BaseTextBlockView {
+abstract class BaseEventBlockView : BaseBgBlockView {
 
     private val mDisTop = DensityUtil.dp2px(context, 16f).toFloat()
 
@@ -27,8 +23,8 @@ class ClickRoleBlockView : BaseTextBlockView {
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+        gravity = Gravity.CENTER
         this.setPadding((mDis2Top * 2).toInt(), (mDis2Top * 2 + mDisTop).toInt(), (mDis2Top * 2).toInt(), (mDis2Top * 3).toInt())
-        setText(R.string.click_role)
     }
 
     override fun drawBackground(canvas: Canvas) {
@@ -52,9 +48,5 @@ class ClickRoleBlockView : BaseTextBlockView {
 
     override fun getBgColorId(): Int {
         return R.color.colorEventYellow
-    }
-
-    override fun onRun(role: View) {
-
     }
 }

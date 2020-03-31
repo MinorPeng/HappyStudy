@@ -18,7 +18,8 @@ class IncreaseVoiceBlockView : BaseBgBlockView {
 
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr, 0) {
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int)
+            : super(context, attrs, defStyleAttr, 0) {
         LayoutInflater.from(context).inflate(R.layout.layout_increase_voice_block, this)
     }
 

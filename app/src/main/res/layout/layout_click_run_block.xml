@@ -4,20 +4,23 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center"
-    tools:background="@color/colorVoicePurple"
+    tools:background="@color/colorEventYellow"
     tools:padding="@dimen/dp8">
 
     <TextView
         style="@style/BlockWhiteTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/play_voice" />
+        android:text="@string/when"
+        android:drawablePadding="@dimen/dp8"
+        android:drawableEnd="@drawable/ic_run_16"
+        />
 
-    <Spinner
-        android:id="@+id/spinner_play_voice"
+    <TextView
+        style="@style/BlockWhiteTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp8"
-        android:background="@drawable/bg_spinner_circle_purple"
-        android:entries="@array/voices" />
+        android:text="@string/click" />
+
 </LinearLayout>
