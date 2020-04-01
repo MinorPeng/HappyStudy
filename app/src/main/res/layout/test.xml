@@ -35,5 +35,7 @@
 
     </com.minorpeng.happystudy.custom.blocks.control.CirculationNumBlockView>
 
-
+    <com.minorpeng.happystudy.custom.base.WaitBlockView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </LinearLayout>

@@ -27,6 +27,12 @@
     <string name="click_role">当角色被点击</string>
     <string name="when">当</string>
     <string name="click">被点击</string>
-    <string name="circulation">循环</string>
+    <string name="circulation">重复执行</string>
+    <string name="circulation_when">重复执行直到</string>
     <string name="count">次</string>
+    <string name="wait">等待</string>
+    <string name="seconds">秒</string>
+    <string name="if_str">如果</string>
+    <string name="then">那么</string>
+    <string name="else_str">否则</string>
 </resources>

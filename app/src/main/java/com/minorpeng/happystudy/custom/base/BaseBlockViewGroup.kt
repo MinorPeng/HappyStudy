@@ -44,4 +44,10 @@ abstract class BaseBlockViewGroup : ViewGroup, IRoleListener {
         }
         return super.onTouchEvent(event)
     }
+
+    protected enum class ChildTag(tag: String) {
+        TAG_TOP("tag_top"),
+        TAG_BOTTOM("tag_bottom"),
+        TAG_CHILD("tag_child"),
+    }
 }

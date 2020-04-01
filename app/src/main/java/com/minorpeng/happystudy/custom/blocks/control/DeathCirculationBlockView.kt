@@ -8,8 +8,6 @@ import android.graphics.Paint
 import android.graphics.Path
 import android.util.AttributeSet
 import android.view.View
-import android.widget.EditText
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.minorpeng.base.utils.DensityUtil
@@ -21,9 +19,9 @@ import kotlin.math.max
 /**
  *
  * @author MinorPeng
- * @date 2020/4/1 11:04
+ * @date 2020/4/1 11:02
  */
-class CirculationNumBlockView : BaseBlockViewGroup {
+class DeathCirculationBlockView : BaseBlockViewGroup {
 
     private val mDis2Left = DensityUtil.dp2px(context, 10f).toFloat()
     private val mDis2Top = DensityUtil.dp2px(context, 4f).toFloat()
@@ -32,7 +30,7 @@ class CirculationNumBlockView : BaseBlockViewGroup {
     private var mTopViewW = 0f
     private val mRadius = 6f
     private val mPaint = Paint()
-
+    
     constructor(context: Context) : this(context, null)
 
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -57,28 +55,6 @@ class CirculationNumBlockView : BaseBlockViewGroup {
         tvCirculation.setTextColor(whiteColor)
         tvCirculation.layoutParams = lp
         addView(tvCirculation)
-
-        val etCount = EditText(context)
-        etCount.setText(R.string.ten)
-        lp.leftMargin = mDis2Top.toInt() * 2
-        etCount.layoutParams = lp
-        etCount.tag = ChildTag.TAG_TOP
-        etCount.setBackgroundResource(R.drawable.bg_et_circle_whilte)
-        addView(etCount)
-
-        val tvCount = TextView(context)
-        tvCount.setText(R.string.count)
-        tvCount.layoutParams = lp
-        tvCount.tag = ChildTag.TAG_TOP
-        tvCount.setTextColor(whiteColor)
-        addView(tvCount)
-
-        lp.leftMargin = 0
-        val ivCirculation = ImageView(context)
-        ivCirculation.layoutParams = lp
-        ivCirculation.setImageResource(R.drawable.ic_circulation_16)
-        ivCirculation.tag = ChildTag.TAG_BOTTOM
-        addView(ivCirculation)
 
         // TODO test
         val mo = MoveBlockView(context)
