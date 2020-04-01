@@ -3,15 +3,11 @@ package com.minorpeng.happystudy.custom.blocks.event
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
-import android.view.Gravity
-import android.view.MotionEvent
 import android.view.View
-import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import com.minorpeng.base.utils.DensityUtil
 import com.minorpeng.happystudy.R
 import com.minorpeng.happystudy.custom.base.BaseTextBlockView
-import com.minorpeng.happystudy.custom.base.IRoleListener
 
 /**
  *

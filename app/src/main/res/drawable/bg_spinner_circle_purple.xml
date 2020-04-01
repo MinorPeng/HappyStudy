@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <corners android:radius="@dimen/dp24" />
-    <solid android:color="@color/colorVoicePurpleDark" />
-    <padding
-        android:bottom="@dimen/dp4"
-        android:left="@dimen/dp4"
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:gravity="center">
+        <shape android:shape="rectangle">
+            <corners android:radius="@dimen/dp24" />
+            <solid android:color="@color/colorVoicePurpleDark" />
+            <padding
+                android:bottom="@dimen/dp4"
+                android:left="@dimen/dp4"
+                android:right="@dimen/dp4"
+                android:top="@dimen/dp4" />
+
+
+        </shape>
+    </item>
+
+    <item
+        android:gravity="right|center_vertical"
+        android:left="@dimen/dp48"
         android:right="@dimen/dp4"
-        android:top="@dimen/dp4" />
-</shape>
+        android:drawable="@drawable/ic_spinner_white_16">
+
+    </item>
+</layer-list>

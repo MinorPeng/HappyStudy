@@ -27,4 +27,6 @@
     <string name="click_role">当角色被点击</string>
     <string name="when">当</string>
     <string name="click">被点击</string>
+    <string name="circulation">循环</string>
+    <string name="count">次</string>
 </resources>

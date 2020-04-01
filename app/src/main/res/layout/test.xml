@@ -8,9 +8,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <com.minorpeng.happystudy.custom.blocks.appearance.NextBgBlockView
+    <FrameLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@android:color/darker_gray">
+        <com.minorpeng.happystudy.custom.blocks.appearance.NextBgBlockView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </FrameLayout>
 
     <com.minorpeng.happystudy.custom.blocks.voice.PlayVoiceBlockView
         android:layout_width="wrap_content"
@@ -23,6 +28,12 @@
     <com.minorpeng.happystudy.custom.blocks.event.ClickRunBlockView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+    <com.minorpeng.happystudy.custom.blocks.control.CirculationNumBlockView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </com.minorpeng.happystudy.custom.blocks.control.CirculationNumBlockView>
 
 
 </LinearLayout>
