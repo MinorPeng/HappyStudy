@@ -4,28 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.minorpeng.happystudy.custom.blocks.motion.MoveBlockView
+    <com.minorpeng.happystudy.custom.blocks.calculate.AddBlockView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@android:color/darker_gray">
-        <com.minorpeng.happystudy.custom.blocks.appearance.NextBgBlockView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </FrameLayout>
-
-    <com.minorpeng.happystudy.custom.blocks.voice.PlayVoiceBlockView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <com.minorpeng.happystudy.custom.blocks.event.ClickRoleBlockView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <com.minorpeng.happystudy.custom.blocks.event.ClickRunBlockView
+    <com.minorpeng.happystudy.custom.blocks.calculate.MinusBlockView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -35,7 +18,17 @@
 
     </com.minorpeng.happystudy.custom.blocks.control.CirculationNumBlockView>
 
+    <com.minorpeng.happystudy.custom.blocks.control.DeathCirculationBlockView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <com.minorpeng.happystudy.custom.blocks.calculate.MoreThanBlockView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <com.minorpeng.happystudy.custom.base.WaitBlockView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+
 </LinearLayout>

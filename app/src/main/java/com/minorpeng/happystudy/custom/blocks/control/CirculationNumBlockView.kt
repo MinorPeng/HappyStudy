@@ -7,6 +7,7 @@ import android.graphics.CornerPathEffect
 import android.graphics.Paint
 import android.graphics.Path
 import android.util.AttributeSet
+import android.view.Gravity
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
@@ -28,8 +29,8 @@ class CirculationNumBlockView : BaseBlockViewGroup {
     private val mDis2Left = DensityUtil.dp2px(context, 10f).toFloat()
     private val mDis2Top = DensityUtil.dp2px(context, 4f).toFloat()
     private val mLineLen = DensityUtil.dp2px(context, 12f).toFloat()
-    private var mTopViewH = 0f
-    private var mTopViewW = 0f
+    private var mTopViewH = DensityUtil.dp2px(context, 32f).toFloat()
+    private var mTopViewW = DensityUtil.dp2px(context, 150f).toFloat()
     private val mRadius = 6f
     private val mPaint = Paint()
 
@@ -50,39 +51,38 @@ class CirculationNumBlockView : BaseBlockViewGroup {
     @SuppressLint("SetTextI18n")
     private fun initView() {
         val whiteColor = ContextCompat.getColor(context, android.R.color.white)
-        val lp = MarginLayoutParams(MarginLayoutParams.WRAP_CONTENT, MarginLayoutParams.WRAP_CONTENT)
         val tvCirculation = TextView(context)
         tvCirculation.setText(R.string.circulation)
         tvCirculation.tag = ChildTag.TAG_TOP
         tvCirculation.setTextColor(whiteColor)
-        tvCirculation.layoutParams = lp
         addView(tvCirculation)
 
+        val lpEtCount = generateDefaultLayoutParams() as MarginLayoutParams
+        lpEtCount.leftMargin = mDis2Top.toInt() * 2
+        lpEtCount.rightMargin = mDis2Top.toInt() * 2
         val etCount = EditText(context)
         etCount.setText(R.string.ten)
-        lp.leftMargin = mDis2Top.toInt() * 2
-        etCount.layoutParams = lp
+        etCount.minEms = 2
         etCount.tag = ChildTag.TAG_TOP
+        etCount.gravity = Gravity.CENTER
         etCount.setBackgroundResource(R.drawable.bg_et_circle_whilte)
-        addView(etCount)
+        addView(etCount, lpEtCount)
+
 
         val tvCount = TextView(context)
         tvCount.setText(R.string.count)
-        tvCount.layoutParams = lp
         tvCount.tag = ChildTag.TAG_TOP
         tvCount.setTextColor(whiteColor)
         addView(tvCount)
 
-        lp.leftMargin = 0
+
         val ivCirculation = ImageView(context)
-        ivCirculation.layoutParams = lp
         ivCirculation.setImageResource(R.drawable.ic_circulation_16)
         ivCirculation.tag = ChildTag.TAG_BOTTOM
         addView(ivCirculation)
 
         // TODO test
         val mo = MoveBlockView(context)
-        mo.layoutParams = lp
         mo.tag = ChildTag.TAG_CHILD
         addView(mo)
     }
@@ -93,10 +93,10 @@ class CirculationNumBlockView : BaseBlockViewGroup {
         val sizeH = MeasureSpec.getSize(heightMeasureSpec)
         val modeH = MeasureSpec.getMode(heightMeasureSpec)
 
-        var width = 0
-        var height = 0
-        var topChildMaxH = 0
-        var childMaxW = 0
+        var topViewMaxH = 0
+        var centerMaxW = 0
+        var topViewW = 0
+        var centerViewH = 0
         for (index in 0 until childCount) {
             val child = getChildAt(index)
             measureChild(child, widthMeasureSpec, heightMeasureSpec)
@@ -106,34 +106,34 @@ class CirculationNumBlockView : BaseBlockViewGroup {
                     val childWidth = child.measuredWidth + childLp.leftMargin + childLp.rightMargin
                     val childHeight = child.measuredHeight + childLp.topMargin + childLp.bottomMargin
                     // top view width sum
-                    width += childWidth
+                    topViewW += childWidth
                     // top view max height
-                    topChildMaxH = max(topChildMaxH, childHeight)
+                    topViewMaxH = max(topViewMaxH, childHeight)
                 }
                 ChildTag.TAG_CHILD -> {
                     val childWidth = child.measuredWidth + childLp.leftMargin + childLp.rightMargin
                     val childHeight = child.measuredHeight + childLp.topMargin + childLp.bottomMargin - mDis2Top.toInt()
                     // center view max width
-                    childMaxW = max(childMaxW, childWidth)
+                    centerMaxW = max(centerMaxW, childWidth)
                     // center view height sum
-                    height += childHeight
+                    centerViewH += childHeight
                 }
                 ChildTag.TAG_BOTTOM -> {
                     val childHeight = child.measuredHeight + childLp.topMargin + childLp.bottomMargin
-                    topChildMaxH = max(topChildMaxH, childHeight)
+                    topViewMaxH = max(topViewMaxH, childHeight)
                 }
                 else -> {
 
                 }
             }
         }
-        mTopViewW = (width + paddingLeft + paddingRight).toFloat()
-        mTopViewH = topChildMaxH + paddingTop + paddingBottom - mDis2Top
-        if (height == 0) {
-            height = mTopViewH.toInt()
-        }
-        width = max(mTopViewW, childMaxW + mDis2Left).toInt()
-        height += mTopViewH.toInt() * 2 + mDis2Top.toInt()
+        topViewW += paddingLeft + paddingRight
+        mTopViewW = if (topViewW > mTopViewW) topViewW.toFloat() else mTopViewW
+        val topViewH = topViewMaxH + paddingTop + paddingBottom - mDis2Top
+        mTopViewH = if (topViewH > mTopViewH) topViewH else mTopViewH
+        centerViewH = if (centerViewH == 0) mTopViewH.toInt() else centerViewH
+        var width = max(mTopViewW, centerMaxW + mDis2Left).toInt()
+        var height = centerViewH + mTopViewH.toInt() * 2 + mDis2Top.toInt()
 
         width = if (modeW == MeasureSpec.EXACTLY) sizeW else width
         height = if (modeH == MeasureSpec.EXACTLY) sizeH else height
@@ -169,8 +169,9 @@ class CirculationNumBlockView : BaseBlockViewGroup {
                     top += child.measuredHeight + childLp.topMargin + childLp.bottomMargin
                 }
                 ChildTag.TAG_BOTTOM -> {
-                    childL = mTopViewW.toInt() - child.measuredWidth - childLp.leftMargin - childLp.rightMargin - paddingLeft
-                    childT = (mTopViewH.toInt() - child.measuredHeight) / 2 + childLp.topMargin
+                    childL = mTopViewW.toInt() - child.measuredWidth - childLp.rightMargin - paddingRight
+                    childT = measuredHeight - (mTopViewH.toInt() - child.measuredHeight) / 2 - child.measuredHeight -
+                            mDis2Top.toInt()
                     childR = childL + child.measuredWidth
                     childB = childT + child.measuredHeight
                 }
@@ -225,10 +226,6 @@ class CirculationNumBlockView : BaseBlockViewGroup {
         mPaint.color = ContextCompat.getColor(context, R.color.colorControlYellow)
         mPaint.pathEffect = CornerPathEffect(mRadius)
         canvas.drawPath(path, mPaint)
-    }
-
-    override fun generateLayoutParams(attrs: AttributeSet?): LayoutParams {
-        return MarginLayoutParams(context, attrs)
     }
 
     override fun onRun(role: View) {

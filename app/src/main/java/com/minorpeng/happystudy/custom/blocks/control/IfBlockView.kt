@@ -26,8 +26,8 @@ class IfBlockView : BaseBlockViewGroup {
     private val mDis2Left = DensityUtil.dp2px(context, 10f).toFloat()
     private val mDis2Top = DensityUtil.dp2px(context, 4f).toFloat()
     private val mLineLen = DensityUtil.dp2px(context, 12f).toFloat()
-    private var mTopViewH = 0f
-    private var mTopViewW = 0f
+    private var mTopViewH = DensityUtil.dp2px(context, 32f).toFloat()
+    private var mTopViewW = DensityUtil.dp2px(context, 150f).toFloat()
     private val mRadius = 6f
     private val mPaint = Paint()
 
@@ -50,7 +50,7 @@ class IfBlockView : BaseBlockViewGroup {
         val whiteColor = ContextCompat.getColor(context, android.R.color.white)
         val lp = MarginLayoutParams(MarginLayoutParams.WRAP_CONTENT, MarginLayoutParams.WRAP_CONTENT)
         val tvCirculation = TextView(context)
-        tvCirculation.setText(R.string.circulation)
+        tvCirculation.setText(R.string.if_str)
         tvCirculation.tag = ChildTag.TAG_TOP
         tvCirculation.setTextColor(whiteColor)
         tvCirculation.layoutParams = lp
@@ -69,10 +69,10 @@ class IfBlockView : BaseBlockViewGroup {
         val sizeH = MeasureSpec.getSize(heightMeasureSpec)
         val modeH = MeasureSpec.getMode(heightMeasureSpec)
 
-        var width = 0
-        var height = 0
         var topChildMaxH = 0
         var childMaxW = 0
+        var topViewW = 0
+        var centerViewH = 0
         for (index in 0 until childCount) {
             val child = getChildAt(index)
             measureChild(child, widthMeasureSpec, heightMeasureSpec)
@@ -82,7 +82,7 @@ class IfBlockView : BaseBlockViewGroup {
                     val childWidth = child.measuredWidth + childLp.leftMargin + childLp.rightMargin
                     val childHeight = child.measuredHeight + childLp.topMargin + childLp.bottomMargin
                     // top view width sum
-                    width += childWidth
+                    topViewW += childWidth
                     // top view max height
                     topChildMaxH = max(topChildMaxH, childHeight)
                 }
@@ -92,20 +92,20 @@ class IfBlockView : BaseBlockViewGroup {
                     // center view max width
                     childMaxW = max(childMaxW, childWidth)
                     // center view height sum
-                    height += childHeight
+                    centerViewH += childHeight
                 }
                 else -> {
 
                 }
             }
         }
-        mTopViewW = (width + paddingLeft + paddingRight).toFloat()
-        mTopViewH = topChildMaxH + paddingTop + paddingBottom - mDis2Top
-        if (height == 0) {
-            height = mTopViewH.toInt()
-        }
-        width = max(mTopViewW, childMaxW + mDis2Left).toInt()
-        height += mTopViewH.toInt() * 2 + mDis2Top.toInt()
+        topViewW += paddingLeft + paddingRight
+        mTopViewW = if (topViewW > mTopViewW) topViewW.toFloat() else mTopViewW
+        val topViewH = topChildMaxH + paddingTop + paddingBottom - mDis2Top
+        mTopViewH = if (topViewH > mTopViewH) topViewH else mTopViewH
+        centerViewH = if (centerViewH == 0) mTopViewH.toInt() else centerViewH
+        var width = max(mTopViewW, childMaxW + mDis2Left).toInt()
+        var height = centerViewH + mTopViewH.toInt() * 2 + mDis2Top.toInt()
 
         width = if (modeW == MeasureSpec.EXACTLY) sizeW else width
         height = if (modeH == MeasureSpec.EXACTLY) sizeH else height
@@ -191,10 +191,6 @@ class IfBlockView : BaseBlockViewGroup {
         mPaint.color = ContextCompat.getColor(context, R.color.colorControlYellow)
         mPaint.pathEffect = CornerPathEffect(mRadius)
         canvas.drawPath(path, mPaint)
-    }
-
-    override fun generateLayoutParams(attrs: AttributeSet?): LayoutParams {
-        return MarginLayoutParams(context, attrs)
     }
 
     override fun onRun(role: View) {

@@ -31,25 +31,24 @@ class WaitBlockView : BaseBgBlockView {
 
     private fun initView() {
         val whiteColor = ContextCompat.getColor(context, android.R.color.white)
-        val lp = MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
         val tvWait = TextView(context)
         tvWait.setText(R.string.wait)
         tvWait.setTextColor(whiteColor)
-        tvWait.layoutParams = lp
         addView(tvWait)
 
-        lp.leftMargin = DensityUtil.dp2px(context, 8f)
+        val lpEtSeconds = generateDefaultLayoutParams() as MarginLayoutParams
+        lpEtSeconds.leftMargin = DensityUtil.dp2px(context, 8f)
+        lpEtSeconds.rightMargin = DensityUtil.dp2px(context, 8f)
         val etSeconds = EditText(context)
         etSeconds.setText(R.string.ten)
         etSeconds.setBackgroundResource(R.drawable.bg_et_circle_whilte)
         etSeconds.gravity = Gravity.CENTER
-        etSeconds.layoutParams = lp
-        addView(etSeconds)
+        addView(etSeconds, lpEtSeconds)
+
 
         val tvSeconds = TextView(context)
         tvSeconds.setText(R.string.seconds)
         tvSeconds.setTextColor(whiteColor)
-        tvSeconds.layoutParams = lp
         addView(tvSeconds)
     }
 

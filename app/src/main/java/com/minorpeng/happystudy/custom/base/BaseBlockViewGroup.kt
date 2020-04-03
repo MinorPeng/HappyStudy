@@ -27,6 +27,14 @@ abstract class BaseBlockViewGroup : ViewGroup, IRoleListener {
 
     }
 
+    override fun generateLayoutParams(attrs: AttributeSet?): LayoutParams {
+        return MarginLayoutParams(context, attrs)
+    }
+
+    override fun generateDefaultLayoutParams(): LayoutParams {
+        return MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
+    }
+
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         event?.let {
             when (event.action) {

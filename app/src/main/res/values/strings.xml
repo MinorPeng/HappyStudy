@@ -2,8 +2,9 @@
     <string name="app_name">乐学</string>
     <string name="move">移动</string>
     <string name="step">步</string>
-    <string name="ten">10</string>
     <string name="zero">0</string>
+    <string name="ten">10</string>
+    <string name="fifty">50</string>
     <string name="move_x">移到x:</string>
     <string name="y">y:</string>
     <string name="degree">度</string>
@@ -35,4 +36,11 @@
     <string name="if_str">如果</string>
     <string name="then">那么</string>
     <string name="else_str">否则</string>
+    <string name="add">+</string>
+    <string name="minus">-</string>
+    <string name="multiply">*</string>
+    <string name="divide">/</string>
+    <string name="and">与</string>
+    <string name="or">或</string>
+    <string name="not">不成立</string>
 </resources>

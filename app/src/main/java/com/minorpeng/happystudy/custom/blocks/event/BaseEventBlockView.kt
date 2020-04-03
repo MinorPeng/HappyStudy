@@ -23,7 +23,6 @@ abstract class BaseEventBlockView : BaseBgBlockView {
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        gravity = Gravity.CENTER
         this.setPadding((mDis2Top * 2).toInt(), (mDis2Top * 2 + mDisTop).toInt(), (mDis2Top * 2).toInt(), (mDis2Top * 3).toInt())
     }
 
