@@ -6,6 +6,7 @@ import android.graphics.CornerPathEffect
 import android.graphics.Paint
 import android.graphics.Path
 import android.util.AttributeSet
+import android.view.View
 import androidx.core.content.ContextCompat
 import com.minorpeng.happystudy.R
 import com.minorpeng.happystudy.custom.base.BaseBgBlockView
@@ -16,7 +17,7 @@ import com.minorpeng.happystudy.custom.base.BaseBgBlockView
  * @date 2020/4/3 15:43
  */
 abstract class BaseLogicBlockView : BaseBgBlockView {
-    private val mDisLeft = mDis2Left + mDis2Top
+    protected val mDisLeft = mDis2Left + mDis2Top
 
     constructor(context: Context) : this(context, null)
 
@@ -41,8 +42,12 @@ abstract class BaseLogicBlockView : BaseBgBlockView {
         path.close()
 
         mPaint.style = Paint.Style.FILL
-        mPaint.color = ContextCompat.getColor(context, getBgColorId())
+        mPaint.color = ContextCompat.getColor(context, mBgColorId)
         mPaint.pathEffect = CornerPathEffect(mRadius)
+        canvas.drawPath(path, mPaint)
+        mPaint.style = Paint.Style.STROKE
+        mPaint.strokeWidth = mStrokeW
+        mPaint.color = ContextCompat.getColor(context, android.R.color.darker_gray)
         canvas.drawPath(path, mPaint)
     }
 

@@ -1,4 +1,4 @@
-package com.minorpeng.happystudy.custom.base
+package com.minorpeng.happystudy.custom.blocks.control
 
 import android.content.Context
 import android.util.AttributeSet
@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.minorpeng.base.utils.DensityUtil
 import com.minorpeng.happystudy.R
+import com.minorpeng.happystudy.custom.base.BaseBgBlockView
 
 /**
  *

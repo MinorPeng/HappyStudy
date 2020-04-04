@@ -4,29 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.minorpeng.happystudy.custom.blocks.calculate.AddBlockView
+    <com.minorpeng.happystudy.custom.blocks.control.CirculationUtilBlockView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <com.minorpeng.happystudy.custom.blocks.calculate.MinusBlockView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <com.minorpeng.happystudy.custom.blocks.control.CirculationNumBlockView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-    </com.minorpeng.happystudy.custom.blocks.control.CirculationNumBlockView>
-
-    <com.minorpeng.happystudy.custom.blocks.control.DeathCirculationBlockView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <com.minorpeng.happystudy.custom.blocks.calculate.MoreThanBlockView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <com.minorpeng.happystudy.custom.base.WaitBlockView
+    <com.minorpeng.happystudy.custom.blocks.control.IfElseBlockView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

@@ -43,6 +43,10 @@ abstract class BaseEventBlockView : BaseBgBlockView {
         mPaint.color = ContextCompat.getColor(context, getBgColorId())
         mPaint.pathEffect = CornerPathEffect(mRadius)
         canvas.drawPath(path, mPaint)
+        mPaint.style = Paint.Style.STROKE
+        mPaint.strokeWidth = mStrokeW
+        mPaint.color = ContextCompat.getColor(context, android.R.color.darker_gray)
+        canvas.drawPath(path, mPaint)
     }
 
     override fun getBgColorId(): Int {

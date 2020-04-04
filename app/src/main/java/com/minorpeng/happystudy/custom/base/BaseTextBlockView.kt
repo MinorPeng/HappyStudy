@@ -19,13 +19,14 @@ import com.minorpeng.base.utils.DensityUtil
  */
 abstract class BaseTextBlockView : AppCompatTextView, IRoleListener {
 
-    private var mLastX: Float = 0f
-    private var mLastY: Float = 0f
     protected val mDis2Left = DensityUtil.dp2px(context, 10f).toFloat()
     protected val mDis2Top = DensityUtil.dp2px(context, 4f).toFloat()
     protected val mLineLen = DensityUtil.dp2px(context, 12f).toFloat()
     protected val mRadius = 6f
     protected val mPaint = Paint()
+    private val mStrokeW = 2f
+    private var mLastX: Float = 0f
+    private var mLastY: Float = 0f
 
     constructor(context: Context) : this(context, null)
 
@@ -63,6 +64,10 @@ abstract class BaseTextBlockView : AppCompatTextView, IRoleListener {
         mPaint.style = Paint.Style.FILL
         mPaint.color = ContextCompat.getColor(context, getBgColorId())
         mPaint.pathEffect = CornerPathEffect(mRadius)
+        canvas.drawPath(path, mPaint)
+        mPaint.style = Paint.Style.STROKE
+        mPaint.strokeWidth = mStrokeW
+        mPaint.color = ContextCompat.getColor(context, android.R.color.darker_gray)
         canvas.drawPath(path, mPaint)
     }
 

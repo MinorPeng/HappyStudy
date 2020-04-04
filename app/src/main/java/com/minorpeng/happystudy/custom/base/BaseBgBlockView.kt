@@ -19,13 +19,15 @@ import com.minorpeng.base.utils.DensityUtil
  */
 abstract class BaseBgBlockView : LinearLayout, IRoleListener {
 
-    private var mLastX: Float = 0f
-    private var mLastY: Float = 0f
     protected val mDis2Left = DensityUtil.dp2px(context, 10f).toFloat()
     protected val mDis2Top = DensityUtil.dp2px(context, 4f).toFloat()
     protected val mLineLen = DensityUtil.dp2px(context, 12f).toFloat()
     protected val mRadius = 6f
     protected val mPaint = Paint()
+    protected val mStrokeW = 2f
+    protected var mBgColorId = this.getBgColorId()
+    private var mLastX: Float = 0f
+    private var mLastY: Float = 0f
 
     constructor(context: Context) : this(context, null)
 
@@ -64,8 +66,12 @@ abstract class BaseBgBlockView : LinearLayout, IRoleListener {
         path.lineTo(0f, measuredHeight.toFloat() - mDis2Top)
         path.lineTo(0f, 0f)
         mPaint.style = Paint.Style.FILL
-        mPaint.color = ContextCompat.getColor(context, getBgColorId())
+        mPaint.color = ContextCompat.getColor(context, mBgColorId)
         mPaint.pathEffect = CornerPathEffect(mRadius)
+        canvas.drawPath(path, mPaint)
+        mPaint.style = Paint.Style.STROKE
+        mPaint.strokeWidth = mStrokeW
+        mPaint.color = ContextCompat.getColor(context, android.R.color.darker_gray)
         canvas.drawPath(path, mPaint)
     }
 
@@ -85,6 +91,10 @@ abstract class BaseBgBlockView : LinearLayout, IRoleListener {
             return true
         }
         return super.onTouchEvent(event)
+    }
+
+    fun setBgColorId(colorId: Int) {
+        this.mBgColorId = colorId
     }
 
     abstract fun getBgColorId(): Int

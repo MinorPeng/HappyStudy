@@ -39,8 +39,12 @@ abstract class BaseCalculateBlockView : BaseBgBlockView {
         path.close()
 
         mPaint.style = Paint.Style.FILL
-        mPaint.color = ContextCompat.getColor(context, getBgColorId())
+        mPaint.color = ContextCompat.getColor(context, mBgColorId)
         mPaint.pathEffect = CornerPathEffect(mRadius)
+        canvas.drawPath(path, mPaint)
+        mPaint.style = Paint.Style.STROKE
+        mPaint.strokeWidth = mStrokeW
+        mPaint.color = ContextCompat.getColor(context, android.R.color.darker_gray)
         canvas.drawPath(path, mPaint)
     }
 

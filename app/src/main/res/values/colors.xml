@@ -10,6 +10,7 @@
     <color name="colorVoicePurpleDark">#C94FC9</color>
     <color name="colorEventYellow">#FFBF00</color>
     <color name="colorControlYellow">#FFAB19</color>
+    <color name="colorControlYellowDark">#CF8B17</color>
     <color name="colorCalculateGreen">#59C059</color>
     <color name="colorCalculateGreenDark">#389438</color>
 
