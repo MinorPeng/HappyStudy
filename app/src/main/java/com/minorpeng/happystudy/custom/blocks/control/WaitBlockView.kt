@@ -41,6 +41,7 @@ class WaitBlockView : BaseBgBlockView {
         lpEtSeconds.leftMargin = DensityUtil.dp2px(context, 8f)
         lpEtSeconds.rightMargin = DensityUtil.dp2px(context, 8f)
         val etSeconds = EditText(context)
+        etSeconds.minEms = 2
         etSeconds.setText(R.string.ten)
         etSeconds.setBackgroundResource(R.drawable.bg_et_circle_whilte)
         etSeconds.gravity = Gravity.CENTER

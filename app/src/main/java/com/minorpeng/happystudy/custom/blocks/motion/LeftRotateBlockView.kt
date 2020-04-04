@@ -1,9 +1,14 @@
 package com.minorpeng.happystudy.custom.blocks.motion
 
 import android.content.Context
+import android.text.InputType
 import android.util.AttributeSet
-import android.view.LayoutInflater
+import android.view.Gravity
 import android.view.View
+import android.widget.EditText
+import android.widget.TextView
+import androidx.core.content.ContextCompat
+import com.minorpeng.base.utils.DensityUtil
 import com.minorpeng.happystudy.R
 import com.minorpeng.happystudy.custom.base.BaseBgBlockView
 
@@ -20,7 +25,31 @@ class LeftRotateBlockView : BaseBgBlockView {
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int)
             : super(context, attrs, defStyleAttr, 0) {
-        LayoutInflater.from(context).inflate(R.layout.layout_left_rotate_block, this)
+        initView()
+    }
+
+    private fun initView() {
+        val whiteColor = ContextCompat.getColor(context, android.R.color.white)
+        val tvLeftRotate = TextView(context)
+        tvLeftRotate.setText(R.string.left_rotate)
+        tvLeftRotate.setTextColor(whiteColor)
+        addView(tvLeftRotate)
+
+        val lp = generateDefaultLayoutParams() as MarginLayoutParams
+        lp.leftMargin = DensityUtil.dp2px(context, 8f)
+        lp.rightMargin = DensityUtil.dp2px(context, 8f)
+        val etDegree = EditText(context)
+        etDegree.minEms = 2
+        etDegree.setText(R.string.ten)
+        etDegree.setBackgroundResource(R.drawable.bg_et_circle_whilte)
+        etDegree.inputType = InputType.TYPE_CLASS_NUMBER
+        etDegree.gravity = Gravity.CENTER
+        addView(etDegree, lp)
+
+        val tvDegree = TextView(context)
+        tvDegree.setText(R.string.degree)
+        tvDegree.setTextColor(whiteColor)
+        addView(tvDegree)
     }
 
     override fun getBgColorId(): Int {

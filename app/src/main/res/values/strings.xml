@@ -26,7 +26,7 @@
     <string name="decrease_voice">将音量减少</string>
     <string name="play_voice">播放声音</string>
     <string name="click_role">当角色被点击</string>
-    <string name="when">当</string>
+    <string name="when_str">当</string>
     <string name="click">被点击</string>
     <string name="circulation">重复执行</string>
     <string name="circulation_until">重复执行直到</string>

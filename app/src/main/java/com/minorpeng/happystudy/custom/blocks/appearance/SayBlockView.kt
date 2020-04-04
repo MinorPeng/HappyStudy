@@ -23,26 +23,22 @@ class SayBlockView : BaseBgBlockView {
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr, 0) {
-        // initView(
-        LayoutInflater.from(context).inflate(R.layout.layout_say_block, this)
+        initView()
     }
 
     private fun initView() {
         val tv = TextView(context)
-        tv.textSize = DensityUtil.sp2px(context, 14f).toFloat()
         tv.setText(R.string.say)
         tv.setTextColor(ContextCompat.getColor(context, android.R.color.white))
         addView(tv)
 
+        val lp = generateDefaultLayoutParams() as MarginLayoutParams
+        lp.leftMargin = DensityUtil.dp2px(context, 8f)
         val et = EditText(context)
-        et.textSize = DensityUtil.sp2px(context, 14f).toFloat()
+        et.minEms = 2
         et.setText(R.string.hello)
         et.setBackgroundResource(R.drawable.bg_et_circle_whilte)
-        tv.setTextColor(ContextCompat.getColor(context, android.R.color.black))
-        val etLp = MarginLayoutParams(MarginLayoutParams.WRAP_CONTENT, MarginLayoutParams.WRAP_CONTENT)
-        etLp.leftMargin = DensityUtil.dp2px(context, 18f)
-        et.layoutParams = etLp
-        addView(et)
+        addView(et, lp)
     }
 
     override fun getBgColorId(): Int {
