@@ -14,7 +14,7 @@ import com.minorpeng.base.utils.ToastUtil
  * @author MinorPeng
  * @date 2020/2/7 17:05
  */
-abstract class BaseFragment<P : BasePresenter<IBaseView, IBaseModel>> : Fragment(), IBaseView {
+abstract class BaseFragment<P : BasePresenter<out IBaseView, out IBaseModel>> : Fragment(), IBaseView {
 
     protected var mContentView: View? = null
     protected var mPresenter: P? = null
@@ -47,9 +47,9 @@ abstract class BaseFragment<P : BasePresenter<IBaseView, IBaseModel>> : Fragment
 
     protected abstract fun getLayoutId(): Int
 
-    protected abstract fun initView(view: View)
-
     protected abstract fun createPresenter(): P
+
+    protected abstract fun initView(view: View)
 
     /**
      * 获取状态栏高度

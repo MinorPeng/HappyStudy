@@ -43,4 +43,11 @@
     <string name="and">与</string>
     <string name="or">或</string>
     <string name="not">不成立</string>
+    <string name="get_through">闯关</string>
+    <string name="free_programme">自由编程</string>
+    <string name="control">控制</string>
+    <string name="appearance">外观</string>
+    <string name="motion">运动</string>
+    <string name="study_n">学\n\n习</string>
+    <string name="programme_n">编\n\n程</string>
 </resources>

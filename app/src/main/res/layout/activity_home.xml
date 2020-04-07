@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <view
+        android:id="@+id/divider"
+        android:layout_width="@dimen/dp50"
+        android:layout_height="@dimen/dp0"
+        android:layout_centerVertical="true" />
+
+    <TextView
+        android:id="@+id/tv_home_study"
+        android:layout_width="@dimen/dp50"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@+id/divider"
+        android:gravity="center"
+        android:text="@string/study_n"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/sp20" />
+
+    <TextView
+        android:id="@+id/tv_home_programme"
+        android:layout_width="@dimen/dp50"
+        android:layout_height="match_parent"
+        android:layout_alignTop="@+id/divider"
+        android:background="@color/colorGrayBgSelectedE"
+        android:gravity="center"
+        android:text="@string/programme_n"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/sp20" />
+
+    <FrameLayout
+        android:id="@+id/frame_layout_home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toEndOf="@+id/divider"
+        android:background="@color/colorPrimary" />
+
+</RelativeLayout>

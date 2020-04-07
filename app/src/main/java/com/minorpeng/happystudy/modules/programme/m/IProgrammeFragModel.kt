@@ -5,7 +5,7 @@ import com.minorpeng.base.base.IBaseModel
 /**
  *
  * @author MinorPeng
- * @date 2020/4/7 20:23
+ * @date 2020/3/19 9:45
  */
-interface IProgrammeModel : IBaseModel {
+interface IProgrammeFragModel : IBaseModel {
 }

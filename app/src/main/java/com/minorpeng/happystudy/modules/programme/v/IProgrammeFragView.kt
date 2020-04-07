@@ -5,7 +5,7 @@ import com.minorpeng.base.base.IBaseView
 /**
  *
  * @author MinorPeng
- * @date 2020/4/7 20:24
+ * @date 2020/3/19 9:41
  */
-interface IProgrammeView : IBaseView {
+interface IProgrammeFragView : IBaseView {
 }

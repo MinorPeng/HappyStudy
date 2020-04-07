@@ -5,7 +5,7 @@ import com.minorpeng.happystudy.modules.programme.m.IProgrammeModel
 /**
  *
  * @author MinorPeng
- * @date 2020/3/19 9:45
+ * @date 2020/4/7 20:24
  */
-class ProgrammeModelImpl : IProgrammeModel {
+class ProgrammeModel : IProgrammeModel {
 }
