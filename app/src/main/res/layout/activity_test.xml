@@ -4,6 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_bg_corlor_grary_e"
+        android:padding="@dimen/dp8"
+        android:text="@string/app_name" />
+
     <com.minorpeng.happystudy.custom.blocks.motion.MoveToXYBlockView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

@@ -1,6 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</LinearLayout>
+    <ImageButton
+        android:id="@+id/ibtn_programme_back"
+        android:layout_width="@dimen/dp48"
+        android:layout_height="@dimen/dp48"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@android:color/white"
+        android:contentDescription="@string/back"
+        android:src="@drawable/ic_back_32" />
+
+    <include
+        android:id="@+id/layout_programme_blocks"
+        layout="@layout/layout_block_categories"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/ibtn_programme_back"
+        android:layout_alignStart="@id/ibtn_programme_back"
+        android:layout_alignEnd="@id/ibtn_programme_back" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_programme"
+        android:layout_width="166dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@id/ibtn_programme_back"
+        android:background="@android:color/white"
+        android:paddingStart="@dimen/dp8"
+        android:paddingEnd="@dimen/dp8" />
+
+    <FrameLayout
+        android:id="@+id/layout_programme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/dp8"
+        android:layout_marginEnd="@dimen/dp8"
+        android:layout_toStartOf="@id/layout_programme_utils"
+        android:layout_toEndOf="@id/recycler_view_programme"
+        android:background="@android:color/white">
+
+        <TextView
+            style="@style/CommonTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center_horizontal"
+            android:layout_marginTop="@dimen/dp16"
+            android:text="@string/programme_area" />
+    </FrameLayout>
+
+    <include
+        android:id="@+id/layout_programme_utils"
+        layout="@layout/layout_programme_utils"
+        android:layout_width="@dimen/dp160"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
+
+    <FrameLayout
+        android:id="@+id/layout_programme_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout_programme_utils"
+        android:layout_alignStart="@id/layout_programme_utils"
+        android:layout_alignEnd="@id/layout_programme_utils"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/dp4"
+        android:background="@android:color/white"
+        tools:layout_editor_absoluteY="145dp">
+
+        <ImageView
+            android:id="@+id/iv_programme_role"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:contentDescription="@string/role"
+            android:src="@mipmap/ic_launcher" />
+    </FrameLayout>
+</RelativeLayout>

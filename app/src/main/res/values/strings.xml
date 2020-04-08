@@ -45,9 +45,19 @@
     <string name="not">不成立</string>
     <string name="get_through">闯关</string>
     <string name="free_programme">自由编程</string>
-    <string name="control">控制</string>
-    <string name="appearance">外观</string>
     <string name="motion">运动</string>
+    <string name="appearance">外观</string>
+    <string name="voice">声音</string>
+    <string name="event">事件</string>
+    <string name="control">控制</string>
+    <string name="calculate">运算</string>
     <string name="study_n">学\n\n习</string>
     <string name="programme_n">编\n\n程</string>
+    <string name="run">run</string>
+    <string name="x">x:</string>
+    <string name="direction">方向</string>
+    <string name="ninety">90</string>
+    <string name="role">role</string>
+    <string name="back">back</string>
+    <string name="programme_area">程序区</string>
 </resources>

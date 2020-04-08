@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/dp180"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white">
+
+    <ImageButton
+        android:id="@+id/ibtn_programme_run"
+        android:layout_width="@dimen/dp48"
+        android:layout_height="@dimen/dp48"
+        android:background="@android:color/white"
+        android:contentDescription="@string/run"
+        android:src="@drawable/ic_run_32"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tv_programme_show"
+        style="@style/CommonTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp16"
+        android:text="@string/show"
+        app:layout_constraintBottom_toBottomOf="@+id/ibtn_programme_run"
+        app:layout_constraintEnd_toStartOf="@+id/ibtn_programme_run"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ibtn_programme_run" />
+
+    <Switch
+        android:id="@+id/switch_programme_show"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp4"
+        android:checked="true"
+        android:gravity="center"
+        android:switchMinWidth="@dimen/dp48"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_programme_show"
+        app:layout_constraintEnd_toStartOf="@+id/ibtn_programme_run"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/tv_programme_show"
+        app:layout_constraintTop_toTopOf="@+id/tv_programme_show" />
+
+    <view
+        android:id="@+id/view_divide"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp1"
+        android:layout_marginTop="@dimen/dp48"
+        android:background="@color/colorGrayBgSelectedE"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tv_programme_x"
+        style="@style/CommonTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:labelFor="@id/et_programme_x"
+        android:text="@string/x"
+        app:layout_constraintBottom_toBottomOf="@+id/et_programme_x"
+        app:layout_constraintEnd_toEndOf="@+id/tv_programme_show"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tv_programme_show"
+        app:layout_constraintTop_toTopOf="@+id/et_programme_x" />
+
+    <EditText
+        android:id="@+id/et_programme_x"
+        android:layout_width="@dimen/dp40"
+        android:layout_height="@dimen/dp24"
+        android:layout_marginStart="@dimen/dp4"
+        android:layout_marginTop="@dimen/dp16"
+        android:background="@drawable/bg_btn_white_corner_8"
+        android:gravity="center"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:text="@string/zero"
+        android:textColor="@color/colorGrayBorderB"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/tv_programme_x"
+        app:layout_constraintTop_toBottomOf="@+id/view_divide"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tv_programme_y"
+        style="@style/CommonTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp16"
+        android:labelFor="@id/et_programme_y"
+        android:text="@string/y"
+        app:layout_constraintBottom_toBottomOf="@+id/et_programme_y"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/et_programme_x"
+        app:layout_constraintTop_toTopOf="@+id/et_programme_y" />
+
+    <EditText
+        android:id="@+id/et_programme_y"
+        android:layout_width="@dimen/dp40"
+        android:layout_height="@dimen/dp24"
+        android:layout_marginStart="@dimen/dp4"
+        android:background="@drawable/bg_btn_white_corner_8"
+        android:gravity="center"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:text="@string/zero"
+        android:textColor="@color/colorGrayBorderB"
+        app:layout_constraintBottom_toBottomOf="@+id/et_programme_x"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/tv_programme_y"
+        app:layout_constraintTop_toTopOf="@+id/et_programme_x"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/tv_programme_direction"
+        style="@style/CommonTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:labelFor="@id/et_programme_direction"
+        android:text="@string/direction"
+        app:layout_constraintBottom_toBottomOf="@+id/et_programme_direction"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tv_programme_x"
+        app:layout_constraintTop_toTopOf="@+id/et_programme_direction" />
+
+    <EditText
+        android:id="@+id/et_programme_direction"
+        android:layout_width="@dimen/dp40"
+        android:layout_height="@dimen/dp24"
+        android:layout_marginStart="@dimen/dp4"
+        android:layout_marginTop="@dimen/dp16"
+        android:layout_marginBottom="@dimen/dp16"
+        android:background="@drawable/bg_btn_white_corner_8"
+        android:gravity="center"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:text="@string/ninety"
+        android:textColor="@color/colorGrayBorderB"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/tv_programme_direction"
+        app:layout_constraintTop_toBottomOf="@+id/et_programme_x"
+        app:layout_constraintVertical_bias="0.0" />
+</androidx.constraintlayout.widget.ConstraintLayout>

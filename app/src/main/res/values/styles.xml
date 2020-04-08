@@ -7,4 +7,9 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
+    <style name="CommonTextStyle" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:gravity">center</item>
+    </style>
+
 </resources>

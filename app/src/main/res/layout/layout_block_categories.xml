@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_programme_motion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:drawableTop="@drawable/ic_motion_circle"
+            android:drawablePadding="@dimen/dp4"
+            android:gravity="center"
+            android:padding="@dimen/dp8"
+            android:text="@string/motion" />
+
+        <TextView
+            android:id="@+id/tv_programme_appearance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:drawableTop="@drawable/ic_appearance_circle"
+            android:drawablePadding="@dimen/dp4"
+            android:gravity="center"
+            android:padding="@dimen/dp8"
+            android:text="@string/appearance" />
+
+        <TextView
+            android:id="@+id/tv_programme_voice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:drawableTop="@drawable/ic_voice_circle"
+            android:drawablePadding="@dimen/dp4"
+            android:gravity="center"
+            android:padding="@dimen/dp8"
+            android:text="@string/voice" />
+
+        <TextView
+            android:id="@+id/tv_programme_event"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:drawableTop="@drawable/ic_event_circle"
+            android:drawablePadding="@dimen/dp4"
+            android:gravity="center"
+            android:padding="@dimen/dp8"
+            android:text="@string/event" />
+
+        <TextView
+            android:id="@+id/tv_programme_control"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:drawableTop="@drawable/ic_control_circle"
+            android:drawablePadding="@dimen/dp4"
+            android:gravity="center"
+            android:padding="@dimen/dp8"
+            android:text="@string/control" />
+
+        <TextView
+            android:id="@+id/tv_programme_calculate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:drawableTop="@drawable/ic_calculate_circle"
+            android:drawablePadding="@dimen/dp4"
+            android:gravity="center"
+            android:padding="@dimen/dp8"
+            android:text="@string/calculate" />
+
+    </LinearLayout>
+
+</ScrollView>

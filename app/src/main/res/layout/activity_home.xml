@@ -11,23 +11,21 @@
 
     <TextView
         android:id="@+id/tv_home_study"
+        style="@style/CommonTextStyle"
         android:layout_width="@dimen/dp50"
         android:layout_height="match_parent"
-        android:layout_alignBottom="@+id/divider"
-        android:gravity="center"
+        android:layout_above="@+id/divider"
         android:text="@string/study_n"
-        android:textColor="@android:color/black"
         android:textSize="@dimen/sp20" />
 
     <TextView
         android:id="@+id/tv_home_programme"
+        style="@style/CommonTextStyle"
         android:layout_width="@dimen/dp50"
         android:layout_height="match_parent"
-        android:layout_alignTop="@+id/divider"
+        android:layout_below="@+id/divider"
         android:background="@color/colorGrayBgSelectedE"
-        android:gravity="center"
         android:text="@string/programme_n"
-        android:textColor="@android:color/black"
         android:textSize="@dimen/sp20" />
 
     <FrameLayout
