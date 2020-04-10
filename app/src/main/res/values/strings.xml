@@ -11,7 +11,7 @@
     <string name="left_rotate">左转</string>
     <string name="right_rotate">右转</string>
     <string name="increase_x">将x坐标增加</string>
-    <string name="increase_y">将y坐标增加</string>
+    <string name="increase_y" translatable="false">将y坐标增加</string>
     <string name="decrease_x">将x坐标减少</string>
     <string name="decrease_y">将y坐标减少</string>
     <string name="set_x">将x坐标设为</string>

@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
  * @author MinorPeng
  * @date 2020/2/8 11:20
  */
-class BaseViewHolder(private val mItemView: View) : RecyclerView.ViewHolder(mItemView) {
+open class BaseViewHolder(private val mItemView: View) : RecyclerView.ViewHolder(mItemView) {
 
     private var mViews: SparseArray<View> = SparseArray()
 

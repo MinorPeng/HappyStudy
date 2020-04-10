@@ -14,6 +14,7 @@ abstract class BaseBlockViewGroup : ViewGroup, IRoleListener {
 
     private var mLastX: Float = 0f
     private var mLastY: Float = 0f
+    private var mCanMove = false
 
     constructor(context: Context) : this(context, null)
 
@@ -43,13 +44,19 @@ abstract class BaseBlockViewGroup : ViewGroup, IRoleListener {
                     mLastY = event.y
                 }
                 MotionEvent.ACTION_MOVE -> {
-                    //通过ViewParent去重新绘制子view
-                    offsetLeftAndRight((event.x - mLastX).toInt())
-                    offsetTopAndBottom((event.y - mLastY).toInt())
+                    if (mCanMove) {
+                        //通过ViewParent去重新绘制子view
+                        offsetLeftAndRight((event.x - mLastX).toInt())
+                        offsetTopAndBottom((event.y - mLastY).toInt())
+                    }
                 }
             }
             return true
         }
         return super.onTouchEvent(event)
+    }
+
+    fun setMoved(moved: Boolean) {
+        this.mCanMove = moved
     }
 }

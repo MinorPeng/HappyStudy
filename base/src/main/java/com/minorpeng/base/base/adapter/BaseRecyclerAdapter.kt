@@ -19,7 +19,7 @@ abstract class BaseRecyclerAdapter<T> : RecyclerView.Adapter<BaseViewHolder> {
 
     constructor(datas: List<T>?) {
         if (!datas.isNullOrEmpty()) {
-            mDatas.addAll(datas)
+            this.addDatas(datas)
         }
     }
 
@@ -55,6 +55,10 @@ abstract class BaseRecyclerAdapter<T> : RecyclerView.Adapter<BaseViewHolder> {
 
     open fun getData(position: Int): T {
         return mDatas[position]
+    }
+
+    open fun getDatas(): List<T> {
+        return mDatas
     }
 
     open fun setClickListener(listener: IBaseIClickListener) {

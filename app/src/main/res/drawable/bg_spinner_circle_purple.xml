@@ -10,11 +10,11 @@
                 android:left="@dimen/dp4"
                 android:right="@dimen/dp4"
                 android:top="@dimen/dp4" />
-            <size android:width="@dimen/dp64" />
         </shape>
     </item>
 
     <item
+        android:left="@dimen/dp48"
         android:drawable="@drawable/ic_spinner_white_16"
-        android:gravity="right|center_vertical"></item>
+        android:gravity="right|center_vertical" />
 </layer-list>

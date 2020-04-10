@@ -1,9 +1,12 @@
 package com.minorpeng.base.base
 
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.Toolbar
 import com.minorpeng.base.R
 
@@ -16,12 +19,12 @@ abstract class BaseActivityWithToolbar<P : BasePresenter<out IBaseView, out IBas
     BaseActivity<P>() {
 
     protected var mToolbar: Toolbar? = null
-    private var mTitle: TextView? = null
+    private var mTitle: AppCompatTextView? = null
 
     override fun inflateContentView(): View {
-        mContentView = View.inflate(this, R.layout.activity_base, null)
+        mContentView = LayoutInflater.from(this).inflate(R.layout.activity_base, null)
         (mContentView as ViewGroup).addView(initToolbar(mContentView as ViewGroup), 0)
-        View.inflate(this, getLayoutId(), mContentView as ViewGroup?)
+        LayoutInflater.from(this).inflate(getLayoutId(), mContentView as ViewGroup?)
         return mContentView
     }
 
@@ -35,7 +38,7 @@ abstract class BaseActivityWithToolbar<P : BasePresenter<out IBaseView, out IBas
             if (mTranslucent) {
                 toolbar.setPadding(0, getStatusBarHeight(), 0, 0)
             }
-            toolbar.setBackgroundResource(R.drawable.bg_toolbar)
+            toolbar.setBackgroundResource(getStatusBarBackground())
             toolbar.addView(layoutInflater.inflate(getToolbarContent(), mToolbar, false))
             setSupportActionBar(toolbar)
             supportActionBar?.setDisplayHomeAsUpEnabled(false)
@@ -45,7 +48,7 @@ abstract class BaseActivityWithToolbar<P : BasePresenter<out IBaseView, out IBas
     }
 
     private fun initToolbarEvent(toolbar: Toolbar) {
-        val ivLeft = toolbar.findViewById<ImageView>(R.id.iv_toolbar_left)
+        val ivLeft = toolbar.findViewById<AppCompatImageView>(R.id.iv_toolbar_left)
         mTitle = toolbar.findViewById(R.id.tv_toolbar_title)
         ivLeft?.setOnClickListener { finish() }
     }

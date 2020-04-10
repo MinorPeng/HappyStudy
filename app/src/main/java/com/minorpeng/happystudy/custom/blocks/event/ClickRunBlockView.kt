@@ -15,8 +15,6 @@ import com.minorpeng.happystudy.R
  */
 class ClickRunBlockView : BaseEventBlockView {
 
-    private val mDisTop = DensityUtil.dp2px(context, 16f).toFloat()
-
     constructor(context: Context) : this(context, null)
 
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)

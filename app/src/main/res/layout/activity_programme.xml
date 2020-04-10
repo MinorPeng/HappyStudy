@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageButton
+    <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/ibtn_programme_back"
         android:layout_width="@dimen/dp48"
         android:layout_height="@dimen/dp48"
@@ -26,13 +26,13 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_programme"
-        android:layout_width="166dp"
+        android:layout_width="@dimen/dp180"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
         android:layout_toEndOf="@id/ibtn_programme_back"
         android:background="@android:color/white"
-        android:paddingStart="@dimen/dp8"
+        android:paddingStart="@dimen/dp0"
         android:paddingEnd="@dimen/dp8" />
 
     <FrameLayout
@@ -47,7 +47,7 @@
         android:layout_toEndOf="@id/recycler_view_programme"
         android:background="@android:color/white">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             style="@style/CommonTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
     <include
         android:id="@+id/layout_programme_utils"
         layout="@layout/layout_programme_utils"
-        android:layout_width="@dimen/dp160"
+        android:layout_width="@dimen/dp150"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true" />

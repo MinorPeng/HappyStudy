@@ -3,28 +3,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <view
+    <View
         android:id="@+id/divider"
         android:layout_width="@dimen/dp50"
         android:layout_height="@dimen/dp0"
         android:layout_centerVertical="true" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_home_study"
         style="@style/CommonTextStyle"
         android:layout_width="@dimen/dp50"
         android:layout_height="match_parent"
         android:layout_above="@+id/divider"
+        android:background="@color/colorGrayBgSelectedE"
         android:text="@string/study_n"
         android:textSize="@dimen/sp20" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_home_programme"
         style="@style/CommonTextStyle"
         android:layout_width="@dimen/dp50"
         android:layout_height="match_parent"
         android:layout_below="@+id/divider"
-        android:background="@color/colorGrayBgSelectedE"
+        android:background="@android:color/white"
         android:text="@string/programme_n"
         android:textSize="@dimen/sp20" />
 
@@ -34,5 +35,12 @@
         android:layout_height="match_parent"
         android:layout_toEndOf="@+id/divider"
         android:background="@color/colorPrimary" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floating_btn_home_test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

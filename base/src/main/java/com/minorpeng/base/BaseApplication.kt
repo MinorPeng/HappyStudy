@@ -2,12 +2,8 @@ package com.minorpeng.base
 
 import android.app.Application
 import android.content.Context
-import android.os.Environment
-import android.os.FileUtils
 import android.util.Log
-import com.minorpeng.base.utils.ConfigHolder
 import com.minorpeng.base.utils.ContextHolder
-import java.io.File
 
 /**
  *

@@ -28,6 +28,7 @@ abstract class BaseBgBlockView : LinearLayout, IRoleListener {
     protected var mBgColorId = this.getBgColorId()
     private var mLastX: Float = 0f
     private var mLastY: Float = 0f
+    private var mCanMove = false
 
     constructor(context: Context) : this(context, null)
 
@@ -83,9 +84,11 @@ abstract class BaseBgBlockView : LinearLayout, IRoleListener {
                     mLastY = event.y
                 }
                 MotionEvent.ACTION_MOVE -> {
-                    //通过ViewParent去重新绘制子view
-                    offsetLeftAndRight((event.x - mLastX).toInt())
-                    offsetTopAndBottom((event.y - mLastY).toInt())
+                    if (mCanMove) {
+                        //通过ViewParent去重新绘制子view
+                        offsetLeftAndRight((event.x - mLastX).toInt())
+                        offsetTopAndBottom((event.y - mLastY).toInt())
+                    }
                 }
             }
             return true
@@ -95,6 +98,10 @@ abstract class BaseBgBlockView : LinearLayout, IRoleListener {
 
     fun setBgColorId(colorId: Int) {
         this.mBgColorId = colorId
+    }
+
+    fun setMoved(moved: Boolean) {
+        this.mCanMove = moved
     }
 
     abstract fun getBgColorId(): Int

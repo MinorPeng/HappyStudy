@@ -7,7 +7,7 @@
     android:paddingStart="@dimen/dp120"
     android:paddingEnd="@dimen/dp120">
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_programme"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp64"
@@ -15,7 +15,7 @@
         android:text="@string/free_programme"
         android:textColor="@android:color/black" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_get_through"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp64"

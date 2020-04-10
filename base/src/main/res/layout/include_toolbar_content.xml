@@ -5,14 +5,14 @@
     android:layout_height="wrap_content"
     tools:background="@android:color/black">
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/iv_toolbar_left"
         android:layout_width="@dimen/dp16"
         android:layout_height="@dimen/dp16"
         android:layout_centerVertical="true"
         android:src="@mipmap/back" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_toolbar_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,7 +21,7 @@
         android:textSize="@dimen/sp12"
         tools:text="title" />
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/iv_toolbar_right"
         android:layout_width="@dimen/dp16"
         android:layout_height="@dimen/dp16"

@@ -7,7 +7,7 @@
     android:paddingStart="@dimen/dp120"
     android:paddingEnd="@dimen/dp120">
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_motion"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp64"
@@ -15,7 +15,7 @@
         android:text="@string/motion"
         android:textColor="@android:color/black" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_appearance"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp64"
@@ -24,7 +24,7 @@
         android:text="@string/appearance"
         android:textColor="@android:color/black" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_control"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp64"

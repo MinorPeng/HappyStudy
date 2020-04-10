@@ -1,5 +1,6 @@
 package com.minorpeng.happystudy.modules.programme.v.impl
 
+import android.content.Intent
 import android.view.View
 import com.minorpeng.base.base.BaseFragment
 import com.minorpeng.happystudy.R
@@ -23,7 +24,7 @@ class ProgrammeFragment : BaseFragment<ProgrammeFragPresenter>(), IProgrammeFrag
 
     override fun initView(view: View) {
         btn_programme.setOnClickListener {
-
+            startActivity(Intent(context, ProgrammeActivity::class.java))
         }
         btn_get_through.setOnClickListener {
             toastMsg("该功能暂未上线!")
