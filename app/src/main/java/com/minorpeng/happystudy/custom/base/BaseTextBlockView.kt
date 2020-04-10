@@ -78,16 +78,17 @@ abstract class BaseTextBlockView : AppCompatTextView, IRoleListener {
                 MotionEvent.ACTION_DOWN -> {
                     mLastX = event.x
                     mLastY = event.y
+                    return true
                 }
                 MotionEvent.ACTION_MOVE -> {
                     if (mCanMove) {
                         //通过ViewParent去重新绘制子view
                         offsetLeftAndRight((event.x - mLastX).toInt())
                         offsetTopAndBottom((event.y - mLastY).toInt())
+                        return true
                     }
                 }
             }
-            return true
         }
         return super.onTouchEvent(event)
     }
