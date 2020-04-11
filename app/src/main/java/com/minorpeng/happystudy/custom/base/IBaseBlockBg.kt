@@ -51,4 +51,22 @@ interface IBaseBlockBg {
     fun getBgColor(): Int
 
     fun getBgBorderColor(): Int
+
+    fun setStatus(status: Status)
+
+    fun getStatus(): Status
+
+    fun clone(): IBaseBlockBg
+
+    enum class Status {
+        /**
+         * 既drag又clone自身
+         */
+        STATUS_CLONE,
+
+        /**
+         * 只drag不clone
+         */
+        STATUS_DRAG
+    }
 }

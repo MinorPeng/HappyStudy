@@ -8,22 +8,30 @@
         android:id="@+id/frame_test_start"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp64"
-        android:orientation="horizontal"
-        android:background="@android:color/darker_gray">
+        android:background="@android:color/darker_gray"
+        android:orientation="horizontal">
 
         <com.minorpeng.happystudy.custom.blocks.appearance.NextBgBlockView
             android:id="@+id/block_test"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
-    <LinearLayout
+    <FrameLayout
         android:id="@+id/frame_test_end"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/dp24"
         android:background="@color/colorGrayBorderB"
-        android:orientation="horizontal" />
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp24"
+            android:layout_marginTop="@dimen/dp24" />
+
+    </FrameLayout>
 
 </LinearLayout>
