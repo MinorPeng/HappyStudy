@@ -2,10 +2,8 @@ package com.minorpeng.happystudy.custom.blocks.appearance
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.LayoutInflater
 import android.view.View
 import com.minorpeng.happystudy.R
-import com.minorpeng.happystudy.custom.base.BaseBgBlockView
 import com.minorpeng.happystudy.custom.base.BaseTextBlockView
 
 /**
@@ -17,11 +15,8 @@ class NextBgBlockView(context: Context, attrs: AttributeSet? = null, defStyleAtt
     BaseTextBlockView(context, attrs, defStyleAttr) {
 
     init {
+        setBgColorId(R.color.colorAppearancePurple)
         setText(R.string.next_bg)
-    }
-
-    override fun getBgColorId(): Int {
-        return R.color.colorAppearancePurple
     }
 
     override fun onRun(role: View) {

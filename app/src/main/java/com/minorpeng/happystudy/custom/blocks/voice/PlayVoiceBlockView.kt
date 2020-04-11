@@ -24,6 +24,7 @@ class PlayVoiceBlockView(context: Context, attrs: AttributeSet? = null, defStyle
     BaseBgBlockView(context, attrs, defStyleAttr, defStyleRes) {
 
     init {
+        setBgColorId(R.color.colorVoicePurple)
         initView()
     }
 
@@ -52,10 +53,6 @@ class PlayVoiceBlockView(context: Context, attrs: AttributeSet? = null, defStyle
         }
         spinner.adapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, listOf("song", "喵", "汪"))
         addView(spinner, lp)
-    }
-
-    override fun getBgColorId(): Int {
-        return R.color.colorVoicePurple
     }
 
     override fun onRun(role: View) {

@@ -15,11 +15,8 @@ class StopAllVoiceBlockView(context: Context, attrs: AttributeSet? = null, defSt
     BaseTextBlockView(context, attrs, defStyleAttr) {
 
     init {
+        setBgColorId(R.color.colorVoicePurple)
         setText(R.string.stop_all_voice)
-    }
-
-    override fun getBgColorId(): Int {
-        return R.color.colorVoicePurple
     }
 
     override fun onRun(role: View) {

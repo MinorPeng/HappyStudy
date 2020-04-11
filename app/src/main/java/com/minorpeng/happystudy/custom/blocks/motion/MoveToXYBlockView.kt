@@ -23,6 +23,7 @@ class MoveToXYBlockView(context: Context, attrs: AttributeSet? = null, defStyleA
     BaseBgBlockView(context, attrs, defStyleAttr, defStyleRes) {
 
     init {
+        setBgColorId(R.color.colorMotionBlue)
         initView()
     }
 
@@ -58,10 +59,6 @@ class MoveToXYBlockView(context: Context, attrs: AttributeSet? = null, defStyleA
         etY.inputType = InputType.TYPE_CLASS_NUMBER
         etY.gravity = Gravity.CENTER
         addView(etY, lpY)
-    }
-
-    override fun getBgColorId(): Int {
-        return R.color.colorMotionBlue
     }
 
     override fun onRun(role: View) {

@@ -6,8 +6,6 @@ import android.graphics.CornerPathEffect
 import android.graphics.Paint
 import android.graphics.Path
 import android.util.AttributeSet
-import android.view.View
-import androidx.core.content.ContextCompat
 import com.minorpeng.happystudy.R
 import com.minorpeng.happystudy.custom.base.BaseBgBlockView
 
@@ -22,33 +20,30 @@ abstract class BaseLogicBlockView(
     defStyleAttr: Int = 0,
     defStyleRes: Int = 0
 ) : BaseBgBlockView(context, attrs, defStyleAttr, defStyleRes) {
-    protected val mDisLeft = mDis2Left + mDis2Top
+    protected val sDisLeft = sDis2Left + sDis2Top
 
     init {
-        this.setPadding(mDisLeft.toInt(), mDis2Top.toInt(), mDisLeft.toInt(), mDis2Top.toInt())
+        setBgColorId(R.color.colorCalculateGreen)
+        this.setPadding(sDisLeft.toInt(), sDis2Top.toInt(), sDisLeft.toInt(), sDis2Top.toInt())
     }
 
-    override fun drawBackground(canvas: Canvas) {
+    override fun drawBackground(canvas: Canvas, paint: Paint, measuredW: Float, measuredH: Float) {
         val path = Path()
-        path.moveTo(0f, measuredHeight / 2f)
-        path.lineTo(mDisLeft, 0f)
-        path.lineTo(measuredWidth - mDisLeft, 0f)
-        path.lineTo(measuredWidth.toFloat(), measuredHeight / 2f)
-        path.lineTo(measuredWidth - mDisLeft, measuredHeight.toFloat())
-        path.lineTo(mDisLeft, measuredHeight.toFloat())
+        path.moveTo(0f, measuredH / 2f)
+        path.lineTo(sDisLeft, 0f)
+        path.lineTo(measuredW - sDisLeft, 0f)
+        path.lineTo(measuredW, measuredH / 2f)
+        path.lineTo(measuredW - sDisLeft, measuredH)
+        path.lineTo(sDisLeft, measuredH)
         path.close()
 
-        mPaint.style = Paint.Style.FILL
-        mPaint.color = ContextCompat.getColor(context, mBgColorId)
-        mPaint.pathEffect = CornerPathEffect(mRadius)
-        canvas.drawPath(path, mPaint)
-        mPaint.style = Paint.Style.STROKE
-        mPaint.strokeWidth = mStrokeW
-        mPaint.color = ContextCompat.getColor(context, android.R.color.darker_gray)
-        canvas.drawPath(path, mPaint)
-    }
-
-    override fun getBgColorId(): Int {
-        return R.color.colorCalculateGreen
+        paint.style = Paint.Style.FILL
+        paint.color = getBgColor()
+        paint.pathEffect = CornerPathEffect(sRadius)
+        canvas.drawPath(path, paint)
+        paint.style = Paint.Style.STROKE
+        paint.strokeWidth = sStrokeW
+        paint.color = getBgBorderColor()
+        canvas.drawPath(path, paint)
     }
 }

@@ -2,15 +2,12 @@ package com.minorpeng.happystudy.custom.base
 
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.CornerPathEffect
 import android.graphics.Paint
-import android.graphics.Path
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.MotionEvent
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
-import com.minorpeng.base.utils.DensityUtil
 
 /**
  *
@@ -22,55 +19,29 @@ abstract class BaseBgBlockView(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
     defStyleRes: Int = 0
-) : LinearLayout(context, attrs, defStyleAttr, defStyleRes), IRoleListener {
+) : LinearLayout(context, attrs, defStyleAttr, defStyleRes), IRoleListener, IBaseBlockBg {
 
-    protected val mDis2Left = DensityUtil.dp2px(context, 10f).toFloat()
-    protected val mDis2Top = DensityUtil.dp2px(context, 4f).toFloat()
-    protected val mLineLen = DensityUtil.dp2px(context, 12f).toFloat()
-    protected val mRadius = 6f
-    protected val mPaint = Paint()
-    protected val mStrokeW = 2f
-    protected var mBgColorId = this.getBgColorId()
+    private val mPaint = Paint()
+
+    /**
+     * 积木的背景色
+     */
+    private var mBgColor = this.getBgColor()
     private var mLastX: Float = 0f
     private var mLastY: Float = 0f
     private var mCanMove = false
 
     init {
         this.setWillNotDraw(false)
-        this.setPadding((mDis2Top * 2).toInt(), mDis2Top.toInt(), (mDis2Top * 2).toInt(), (mDis2Top * 2).toInt())
+        this.setPadding((sDis2Top * 2).toInt(), sDis2Top.toInt(), (sDis2Top * 2).toInt(), (sDis2Top * 2).toInt())
         gravity = Gravity.CENTER
     }
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         canvas?.let {
-            drawBackground(canvas)
+            drawBackground(canvas, mPaint, measuredWidth.toFloat(), measuredHeight.toFloat())
         }
-    }
-
-    protected open fun drawBackground(canvas: Canvas) {
-        val path = Path()
-        path.moveTo(0f, 0f)
-        path.lineTo(mDis2Left, 0f)
-        path.lineTo(mDis2Left + mDis2Top, mDis2Top)
-        path.lineTo(mDis2Left + mDis2Top + mLineLen, mDis2Top)
-        path.lineTo(mDis2Left + mDis2Top * 2 + mLineLen, 0f)
-        path.lineTo(measuredWidth.toFloat(), 0f)
-        path.lineTo(measuredWidth.toFloat(), measuredHeight.toFloat() - mDis2Top)
-        path.lineTo(mDis2Left + mDis2Top * 2 + mLineLen, measuredHeight.toFloat() - mDis2Top)
-        path.lineTo(mDis2Left + mDis2Top + mLineLen, measuredHeight.toFloat())
-        path.lineTo(mDis2Left + mDis2Top, measuredHeight.toFloat())
-        path.lineTo(mDis2Left, measuredHeight.toFloat() - mDis2Top)
-        path.lineTo(0f, measuredHeight.toFloat() - mDis2Top)
-        path.lineTo(0f, 0f)
-        mPaint.style = Paint.Style.FILL
-        mPaint.color = ContextCompat.getColor(context, mBgColorId)
-        mPaint.pathEffect = CornerPathEffect(mRadius)
-        canvas.drawPath(path, mPaint)
-        mPaint.style = Paint.Style.STROKE
-        mPaint.strokeWidth = mStrokeW
-        mPaint.color = ContextCompat.getColor(context, android.R.color.darker_gray)
-        canvas.drawPath(path, mPaint)
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
@@ -95,13 +66,29 @@ abstract class BaseBgBlockView(
         return super.onTouchEvent(event)
     }
 
+    /**
+     * 背景颜色
+     * 建议使用 {@link #setBgColorId(colorId: Int)} 进行设置而非重写该方法
+     *
+     * @see setBgColorId
+     */
+    override fun getBgColor(): Int {
+        return mBgColor
+    }
+
+    override fun getBgBorderColor(): Int {
+        return ContextCompat.getColor(context, android.R.color.darker_gray)
+    }
+
     fun setBgColorId(colorId: Int) {
-        this.mBgColorId = colorId
+        this.mBgColor = ContextCompat.getColor(context, colorId)
+    }
+
+    fun setBgColor(color: Int) {
+        this.mBgColor = color
     }
 
     fun setMoved(moved: Boolean) {
         this.mCanMove = moved
     }
-
-    abstract fun getBgColorId(): Int
 }

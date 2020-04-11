@@ -27,6 +27,7 @@ class IncreaseVoiceBlockView(
 ) : BaseBgBlockView(context, attrs, defStyleAttr, defStyleRes) {
 
     init {
+        setBgColorId(R.color.colorVoicePurple)
         initView()
     }
 
@@ -44,10 +45,6 @@ class IncreaseVoiceBlockView(
         et.setBackgroundResource(R.drawable.bg_et_circle_whilte)
         et.inputType = InputType.TYPE_CLASS_NUMBER
         addView(et, lp)
-    }
-
-    override fun getBgColorId(): Int {
-        return R.color.colorVoicePurple
     }
 
     override fun onRun(role: View) {

@@ -22,6 +22,7 @@ class WaitBlockView(context: Context, attrs: AttributeSet? = null, defStyleAttr:
     BaseBgBlockView(context, attrs, defStyleAttr, defStyleRes) {
 
     init {
+        setBgColorId(R.color.colorControlYellow)
         initView()
     }
 
@@ -47,10 +48,6 @@ class WaitBlockView(context: Context, attrs: AttributeSet? = null, defStyleAttr:
         tvSeconds.setText(R.string.seconds)
         tvSeconds.setTextColor(whiteColor)
         addView(tvSeconds)
-    }
-
-    override fun getBgColorId(): Int {
-        return R.color.colorControlYellow
     }
 
     override fun onRun(role: View) {

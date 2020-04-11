@@ -3,7 +3,6 @@ package com.minorpeng.happystudy.custom.blocks.appearance
 import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
@@ -22,6 +21,7 @@ class SayBlockView(context: Context, attrs: AttributeSet? = null, defStyleAttr: 
     BaseBgBlockView(context, attrs, defStyleAttr, defStyleRes) {
 
     init {
+        setBgColorId(R.color.colorAppearancePurple)
         initView()
     }
 
@@ -38,10 +38,6 @@ class SayBlockView(context: Context, attrs: AttributeSet? = null, defStyleAttr: 
         et.setText(R.string.hello)
         et.setBackgroundResource(R.drawable.bg_et_circle_whilte)
         addView(et, lp)
-    }
-
-    override fun getBgColorId(): Int {
-        return R.color.colorAppearancePurple
     }
 
     override fun onRun(role: View) {

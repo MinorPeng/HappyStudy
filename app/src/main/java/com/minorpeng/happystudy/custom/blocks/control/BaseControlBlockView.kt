@@ -7,7 +7,6 @@ import android.graphics.Paint
 import android.graphics.Path
 import android.util.AttributeSet
 import android.view.View
-import androidx.core.content.ContextCompat
 import com.minorpeng.base.utils.DensityUtil
 import com.minorpeng.happystudy.R
 import com.minorpeng.happystudy.custom.base.BaseBlockViewGroup
@@ -25,18 +24,13 @@ abstract class BaseControlBlockView(
     defStyleRes: Int = 0
 ) : BaseBlockViewGroup(context, attrs, defStyleAttr, defStyleRes) {
 
-    private val mDis2Left = DensityUtil.dp2px(context, 10f).toFloat()
-    private val mDis2Top = DensityUtil.dp2px(context, 4f).toFloat()
-    private val mLineLen = DensityUtil.dp2px(context, 12f).toFloat()
-    private val mRadius = 6f
-    private val mPaint = Paint()
-    private val mStrokeW = 2f
     private var mTopViewH = DensityUtil.dp2px(context, 32f).toFloat()
     private var mTopViewW = DensityUtil.dp2px(context, 150f).toFloat()
 
     init {
+        setBgColorId(R.color.colorControlYellow)
         this.setWillNotDraw(false)
-        this.setPadding((mDis2Top * 2).toInt(), mDis2Top.toInt(), (mDis2Top * 2).toInt(), (mDis2Top * 2).toInt())
+        this.setPadding((sDis2Top * 2).toInt(), sDis2Top.toInt(), (sDis2Top * 2).toInt(), (sDis2Top * 2).toInt())
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -64,7 +58,7 @@ abstract class BaseControlBlockView(
                 }
                 ChildTag.TAG_CHILD -> {
                     val childWidth = child.measuredWidth + childLp.leftMargin + childLp.rightMargin
-                    val childHeight = child.measuredHeight + childLp.topMargin + childLp.bottomMargin - mDis2Top.toInt()
+                    val childHeight = child.measuredHeight + childLp.topMargin + childLp.bottomMargin - sDis2Top.toInt()
                     // center view max width
                     centerMaxW = max(centerMaxW, childWidth)
                     // center view height sum
@@ -80,10 +74,10 @@ abstract class BaseControlBlockView(
             }
         }
         mTopViewW = max((topViewW + paddingLeft + paddingRight).toFloat(), mTopViewW)
-        mTopViewH = max(topViewMaxH + paddingTop + paddingBottom - mDis2Top, mTopViewH)
+        mTopViewH = max(topViewMaxH + paddingTop + paddingBottom - sDis2Top, mTopViewH)
         centerViewH = if (centerViewH == 0) mTopViewH.toInt() else centerViewH
-        var width = max(mTopViewW, centerMaxW + mDis2Left).toInt()
-        var height = centerViewH + mTopViewH.toInt() * 2 + mDis2Top.toInt()
+        var width = max(mTopViewW, centerMaxW + sDis2Left).toInt()
+        var height = centerViewH + mTopViewH.toInt() * 2 + sDis2Top.toInt()
 
         width = if (modeW == MeasureSpec.EXACTLY) sizeW else width
         height = if (modeH == MeasureSpec.EXACTLY) sizeH else height
@@ -112,7 +106,7 @@ abstract class BaseControlBlockView(
                     topL += child.measuredWidth + childLp.leftMargin + childLp.rightMargin
                 }
                 ChildTag.TAG_CHILD -> {
-                    childL = mDis2Left.toInt() + childLp.leftMargin
+                    childL = sDis2Left.toInt() + childLp.leftMargin
                     childT = centerT + childLp.topMargin
                     childR = childL + child.measuredWidth
                     childB = childT + child.measuredHeight
@@ -122,7 +116,7 @@ abstract class BaseControlBlockView(
                     // layout from right to left
                     childL = mTopViewW.toInt() - child.measuredWidth - childLp.rightMargin - paddingRight
                     childT = measuredHeight - (mTopViewH.toInt() - child.measuredHeight) / 2 - child.measuredHeight -
-                            mDis2Top.toInt()
+                            sDis2Top.toInt()
                     childR = childL + child.measuredWidth
                     childB = childT + child.measuredHeight
                 }
@@ -134,53 +128,46 @@ abstract class BaseControlBlockView(
         }
     }
 
-    override fun onDraw(canvas: Canvas?) {
-        super.onDraw(canvas)
-        canvas?.let {
-            drawBackground(canvas)
-        }
-    }
-
-    private fun drawBackground(canvas: Canvas) {
+    override fun drawBackground(canvas: Canvas, paint: Paint, measuredW: Float, measuredH: Float) {
         val path = Path()
         // top
         path.moveTo(0f, 0f)
-        path.lineTo(mDis2Left, 0f)
-        path.lineTo(mDis2Left + mDis2Top, mDis2Top)
-        path.lineTo(mDis2Left + mDis2Top + mLineLen, mDis2Top)
-        path.lineTo(mDis2Left + mDis2Top * 2 + mLineLen, 0f)
+        path.lineTo(sDis2Left, 0f)
+        path.lineTo(sDis2Left + sDis2Top, sDis2Top)
+        path.lineTo(sDis2Left + sDis2Top + sLineLen, sDis2Top)
+        path.lineTo(sDis2Left + sDis2Top * 2 + sLineLen, 0f)
         path.lineTo(mTopViewW, 0f)
 
         path.lineTo(mTopViewW, mTopViewH)
-        path.lineTo(mDis2Left * 2 + mDis2Top * 2 + mLineLen, mTopViewH)
-        path.lineTo(mDis2Left * 2 + mDis2Top + mLineLen, mTopViewH + mDis2Top)
-        path.lineTo(mDis2Left * 2 + mDis2Top, mTopViewH + mDis2Top)
-        path.lineTo(mDis2Left * 2, mTopViewH)
-        path.lineTo(mDis2Left, mTopViewH)
+        path.lineTo(sDis2Left * 2 + sDis2Top * 2 + sLineLen, mTopViewH)
+        path.lineTo(sDis2Left * 2 + sDis2Top + sLineLen, mTopViewH + sDis2Top)
+        path.lineTo(sDis2Left * 2 + sDis2Top, mTopViewH + sDis2Top)
+        path.lineTo(sDis2Left * 2, mTopViewH)
+        path.lineTo(sDis2Left, mTopViewH)
         // bottom
-        path.lineTo(mDis2Left, measuredHeight - mTopViewH - mDis2Top)
-        path.lineTo(mDis2Left * 2, measuredHeight - mTopViewH - mDis2Top)
-        path.lineTo(mDis2Left * 2 + mDis2Top, (measuredHeight - mTopViewH))
-        path.lineTo(mDis2Left * 2 + mDis2Top + mLineLen, (measuredHeight - mTopViewH))
-        path.lineTo(mDis2Left * 2 + mDis2Top * 2 + mLineLen, measuredHeight - mTopViewH - mDis2Top)
-        path.lineTo(mTopViewW, measuredHeight - mTopViewH - mDis2Top)
+        path.lineTo(sDis2Left, measuredH - mTopViewH - sDis2Top)
+        path.lineTo(sDis2Left * 2, measuredH - mTopViewH - sDis2Top)
+        path.lineTo(sDis2Left * 2 + sDis2Top, (measuredH - mTopViewH))
+        path.lineTo(sDis2Left * 2 + sDis2Top + sLineLen, (measuredH - mTopViewH))
+        path.lineTo(sDis2Left * 2 + sDis2Top * 2 + sLineLen, measuredH - mTopViewH - sDis2Top)
+        path.lineTo(mTopViewW, measuredH - mTopViewH - sDis2Top)
 
-        path.lineTo(mTopViewW, measuredHeight - mDis2Top)
-        path.lineTo(mDis2Left + mDis2Top * 2 + mLineLen, measuredHeight - mDis2Top)
-        path.lineTo(mDis2Left + mDis2Top + mLineLen, measuredHeight.toFloat())
-        path.lineTo(mDis2Left + mDis2Top, measuredHeight.toFloat())
-        path.lineTo(mDis2Left, measuredHeight - mDis2Top)
-        path.lineTo(0f, measuredHeight - mDis2Top)
+        path.lineTo(mTopViewW, measuredH - sDis2Top)
+        path.lineTo(sDis2Left + sDis2Top * 2 + sLineLen, measuredH - sDis2Top)
+        path.lineTo(sDis2Left + sDis2Top + sLineLen, measuredH)
+        path.lineTo(sDis2Left + sDis2Top, measuredH)
+        path.lineTo(sDis2Left, measuredH - sDis2Top)
+        path.lineTo(0f, measuredH - sDis2Top)
         path.close()
 
-        mPaint.style = Paint.Style.FILL
-        mPaint.color = ContextCompat.getColor(context, R.color.colorControlYellow)
-        mPaint.pathEffect = CornerPathEffect(mRadius)
-        canvas.drawPath(path, mPaint)
-        mPaint.style = Paint.Style.STROKE
-        mPaint.strokeWidth = mStrokeW
-        mPaint.color = ContextCompat.getColor(context, android.R.color.darker_gray)
-        canvas.drawPath(path, mPaint)
+        paint.style = Paint.Style.FILL
+        paint.color = getBgColor()
+        paint.pathEffect = CornerPathEffect(sRadius)
+        canvas.drawPath(path, paint)
+        paint.style = Paint.Style.STROKE
+        paint.strokeWidth = sStrokeW
+        paint.color = getBgBorderColor()
+        canvas.drawPath(path, paint)
     }
 
     protected enum class ChildTag(tag: String) {

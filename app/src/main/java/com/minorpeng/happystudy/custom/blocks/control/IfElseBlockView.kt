@@ -26,20 +26,15 @@ import kotlin.math.max
 class IfElseBlockView(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) :
     BaseBlockViewGroup(context, attrs, defStyleAttr, defStyleRes) {
 
-    private val mDis2Left = DensityUtil.dp2px(context, 10f).toFloat()
-    private val mDis2Top = DensityUtil.dp2px(context, 4f).toFloat()
-    private val mLineLen = DensityUtil.dp2px(context, 12f).toFloat()
-    private val mRadius = 6f
-    private val mPaint = Paint()
-    private val mStrokeW = 2f
     private var mTopViewH = DensityUtil.dp2px(context, 32f).toFloat()
     private var mTopViewW = DensityUtil.dp2px(context, 150f).toFloat()
     private var mChildIfH = 0f
     private var mChildElseH = 0f
 
     init {
+        setBgColorId(R.color.colorControlYellow)
         this.setWillNotDraw(false)
-        this.setPadding((mDis2Top * 2).toInt(), mDis2Top.toInt(), (mDis2Top * 2).toInt(), (mDis2Top * 2).toInt())
+        this.setPadding((sDis2Top * 2).toInt(), sDis2Top.toInt(), (sDis2Top * 2).toInt(), (sDis2Top * 2).toInt())
         initView()
     }
 
@@ -112,7 +107,7 @@ class IfElseBlockView(context: Context, attrs: AttributeSet? = null, defStyleAtt
                 }
                 ChildTag.TAG_CHILD_IF -> {
                     val childWidth = child.measuredWidth + childLp.leftMargin + childLp.rightMargin
-                    val childHeight = child.measuredHeight + childLp.topMargin + childLp.bottomMargin - mDis2Top.toInt()
+                    val childHeight = child.measuredHeight + childLp.topMargin + childLp.bottomMargin - sDis2Top.toInt()
                     // if view max width
                     childMaxW = max(childMaxW, childWidth)
                     // if view height sum
@@ -128,7 +123,7 @@ class IfElseBlockView(context: Context, attrs: AttributeSet? = null, defStyleAtt
                 }
                 ChildTag.TAG_CHILD_ELSE -> {
                     val childWidth = child.measuredWidth + childLp.leftMargin + childLp.rightMargin
-                    val childHeight = child.measuredHeight + childLp.topMargin + childLp.bottomMargin - mDis2Top.toInt()
+                    val childHeight = child.measuredHeight + childLp.topMargin + childLp.bottomMargin - sDis2Top.toInt()
                     // else view max width
                     childMaxW = max(childMaxW, childWidth)
                     // else view height sum
@@ -148,14 +143,14 @@ class IfElseBlockView(context: Context, attrs: AttributeSet? = null, defStyleAtt
             }
         }
         mTopViewW = max(max(topViewW, max(centerViewW, bottomViewW)) + paddingLeft + paddingRight + 0f, mTopViewW)
-        mTopViewH = max(topViewMaxH + paddingTop + paddingBottom - mDis2Top, mTopViewH)
+        mTopViewH = max(topViewMaxH + paddingTop + paddingBottom - sDis2Top, mTopViewH)
         mChildIfH = childIfH.toFloat()
         mChildElseH = childElseH.toFloat()
 
         childIfH = if (childIfH == 0) mTopViewH.toInt() else childIfH
         childElseH = if (childElseH == 0) mTopViewH.toInt() else childElseH
-        var width = max(mTopViewW, childMaxW + mDis2Left).toInt()
-        var height = childIfH + childElseH + mTopViewH.toInt() * 3 + mDis2Top.toInt()
+        var width = max(mTopViewW, childMaxW + sDis2Left).toInt()
+        var height = childIfH + childElseH + mTopViewH.toInt() * 3 + sDis2Top.toInt()
 
         width = if (modeW == MeasureSpec.EXACTLY) sizeW else width
         height = if (modeH == MeasureSpec.EXACTLY) sizeH else height
@@ -187,7 +182,7 @@ class IfElseBlockView(context: Context, attrs: AttributeSet? = null, defStyleAtt
                     topL += child.measuredWidth + childLp.leftMargin + childLp.rightMargin
                 }
                 ChildTag.TAG_CHILD_IF -> {
-                    childL = mDis2Left.toInt() + childLp.leftMargin
+                    childL = sDis2Left.toInt() + childLp.leftMargin
                     childT = ifT + childLp.topMargin
                     childR = childL + child.measuredWidth
                     childB = childT + child.measuredHeight
@@ -201,7 +196,7 @@ class IfElseBlockView(context: Context, attrs: AttributeSet? = null, defStyleAtt
                     centerL += child.measuredWidth + childLp.leftMargin + childLp.rightMargin
                 }
                 ChildTag.TAG_CHILD_ELSE -> {
-                    childL = mDis2Left.toInt() + childLp.leftMargin
+                    childL = sDis2Left.toInt() + childLp.leftMargin
                     childT = elseT + childLp.topMargin
                     childR = childL + child.measuredWidth
                     childB = childT + child.measuredHeight
@@ -211,7 +206,7 @@ class IfElseBlockView(context: Context, attrs: AttributeSet? = null, defStyleAtt
                     // layout from right to left
                     childL = mTopViewW.toInt() - child.measuredWidth - childLp.rightMargin - paddingRight
                     childT = measuredHeight - (mTopViewH.toInt() - child.measuredHeight) / 2 - child.measuredHeight -
-                            mDis2Top.toInt()
+                            sDis2Top.toInt()
                     childR = childL + child.measuredWidth
                     childB = childT + child.measuredHeight
                 }
@@ -223,70 +218,63 @@ class IfElseBlockView(context: Context, attrs: AttributeSet? = null, defStyleAtt
         }
     }
 
-    override fun onDraw(canvas: Canvas?) {
-        super.onDraw(canvas)
-        canvas?.let {
-            drawBackground(canvas)
-        }
-    }
-
-    private fun drawBackground(canvas: Canvas) {
+    override fun drawBackground(canvas: Canvas, paint: Paint, measuredW: Float, measuredH: Float) {
         val path = Path()
         // top
         path.moveTo(0f, 0f)
-        path.lineTo(mDis2Left, 0f)
-        path.lineTo(mDis2Left + mDis2Top, mDis2Top)
-        path.lineTo(mDis2Left + mDis2Top + mLineLen, mDis2Top)
-        path.lineTo(mDis2Left + mDis2Top * 2 + mLineLen, 0f)
+        path.lineTo(sDis2Left, 0f)
+        path.lineTo(sDis2Left + sDis2Top, sDis2Top)
+        path.lineTo(sDis2Left + sDis2Top + sLineLen, sDis2Top)
+        path.lineTo(sDis2Left + sDis2Top * 2 + sLineLen, 0f)
         path.lineTo(mTopViewW, 0f)
 
         path.lineTo(mTopViewW, mTopViewH)
-        path.lineTo(mDis2Left * 2 + mDis2Top * 2 + mLineLen, mTopViewH)
-        path.lineTo(mDis2Left * 2 + mDis2Top + mLineLen, mTopViewH + mDis2Top)
-        path.lineTo(mDis2Left * 2 + mDis2Top, mTopViewH + mDis2Top)
-        path.lineTo(mDis2Left * 2, mTopViewH)
-        path.lineTo(mDis2Left, mTopViewH)
+        path.lineTo(sDis2Left * 2 + sDis2Top * 2 + sLineLen, mTopViewH)
+        path.lineTo(sDis2Left * 2 + sDis2Top + sLineLen, mTopViewH + sDis2Top)
+        path.lineTo(sDis2Left * 2 + sDis2Top, mTopViewH + sDis2Top)
+        path.lineTo(sDis2Left * 2, mTopViewH)
+        path.lineTo(sDis2Left, mTopViewH)
         // center
         val centerH = mChildIfH + mTopViewH
-        path.lineTo(mDis2Left, centerH)
-        path.lineTo(mDis2Left * 2, centerH)
-        path.lineTo(mDis2Left * 2 + mDis2Top, centerH + mDis2Top)
-        path.lineTo(mDis2Left * 2 + mDis2Top + mLineLen, centerH + mDis2Top)
-        path.lineTo(mDis2Left * 2 + mDis2Top * 2 + mLineLen, centerH)
+        path.lineTo(sDis2Left, centerH)
+        path.lineTo(sDis2Left * 2, centerH)
+        path.lineTo(sDis2Left * 2 + sDis2Top, centerH + sDis2Top)
+        path.lineTo(sDis2Left * 2 + sDis2Top + sLineLen, centerH + sDis2Top)
+        path.lineTo(sDis2Left * 2 + sDis2Top * 2 + sLineLen, centerH)
         path.lineTo(mTopViewW, centerH)
 
         path.lineTo(mTopViewW, centerH + mTopViewH)
-        path.lineTo(mDis2Left * 2 + mDis2Top * 2 + mLineLen, centerH + mTopViewH)
-        path.lineTo(mDis2Left * 2 + mDis2Top + mLineLen, centerH + mTopViewH + mDis2Top)
-        path.lineTo(mDis2Left * 2 + mDis2Top, centerH + mTopViewH + mDis2Top)
-        path.lineTo(mDis2Left * 2, centerH + mTopViewH)
-        path.lineTo(mDis2Left, centerH + mTopViewH)
+        path.lineTo(sDis2Left * 2 + sDis2Top * 2 + sLineLen, centerH + mTopViewH)
+        path.lineTo(sDis2Left * 2 + sDis2Top + sLineLen, centerH + mTopViewH + sDis2Top)
+        path.lineTo(sDis2Left * 2 + sDis2Top, centerH + mTopViewH + sDis2Top)
+        path.lineTo(sDis2Left * 2, centerH + mTopViewH)
+        path.lineTo(sDis2Left, centerH + mTopViewH)
         // bottom
-        path.lineTo(mDis2Left, measuredHeight - mTopViewH - mDis2Top)
-        path.lineTo(mDis2Left * 2, measuredHeight - mTopViewH - mDis2Top)
-        path.lineTo(mDis2Left * 2 + mDis2Top, (measuredHeight - mTopViewH))
-        path.lineTo(mDis2Left * 2 + mDis2Top + mLineLen, (measuredHeight - mTopViewH))
-        path.lineTo(mDis2Left * 2 + mDis2Top * 2 + mLineLen, measuredHeight - mTopViewH - mDis2Top)
-        path.lineTo(mTopViewW, measuredHeight - mTopViewH - mDis2Top)
+        path.lineTo(sDis2Left, measuredH - mTopViewH - sDis2Top)
+        path.lineTo(sDis2Left * 2, measuredH - mTopViewH - sDis2Top)
+        path.lineTo(sDis2Left * 2 + sDis2Top, (measuredH - mTopViewH))
+        path.lineTo(sDis2Left * 2 + sDis2Top + sLineLen, (measuredH - mTopViewH))
+        path.lineTo(sDis2Left * 2 + sDis2Top * 2 + sLineLen, measuredH - mTopViewH - sDis2Top)
+        path.lineTo(mTopViewW, measuredH - mTopViewH - sDis2Top)
 
-        path.lineTo(mTopViewW, measuredHeight - mDis2Top)
-        path.lineTo(mDis2Left + mDis2Top * 2 + mLineLen, measuredHeight - mDis2Top)
-        path.lineTo(mDis2Left + mDis2Top + mLineLen, measuredHeight.toFloat())
-        path.lineTo(mDis2Left + mDis2Top, measuredHeight.toFloat())
-        path.lineTo(mDis2Left, measuredHeight - mDis2Top)
-        path.lineTo(0f, measuredHeight - mDis2Top)
+        path.lineTo(mTopViewW, measuredH - sDis2Top)
+        path.lineTo(sDis2Left + sDis2Top * 2 + sLineLen, measuredH - sDis2Top)
+        path.lineTo(sDis2Left + sDis2Top + sLineLen, measuredH)
+        path.lineTo(sDis2Left + sDis2Top, measuredH)
+        path.lineTo(sDis2Left, measuredH - sDis2Top)
+        path.lineTo(0f, measuredH - sDis2Top)
         path.close()
 
-        mPaint.style = Paint.Style.FILL
-        mPaint.color = ContextCompat.getColor(context, R.color.colorControlYellow)
-        mPaint.pathEffect = CornerPathEffect(mRadius)
-        canvas.drawPath(path, mPaint)
-        mPaint.style = Paint.Style.STROKE
-        mPaint.strokeWidth = mStrokeW
-        mPaint.color = ContextCompat.getColor(context, android.R.color.darker_gray)
-        canvas.drawPath(path, mPaint)
+        paint.style = Paint.Style.FILL
+        paint.color = getBgColor()
+        paint.pathEffect = CornerPathEffect(sRadius)
+        canvas.drawPath(path, paint)
+        paint.style = Paint.Style.STROKE
+        paint.strokeWidth = sStrokeW
+        paint.color = getBgBorderColor()
+        canvas.drawPath(path, paint)
     }
-
+    
     override fun onRun(role: View) {
 
     }

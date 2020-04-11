@@ -19,7 +19,7 @@ class NotBlockView(context: Context, attrs: AttributeSet? = null, defStyleAttr: 
     BaseLogicBlockView(context, attrs, defStyleAttr, defStyleRes) {
 
     init {
-        this.setPadding(mDis2Top.toInt(), mDis2Top.toInt(), mDis2Top.toInt(), mDis2Top.toInt())
+        this.setPadding(sDis2Top.toInt(), sDis2Top.toInt(), sDis2Top.toInt(), sDis2Top.toInt())
         initView()
     }
 
@@ -29,7 +29,7 @@ class NotBlockView(context: Context, attrs: AttributeSet? = null, defStyleAttr: 
 
         val lpTvMoreThan = generateDefaultLayoutParams() as MarginLayoutParams
         lpTvMoreThan.leftMargin = DensityUtil.dp2px(context, 8f)
-        lpTvMoreThan.rightMargin = mDisLeft.toInt()
+        lpTvMoreThan.rightMargin = sDisLeft.toInt()
         val tvMoreThan = TextView(context)
         tvMoreThan.setText(R.string.not)
         tvMoreThan.setTextColor(ContextCompat.getColor(context, android.R.color.white))

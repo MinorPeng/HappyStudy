@@ -23,6 +23,7 @@ class LeftRotateBlockView(context: Context, attrs: AttributeSet? = null, defStyl
     BaseBgBlockView(context, attrs, defStyleAttr, defStyleRes) {
 
     init {
+        setBgColorId(R.color.colorMotionBlue)
         initView()
     }
 
@@ -48,10 +49,6 @@ class LeftRotateBlockView(context: Context, attrs: AttributeSet? = null, defStyl
         tvDegree.setText(R.string.degree)
         tvDegree.setTextColor(whiteColor)
         addView(tvDegree)
-    }
-
-    override fun getBgColorId(): Int {
-        return R.color.colorMotionBlue
     }
 
     override fun onRun(role: View) {

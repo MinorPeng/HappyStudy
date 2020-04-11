@@ -23,6 +23,7 @@ class MoveBlockView(context: Context, attrs: AttributeSet? = null, defStyleAttr:
     BaseBgBlockView(context, attrs, defStyleAttr, defStyleRes) {
 
     init {
+        setBgColorId(R.color.colorMotionBlue)
         initView()
     }
 
@@ -48,10 +49,6 @@ class MoveBlockView(context: Context, attrs: AttributeSet? = null, defStyleAttr:
         tvStep.setText(R.string.step)
         tvStep.setTextColor(whiteColor)
         addView(tvStep)
-    }
-
-    override fun getBgColorId(): Int {
-        return R.color.colorMotionBlue
     }
 
     override fun onRun(role: View) {

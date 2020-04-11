@@ -15,11 +15,8 @@ class ShowBlockView(context: Context, attrs: AttributeSet? = null, defStyleAttr:
     BaseTextBlockView(context, attrs, defStyleAttr) {
 
     init {
+        setBgColorId(R.color.colorAppearancePurple)
         setText(R.string.show)
-    }
-
-    override fun getBgColorId(): Int {
-        return R.color.colorAppearancePurple
     }
 
     override fun onRun(role: View) {

@@ -19,7 +19,7 @@ class OrBlockView(context: Context, attrs: AttributeSet? = null, defStyleAttr: I
     BaseLogicBlockView(context, attrs, defStyleAttr, defStyleRes) {
 
     init {
-        this.setPadding(mDis2Top.toInt(), mDis2Top.toInt(), mDis2Top.toInt(), mDis2Top.toInt())
+        this.setPadding(sDis2Top.toInt(), sDis2Top.toInt(), sDis2Top.toInt(), sDis2Top.toInt())
         initView()
     }
 

@@ -23,6 +23,7 @@ class SetXBlockView(context: Context, attrs: AttributeSet? = null, defStyleAttr:
     BaseBgBlockView(context, attrs, defStyleAttr, defStyleRes) {
 
     init {
+        setBgColorId(R.color.colorMotionBlue)
         initView()
     }
 
@@ -42,10 +43,6 @@ class SetXBlockView(context: Context, attrs: AttributeSet? = null, defStyleAttr:
         et.inputType = InputType.TYPE_CLASS_NUMBER
         et.gravity = Gravity.CENTER
         addView(et, lp)
-    }
-
-    override fun getBgColorId(): Int {
-        return R.color.colorMotionBlue
     }
 
     override fun onRun(role: View) {

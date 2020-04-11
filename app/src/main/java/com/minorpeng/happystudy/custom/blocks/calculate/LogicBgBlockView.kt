@@ -16,13 +16,10 @@ class LogicBgBlockView(context: Context, attrs: AttributeSet? = null, defStyleAt
     BaseLogicBlockView(context, attrs, defStyleAttr, defStyleRes) {
 
     init {
-        this.setPadding(mDisLeft.toInt(), mDis2Top.toInt(), mDisLeft.toInt(), mDis2Top.toInt())
-        minimumWidth = (mDisLeft * 3).toInt()
-        minimumHeight = (mDisLeft * 2.3).toInt()
-    }
-
-    override fun getBgColorId(): Int {
-        return R.color.colorCalculateGreenDark
+        setBgColorId(R.color.colorCalculateGreenDark)
+        this.setPadding(sDisLeft.toInt(), sDis2Top.toInt(), sDisLeft.toInt(), sDis2Top.toInt())
+        minimumWidth = (sDisLeft * 3).toInt()
+        minimumHeight = (sDisLeft * 2.3).toInt()
     }
 
     override fun onRun(role: View) {
