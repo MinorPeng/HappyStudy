@@ -10,6 +10,7 @@ import android.view.View
 import com.minorpeng.base.utils.DensityUtil
 import com.minorpeng.happystudy.R
 import com.minorpeng.happystudy.custom.base.BaseBlockViewGroup
+import com.minorpeng.happystudy.custom.base.IBaseBlockBg
 import kotlin.math.max
 
 /**
@@ -30,7 +31,13 @@ abstract class BaseControlBlockView(
     init {
         setBgColorId(R.color.colorControlYellow)
         this.setWillNotDraw(false)
-        this.setPadding((sDis2Top * 2).toInt(), sDis2Top.toInt(), (sDis2Top * 2).toInt(), (sDis2Top * 2).toInt())
+        this.setPadding(
+            (IBaseBlockBg.sDis2Top * 2).toInt(),
+            IBaseBlockBg.sDis2Top.toInt(),
+            (IBaseBlockBg.sDis2Top * 2).toInt(),
+            (IBaseBlockBg.sDis2Top * 2)
+                .toInt()
+        )
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -47,7 +54,7 @@ abstract class BaseControlBlockView(
             val child = getChildAt(index)
             measureChild(child, widthMeasureSpec, heightMeasureSpec)
             val childLp = child.layoutParams as MarginLayoutParams
-            when(child.tag) {
+            when (child.tag) {
                 ChildTag.TAG_TOP -> {
                     val childWidth = child.measuredWidth + childLp.leftMargin + childLp.rightMargin
                     val childHeight = child.measuredHeight + childLp.topMargin + childLp.bottomMargin
@@ -58,7 +65,8 @@ abstract class BaseControlBlockView(
                 }
                 ChildTag.TAG_CHILD -> {
                     val childWidth = child.measuredWidth + childLp.leftMargin + childLp.rightMargin
-                    val childHeight = child.measuredHeight + childLp.topMargin + childLp.bottomMargin - sDis2Top.toInt()
+                    val childHeight =
+                        child.measuredHeight + childLp.topMargin + childLp.bottomMargin - IBaseBlockBg.sDis2Top.toInt()
                     // center view max width
                     centerMaxW = max(centerMaxW, childWidth)
                     // center view height sum
@@ -74,10 +82,10 @@ abstract class BaseControlBlockView(
             }
         }
         mTopViewW = max((topViewW + paddingLeft + paddingRight).toFloat(), mTopViewW)
-        mTopViewH = max(topViewMaxH + paddingTop + paddingBottom - sDis2Top, mTopViewH)
+        mTopViewH = max(topViewMaxH + paddingTop + paddingBottom - IBaseBlockBg.sDis2Top, mTopViewH)
         centerViewH = if (centerViewH == 0) mTopViewH.toInt() else centerViewH
-        var width = max(mTopViewW, centerMaxW + sDis2Left).toInt()
-        var height = centerViewH + mTopViewH.toInt() * 2 + sDis2Top.toInt()
+        var width = max(mTopViewW, centerMaxW + IBaseBlockBg.sDis2Left).toInt()
+        var height = centerViewH + mTopViewH.toInt() * 2 + IBaseBlockBg.sDis2Top.toInt()
 
         width = if (modeW == MeasureSpec.EXACTLY) sizeW else width
         height = if (modeH == MeasureSpec.EXACTLY) sizeH else height
@@ -97,7 +105,7 @@ abstract class BaseControlBlockView(
             var childT = 0
             var childR = 0
             var childB = 0
-            when(child.tag) {
+            when (child.tag) {
                 ChildTag.TAG_TOP -> {
                     childL = topL + childLp.leftMargin
                     childT = (mTopViewH.toInt() - child.measuredHeight) / 2 + childLp.topMargin
@@ -106,7 +114,7 @@ abstract class BaseControlBlockView(
                     topL += child.measuredWidth + childLp.leftMargin + childLp.rightMargin
                 }
                 ChildTag.TAG_CHILD -> {
-                    childL = sDis2Left.toInt() + childLp.leftMargin
+                    childL = IBaseBlockBg.sDis2Left.toInt() + childLp.leftMargin
                     childT = centerT + childLp.topMargin
                     childR = childL + child.measuredWidth
                     childB = childT + child.measuredHeight
@@ -116,7 +124,7 @@ abstract class BaseControlBlockView(
                     // layout from right to left
                     childL = mTopViewW.toInt() - child.measuredWidth - childLp.rightMargin - paddingRight
                     childT = measuredHeight - (mTopViewH.toInt() - child.measuredHeight) / 2 - child.measuredHeight -
-                            sDis2Top.toInt()
+                            IBaseBlockBg.sDis2Top.toInt()
                     childR = childL + child.measuredWidth
                     childB = childT + child.measuredHeight
                 }
@@ -128,44 +136,44 @@ abstract class BaseControlBlockView(
         }
     }
 
-    override fun drawBackground(canvas: Canvas, paint: Paint, measuredW: Float, measuredH: Float) {
-        val path = Path()
+    override fun drawBackground(canvas: Canvas, paint: Paint, path: Path, measuredW: Float, measuredH: Float) {
+        path.reset()
         // top
         path.moveTo(0f, 0f)
-        path.lineTo(sDis2Left, 0f)
-        path.lineTo(sDis2Left + sDis2Top, sDis2Top)
-        path.lineTo(sDis2Left + sDis2Top + sLineLen, sDis2Top)
-        path.lineTo(sDis2Left + sDis2Top * 2 + sLineLen, 0f)
+        path.lineTo(IBaseBlockBg.sDis2Left, 0f)
+        path.lineTo(IBaseBlockBg.sDis2Left + IBaseBlockBg.sDis2Top, IBaseBlockBg.sDis2Top)
+        path.lineTo(IBaseBlockBg.sDis2Left + IBaseBlockBg.sDis2Top + IBaseBlockBg.sLineLen, IBaseBlockBg.sDis2Top)
+        path.lineTo(IBaseBlockBg.sDis2Left + IBaseBlockBg.sDis2Top * 2 + IBaseBlockBg.sLineLen, 0f)
         path.lineTo(mTopViewW, 0f)
 
         path.lineTo(mTopViewW, mTopViewH)
-        path.lineTo(sDis2Left * 2 + sDis2Top * 2 + sLineLen, mTopViewH)
-        path.lineTo(sDis2Left * 2 + sDis2Top + sLineLen, mTopViewH + sDis2Top)
-        path.lineTo(sDis2Left * 2 + sDis2Top, mTopViewH + sDis2Top)
-        path.lineTo(sDis2Left * 2, mTopViewH)
-        path.lineTo(sDis2Left, mTopViewH)
+        path.lineTo(IBaseBlockBg.sDis2Left * 2 + IBaseBlockBg.sDis2Top * 2 + IBaseBlockBg.sLineLen, mTopViewH)
+        path.lineTo(IBaseBlockBg.sDis2Left * 2 + IBaseBlockBg.sDis2Top + IBaseBlockBg.sLineLen, mTopViewH + IBaseBlockBg.sDis2Top)
+        path.lineTo(IBaseBlockBg.sDis2Left * 2 + IBaseBlockBg.sDis2Top, mTopViewH + IBaseBlockBg.sDis2Top)
+        path.lineTo(IBaseBlockBg.sDis2Left * 2, mTopViewH)
+        path.lineTo(IBaseBlockBg.sDis2Left, mTopViewH)
         // bottom
-        path.lineTo(sDis2Left, measuredH - mTopViewH - sDis2Top)
-        path.lineTo(sDis2Left * 2, measuredH - mTopViewH - sDis2Top)
-        path.lineTo(sDis2Left * 2 + sDis2Top, (measuredH - mTopViewH))
-        path.lineTo(sDis2Left * 2 + sDis2Top + sLineLen, (measuredH - mTopViewH))
-        path.lineTo(sDis2Left * 2 + sDis2Top * 2 + sLineLen, measuredH - mTopViewH - sDis2Top)
-        path.lineTo(mTopViewW, measuredH - mTopViewH - sDis2Top)
+        path.lineTo(IBaseBlockBg.sDis2Left, measuredH - mTopViewH - IBaseBlockBg.sDis2Top)
+        path.lineTo(IBaseBlockBg.sDis2Left * 2, measuredH - mTopViewH - IBaseBlockBg.sDis2Top)
+        path.lineTo(IBaseBlockBg.sDis2Left * 2 + IBaseBlockBg.sDis2Top, (measuredH - mTopViewH))
+        path.lineTo(IBaseBlockBg.sDis2Left * 2 + IBaseBlockBg.sDis2Top + IBaseBlockBg.sLineLen, (measuredH - mTopViewH))
+        path.lineTo(IBaseBlockBg.sDis2Left * 2 + IBaseBlockBg.sDis2Top * 2 + IBaseBlockBg.sLineLen, measuredH - mTopViewH - IBaseBlockBg.sDis2Top)
+        path.lineTo(mTopViewW, measuredH - mTopViewH - IBaseBlockBg.sDis2Top)
 
-        path.lineTo(mTopViewW, measuredH - sDis2Top)
-        path.lineTo(sDis2Left + sDis2Top * 2 + sLineLen, measuredH - sDis2Top)
-        path.lineTo(sDis2Left + sDis2Top + sLineLen, measuredH)
-        path.lineTo(sDis2Left + sDis2Top, measuredH)
-        path.lineTo(sDis2Left, measuredH - sDis2Top)
-        path.lineTo(0f, measuredH - sDis2Top)
+        path.lineTo(mTopViewW, measuredH - IBaseBlockBg.sDis2Top)
+        path.lineTo(IBaseBlockBg.sDis2Left + IBaseBlockBg.sDis2Top * 2 + IBaseBlockBg.sLineLen, measuredH - IBaseBlockBg.sDis2Top)
+        path.lineTo(IBaseBlockBg.sDis2Left + IBaseBlockBg.sDis2Top + IBaseBlockBg.sLineLen, measuredH)
+        path.lineTo(IBaseBlockBg.sDis2Left + IBaseBlockBg.sDis2Top, measuredH)
+        path.lineTo(IBaseBlockBg.sDis2Left, measuredH - IBaseBlockBg.sDis2Top)
+        path.lineTo(0f, measuredH - IBaseBlockBg.sDis2Top)
         path.close()
 
         paint.style = Paint.Style.FILL
         paint.color = getBgColor()
-        paint.pathEffect = CornerPathEffect(sRadius)
+        paint.pathEffect = CornerPathEffect(IBaseBlockBg.sRadius)
         canvas.drawPath(path, paint)
         paint.style = Paint.Style.STROKE
-        paint.strokeWidth = sStrokeW
+        paint.strokeWidth = IBaseBlockBg.sStrokeW
         paint.color = getBgBorderColor()
         canvas.drawPath(path, paint)
     }

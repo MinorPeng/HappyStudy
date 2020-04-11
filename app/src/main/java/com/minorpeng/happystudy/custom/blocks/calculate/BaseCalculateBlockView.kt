@@ -8,6 +8,7 @@ import android.graphics.Path
 import android.util.AttributeSet
 import com.minorpeng.happystudy.R
 import com.minorpeng.happystudy.custom.base.BaseBgBlockView
+import com.minorpeng.happystudy.custom.base.IBaseBlockBg
 
 /**
  *
@@ -23,24 +24,27 @@ abstract class BaseCalculateBlockView(
 
     init {
         setBgColorId(R.color.colorCalculateGreen)
-        this.setPadding(sDis2Top.toInt(), sDis2Top.toInt(), sDis2Top.toInt(), sDis2Top.toInt())
+        this.setPadding(
+            IBaseBlockBg.sDis2Top.toInt(),
+            IBaseBlockBg.sDis2Top.toInt(),
+            IBaseBlockBg.sDis2Top.toInt(),
+            IBaseBlockBg.sDis2Top.toInt()
+        )
     }
 
-    override fun drawBackground(canvas: Canvas, paint: Paint, measuredW: Float, measuredH: Float) {
-        val path = Path()
-        path.arcTo(0f, 0f, measuredH, measuredH,
-            90f, 180f, false)
+    override fun drawBackground(canvas: Canvas, paint: Paint, path: Path, measuredW: Float, measuredH: Float) {
+        path.reset()
+        path.arcTo(0f, 0f, measuredH, measuredH, 90f, 180f, false)
         path.lineTo(measuredW - measuredH / 2, 0f)
-        path.arcTo(measuredW - measuredH, 0f, measuredW, measuredH,
-            -90f, 180f, false)
+        path.arcTo(measuredW - measuredH, 0f, measuredW, measuredH, -90f, 180f, false)
         path.close()
 
         paint.style = Paint.Style.FILL
         paint.color = getBgColor()
-        paint.pathEffect = CornerPathEffect(sRadius)
+        paint.pathEffect = CornerPathEffect(IBaseBlockBg.sRadius)
         canvas.drawPath(path, paint)
         paint.style = Paint.Style.STROKE
-        paint.strokeWidth = sStrokeW
+        paint.strokeWidth = IBaseBlockBg.sStrokeW
         paint.color = getBgBorderColor()
         canvas.drawPath(path, paint)
     }

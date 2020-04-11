@@ -3,6 +3,7 @@ package com.minorpeng.happystudy.custom.base
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
+import android.graphics.Path
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.MotionEvent
@@ -22,6 +23,7 @@ abstract class BaseBgBlockView(
 ) : LinearLayout(context, attrs, defStyleAttr, defStyleRes), IRoleListener, IBaseBlockBg {
 
     private val mPaint = Paint()
+    private val mPath = Path()
 
     /**
      * 积木的背景色
@@ -33,14 +35,19 @@ abstract class BaseBgBlockView(
 
     init {
         this.setWillNotDraw(false)
-        this.setPadding((sDis2Top * 2).toInt(), sDis2Top.toInt(), (sDis2Top * 2).toInt(), (sDis2Top * 2).toInt())
+        this.setPadding(
+            (IBaseBlockBg.sDis2Top * 2).toInt(),
+            IBaseBlockBg.sDis2Top.toInt(),
+            (IBaseBlockBg.sDis2Top * 2).toInt(),
+            (IBaseBlockBg.sDis2Top * 2).toInt()
+        )
         gravity = Gravity.CENTER
     }
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         canvas?.let {
-            drawBackground(canvas, mPaint, measuredWidth.toFloat(), measuredHeight.toFloat())
+            drawBackground(canvas, mPaint, mPath, measuredWidth.toFloat(), measuredHeight.toFloat())
         }
     }
 

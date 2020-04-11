@@ -3,6 +3,7 @@ package com.minorpeng.happystudy.custom.base
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
+import android.graphics.Path
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.ViewGroup
@@ -21,6 +22,7 @@ abstract class BaseBlockViewGroup(
 ) : ViewGroup(context, attrs, defStyleAttr, defStyleRes), IRoleListener, IBaseBlockBg {
 
     private val mPaint = Paint()
+    private val mPath = Path()
 
     /**
      * 积木的背景色
@@ -33,7 +35,7 @@ abstract class BaseBlockViewGroup(
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         canvas?.let {
-            drawBackground(canvas, mPaint, measuredWidth.toFloat(), measuredHeight.toFloat())
+            drawBackground(canvas, mPaint, mPath, measuredWidth.toFloat(), measuredHeight.toFloat())
         }
     }
 

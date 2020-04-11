@@ -1,6 +1,9 @@
 package com.minorpeng.happystudy.custom.base
 
-import android.graphics.*
+import android.graphics.Canvas
+import android.graphics.CornerPathEffect
+import android.graphics.Paint
+import android.graphics.Path
 import com.minorpeng.base.utils.ContextHolder
 import com.minorpeng.base.utils.DensityUtil
 
@@ -10,19 +13,18 @@ import com.minorpeng.base.utils.DensityUtil
  * @date 2020/4/11 10:57
  */
 interface IBaseBlockBg {
-    val sDis2Left: Float
-        get() = DensityUtil.dp2px(ContextHolder.getMainContext(), 10f).toFloat()
-    val sDis2Top: Float
-        get() = DensityUtil.dp2px(ContextHolder.getMainContext(), 4f).toFloat()
-    val sLineLen: Float
-        get() = DensityUtil.dp2px(ContextHolder.getMainContext(), 12f).toFloat()
-    val sRadius: Float
-        get() = 6f
-    val sStrokeW: Float
-        get() = 2f
 
-    fun drawBackground(canvas: Canvas, paint: Paint, measuredW: Float, measuredH: Float) {
-        val path = Path()
+    companion object {
+        // 直接定义到接口中，可能会被实现类给覆盖重写，所以不规范，应当定义为静态
+        const val sRadius: Float = 6f
+        const val sStrokeW: Float = 2f
+        val sDis2Left: Float = DensityUtil.dp2px(ContextHolder.getMainContext(), 10f).toFloat()
+        val sDis2Top: Float =  DensityUtil.dp2px(ContextHolder.getMainContext(), 4f).toFloat()
+        val sLineLen: Float = DensityUtil.dp2px(ContextHolder.getMainContext(), 12f).toFloat()
+    }
+
+    fun drawBackground(canvas: Canvas, paint: Paint, path: Path, measuredW: Float, measuredH: Float) {
+        path.reset()
         path.moveTo(0f, 0f)
         path.lineTo(sDis2Left, 0f)
         path.lineTo(sDis2Left + sDis2Top, sDis2Top)

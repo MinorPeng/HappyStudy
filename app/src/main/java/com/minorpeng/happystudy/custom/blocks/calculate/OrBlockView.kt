@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.minorpeng.base.utils.DensityUtil
 import com.minorpeng.happystudy.R
+import com.minorpeng.happystudy.custom.base.IBaseBlockBg
 
 /**
  *
@@ -19,7 +20,12 @@ class OrBlockView(context: Context, attrs: AttributeSet? = null, defStyleAttr: I
     BaseLogicBlockView(context, attrs, defStyleAttr, defStyleRes) {
 
     init {
-        this.setPadding(sDis2Top.toInt(), sDis2Top.toInt(), sDis2Top.toInt(), sDis2Top.toInt())
+        this.setPadding(
+            IBaseBlockBg.sDis2Top.toInt(),
+            IBaseBlockBg.sDis2Top.toInt(),
+            IBaseBlockBg.sDis2Top.toInt(),
+            IBaseBlockBg.sDis2Top.toInt()
+        )
         initView()
     }
 

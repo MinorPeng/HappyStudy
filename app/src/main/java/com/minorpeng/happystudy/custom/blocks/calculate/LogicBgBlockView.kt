@@ -5,6 +5,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import com.minorpeng.happystudy.R
+import com.minorpeng.happystudy.custom.base.IBaseBlockBg
 
 /**
  *
@@ -17,7 +18,12 @@ class LogicBgBlockView(context: Context, attrs: AttributeSet? = null, defStyleAt
 
     init {
         setBgColorId(R.color.colorCalculateGreenDark)
-        this.setPadding(sDisLeft.toInt(), sDis2Top.toInt(), sDisLeft.toInt(), sDis2Top.toInt())
+        this.setPadding(
+            sDisLeft.toInt(),
+            IBaseBlockBg.sDis2Top.toInt(),
+            sDisLeft.toInt(),
+            IBaseBlockBg.sDis2Top.toInt()
+        )
         minimumWidth = (sDisLeft * 3).toInt()
         minimumHeight = (sDisLeft * 2.3).toInt()
     }
