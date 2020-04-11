@@ -18,10 +18,15 @@ import com.minorpeng.happystudy.R
  * @date 2020/4/3 16:51
  */
 @SuppressLint("ViewConstructor")
-class DivideBlockView(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) :
-    BaseCalculateBlockView(context, attrs, defStyleAttr, defStyleRes) {
+class DivideBlockView : BaseCalculateBlockView {
+    constructor(context: Context) : this(context, null)
 
-    init {
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
+
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context, attrs, defStyleAttr, 0)
+
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
+            : super(context, attrs, defStyleAttr, defStyleRes) {
         initView()
     }
 

@@ -19,10 +19,16 @@ import com.minorpeng.happystudy.custom.base.BaseBgBlockView
  * @date 2020/3/28 19:05
  */
 @SuppressLint("ViewConstructor")
-class LeftRotateBlockView(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) :
-    BaseBgBlockView(context, attrs, defStyleAttr, defStyleRes) {
+class LeftRotateBlockView : BaseBgBlockView {
 
-    init {
+    constructor(context: Context) : this(context, null)
+
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
+
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context, attrs, defStyleAttr, 0)
+
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
+            : super(context, attrs, defStyleAttr, defStyleRes) {
         setBgColorId(R.color.colorMotionBlue)
         initView()
     }

@@ -15,12 +15,7 @@ import androidx.core.content.ContextCompat
  * @author MinorPeng
  * @date 2020/3/29 17:39
  */
-abstract class BaseBgBlockView(
-    context: Context,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0,
-    defStyleRes: Int = 0
-) : LinearLayout(context, attrs, defStyleAttr, defStyleRes), IRoleListener, IBaseBlockBg {
+abstract class BaseBgBlockView : LinearLayout, IRoleListener, IBaseBlockBg {
 
     private val mPaint = Paint()
     private val mPath = Path()
@@ -33,7 +28,16 @@ abstract class BaseBgBlockView(
     private var mLastY: Float = 0f
     private var mCanMove = false
 
-    init {
+    constructor(context: Context) : this(context, null)
+
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
+
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context, attrs, defStyleAttr, 0) {
+
+    }
+
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
+            : super(context, attrs, defStyleAttr, defStyleRes) {
         this.setWillNotDraw(false)
         this.setPadding(
             (IBaseBlockBg.sDis2Top * 2).toInt(),

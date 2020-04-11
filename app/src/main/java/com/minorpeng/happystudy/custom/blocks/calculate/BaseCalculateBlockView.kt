@@ -15,14 +15,15 @@ import com.minorpeng.happystudy.custom.base.IBaseBlockBg
  * @author MinorPeng
  * @date 2020/4/3 16:36
  */
-abstract class BaseCalculateBlockView(
-    context: Context,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0,
-    defStyleRes: Int = 0
-) : BaseBgBlockView(context, attrs, defStyleAttr, defStyleRes) {
+abstract class BaseCalculateBlockView : BaseBgBlockView {
+    constructor(context: Context) : this(context, null)
 
-    init {
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
+
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context, attrs, defStyleAttr, 0)
+
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
+            : super(context, attrs, defStyleAttr, defStyleRes) {
         setBgColorId(R.color.colorCalculateGreen)
         this.setPadding(
             IBaseBlockBg.sDis2Top.toInt(),

@@ -18,14 +18,16 @@ import com.minorpeng.happystudy.custom.blocks.motion.MoveBlockView
  * @date 2020/4/4 17:11
  */
 @SuppressLint("ViewConstructor")
-class CirculationUtilBlockView(
-    context: Context,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0,
-    defStyleRes: Int = 0
-) : BaseControlBlockView(context, attrs, defStyleAttr, defStyleRes) {
+class CirculationUtilBlockView : BaseControlBlockView {
 
-    init {
+    constructor(context: Context) : this(context, null)
+
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
+
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context, attrs, defStyleAttr, 0)
+
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
+            : super(context, attrs, defStyleAttr, defStyleRes) {
         initView()
     }
 

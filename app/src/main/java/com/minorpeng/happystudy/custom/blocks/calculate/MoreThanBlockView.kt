@@ -18,10 +18,16 @@ import com.minorpeng.happystudy.R
  * @date 2020/4/3 14:28
  */
 @SuppressLint("ViewConstructor")
-class MoreThanBlockView(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) :
-    BaseLogicBlockView(context, attrs, defStyleAttr, defStyleRes) {
+class MoreThanBlockView : BaseLogicBlockView {
 
-    init {
+    constructor(context: Context) : this(context, null)
+
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
+
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context, attrs, defStyleAttr, 0)
+
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
+            : super(context, attrs, defStyleAttr, defStyleRes) {
         initView()
     }
 

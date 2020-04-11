@@ -14,12 +14,15 @@ import com.minorpeng.happystudy.custom.base.IBaseBlockBg
  * @author MinorPeng
  * @date 2020/3/30 21:44
  */
-class ClickRoleBlockView(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    BaseTextBlockView(context, attrs, defStyleAttr) {
+class ClickRoleBlockView : BaseTextBlockView {
 
     private val mDisTop = DensityUtil.dp2px(context, 16f).toFloat()
 
-    init {
+    constructor(context: Context) : this(context, null)
+
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
+
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
         setBgColorId(R.color.colorEventYellow)
         this.setPadding(
             (IBaseBlockBg.sDis2Top * 2).toInt(),

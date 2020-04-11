@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Path
 import android.util.AttributeSet
+import android.view.Gravity
 import android.view.MotionEvent
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -14,12 +15,7 @@ import androidx.core.content.ContextCompat
  * @author MinorPeng
  * @date 2020/3/24 18:08
  */
-abstract class BaseBlockViewGroup(
-    context: Context,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0,
-    defStyleRes: Int = 0
-) : ViewGroup(context, attrs, defStyleAttr, defStyleRes), IRoleListener, IBaseBlockBg {
+abstract class BaseBlockViewGroup : ViewGroup, IRoleListener, IBaseBlockBg {
 
     private val mPaint = Paint()
     private val mPath = Path()
@@ -31,6 +27,16 @@ abstract class BaseBlockViewGroup(
     private var mLastX: Float = 0f
     private var mLastY: Float = 0f
     private var mCanMove = false
+
+    constructor(context: Context) : this(context, null)
+
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
+
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context, attrs, defStyleAttr, 0)
+
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
+            : super(context, attrs, defStyleAttr, defStyleRes) {
+    }
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)

@@ -15,8 +15,7 @@ import androidx.core.content.ContextCompat
  * @author MinorPeng
  * @date 2020/3/29 19:40
  */
-abstract class BaseTextBlockView(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    AppCompatTextView(context, attrs, defStyleAttr), IRoleListener, IBaseBlockBg {
+abstract class BaseTextBlockView : AppCompatTextView, IRoleListener, IBaseBlockBg {
 
     private val mPaint = Paint()
     private val mPath = Path()
@@ -29,7 +28,11 @@ abstract class BaseTextBlockView(context: Context, attrs: AttributeSet? = null, 
     private var mLastY: Float = 0f
     private var mCanMove = false
 
-    init {
+    constructor(context: Context) : this(context, null)
+
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
+
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
         gravity = Gravity.CENTER
         this.setPadding(
             (IBaseBlockBg.sDis2Top * 2).toInt(),
@@ -53,7 +56,6 @@ abstract class BaseTextBlockView(context: Context, attrs: AttributeSet? = null, 
                 MotionEvent.ACTION_DOWN -> {
                     mLastX = event.x
                     mLastY = event.y
-                    return true
                 }
                 MotionEvent.ACTION_MOVE -> {
                     if (mCanMove) {

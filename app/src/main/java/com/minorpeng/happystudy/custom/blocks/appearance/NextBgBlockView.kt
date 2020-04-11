@@ -11,8 +11,16 @@ import com.minorpeng.happystudy.custom.base.BaseTextBlockView
  * @author MinorPeng
  * @date 2020/3/26 20:37
  */
-class NextBgBlockView(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    BaseTextBlockView(context, attrs, defStyleAttr) {
+class NextBgBlockView : BaseTextBlockView {
+
+    constructor(context: Context) : this(context, null)
+
+    constructor(context: Context, attrs: AttributeSet? = null) : this(context, attrs, 0)
+
+    constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
+            : super(context, attrs, defStyleAttr) {
+
+    }
 
     init {
         setBgColorId(R.color.colorAppearancePurple)

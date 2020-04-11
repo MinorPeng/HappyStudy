@@ -15,15 +15,17 @@ import com.minorpeng.happystudy.custom.base.IBaseBlockBg
  * @author MinorPeng
  * @date 2020/4/3 15:43
  */
-abstract class BaseLogicBlockView(
-    context: Context,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0,
-    defStyleRes: Int = 0
-) : BaseBgBlockView(context, attrs, defStyleAttr, defStyleRes) {
+abstract class BaseLogicBlockView : BaseBgBlockView {
     protected val sDisLeft = IBaseBlockBg.sDis2Left + IBaseBlockBg.sDis2Top
 
-    init {
+    constructor(context: Context) : this(context, null)
+
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
+
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context, attrs, defStyleAttr, 0)
+
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
+            : super(context, attrs, defStyleAttr, defStyleRes) {
         setBgColorId(R.color.colorCalculateGreen)
         this.setPadding(sDisLeft.toInt(), IBaseBlockBg.sDis2Top.toInt(), sDisLeft.toInt(), IBaseBlockBg.sDis2Top.toInt())
     }

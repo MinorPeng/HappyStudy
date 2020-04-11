@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.minorpeng.base.utils.DensityUtil
 import com.minorpeng.happystudy.R
+import com.minorpeng.happystudy.custom.base.IBaseBlockBg
 import com.minorpeng.happystudy.custom.blocks.motion.MoveBlockView
 
 /**
@@ -19,14 +20,16 @@ import com.minorpeng.happystudy.custom.blocks.motion.MoveBlockView
  * @date 2020/4/1 11:04
  */
 @SuppressLint("ViewConstructor")
-class CirculationNumBlockView(
-    context: Context,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0,
-    defStyleRes: Int = 0
-) : BaseControlBlockView(context, attrs, defStyleAttr, defStyleRes) {
+class CirculationNumBlockView : BaseControlBlockView {
 
-    init {
+    constructor(context: Context) : this(context, null)
+
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
+
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context, attrs, defStyleAttr, 0)
+
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
+            : super(context, attrs, defStyleAttr, defStyleRes) {
         initView()
     }
 
