@@ -9,52 +9,36 @@ import android.widget.Toast
  * @date 2020/2/7 14:14
  */
 object ToastUtil {
-
-    fun show(context: Context?, msg: String) {
+    fun show(context: Context? = null, msg: String) {
         context?.let {
-            Toast.makeText(it, msg, Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
             return
         }
-        show(msg)
+        Toast.makeText(ContextHolder.getMainContext(), msg, Toast.LENGTH_SHORT).show()
     }
 
-    fun show(msg: String) {
-        show(ContextHolder.getMainContext(), msg)
-    }
-
-    fun show(context: Context?, res: Int) {
+    fun show(context: Context? = null, res: Int) {
         context?.let {
-            Toast.makeText(it, res, Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, res, Toast.LENGTH_SHORT).show()
             return
         }
-        show(res)
+        Toast.makeText(ContextHolder.getMainContext(), res, Toast.LENGTH_SHORT).show()
     }
 
-    fun show(res: Int) {
-        show(ContextHolder.getMainContext(), res)
-    }
-
-    fun showLong(context: Context?, msg: String) {
+    fun showLong(context: Context? = null, msg: String) {
         context?.let {
-            Toast.makeText(it, msg, Toast.LENGTH_LONG).show()
+            Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
             return
         }
-        showLong(msg)
+        Toast.makeText(ContextHolder.getMainContext(), msg, Toast.LENGTH_LONG).show()
     }
 
-    fun showLong(msg: String) {
-        showLong(ContextHolder.getMainContext(), msg)
-    }
-
-    fun showLong(context: Context?, res: Int) {
+    fun showLong(context: Context? = null, res: Int) {
         context?.let {
-            Toast.makeText(it, res, Toast.LENGTH_LONG).show()
+            Toast.makeText(context, res, Toast.LENGTH_LONG).show()
             return
         }
-        showLong(res)
+        Toast.makeText(ContextHolder.getMainContext(), res, Toast.LENGTH_LONG).show()
     }
 
-    fun showLong(res: Int) {
-        showLong(ContextHolder.getMainContext(), res)
-    }
 }

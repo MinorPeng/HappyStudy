@@ -77,7 +77,7 @@ object EncryptUtil {
         val keySpec = PBEKeySpec(key, salt, AES_ITERATION_COUNT, AES_SALT_LEN * 8)
         val keyFactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1")
         val rawKey = keyFactory.generateSecret(keySpec).encoded
-        LogUtil.e(rawKey.toList().toString())
+        LogUtil.e(msg = rawKey.toList().toString())
         return rawKey
     }
 

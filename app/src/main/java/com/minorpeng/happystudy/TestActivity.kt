@@ -12,7 +12,6 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import com.minorpeng.base.utils.LogUtil
 import com.minorpeng.happystudy.custom.blocks.appearance.NextBgBlockView
-import com.minorpeng.happystudy.custom.blocks.motion.SetYBlockView
 import kotlinx.android.synthetic.main.activity_test.*
 
 
@@ -29,7 +28,7 @@ class TestActivity : AppCompatActivity() {
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         setContentView(R.layout.activity_test)
         block_test.setOnLongClickListener { v ->
-            LogUtil.i("long click")
+            LogUtil.i(msg = "long click")
             val intent = Intent()
             val clipData = ClipData.newIntent("label", intent)
             val block = NextBgBlockView(this)
@@ -44,28 +43,28 @@ class TestActivity : AppCompatActivity() {
         }
         frame_test_end.setOnDragListener { v, event ->
             //v 永远是设置该监听的view，这里即fl_blue
-            LogUtil.i("name:${v.javaClass.simpleName}")
+            LogUtil.i(msg = "name:${v.javaClass.simpleName}")
             val block = event.localState as NextBgBlockView
             when(event.action) {
                 DragEvent.ACTION_DRAG_STARTED -> {
-                    LogUtil.i("start")
+                    LogUtil.i(msg = "start")
                     block.visibility = View.VISIBLE
                 }
                 DragEvent.ACTION_DRAG_ENDED -> {
-                    LogUtil.i("end")
+                    LogUtil.i(msg = "end")
                     block.visibility = View.VISIBLE
                 }
                 DragEvent.ACTION_DRAG_ENTERED -> {
-                    LogUtil.i("view in draging in frame")
+                    LogUtil.i(msg = "view in draging in frame")
                 }
                 DragEvent.ACTION_DRAG_EXITED -> {
-                    LogUtil.i("view in draging out frame")
+                    LogUtil.i(msg = "view in draging out frame")
                 }
                 DragEvent.ACTION_DRAG_LOCATION -> {
-                    LogUtil.i("view pos in frame: x->${event.x} y->${event.y}")
+                    LogUtil.i(msg = "view pos in frame: x->${event.x} y->${event.y}")
                 }
                 DragEvent.ACTION_DROP -> {
-                    LogUtil.i("release draging view")
+                    LogUtil.i(msg = "release draging view")
                     frame_test_end.addView(block)
                 }
             }
@@ -74,28 +73,28 @@ class TestActivity : AppCompatActivity() {
         }
         frame_test_start.setOnDragListener { v, event ->
             //v 永远是设置该监听的view，这里即fl_blue
-            LogUtil.i("name:${v.javaClass.simpleName}")
+            LogUtil.i(msg = "name:${v.javaClass.simpleName}")
             val block = event.localState as NextBgBlockView
             when(event.action) {
                 DragEvent.ACTION_DRAG_STARTED -> {
-                    LogUtil.i("start")
+                    LogUtil.i(msg = "start")
                     block.visibility = View.INVISIBLE
                 }
                 DragEvent.ACTION_DRAG_ENDED -> {
-                    LogUtil.i("end")
+                    LogUtil.i(msg = "end")
                     block.visibility = View.VISIBLE
                 }
                 DragEvent.ACTION_DRAG_ENTERED -> {
-                    LogUtil.i("view in draging in frame")
+                    LogUtil.i(msg = "view in draging in frame")
                 }
                 DragEvent.ACTION_DRAG_EXITED -> {
-                    LogUtil.i("view in draging out frame")
+                    LogUtil.i(msg = "view in draging out frame")
                 }
                 DragEvent.ACTION_DRAG_LOCATION -> {
-                    LogUtil.i("view pos in frame: x->${event.x} y->${event.y}")
+                    LogUtil.i(msg = "view pos in frame: x->${event.x} y->${event.y}")
                 }
                 DragEvent.ACTION_DROP -> {
-                    LogUtil.i("release draging view")
+                    LogUtil.i(msg = "release draging view")
                     (block.parent as ViewGroup).removeView(block)
                 }
             }

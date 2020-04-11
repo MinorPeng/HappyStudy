@@ -17,7 +17,8 @@ import com.minorpeng.base.utils.DensityUtil
  * @author MinorPeng
  * @date 2020/3/29 19:40
  */
-abstract class BaseTextBlockView : AppCompatTextView, IRoleListener {
+abstract class BaseTextBlockView(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+    AppCompatTextView(context, attrs, defStyleAttr), IRoleListener {
 
     protected val mDis2Left = DensityUtil.dp2px(context, 10f).toFloat()
     protected val mDis2Top = DensityUtil.dp2px(context, 4f).toFloat()
@@ -29,12 +30,7 @@ abstract class BaseTextBlockView : AppCompatTextView, IRoleListener {
     private var mLastY: Float = 0f
     private var mCanMove = false
 
-    constructor(context: Context) : this(context, null)
-
-    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
-
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int)
-            : super(context, attrs, defStyleAttr) {
+    init {
         gravity = Gravity.CENTER
         this.setPadding((mDis2Top * 2).toInt(), (mDis2Top * 2).toInt(), (mDis2Top * 2).toInt(), (mDis2Top * 2).toInt())
         this.setTextColor(ContextCompat.getColor(context, android.R.color.white))

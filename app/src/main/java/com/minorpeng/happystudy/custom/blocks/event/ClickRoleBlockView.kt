@@ -14,15 +14,12 @@ import com.minorpeng.happystudy.custom.base.BaseTextBlockView
  * @author MinorPeng
  * @date 2020/3/30 21:44
  */
-class ClickRoleBlockView : BaseTextBlockView {
+class ClickRoleBlockView(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+    BaseTextBlockView(context, attrs, defStyleAttr) {
 
     private val mDisTop = DensityUtil.dp2px(context, 16f).toFloat()
 
-    constructor(context: Context) : this(context, null)
-
-    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
-
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+    init {
         this.setPadding((mDis2Top * 2).toInt(), (mDis2Top * 2 + mDisTop).toInt(), (mDis2Top * 2).toInt(), (mDis2Top * 3).toInt())
         setText(R.string.click_role)
     }

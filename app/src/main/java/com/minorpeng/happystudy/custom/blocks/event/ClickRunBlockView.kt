@@ -1,5 +1,6 @@
 package com.minorpeng.happystudy.custom.blocks.event
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
@@ -13,14 +14,11 @@ import com.minorpeng.happystudy.R
  * @author MinorPeng
  * @date 2020/3/30 21:44
  */
-class ClickRunBlockView : BaseEventBlockView {
+@SuppressLint("ViewConstructor")
+class ClickRunBlockView(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) :
+    BaseEventBlockView(context, attrs, defStyleAttr, defStyleRes) {
 
-    constructor(context: Context) : this(context, null)
-
-    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
-
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int)
-            : super(context, attrs, defStyleAttr) {
+    init {
         initView()
     }
 

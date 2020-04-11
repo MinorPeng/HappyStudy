@@ -1,7 +1,6 @@
 package com.minorpeng.base.base
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.os.Build
@@ -10,7 +9,6 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.minorpeng.base.R
 import com.minorpeng.base.utils.LogUtil
@@ -83,7 +81,7 @@ abstract class BaseActivity<P : BasePresenter<out IBaseView, out IBaseModel>> : 
         if (resourceId > 0) { //还可以通过反射获取
             statusHeight = this.resources.getDimensionPixelOffset(resourceId)
         }
-        LogUtil.d("statusH:$statusHeight")
+        LogUtil.d(msg = "statusH:$statusHeight")
         //不知道为什么，获取的高度是实际的高度的2倍 视觉上是这样
         return statusHeight / 2
     }

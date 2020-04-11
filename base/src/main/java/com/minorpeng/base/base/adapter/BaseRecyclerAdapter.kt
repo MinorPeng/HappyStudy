@@ -3,21 +3,18 @@ package com.minorpeng.base.base.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import java.util.*
 
 /**
  *
  * @author MinorPeng
  * @date 2020/2/8 11:28
  */
-abstract class BaseRecyclerAdapter<T> : RecyclerView.Adapter<BaseViewHolder> {
+abstract class BaseRecyclerAdapter<T>(datas: List<T>? = null) : RecyclerView.Adapter<BaseViewHolder>() {
 
     private val mDatas: MutableList<T> = ArrayList()
     protected var mListener: IBaseIClickListener? = null
 
-    constructor() : this(null)
-
-    constructor(datas: List<T>?) {
+    init {
         if (!datas.isNullOrEmpty()) {
             this.addDatas(datas)
         }
@@ -66,15 +63,7 @@ abstract class BaseRecyclerAdapter<T> : RecyclerView.Adapter<BaseViewHolder> {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
-        return BaseViewHolder(
-            LayoutInflater
-                .from(parent.context)
-                .inflate(getItemLayoutId(), parent, false)
-        )
-    }
-
-    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-        bindHolder(holder, position)
+        return BaseViewHolder(LayoutInflater.from(parent.context).inflate(getItemLayoutId(), parent, false))
     }
 
     override fun getItemCount(): Int {
@@ -86,11 +75,4 @@ abstract class BaseRecyclerAdapter<T> : RecyclerView.Adapter<BaseViewHolder> {
      * @return resId
      */
     protected abstract fun getItemLayoutId(): Int
-
-    /**
-     * 绑定ViewHolder
-     * @param holder
-     * @param position
-     */
-    protected abstract fun bindHolder(holder: BaseViewHolder?, position: Int)
 }

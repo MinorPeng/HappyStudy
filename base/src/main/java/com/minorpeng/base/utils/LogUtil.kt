@@ -10,7 +10,7 @@ import com.minorpeng.base.BuildConfig
  */
 object LogUtil {
 
-    fun v(tag: String, msg: String, tr: Throwable?) {
+    fun v(tag: String = getTag(), msg: String, tr: Throwable? = null) {
         if (BuildConfig.DEBUG) {
             tr?.let {
                 Log.v(tag, msg, tr)
@@ -20,11 +20,7 @@ object LogUtil {
         }
     }
 
-    fun v(msg: String) {
-        v(getTag(), msg, null)
-    }
-
-    fun d(tag: String, msg: String, tr: Throwable?) {
+    fun d(tag: String = getTag(), msg: String, tr: Throwable? = null) {
         if (BuildConfig.DEBUG) {
             tr?.let {
                 Log.d(tag, msg, tr)
@@ -34,11 +30,7 @@ object LogUtil {
         }
     }
 
-    fun d(msg: String) {
-        d(getTag(), msg, null)
-    }
-
-    fun i(tag: String, msg: String, tr: Throwable?) {
+    fun i(tag: String = getTag(), msg: String, tr: Throwable? = null) {
         tr?.let {
             Log.i(tag, msg, tr)
             return
@@ -46,11 +38,7 @@ object LogUtil {
         Log.i(tag, msg)
     }
 
-    fun i(msg: String) {
-        i(getTag(), msg, null)
-    }
-
-    fun w(tag: String, msg: String, tr: Throwable?) {
+    fun w(tag: String = getTag(), msg: String, tr: Throwable? = null) {
         tr?.let {
             Log.w(tag, msg, tr)
             return
@@ -58,20 +46,12 @@ object LogUtil {
         Log.w(tag, msg)
     }
 
-    fun w(msg: String) {
-        w(getTag(), msg, null)
-    }
-
-    fun e(tag: String, msg: String, tr: Throwable?) {
+    fun e(tag: String = getTag(), msg: String, tr: Throwable? = null) {
         tr?.let {
             Log.e(tag, msg, tr)
             return
         }
         Log.e(tag, msg)
-    }
-
-    fun e(msg: String) {
-        e(getTag(), msg, null)
     }
 
     private fun getTag(): String {

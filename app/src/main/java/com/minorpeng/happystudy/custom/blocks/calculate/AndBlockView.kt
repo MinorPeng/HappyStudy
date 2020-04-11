@@ -1,5 +1,6 @@
 package com.minorpeng.happystudy.custom.blocks.calculate
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
@@ -13,17 +14,11 @@ import com.minorpeng.happystudy.R
  * @author MinorPeng
  * @date 2020/4/4 14:20
  */
-class AndBlockView : BaseLogicBlockView {
+@SuppressLint("ViewConstructor")
+class AndBlockView(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) :
+    BaseLogicBlockView(context, attrs, defStyleAttr, defStyleRes) {
 
-    constructor(context: Context) : this(context, null)
-
-    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
-
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int)
-            : this(context, attrs, defStyleAttr, 0)
-
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
-            : super(context, attrs, defStyleAttr, defStyleRes) {
+    init {
         this.setPadding(mDis2Top.toInt(), mDis2Top.toInt(), mDis2Top.toInt(), mDis2Top.toInt())
         initView()
     }

@@ -1,4 +1,4 @@
-package com.minorpeng.happystudy.modules.programme
+package com.minorpeng.happystudy.modules.programme.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -41,9 +41,29 @@ class BlocksRecyclerAdapter : BaseRecyclerAdapter<Block>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         return if (viewType == TITLE) {
-            TitleHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_recycler_blocks_category, parent, false))
+            BlockTitleViewHolder(
+                LayoutInflater.from(parent.context).inflate(R.layout.item_recycler_blocks_category, parent, false)
+            )
         } else {
-            BlockHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_recycler_blocks_block, parent, false))
+            BlockViewHolder(
+                LayoutInflater.from(parent.context).inflate(R.layout.item_recycler_blocks_block, parent, false)
+            )
+        }
+    }
+
+    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
+        val block = getData(position)
+        when (holder) {
+            is BlockTitleViewHolder -> {
+                (holder.itemView as? AppCompatTextView)?.setText(block.category.resId)
+            }
+            is BlockViewHolder -> {
+                (block.view.parent as? ViewGroup)?.removeView(block.view)
+                (holder.itemView as? ViewGroup)?.run {
+                    removeAllViews()
+                    addView(block.view)
+                }
+            }
         }
     }
 
@@ -52,28 +72,14 @@ class BlocksRecyclerAdapter : BaseRecyclerAdapter<Block>() {
             return TITLE
         }
         if (position < getDatas().size && position >= 1
-            && getData(position).category != getData(position - 1).category) {
+            && getData(position).category != getData(position - 1).category
+        ) {
             return TITLE
         }
         return BLOCK
     }
 
-    override fun getItemLayoutId(): Int {
-        return 0
-    }
-
-    override fun bindHolder(holder: BaseViewHolder?, position: Int) {
-        val block = getData(position)
-        if (holder is TitleHolder) {
-            (holder.itemView as AppCompatTextView).setText(block.category.resId)
-        } else if (holder is BlockHolder) {
-            (holder.itemView as ViewGroup).removeAllViews()
-            if (block.view.parent != null) {
-                (block.view.parent as ViewGroup).removeView(block.view)
-            }
-            (holder.itemView as ViewGroup).addView(block.view)
-        }
-    }
+    override fun getItemLayoutId(): Int = -1
 
     fun getPosByCategory(category: Block.Category): Int {
         for (index in getDatas().indices) {
@@ -84,10 +90,10 @@ class BlocksRecyclerAdapter : BaseRecyclerAdapter<Block>() {
         return -1
     }
 
-    class TitleHolder(itemView: View) : BaseViewHolder(itemView) {
+    class BlockTitleViewHolder(itemView: View) : BaseViewHolder(itemView) {
     }
 
-    class BlockHolder(itemView: View) : BaseViewHolder(itemView) {
+    class BlockViewHolder(itemView: View) : BaseViewHolder(itemView) {
 
     }
 }

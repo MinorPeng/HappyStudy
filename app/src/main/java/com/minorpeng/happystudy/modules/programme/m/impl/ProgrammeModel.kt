@@ -69,7 +69,7 @@ class ProgrammeModel : IProgrammeModel {
         blocks.add(Block(Block.Category.CALCULATE, AndBlockView(context)))
         blocks.add(Block(Block.Category.CALCULATE, OrBlockView(context)))
         blocks.add(Block(Block.Category.CALCULATE, NotBlockView(context)))
-        LogUtil.d("blocks:${blocks.size}")
+        LogUtil.d(msg = "blocks:${blocks.size}")
         return blocks
     }
 }

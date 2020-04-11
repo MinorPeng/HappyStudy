@@ -21,7 +21,7 @@ class ProgrammePresenter(programmeView: IProgrammeView) : BasePresenter<IProgram
     fun getBlocks(context: Context) {
         val blocks = mModel.initBlocks(context)
         if (blocks.isNullOrEmpty()) {
-            LogUtil.e("init blocks error!")
+            LogUtil.e(msg = "init blocks error!")
             mView.toastMsg("something error!")
         } else {
             mView.setBlocks(blocks)

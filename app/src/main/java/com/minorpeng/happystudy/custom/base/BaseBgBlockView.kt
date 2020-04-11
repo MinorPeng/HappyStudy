@@ -17,7 +17,12 @@ import com.minorpeng.base.utils.DensityUtil
  * @author MinorPeng
  * @date 2020/3/29 17:39
  */
-abstract class BaseBgBlockView : LinearLayout, IRoleListener {
+abstract class BaseBgBlockView(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0,
+    defStyleRes: Int = 0
+) : LinearLayout(context, attrs, defStyleAttr, defStyleRes), IRoleListener {
 
     protected val mDis2Left = DensityUtil.dp2px(context, 10f).toFloat()
     protected val mDis2Top = DensityUtil.dp2px(context, 4f).toFloat()
@@ -30,15 +35,7 @@ abstract class BaseBgBlockView : LinearLayout, IRoleListener {
     private var mLastY: Float = 0f
     private var mCanMove = false
 
-    constructor(context: Context) : this(context, null)
-
-    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
-
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int)
-            : this(context, attrs, defStyleAttr, 0)
-
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
-            : super(context, attrs, defStyleAttr, defStyleRes) {
+    init {
         this.setWillNotDraw(false)
         this.setPadding((mDis2Top * 2).toInt(), mDis2Top.toInt(), (mDis2Top * 2).toInt(), (mDis2Top * 2).toInt())
         gravity = Gravity.CENTER

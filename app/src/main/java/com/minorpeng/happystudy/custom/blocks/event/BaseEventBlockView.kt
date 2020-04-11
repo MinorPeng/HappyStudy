@@ -3,7 +3,6 @@ package com.minorpeng.happystudy.custom.blocks.event
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
-import android.view.Gravity
 import androidx.core.content.ContextCompat
 import com.minorpeng.base.utils.DensityUtil
 import com.minorpeng.happystudy.R
@@ -14,15 +13,16 @@ import com.minorpeng.happystudy.custom.base.BaseBgBlockView
  * @author MinorPeng
  * @date 2020/3/31 10:15
  */
-abstract class BaseEventBlockView : BaseBgBlockView {
+abstract class BaseEventBlockView(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0,
+    defStyleRes: Int = 0
+) : BaseBgBlockView(context, attrs, defStyleAttr, defStyleRes) {
 
     private val mDisTop = DensityUtil.dp2px(context, 16f).toFloat()
 
-    constructor(context: Context) : this(context, null)
-
-    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
-
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+    init {
         this.setPadding((mDis2Top * 2).toInt(), (mDis2Top * 2 + mDisTop).toInt(), (mDis2Top * 2).toInt(), (mDis2Top * 3).toInt())
     }
 

@@ -1,5 +1,6 @@
 package com.minorpeng.happystudy.custom.blocks.appearance
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -16,13 +17,11 @@ import com.minorpeng.happystudy.custom.base.BaseBgBlockView
  * @author MinorPeng
  * @date 2020/3/29 19:34
  */
-class SayBlockView : BaseBgBlockView {
+@SuppressLint("ViewConstructor")
+class SayBlockView(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) :
+    BaseBgBlockView(context, attrs, defStyleAttr, defStyleRes) {
 
-    constructor(context: Context) : this(context, null)
-
-    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
-
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr, 0) {
+    init {
         initView()
     }
 

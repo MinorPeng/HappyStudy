@@ -2,14 +2,13 @@ package com.minorpeng.happystudy.modules.programme.v.impl
 
 import android.view.View
 import androidx.core.content.ContextCompat
-import androidx.core.view.children
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.minorpeng.base.base.BaseActivity
 import com.minorpeng.base.utils.ContextHolder
 import com.minorpeng.base.utils.LogUtil
 import com.minorpeng.happystudy.R
-import com.minorpeng.happystudy.modules.programme.BlocksRecyclerAdapter
+import com.minorpeng.happystudy.modules.programme.adapter.BlocksRecyclerAdapter
 import com.minorpeng.happystudy.modules.programme.m.Block
 import com.minorpeng.happystudy.modules.programme.p.ProgrammePresenter
 import com.minorpeng.happystudy.modules.programme.v.IProgrammeView
@@ -124,18 +123,19 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
     private fun smoothScrollToPosition(pos: Int) {
         val firstItem = recycler_view_programme.getChildLayoutPosition(recycler_view_programme.getChildAt(0))
         val lastItem = recycler_view_programme.getChildLayoutPosition(
-            recycler_view_programme.getChildAt(recycler_view_programme.childCount - 1))
-        LogUtil.d("fir:$firstItem las:$lastItem pos:$pos")
+            recycler_view_programme.getChildAt(recycler_view_programme.childCount - 1)
+        )
+        LogUtil.d(msg = "fir:$firstItem las:$lastItem pos:$pos")
         if (pos < firstItem) {
             // 跳转位置在可视界面之前，向前滑动
             recycler_view_programme.smoothScrollToPosition(pos)
         } else if (pos <= lastItem) {
             // 跳转位置在可视界面内，置顶即可
             val movePos = pos - firstItem
-            LogUtil.d("movePos:$movePos childCount:${recycler_view_programme.childCount}")
+            LogUtil.d(msg = "movePos:$movePos childCount:${recycler_view_programme.childCount}")
             if (movePos >= 0 && movePos < recycler_view_programme.childCount) {
                 val top = recycler_view_programme.getChildAt(movePos).top
-                LogUtil.d("top:$top")
+                LogUtil.d(msg = "top:$top")
                 recycler_view_programme.smoothScrollBy(0, top)
             }
         } else {
@@ -150,7 +150,7 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
         if (category == mLastSelectCategory) {
             return
         }
-        LogUtil.d("last:${mLastSelectCategory} now:$category")
+        LogUtil.d(msg = "last:${mLastSelectCategory} now:$category")
         when (mLastSelectCategory) {
             Block.Category.MOTION -> tv_programme_motion.setBackgroundColor(mUnSelectedColor)
             Block.Category.APPEARANCE -> tv_programme_appearance.setBackgroundColor(mUnSelectedColor)

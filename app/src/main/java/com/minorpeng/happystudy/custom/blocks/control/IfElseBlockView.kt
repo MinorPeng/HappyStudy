@@ -22,7 +22,9 @@ import kotlin.math.max
  * @author MinorPeng
  * @date 2020/4/1 11:03
  */
-class IfElseBlockView : BaseBlockViewGroup {
+@SuppressLint("ViewConstructor")
+class IfElseBlockView(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) :
+    BaseBlockViewGroup(context, attrs, defStyleAttr, defStyleRes) {
 
     private val mDis2Left = DensityUtil.dp2px(context, 10f).toFloat()
     private val mDis2Top = DensityUtil.dp2px(context, 4f).toFloat()
@@ -35,15 +37,7 @@ class IfElseBlockView : BaseBlockViewGroup {
     private var mChildIfH = 0f
     private var mChildElseH = 0f
 
-    constructor(context: Context) : this(context, null)
-
-    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
-
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int)
-            : this(context, attrs, defStyleAttr, 0)
-
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
-            : super(context, attrs, defStyleAttr, defStyleRes) {
+    init {
         this.setWillNotDraw(false)
         this.setPadding((mDis2Top * 2).toInt(), mDis2Top.toInt(), (mDis2Top * 2).toInt(), (mDis2Top * 2).toInt())
         initView()
