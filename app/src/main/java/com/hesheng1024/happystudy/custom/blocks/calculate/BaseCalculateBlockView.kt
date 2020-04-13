@@ -8,7 +8,7 @@ import android.graphics.Path
 import android.util.AttributeSet
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.base.BaseBgBlockView
-import com.hesheng1024.happystudy.custom.base.IBaseBlockBg
+import com.hesheng1024.happystudy.custom.base.IBaseBlock
 
 /**
  *
@@ -26,10 +26,10 @@ abstract class BaseCalculateBlockView : BaseBgBlockView {
             : super(context, attrs, defStyleAttr, defStyleRes) {
         setBgColorId(R.color.colorCalculateGreen)
         this.setPadding(
-            IBaseBlockBg.sDis2Top.toInt(),
-            IBaseBlockBg.sDis2Top.toInt(),
-            IBaseBlockBg.sDis2Top.toInt(),
-            IBaseBlockBg.sDis2Top.toInt()
+            IBaseBlock.sDis2Top.toInt(),
+            IBaseBlock.sDis2Top.toInt(),
+            IBaseBlock.sDis2Top.toInt(),
+            IBaseBlock.sDis2Top.toInt()
         )
     }
 
@@ -42,10 +42,10 @@ abstract class BaseCalculateBlockView : BaseBgBlockView {
 
         paint.style = Paint.Style.FILL
         paint.color = getBgColor()
-        paint.pathEffect = CornerPathEffect(IBaseBlockBg.sRadius)
+        paint.pathEffect = CornerPathEffect(IBaseBlock.sRadius)
         canvas.drawPath(path, paint)
         paint.style = Paint.Style.STROKE
-        paint.strokeWidth = IBaseBlockBg.sStrokeW
+        paint.strokeWidth = IBaseBlock.sStrokeW
         paint.color = getBgBorderColor()
         canvas.drawPath(path, paint)
     }

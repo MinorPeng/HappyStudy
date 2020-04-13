@@ -10,10 +10,9 @@ import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.hesheng1024.base.utils.LogUtil
 import com.hesheng1024.happystudy.custom.base.BaseTextBlockView
-import com.hesheng1024.happystudy.custom.base.IBaseBlockBg
+import com.hesheng1024.happystudy.custom.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.blocks.appearance.NextBgBlockView
 import kotlinx.android.synthetic.main.activity_test.*
-
 
 /**
  *
@@ -25,8 +24,12 @@ class TestActivity : AppCompatActivity() {
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        // requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         setContentView(R.layout.activity_test)
+        initView()
+    }
+
+    private fun initView() {
         frame_test_end.setOnDragListener { v, event ->
             //v 永远是设置该监听的view，这里即fl_blue
             LogUtil.i(msg = "name:${v.javaClass.simpleName}")
@@ -51,10 +54,10 @@ class TestActivity : AppCompatActivity() {
                 }
                 DragEvent.ACTION_DROP -> {
                     (block.parent as? ViewGroup)?.removeView(block)
-                    block.setStatus(IBaseBlockBg.Status.STATUS_DRAG)
+                    block.setStatus(IBaseBlock.Status.STATUS_DRAG)
                     val lp = FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-                    lp.leftMargin = event.x.toInt() - block.minWidth / 2
-                    lp.topMargin = event.y.toInt() - block.minHeight / 2
+                    lp.leftMargin = event.x.toInt() - block.minimumWidth / 2
+                    lp.topMargin = event.y.toInt() - block.minimumHeight / 2
                     LogUtil.i(msg = "release dragging view x:${event.x} y:${event.y}" +
                             " w:${block.width / 2} h:${block.height / 2} l:${lp.leftMargin} r:${lp.topMargin}")
                     frame_test_end.addView(block, lp)

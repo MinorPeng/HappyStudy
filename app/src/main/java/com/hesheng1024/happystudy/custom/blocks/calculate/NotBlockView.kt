@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.DensityUtil
 import com.hesheng1024.happystudy.R
-import com.hesheng1024.happystudy.custom.base.IBaseBlockBg
+import com.hesheng1024.happystudy.custom.base.IBaseBlock
 
 /**
  *
@@ -27,10 +27,10 @@ class NotBlockView : BaseLogicBlockView {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
         this.setPadding(
-            IBaseBlockBg.sDis2Top.toInt(),
-            IBaseBlockBg.sDis2Top.toInt(),
-            IBaseBlockBg.sDis2Top.toInt(),
-            IBaseBlockBg.sDis2Top.toInt()
+            IBaseBlock.sDis2Top.toInt(),
+            IBaseBlock.sDis2Top.toInt(),
+            IBaseBlock.sDis2Top.toInt(),
+            IBaseBlock.sDis2Top.toInt()
         )
         initView()
     }
@@ -50,5 +50,13 @@ class NotBlockView : BaseLogicBlockView {
 
     override fun onRun(role: View) {
 
+    }
+
+    override fun clone(): IBaseBlock {
+        val newObj = NotBlockView(context)
+        newObj.layoutParams = this.layoutParams
+        newObj.minimumWidth = measuredWidth
+        newObj.minimumHeight = measuredHeight
+        return newObj
     }
 }

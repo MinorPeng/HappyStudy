@@ -8,7 +8,7 @@ import android.graphics.Path
 import android.util.AttributeSet
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.base.BaseBgBlockView
-import com.hesheng1024.happystudy.custom.base.IBaseBlockBg
+import com.hesheng1024.happystudy.custom.base.IBaseBlock
 
 /**
  *
@@ -16,7 +16,7 @@ import com.hesheng1024.happystudy.custom.base.IBaseBlockBg
  * @date 2020/4/3 15:43
  */
 abstract class BaseLogicBlockView : BaseBgBlockView {
-    protected val sDisLeft = IBaseBlockBg.sDis2Left + IBaseBlockBg.sDis2Top
+    protected val sDisLeft = IBaseBlock.sDis2Left + IBaseBlock.sDis2Top
 
     constructor(context: Context) : this(context, null)
 
@@ -27,7 +27,7 @@ abstract class BaseLogicBlockView : BaseBgBlockView {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
         setBgColorId(R.color.colorCalculateGreen)
-        this.setPadding(sDisLeft.toInt(), IBaseBlockBg.sDis2Top.toInt(), sDisLeft.toInt(), IBaseBlockBg.sDis2Top.toInt())
+        this.setPadding(sDisLeft.toInt(), IBaseBlock.sDis2Top.toInt(), sDisLeft.toInt(), IBaseBlock.sDis2Top.toInt())
     }
 
     override fun drawBackground(canvas: Canvas, paint: Paint, path: Path, measuredW: Float, measuredH: Float) {
@@ -42,10 +42,10 @@ abstract class BaseLogicBlockView : BaseBgBlockView {
 
         paint.style = Paint.Style.FILL
         paint.color = getBgColor()
-        paint.pathEffect = CornerPathEffect(IBaseBlockBg.sRadius)
+        paint.pathEffect = CornerPathEffect(IBaseBlock.sRadius)
         canvas.drawPath(path, paint)
         paint.style = Paint.Style.STROKE
-        paint.strokeWidth = IBaseBlockBg.sStrokeW
+        paint.strokeWidth = IBaseBlock.sStrokeW
         paint.color = getBgBorderColor()
         canvas.drawPath(path, paint)
     }

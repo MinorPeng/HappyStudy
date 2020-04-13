@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.View
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.base.BaseTextBlockView
+import com.hesheng1024.happystudy.custom.base.IBaseBlock
 
 /**
  *
@@ -23,5 +24,13 @@ class ShowBlockView : BaseTextBlockView {
 
     override fun onRun(role: View) {
 
+    }
+
+    override fun clone(): IBaseBlock {
+        val newObj = ShowBlockView(context)
+        newObj.layoutParams = this.layoutParams
+        newObj.minimumWidth = measuredWidth
+        newObj.minimumHeight = measuredHeight
+        return newObj
     }
 }

@@ -5,7 +5,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import com.hesheng1024.happystudy.R
-import com.hesheng1024.happystudy.custom.base.IBaseBlockBg
+import com.hesheng1024.happystudy.custom.base.IBaseBlock
 
 /**
  *
@@ -25,9 +25,9 @@ class LogicBgBlockView : BaseLogicBlockView {
         setBgColorId(R.color.colorCalculateGreenDark)
         this.setPadding(
             sDisLeft.toInt(),
-            IBaseBlockBg.sDis2Top.toInt(),
+            IBaseBlock.sDis2Top.toInt(),
             sDisLeft.toInt(),
-            IBaseBlockBg.sDis2Top.toInt()
+            IBaseBlock.sDis2Top.toInt()
         )
         minimumWidth = (sDisLeft * 3).toInt()
         minimumHeight = (sDisLeft * 2.3).toInt()
@@ -35,5 +35,13 @@ class LogicBgBlockView : BaseLogicBlockView {
 
     override fun onRun(role: View) {
 
+    }
+
+    override fun clone(): IBaseBlock {
+        val newObj = LogicBgBlockView(context)
+        newObj.layoutParams = this.layoutParams
+        newObj.minimumWidth = measuredWidth
+        newObj.minimumHeight = measuredHeight
+        return newObj
     }
 }

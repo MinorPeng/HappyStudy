@@ -3,8 +3,10 @@ package com.hesheng1024.happystudy.custom.blocks.appearance
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
+import com.hesheng1024.base.utils.LogUtil
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.base.BaseTextBlockView
+import com.hesheng1024.happystudy.custom.base.IBaseBlock
 
 /**
  *
@@ -28,5 +30,13 @@ class HideBlockView : BaseTextBlockView {
 
     override fun onRun(role: View) {
 
+    }
+
+    override fun clone(): IBaseBlock {
+        val newObj = HideBlockView(context)
+        newObj.layoutParams = this.layoutParams
+        newObj.minimumWidth = measuredWidth
+        newObj.minimumHeight = measuredHeight
+        return newObj
     }
 }

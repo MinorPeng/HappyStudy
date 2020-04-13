@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.DensityUtil
 import com.hesheng1024.happystudy.R
+import com.hesheng1024.happystudy.custom.base.IBaseBlock
 
 /**
  *
@@ -58,5 +59,13 @@ class EqualBlockView : BaseLogicBlockView {
 
     override fun onRun(role: View) {
 
+    }
+
+    override fun clone(): IBaseBlock {
+        val newObj = EqualBlockView(context)
+        newObj.layoutParams = this.layoutParams
+        newObj.minimumWidth = measuredWidth
+        newObj.minimumHeight = measuredHeight
+        return newObj
     }
 }

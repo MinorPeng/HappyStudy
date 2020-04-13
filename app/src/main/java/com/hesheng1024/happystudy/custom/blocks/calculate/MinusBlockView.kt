@@ -11,6 +11,8 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.DensityUtil
 import com.hesheng1024.happystudy.R
+import com.hesheng1024.happystudy.custom.base.IBaseBlock
+import com.hesheng1024.happystudy.custom.blocks.appearance.SayBlockView
 
 /**
  *
@@ -30,6 +32,7 @@ class MinusBlockView : BaseCalculateBlockView {
             : super(context, attrs, defStyleAttr, defStyleRes) {
         initView()
     }
+
     private fun initView() {
         val etLeft = EditText(context)
         etLeft.setBackgroundResource(R.drawable.bg_et_circle_whilte)
@@ -57,5 +60,13 @@ class MinusBlockView : BaseCalculateBlockView {
 
     override fun onRun(role: View) {
 
+    }
+
+    override fun clone(): IBaseBlock {
+        val newObj = MinusBlockView(context)
+        newObj.layoutParams = this.layoutParams
+        newObj.minimumWidth = measuredWidth
+        newObj.minimumHeight = measuredHeight
+        return newObj
     }
 }
