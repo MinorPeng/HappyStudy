@@ -23,14 +23,12 @@ class ShowBlockView : BaseTextBlockView {
     }
 
     override fun onRun(role: View) {
-
+        role.visibility = View.INVISIBLE
     }
 
     override fun clone(): IBaseBlock {
         val newObj = ShowBlockView(context)
         newObj.layoutParams = this.layoutParams
-        newObj.minimumWidth = measuredWidth
-        newObj.minimumHeight = measuredHeight
         return newObj
     }
 }

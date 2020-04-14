@@ -108,26 +108,6 @@ interface IBaseBlock : View.OnTouchListener, View.OnDragListener, View.OnClickLi
         val py = event.y
         val parent = v.parent as ViewGroup
         when (event.action) {
-            // DragEvent.ACTION_DRAG_STARTED -> {
-            //     LogUtil.i(msg = "start")
-            //     block.visibility = View.VISIBLE
-            // }
-            // DragEvent.ACTION_DRAG_ENDED -> {
-            //     LogUtil.i(msg = "end")
-            //     block.visibility = View.VISIBLE
-            // }
-            // DragEvent.ACTION_DRAG_ENTERED -> {
-            //     LogUtil.i(msg = "view in dragging entered")
-            //     block.isInRectF(true)
-            // }
-            // DragEvent.ACTION_DRAG_EXITED -> {
-            //     LogUtil.i(msg = "view in dragging exited")
-            //     block.isInRectF(false)
-            //     val blackOwn = block.getBlackOwn() as View
-            //     if (blackOwn.parent != null) {
-            //         parent.removeView(blackOwn)
-            //     }
-            // }
             DragEvent.ACTION_DRAG_LOCATION -> {
                 // 自由drag进入了该view才会有position
                 LogUtil.i(msg = "view position: x->$px y->$py")

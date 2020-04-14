@@ -19,9 +19,7 @@ class HideBlockView : BaseTextBlockView {
 
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-
-    }
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
     init {
         setBgColorId(R.color.colorAppearancePurple)
@@ -29,14 +27,12 @@ class HideBlockView : BaseTextBlockView {
     }
 
     override fun onRun(role: View) {
-
+        role.visibility = View.INVISIBLE
     }
 
     override fun clone(): IBaseBlock {
         val newObj = HideBlockView(context)
         newObj.layoutParams = this.layoutParams
-        newObj.minimumWidth = measuredWidth
-        newObj.minimumHeight = measuredHeight
         return newObj
     }
 }

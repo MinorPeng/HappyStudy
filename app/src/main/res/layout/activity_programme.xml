@@ -54,6 +54,13 @@
             android:layout_gravity="top|center_horizontal"
             android:layout_marginTop="@dimen/dp16"
             android:text="@string/programme_area" />
+
+        <LinearLayout
+            android:id="@+id/linear_layout_programme"
+            android:layout_width="100dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:orientation="vertical" />
     </FrameLayout>
 
     <include

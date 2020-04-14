@@ -1,18 +1,25 @@
 package com.hesheng1024.happystudy.modules.programme.v.impl
 
+import android.view.DragEvent
 import android.view.View
+import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.children
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hesheng1024.base.base.BaseActivity
 import com.hesheng1024.base.utils.ContextHolder
 import com.hesheng1024.base.utils.LogUtil
 import com.hesheng1024.happystudy.R
+import com.hesheng1024.happystudy.custom.base.BaseTextBlockView
+import com.hesheng1024.happystudy.custom.base.IBaseBlock
 import com.hesheng1024.happystudy.modules.programme.adapter.BlocksRecyclerAdapter
 import com.hesheng1024.happystudy.modules.programme.m.Block
 import com.hesheng1024.happystudy.modules.programme.p.ProgrammePresenter
 import com.hesheng1024.happystudy.modules.programme.v.IProgrammeView
 import kotlinx.android.synthetic.main.activity_programme.*
+import kotlinx.android.synthetic.main.activity_test.*
 import kotlinx.android.synthetic.main.layout_block_categories.*
 import kotlinx.android.synthetic.main.layout_programme_utils.*
 
@@ -28,6 +35,12 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
     private val mUnSelectedColor = ContextCompat.getColor(ContextHolder.getMainContext(), android.R.color.white)
     private var mLastSelectCategory = Block.Category.MOTION
 
+    /**
+     * recycler 联动滚动标志量
+     */
+    private var mToPos = 0
+    private var mShouldScroll = false
+
     override fun getLayoutId(): Int {
         return R.layout.activity_programme
     }
@@ -38,6 +51,25 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
 
     override fun initView() {
         ibtn_programme_back.setOnClickListener { finishActivity() }
+        initBlockCategory()
+        initRecyclerView()
+        initProgramme()
+
+        switch_programme_show.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked && iv_programme_role.visibility != View.VISIBLE) {
+                iv_programme_role.visibility = View.VISIBLE
+            } else {
+                if (iv_programme_role.visibility != View.INVISIBLE) {
+                    iv_programme_role.visibility = View.INVISIBLE
+                }
+            }
+        }
+        ibtn_programme_run.setOnClickListener {
+            runProgramme()
+        }
+    }
+
+    private fun initBlockCategory() {
         tv_programme_motion.setBackgroundColor(mSelectedColor)
         tv_programme_motion.setOnClickListener {
             val pos = mAdapter.getPosByCategory(Block.Category.MOTION)
@@ -81,7 +113,9 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
                 smoothScrollToPosition(pos)
             }
         }
+    }
 
+    private fun initRecyclerView() {
         recycler_view_programme.adapter = mAdapter
         val layoutManager = LinearLayoutManager(this)
         recycler_view_programme.layoutManager = layoutManager
@@ -101,24 +135,112 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
                 changeSelectedCategory(category)
             }
         })
-        mPresenter.getBlocks(this)
-
-        switch_programme_show.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked && iv_programme_role.visibility != View.VISIBLE) {
-                iv_programme_role.visibility = View.VISIBLE
-            } else {
-                if (iv_programme_role.visibility != View.INVISIBLE) {
-                    iv_programme_role.visibility = View.INVISIBLE
+        recycler_view_programme.setOnDragListener { v, event ->
+            val block = event.localState
+            if (block !is IBaseBlock || block !is View) {
+                return@setOnDragListener true
+            }
+            when(event.action) {
+                DragEvent.ACTION_DRAG_STARTED -> {
+                    LogUtil.i(msg = "start")
+                    block.visibility = View.INVISIBLE
+                }
+                DragEvent.ACTION_DRAG_ENDED -> {
+                    LogUtil.i(msg = "end")
+                    block.visibility = View.VISIBLE
+                }
+                DragEvent.ACTION_DRAG_ENTERED -> {
+                    LogUtil.i(msg = "view in dragging in frame")
+                }
+                DragEvent.ACTION_DRAG_EXITED -> {
+                    LogUtil.i(msg = "view in dragging out frame")
+                }
+                DragEvent.ACTION_DRAG_LOCATION -> {
+                    LogUtil.i(msg = "view pos in frame: x->${event.x} y->${event.y}")
+                }
+                DragEvent.ACTION_DROP -> {
+                    LogUtil.i(msg = "release dragging view")
+                    (block.parent as? ViewGroup)?.removeView(block)
                 }
             }
+            //是否响应拖拽事件，true响应，返回false只能接受到ACTION_DRAG_STARTED事件，后续事件不会收到
+            return@setOnDragListener true
         }
-        ibtn_programme_run.setOnClickListener {
-            runProgramme()
-        }
+        mPresenter.getBlocks(this)
     }
 
-    private var mToPos = 0
-    private var mShouldScroll = false
+    private fun initProgramme() {
+        linear_layout_programme.setOnDragListener { v, event ->
+            for (child in frame_test_end.children) {
+                LogUtil.d(msg = "c$child")
+                if (child is IBaseBlock && child.onDrag(child, event)) {
+                    return@setOnDragListener true
+                }
+            }
+            val block = event.localState
+            if (block !is IBaseBlock || block !is View) {
+                return@setOnDragListener true
+            }
+            when(event.action) {
+                DragEvent.ACTION_DRAG_STARTED -> {
+                    LogUtil.i(msg = "start")
+                    block.visibility = View.VISIBLE
+                }
+                DragEvent.ACTION_DRAG_ENDED -> {
+                    LogUtil.i(msg = "end")
+                    block.visibility = View.VISIBLE
+                }
+                DragEvent.ACTION_DRAG_ENTERED -> {
+                    LogUtil.i(msg = "view in dragging in frame")
+                }
+                DragEvent.ACTION_DRAG_EXITED -> {
+                    LogUtil.i(msg = "view in dragging out frame")
+                }
+                DragEvent.ACTION_DRAG_LOCATION -> {
+                    LogUtil.i(msg = "view pos in frame: x->${event.x} y->${event.y}")
+                }
+                DragEvent.ACTION_DROP -> {
+                }
+            }
+            return@setOnDragListener true
+        }
+        layout_programme.setOnDragListener { v, event ->
+            val block = event.localState
+            if (block !is IBaseBlock || block !is View) {
+                return@setOnDragListener true
+            }
+            when(event.action) {
+                DragEvent.ACTION_DRAG_STARTED -> {
+                    LogUtil.i(msg = "start")
+                    block.visibility = View.VISIBLE
+                }
+                DragEvent.ACTION_DRAG_ENDED -> {
+                    LogUtil.i(msg = "end")
+                    block.visibility = View.VISIBLE
+                }
+                DragEvent.ACTION_DRAG_ENTERED -> {
+                    LogUtil.i(msg = "view in dragging in frame")
+                }
+                DragEvent.ACTION_DRAG_EXITED -> {
+                    LogUtil.i(msg = "view in dragging out frame")
+                }
+                DragEvent.ACTION_DRAG_LOCATION -> {
+                    LogUtil.i(msg = "view pos in frame: x->${event.x} y->${event.y}")
+                }
+                DragEvent.ACTION_DROP -> {
+                    (block.parent as? ViewGroup)?.removeView(block)
+                    block.setStatus(IBaseBlock.Status.STATUS_DRAG)
+                    val lp = FrameLayout.LayoutParams(block.layoutParams)
+                    lp.leftMargin = event.x.toInt() - lp.width / 2
+                    lp.topMargin = event.y.toInt() - lp.height / 2
+                    LogUtil.i(msg = "release dragging view x:${event.x} y:${event.y}" +
+                            " w:${lp.width} h:${lp.height} l:${lp.leftMargin} r:${lp.topMargin}")
+                    frame_test_end.addView(block, lp)
+                }
+            }
+            return@setOnDragListener true
+        }
+    }
 
     private fun smoothScrollToPosition(pos: Int) {
         val firstItem = recycler_view_programme.getChildLayoutPosition(recycler_view_programme.getChildAt(0))
