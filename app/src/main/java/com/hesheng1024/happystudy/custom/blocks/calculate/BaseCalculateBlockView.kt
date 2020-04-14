@@ -24,7 +24,7 @@ abstract class BaseCalculateBlockView : BaseBgBlockView {
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
-        setBgColorId(R.color.colorCalculateGreen)
+        this.setBgColorId(R.color.colorCalculateGreen)
         this.setPadding(
             IBaseBlock.sDis2Top.toInt(),
             IBaseBlock.sDis2Top.toInt(),

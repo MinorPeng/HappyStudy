@@ -61,10 +61,7 @@ class SayBlockView : BaseBgBlockView {
     override fun clone(): IBaseBlock {
         val newObj = SayBlockView(context)
         newObj.layoutParams = this.layoutParams
-        val et = newObj.getChildAt(1)
-        if (et is AppCompatEditText) {
-            et.text = mEtContent.text
-        }
+        newObj.mEtContent.setText(this.mEtContent.text.toString())
         return newObj
     }
 }

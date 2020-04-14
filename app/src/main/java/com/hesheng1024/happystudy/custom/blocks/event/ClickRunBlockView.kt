@@ -55,8 +55,6 @@ class ClickRunBlockView : BaseEventBlockView {
     override fun clone(): IBaseBlock {
         val newObj = ClickRunBlockView(context)
         newObj.layoutParams = this.layoutParams
-        newObj.minimumWidth = measuredWidth
-        newObj.minimumHeight = measuredHeight
         return newObj
     }
 

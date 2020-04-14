@@ -66,8 +66,6 @@ class CirculationUtilBlockView : BaseControlBlockView {
     override fun clone(): IBaseBlock {
         val newObj = CirculationUtilBlockView(context)
         newObj.layoutParams = this.layoutParams
-        newObj.minimumWidth = measuredWidth
-        newObj.minimumHeight = measuredHeight
         return newObj
     }
 }

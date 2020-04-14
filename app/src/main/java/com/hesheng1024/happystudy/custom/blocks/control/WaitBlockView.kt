@@ -7,6 +7,7 @@ import android.view.Gravity
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.DensityUtil
 import com.hesheng1024.happystudy.R
@@ -21,6 +22,8 @@ import com.hesheng1024.happystudy.custom.base.IBaseBlock
 @SuppressLint("ViewConstructor")
 class WaitBlockView : BaseBgBlockView {
 
+    private val mEtSeconds: AppCompatEditText
+    
     constructor(context: Context) : this(context, null)
 
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -30,6 +33,7 @@ class WaitBlockView : BaseBgBlockView {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
         setBgColorId(R.color.colorControlYellow)
+        mEtSeconds = AppCompatEditText(context)
         initView()
     }
 
@@ -43,12 +47,14 @@ class WaitBlockView : BaseBgBlockView {
         val lpEtSeconds = generateDefaultLayoutParams() as MarginLayoutParams
         lpEtSeconds.leftMargin = DensityUtil.dp2px(context, 8f)
         lpEtSeconds.rightMargin = DensityUtil.dp2px(context, 8f)
-        val etSeconds = EditText(context)
-        etSeconds.minEms = 2
-        etSeconds.setText(R.string.ten)
-        etSeconds.setBackgroundResource(R.drawable.bg_et_circle_whilte)
-        etSeconds.gravity = Gravity.CENTER
-        addView(etSeconds, lpEtSeconds)
+        mEtSeconds.minEms = 2
+        mEtSeconds.setText(R.string.ten)
+        mEtSeconds.setBackgroundResource(R.drawable.bg_et_circle_whilte)
+        mEtSeconds.gravity = Gravity.CENTER
+        mEtSeconds.setOnDragListener { v, event ->
+            return@setOnDragListener true
+        }
+        addView(mEtSeconds, lpEtSeconds)
 
 
         val tvSeconds = TextView(context)
@@ -64,8 +70,7 @@ class WaitBlockView : BaseBgBlockView {
     override fun clone(): IBaseBlock {
         val newObj = WaitBlockView(context)
         newObj.layoutParams = this.layoutParams
-        newObj.minimumWidth = measuredWidth
-        newObj.minimumHeight = measuredHeight
+        newObj.mEtSeconds.setText(this.mEtSeconds.text.toString())
         return newObj
     }
 }

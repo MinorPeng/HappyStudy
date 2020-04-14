@@ -33,7 +33,6 @@ class NextBgBlockView : BaseTextBlockView {
 
     override fun clone(): IBaseBlock {
         val newObj = NextBgBlockView(context)
-        val lp = ViewGroup.MarginLayoutParams(measuredWidth, measuredHeight)
         newObj.layoutParams = this.layoutParams
         LogUtil.d(msg = "clone0 w:${newObj.layoutParams.width} h:${newObj.layoutParams.height} lp:${layoutParams}")
         return newObj

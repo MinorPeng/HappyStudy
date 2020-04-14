@@ -8,6 +8,7 @@ import android.view.Gravity
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.DensityUtil
 import com.hesheng1024.happystudy.R
@@ -22,6 +23,9 @@ import com.hesheng1024.happystudy.custom.base.IBaseBlock
 @SuppressLint("ViewConstructor")
 class MoveToXYBlockView : BaseBgBlockView {
 
+    private val mEtX: AppCompatEditText
+    private val mEtY: AppCompatEditText
+
     constructor(context: Context) : this(context, null)
 
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -31,6 +35,8 @@ class MoveToXYBlockView : BaseBgBlockView {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
         setBgColorId(R.color.colorMotionBlue)
+        mEtX = AppCompatEditText(context)
+        mEtY = AppCompatEditText(context)
         initView()
     }
 
@@ -44,13 +50,15 @@ class MoveToXYBlockView : BaseBgBlockView {
         val lpX = generateDefaultLayoutParams() as MarginLayoutParams
         lpX.leftMargin = DensityUtil.dp2px(context, 8f)
         lpX.rightMargin = DensityUtil.dp2px(context, 8f)
-        val etX = EditText(context)
-        etX.minEms = 2
-        etX.setText(R.string.ten)
-        etX.setBackgroundResource(R.drawable.bg_et_circle_whilte)
-        etX.inputType = InputType.TYPE_CLASS_NUMBER
-        etX.gravity = Gravity.CENTER
-        addView(etX, lpX)
+        mEtX.minEms = 2
+        mEtX.setText(R.string.ten)
+        mEtX.setBackgroundResource(R.drawable.bg_et_circle_whilte)
+        mEtX.inputType = InputType.TYPE_CLASS_NUMBER
+        mEtX.gravity = Gravity.CENTER
+        mEtX.setOnDragListener { v, event ->
+            return@setOnDragListener true
+        }
+        addView(mEtX, lpX)
 
         val tvY = TextView(context)
         tvY.setText(R.string.y)
@@ -59,13 +67,15 @@ class MoveToXYBlockView : BaseBgBlockView {
 
         val lpY = generateDefaultLayoutParams() as MarginLayoutParams
         lpY.leftMargin = DensityUtil.dp2px(context, 8f)
-        val etY = EditText(context)
-        etY.minEms = 2
-        etY.setText(R.string.zero)
-        etY.setBackgroundResource(R.drawable.bg_et_circle_whilte)
-        etY.inputType = InputType.TYPE_CLASS_NUMBER
-        etY.gravity = Gravity.CENTER
-        addView(etY, lpY)
+        mEtY.minEms = 2
+        mEtY.setText(R.string.zero)
+        mEtY.setBackgroundResource(R.drawable.bg_et_circle_whilte)
+        mEtY.inputType = InputType.TYPE_CLASS_NUMBER
+        mEtY.gravity = Gravity.CENTER
+        mEtY.setOnDragListener { v, event ->
+            return@setOnDragListener true
+        }
+        addView(mEtY, lpY)
     }
 
     override fun onRun(role: View) {
@@ -74,8 +84,8 @@ class MoveToXYBlockView : BaseBgBlockView {
     override fun clone(): IBaseBlock {
         val newObj = MoveToXYBlockView(context)
         newObj.layoutParams = this.layoutParams
-        newObj.minimumWidth = measuredWidth
-        newObj.minimumHeight = measuredHeight
+        newObj.mEtX.setText(this.mEtX.text.toString())
+        newObj.mEtY.setText(this.mEtY.text.toString())
         return newObj
     }
 }

@@ -63,8 +63,6 @@ class ClickRoleBlockView : BaseTextBlockView {
     override fun clone(): IBaseBlock {
         val newObj = ClickRoleBlockView(context)
         newObj.layoutParams = this.layoutParams
-        newObj.minimumWidth = measuredWidth
-        newObj.minimumHeight = measuredHeight
         return newObj
     }
 }

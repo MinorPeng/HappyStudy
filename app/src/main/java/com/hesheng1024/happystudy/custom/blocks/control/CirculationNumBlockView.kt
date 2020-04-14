@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.DensityUtil
 import com.hesheng1024.happystudy.R
@@ -22,6 +23,8 @@ import com.hesheng1024.happystudy.custom.blocks.motion.MoveBlockView
 @SuppressLint("ViewConstructor")
 class CirculationNumBlockView : BaseControlBlockView {
 
+    private val mEtCount: AppCompatEditText
+
     constructor(context: Context) : this(context, null)
 
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -30,6 +33,7 @@ class CirculationNumBlockView : BaseControlBlockView {
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
+        mEtCount = AppCompatEditText(context)
         initView()
     }
 
@@ -45,13 +49,15 @@ class CirculationNumBlockView : BaseControlBlockView {
         val lpEtCount = generateDefaultLayoutParams() as MarginLayoutParams
         lpEtCount.leftMargin = DensityUtil.dp2px(context, 8f)
         lpEtCount.rightMargin =  DensityUtil.dp2px(context, 8f)
-        val etCount = EditText(context)
-        etCount.setText(R.string.ten)
-        etCount.minEms = 2
-        etCount.tag = ChildTag.TAG_TOP
-        etCount.gravity = Gravity.CENTER
-        etCount.setBackgroundResource(R.drawable.bg_et_circle_whilte)
-        addView(etCount, lpEtCount)
+        mEtCount.setText(R.string.ten)
+        mEtCount.minEms = 2
+        mEtCount.tag = ChildTag.TAG_TOP
+        mEtCount.gravity = Gravity.CENTER
+        mEtCount.setBackgroundResource(R.drawable.bg_et_circle_whilte)
+        mEtCount.setOnDragListener { v, event ->
+            return@setOnDragListener true
+        }
+        addView(mEtCount, lpEtCount)
 
 
         val tvCount = TextView(context)
@@ -79,8 +85,7 @@ class CirculationNumBlockView : BaseControlBlockView {
     override fun clone(): IBaseBlock {
         val newObj = CirculationNumBlockView(context)
         newObj.layoutParams = this.layoutParams
-        newObj.minimumWidth = measuredWidth
-        newObj.minimumHeight = measuredHeight
+        newObj.mEtCount.setText(this.mEtCount.text.toString())
         return newObj
     }
 }

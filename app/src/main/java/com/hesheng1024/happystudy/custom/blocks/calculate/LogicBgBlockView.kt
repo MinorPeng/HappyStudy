@@ -40,8 +40,6 @@ class LogicBgBlockView : BaseLogicBlockView {
     override fun clone(): IBaseBlock {
         val newObj = LogicBgBlockView(context)
         newObj.layoutParams = this.layoutParams
-        newObj.minimumWidth = measuredWidth
-        newObj.minimumHeight = measuredHeight
         return newObj
     }
 }

@@ -25,8 +25,7 @@ abstract class BaseEventBlockView : BaseBgBlockView {
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
-        setBgColorId(R.color.colorControlYellow)
-        setBgColorId(R.color.colorEventYellow)
+        this.setBgColorId(R.color.colorEventYellow)
         this.setPadding(
             (IBaseBlock.sDis2Top * 2).toInt(),
             (IBaseBlock.sDis2Top * 2 + mDisTop).toInt(),

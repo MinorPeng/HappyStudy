@@ -45,6 +45,7 @@ abstract class BaseBgBlockView : LinearLayout, IBaseBlock {
             (IBaseBlock.sDis2Top * 2).toInt()
         )
         gravity = Gravity.CENTER
+        this.setOnTouchListener(this)
     }
 
     override fun onDraw(canvas: Canvas?) {
@@ -72,7 +73,7 @@ abstract class BaseBgBlockView : LinearLayout, IBaseBlock {
         return mStatus
     }
 
-    override fun setBgColorId(colorId: Int) {
+    final override fun setBgColorId(colorId: Int) {
         this.mBgColor = ContextCompat.getColor(context, colorId)
     }
 

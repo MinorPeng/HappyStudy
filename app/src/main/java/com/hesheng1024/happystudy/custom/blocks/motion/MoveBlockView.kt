@@ -8,6 +8,7 @@ import android.view.Gravity
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.DensityUtil
 import com.hesheng1024.happystudy.R
@@ -22,6 +23,8 @@ import com.hesheng1024.happystudy.custom.base.IBaseBlock
 @SuppressLint("ViewConstructor")
 class MoveBlockView : BaseBgBlockView {
 
+    private val mEt: AppCompatEditText
+    
     constructor(context: Context) : this(context, null)
 
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -31,6 +34,7 @@ class MoveBlockView : BaseBgBlockView {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
         setBgColorId(R.color.colorMotionBlue)
+        mEt = AppCompatEditText(context)
         initView()
     }
 
@@ -44,13 +48,15 @@ class MoveBlockView : BaseBgBlockView {
         val lp = generateDefaultLayoutParams() as MarginLayoutParams
         lp.leftMargin = DensityUtil.dp2px(context, 8f)
         lp.rightMargin = DensityUtil.dp2px(context, 8f)
-        val et = EditText(context)
-        et.minEms = 2
-        et.setText(R.string.ten)
-        et.setBackgroundResource(R.drawable.bg_et_circle_whilte)
-        et.inputType = InputType.TYPE_CLASS_NUMBER
-        et.gravity = Gravity.CENTER
-        addView(et, lp)
+        mEt.minEms = 2
+        mEt.setText(R.string.ten)
+        mEt.setBackgroundResource(R.drawable.bg_et_circle_whilte)
+        mEt.inputType = InputType.TYPE_CLASS_NUMBER
+        mEt.gravity = Gravity.CENTER
+        mEt.setOnDragListener { v, event ->
+            return@setOnDragListener true
+        }
+        addView(mEt, lp)
 
         val tvStep = TextView(context)
         tvStep.setText(R.string.step)
@@ -64,8 +70,7 @@ class MoveBlockView : BaseBgBlockView {
     override fun clone(): IBaseBlock {
         val newObj = MoveBlockView(context)
         newObj.layoutParams = this.layoutParams
-        newObj.minimumWidth = measuredWidth
-        newObj.minimumHeight = measuredHeight
+        newObj.mEt.setText(this.mEt.text.toString())
         return newObj
     }
 }

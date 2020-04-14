@@ -7,6 +7,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.DensityUtil
 import com.hesheng1024.happystudy.R
@@ -21,6 +22,8 @@ import com.hesheng1024.happystudy.custom.base.IBaseBlock
 @SuppressLint("ViewConstructor")
 class IncreaseVoiceBlockView : BaseBgBlockView {
 
+    private val mEt: AppCompatEditText
+    
     constructor(context: Context) : this(context, null)
 
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -30,6 +33,7 @@ class IncreaseVoiceBlockView : BaseBgBlockView {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
         setBgColorId(R.color.colorVoicePurple)
+        mEt = AppCompatEditText(context)
         initView()
     }
 
@@ -41,12 +45,15 @@ class IncreaseVoiceBlockView : BaseBgBlockView {
 
         val lp = generateDefaultLayoutParams() as MarginLayoutParams
         lp.leftMargin = DensityUtil.dp2px(context, 8f)
-        val et = EditText(context)
-        et.minEms = 2
-        et.setText(R.string.ten)
-        et.setBackgroundResource(R.drawable.bg_et_circle_whilte)
-        et.inputType = InputType.TYPE_CLASS_NUMBER
-        addView(et, lp)
+        val mEt = EditText(context)
+        mEt.minEms = 2
+        mEt.setText(R.string.ten)
+        mEt.setBackgroundResource(R.drawable.bg_et_circle_whilte)
+        mEt.inputType = InputType.TYPE_CLASS_NUMBER
+        mEt.setOnDragListener { v, event ->
+            return@setOnDragListener true
+        }
+        addView(mEt, lp)
     }
 
     override fun onRun(role: View) {
@@ -56,8 +63,7 @@ class IncreaseVoiceBlockView : BaseBgBlockView {
     override fun clone(): IBaseBlock {
         val newObj = IncreaseVoiceBlockView(context)
         newObj.layoutParams = this.layoutParams
-        newObj.minimumWidth = measuredWidth
-        newObj.minimumHeight = measuredHeight
+        newObj.mEt.setText(this.mEt.text.toString())
         return newObj
     }
 }

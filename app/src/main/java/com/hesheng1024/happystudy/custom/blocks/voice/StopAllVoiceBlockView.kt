@@ -30,8 +30,6 @@ class StopAllVoiceBlockView : BaseTextBlockView {
     override fun clone(): IBaseBlock {
         val newObj = StopAllVoiceBlockView(context)
         newObj.layoutParams = this.layoutParams
-        newObj.minimumWidth = measuredWidth
-        newObj.minimumHeight = measuredHeight
         return newObj
     }
 }

@@ -53,7 +53,7 @@ abstract class BaseTextBlockView : AppCompatTextView, IBaseBlock {
         super.onDraw(canvas)
     }
 
-    override fun setBgColorId(colorId: Int) {
+    final override fun setBgColorId(colorId: Int) {
         this.mBgColor = ContextCompat.getColor(context, colorId)
     }
 

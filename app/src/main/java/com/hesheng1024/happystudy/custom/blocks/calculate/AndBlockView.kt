@@ -58,8 +58,6 @@ class AndBlockView : BaseLogicBlockView {
     override fun clone(): IBaseBlock {
         val newObj = AddBlockView(context)
         newObj.layoutParams = this.layoutParams
-        newObj.minimumWidth = measuredWidth
-        newObj.minimumHeight = measuredHeight
         return newObj
     }
 }

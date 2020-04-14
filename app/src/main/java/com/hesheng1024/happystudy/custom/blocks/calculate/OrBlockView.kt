@@ -58,8 +58,6 @@ class OrBlockView : BaseLogicBlockView {
     override fun clone(): IBaseBlock {
         val newObj = OrBlockView(context)
         newObj.layoutParams = this.layoutParams
-        newObj.minimumWidth = measuredWidth
-        newObj.minimumHeight = measuredHeight
         return newObj
     }
 }

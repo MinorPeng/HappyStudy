@@ -8,6 +8,7 @@ import android.view.Gravity
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.DensityUtil
 import com.hesheng1024.happystudy.R
@@ -22,6 +23,9 @@ import com.hesheng1024.happystudy.custom.blocks.appearance.SayBlockView
 @SuppressLint("ViewConstructor")
 class MoreThanBlockView : BaseLogicBlockView {
 
+    private val mEtLeft: AppCompatEditText
+    private val mEtRight: AppCompatEditText
+
     constructor(context: Context) : this(context, null)
 
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -30,16 +34,20 @@ class MoreThanBlockView : BaseLogicBlockView {
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
+        mEtLeft = AppCompatEditText(context)
+        mEtRight = AppCompatEditText(context)
         initView()
     }
 
     private fun initView() {
-        val etLeft = EditText(context)
-        etLeft.setBackgroundResource(R.drawable.bg_et_circle_whilte)
-        etLeft.gravity = Gravity.CENTER
-        etLeft.inputType = InputType.TYPE_CLASS_NUMBER
-        etLeft.minEms = 2
-        addView(etLeft)
+        mEtLeft.setBackgroundResource(R.drawable.bg_et_circle_whilte)
+        mEtLeft.gravity = Gravity.CENTER
+        mEtLeft.inputType = InputType.TYPE_CLASS_NUMBER
+        mEtLeft.minEms = 2
+        mEtLeft.setOnDragListener { v, event ->
+            return@setOnDragListener true
+        }
+        addView(mEtLeft)
 
         val lpTvMoreThan = generateDefaultLayoutParams() as MarginLayoutParams
         lpTvMoreThan.leftMargin = DensityUtil.dp2px(context, 8f)
@@ -49,13 +57,15 @@ class MoreThanBlockView : BaseLogicBlockView {
         tvMoreThan.setTextColor(ContextCompat.getColor(context, android.R.color.white))
         addView(tvMoreThan, lpTvMoreThan)
 
-        val etRight = EditText(context)
-        etRight.setBackgroundResource(R.drawable.bg_et_circle_whilte)
-        etRight.gravity = Gravity.CENTER
-        etRight.inputType = InputType.TYPE_CLASS_NUMBER
-        etRight.setText(R.string.fifty)
-        etRight.minEms = 2
-        addView(etRight)
+        mEtRight.setBackgroundResource(R.drawable.bg_et_circle_whilte)
+        mEtRight.gravity = Gravity.CENTER
+        mEtRight.inputType = InputType.TYPE_CLASS_NUMBER
+        mEtRight.setText(R.string.fifty)
+        mEtRight.minEms = 2
+        mEtRight.setOnDragListener { v, event ->
+            return@setOnDragListener true
+        }
+        addView(mEtRight)
     }
 
     override fun onRun(role: View) {
@@ -65,8 +75,8 @@ class MoreThanBlockView : BaseLogicBlockView {
     override fun clone(): IBaseBlock {
         val newObj = MoreThanBlockView(context)
         newObj.layoutParams = this.layoutParams
-        newObj.minimumWidth = measuredWidth
-        newObj.minimumHeight = measuredHeight
+        newObj.mEtLeft.setText(this.mEtLeft.text.toString())
+        newObj.mEtRight.setText(this.mEtRight.text.toString())
         return newObj
     }
 }

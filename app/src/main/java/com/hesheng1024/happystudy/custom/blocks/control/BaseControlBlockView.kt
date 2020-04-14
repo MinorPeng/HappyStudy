@@ -31,7 +31,7 @@ abstract class BaseControlBlockView : BaseBlockViewGroup  {
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
-        setBgColorId(R.color.colorControlYellow)
+        this.setBgColorId(R.color.colorControlYellow)
         this.setWillNotDraw(false)
         this.setPadding(
             (IBaseBlock.sDis2Top * 2).toInt(),

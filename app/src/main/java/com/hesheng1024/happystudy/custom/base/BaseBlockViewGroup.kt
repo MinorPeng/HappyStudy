@@ -34,6 +34,7 @@ abstract class BaseBlockViewGroup : ViewGroup, IRoleListener, IBaseBlock {
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
+        this.setOnTouchListener(this)
     }
 
     override fun onDraw(canvas: Canvas?) {
@@ -69,7 +70,7 @@ abstract class BaseBlockViewGroup : ViewGroup, IRoleListener, IBaseBlock {
         return mStatus
     }
 
-    override fun setBgColorId(colorId: Int) {
+    final override fun setBgColorId(colorId: Int) {
         this.mBgColor = ContextCompat.getColor(context, colorId)
     }
 

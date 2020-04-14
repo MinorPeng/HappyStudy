@@ -67,8 +67,6 @@ class IfBlockView : BaseControlBlockView {
     override fun clone(): IBaseBlock {
         val newObj = IfBlockView(context)
         newObj.layoutParams = this.layoutParams
-        newObj.minimumWidth = measuredWidth
-        newObj.minimumHeight = measuredHeight
         return newObj
     }
 }

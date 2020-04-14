@@ -57,8 +57,6 @@ class DeathCirculationBlockView : BaseControlBlockView {
     override fun clone(): IBaseBlock {
         val newObj = DeathCirculationBlockView(context)
         newObj.layoutParams = this.layoutParams
-        newObj.minimumWidth = measuredWidth
-        newObj.minimumHeight = measuredHeight
         return newObj
     }
 }
