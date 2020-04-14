@@ -19,10 +19,10 @@
         layout="@layout/layout_block_categories"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
         android:layout_below="@id/ibtn_programme_back"
         android:layout_alignStart="@id/ibtn_programme_back"
-        android:layout_alignEnd="@id/ibtn_programme_back" />
+        android:layout_alignEnd="@id/ibtn_programme_back"
+        android:layout_alignParentBottom="true" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_programme"
@@ -35,33 +35,37 @@
         android:paddingStart="@dimen/dp0"
         android:paddingEnd="@dimen/dp8" />
 
-    <FrameLayout
-        android:id="@+id/layout_programme"
-        android:layout_width="wrap_content"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_programme_programme"
+        style="@style/CommonTextStyle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:layout_marginStart="@dimen/dp8"
+        android:layout_marginEnd="@dimen/dp8"
+        android:layout_toStartOf="@id/layout_programme_utils"
+        android:layout_toEndOf="@id/recycler_view_programme"
+        android:background="@android:color/white"
+        android:gravity="center"
+        android:paddingTop="@dimen/dp16"
+        android:paddingBottom="@dimen/dp16"
+        android:text="@string/programme_area" />
+
+    <LinearLayout
+        android:id="@+id/linear_layout_programme"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tv_programme_programme"
+        android:layout_alignBottom="@id/tv_programme_programme"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="@dimen/dp8"
         android:layout_marginEnd="@dimen/dp8"
         android:layout_toStartOf="@id/layout_programme_utils"
         android:layout_toEndOf="@id/recycler_view_programme"
-        android:background="@android:color/white">
-
-        <androidx.appcompat.widget.AppCompatTextView
-            style="@style/CommonTextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top|center_horizontal"
-            android:layout_marginTop="@dimen/dp16"
-            android:text="@string/programme_area" />
-
-        <LinearLayout
-            android:id="@+id/linear_layout_programme"
-            android:layout_width="100dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center"
-            android:orientation="vertical" />
-    </FrameLayout>
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/dp8"
+        android:paddingEnd="@dimen/dp8" />
 
     <include
         android:id="@+id/layout_programme_utils"

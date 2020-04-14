@@ -4,7 +4,9 @@ import android.view.DragEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.MarginLayoutParamsCompat
 import androidx.core.view.children
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -140,7 +142,7 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
             if (block !is IBaseBlock || block !is View) {
                 return@setOnDragListener true
             }
-            when(event.action) {
+            when (event.action) {
                 DragEvent.ACTION_DRAG_STARTED -> {
                     LogUtil.i(msg = "start")
                     block.visibility = View.INVISIBLE
@@ -171,7 +173,7 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
 
     private fun initProgramme() {
         linear_layout_programme.setOnDragListener { v, event ->
-            for (child in frame_test_end.children) {
+            for (child in linear_layout_programme.children) {
                 LogUtil.d(msg = "c$child")
                 if (child is IBaseBlock && child.onDrag(child, event)) {
                     return@setOnDragListener true
@@ -181,35 +183,7 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
             if (block !is IBaseBlock || block !is View) {
                 return@setOnDragListener true
             }
-            when(event.action) {
-                DragEvent.ACTION_DRAG_STARTED -> {
-                    LogUtil.i(msg = "start")
-                    block.visibility = View.VISIBLE
-                }
-                DragEvent.ACTION_DRAG_ENDED -> {
-                    LogUtil.i(msg = "end")
-                    block.visibility = View.VISIBLE
-                }
-                DragEvent.ACTION_DRAG_ENTERED -> {
-                    LogUtil.i(msg = "view in dragging in frame")
-                }
-                DragEvent.ACTION_DRAG_EXITED -> {
-                    LogUtil.i(msg = "view in dragging out frame")
-                }
-                DragEvent.ACTION_DRAG_LOCATION -> {
-                    LogUtil.i(msg = "view pos in frame: x->${event.x} y->${event.y}")
-                }
-                DragEvent.ACTION_DROP -> {
-                }
-            }
-            return@setOnDragListener true
-        }
-        layout_programme.setOnDragListener { v, event ->
-            val block = event.localState
-            if (block !is IBaseBlock || block !is View) {
-                return@setOnDragListener true
-            }
-            when(event.action) {
+            when (event.action) {
                 DragEvent.ACTION_DRAG_STARTED -> {
                     LogUtil.i(msg = "start")
                     block.visibility = View.VISIBLE
@@ -230,15 +204,15 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
                 DragEvent.ACTION_DROP -> {
                     (block.parent as? ViewGroup)?.removeView(block)
                     block.setStatus(IBaseBlock.Status.STATUS_DRAG)
-                    val lp = FrameLayout.LayoutParams(block.layoutParams)
-                    lp.leftMargin = event.x.toInt() - lp.width / 2
-                    lp.topMargin = event.y.toInt() - lp.height / 2
-                    LogUtil.i(msg = "release dragging view x:${event.x} y:${event.y}" +
-                            " w:${lp.width} h:${lp.height} l:${lp.leftMargin} r:${lp.topMargin}")
-                    frame_test_end.addView(block, lp)
+                    val lp = LinearLayout.LayoutParams(block.layoutParams)
+                    // lp.leftMargin = event.x.toInt() - lp.width / 2
+                    // lp.topMargin = event.y.toInt() - lp.height / 2
+                    // lp.topMargin = -IBaseBlock.sDis2Top.toInt()
+                    (block.layoutParams as LinearLayout.LayoutParams).bottomMargin = -IBaseBlock.sDis2Top.toInt()
+                    linear_layout_programme.addView(block, block.layoutParams)
                 }
             }
-            return@setOnDragListener true
+            return@setOnDragListener  true
         }
     }
 

@@ -3,6 +3,7 @@ package com.hesheng1024.happystudy.custom.blocks.appearance
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
+import android.view.ViewGroup
 import com.hesheng1024.base.utils.LogUtil
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.base.BaseTextBlockView
@@ -32,8 +33,9 @@ class NextBgBlockView : BaseTextBlockView {
 
     override fun clone(): IBaseBlock {
         val newObj = NextBgBlockView(context)
+        val lp = ViewGroup.MarginLayoutParams(measuredWidth, measuredHeight)
         newObj.layoutParams = this.layoutParams
-        LogUtil.d(msg = "clone0 w:${newObj.layoutParams.width} h:${newObj.layoutParams.height}")
+        LogUtil.d(msg = "clone0 w:${newObj.layoutParams.width} h:${newObj.layoutParams.height} lp:${layoutParams}")
         return newObj
     }
 }

@@ -104,6 +104,7 @@ interface IBaseBlock : View.OnTouchListener, View.OnDragListener, View.OnClickLi
         if (block !is IBaseBlock || block !is View || block.getBlackOwn() !is View) {
             return false
         }
+        (block.layoutParams as LinearLayout.LayoutParams).bottomMargin = -sDis2Top.toInt()
         val px = event.x
         val py = event.y
         val parent = v.parent as ViewGroup
@@ -118,7 +119,7 @@ interface IBaseBlock : View.OnTouchListener, View.OnDragListener, View.OnClickLi
                         val blackOwn = block.getBlackOwn() as View
                         if (blackOwn.parent == null) {
                             LogUtil.d(msg = "top add index:${parent.indexOfChild(v)}")
-                            parent.addView(blackOwn, parent.indexOfChild(v))
+                            parent.addView(blackOwn, parent.indexOfChild(v), block.layoutParams)
                         }
                     }
                     inBottomRectF(px, py) -> {
@@ -128,7 +129,7 @@ interface IBaseBlock : View.OnTouchListener, View.OnDragListener, View.OnClickLi
                         val blackOwn = block.getBlackOwn() as View
                         if (blackOwn.parent == null) {
                             LogUtil.d(msg = "bottom add index:${parent.indexOfChild(v)}")
-                            parent.addView(blackOwn, parent.indexOfChild(v) + 1)
+                            parent.addView(blackOwn, parent.indexOfChild(v) + 1, block.layoutParams)
                         }
                     }
                     else -> {
@@ -152,7 +153,7 @@ interface IBaseBlock : View.OnTouchListener, View.OnDragListener, View.OnClickLi
                         block.setStatus(Status.STATUS_DRAG)
                         parent.removeView(block.getBlackOwn() as View)
                         LogUtil.d(msg = "drop in the top index1:${parent.indexOfChild(v)}")
-                        parent.addView(block, parent.indexOfChild(v))
+                        parent.addView(block, parent.indexOfChild(v), block.layoutParams)
                         return true
                     }
                     inBottomRectF(px, py) -> {
@@ -161,7 +162,7 @@ interface IBaseBlock : View.OnTouchListener, View.OnDragListener, View.OnClickLi
                         (block.parent as? ViewGroup)?.removeView(block)
                         block.setStatus(Status.STATUS_DRAG)
                         parent.removeView(block.getBlackOwn() as View)
-                        parent.addView(block, parent.indexOfChild(v) + 1)
+                        parent.addView(block, parent.indexOfChild(v) + 1, block.layoutParams)
                         return true
                     }
                     else -> {
