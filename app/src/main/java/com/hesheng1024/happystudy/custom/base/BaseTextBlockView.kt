@@ -19,15 +19,15 @@ abstract class BaseTextBlockView : AppCompatTextView, IBaseBlock {
 
     private val mPaint = Paint()
     private val mPath = Path()
+
     /**
      * 积木的背景色
      */
     @Volatile
     private var mBgColor = -1
+
     @Volatile
     private var mStatus = IBaseBlock.Status.STATUS_CLONE
-    @Volatile
-    private var mInRectF = false
     private var mBlackOwn: IBaseBlock? = null
 
     constructor(context: Context) : this(context, null)
@@ -43,7 +43,6 @@ abstract class BaseTextBlockView : AppCompatTextView, IBaseBlock {
             (IBaseBlock.sDis2Top * 2).toInt()
         )
         this.setTextColor(ContextCompat.getColor(context, android.R.color.white))
-        this.setOnDragListener(this)
         this.setOnTouchListener(this)
     }
 
@@ -88,26 +87,16 @@ abstract class BaseTextBlockView : AppCompatTextView, IBaseBlock {
     }
 
     override fun inTopRectF(x: Float, y: Float): Boolean {
-        val isIn = if (mInRectF) {
-            x < measuredWidth / 2 && x > 0 && y < measuredHeight / 2 && y > 0
-        } else {
-            x < left + measuredWidth / 2 && x > left && y < top && y > top - measuredHeight / 2 * 3
-        }
-        LogUtil.d(msg = "isIn:$isIn")
+        val isIn = (x <= left + measuredWidth && x >= left
+                && y < top + measuredHeight / 2 && y >= top - measuredHeight / 2 * 3)
+        LogUtil.d(msg = "top isIn:$isIn l:$left t:$top r:$right b:$bottom x:$x y:$y")
         return isIn
     }
 
     override fun inBottomRectF(x: Float, y: Float): Boolean {
-        val isIn = if (mInRectF) {
-            x < measuredWidth / 2 && x > 0 && y < measuredHeight && y > measuredHeight / 2
-        } else {
-            x < left + measuredWidth / 2 && x > left && y < top + measuredHeight / 2 * 3 && y > top
-        }
-        LogUtil.d(msg = "isIn:$isIn")
+        val isIn = (x <= left + measuredWidth && x >= left
+                && y <= bottom + measuredHeight / 2 * 3 && y > bottom - measuredHeight / 2)
+        LogUtil.d(msg = "bottom isIn:$isIn l:$left t:$top r:$right b:$bottom x:$x y:$y")
         return isIn
-    }
-
-    override fun isInRectF(inRectF: Boolean) {
-        this.mInRectF = inRectF
     }
 }

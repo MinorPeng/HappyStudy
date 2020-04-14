@@ -16,6 +16,14 @@
             android:layout_width="100dp"
             android:layout_height="@dimen/dp64" />
 
+        <com.hesheng1024.happystudy.custom.blocks.appearance.ShowBlockView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.hesheng1024.happystudy.custom.blocks.appearance.HideBlockView
+            android:layout_width="100dp"
+            android:layout_height="@dimen/dp64" />
+
     </LinearLayout>
 
     <LinearLayout

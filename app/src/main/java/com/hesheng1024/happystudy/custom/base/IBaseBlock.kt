@@ -6,11 +6,11 @@ import android.graphics.Paint
 import android.graphics.Path
 import android.view.*
 import android.widget.FrameLayout
+import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.ContextHolder
 import com.hesheng1024.base.utils.DensityUtil
 import com.hesheng1024.base.utils.LogUtil
-import kotlinx.android.synthetic.main.activity_test.*
 
 /**
  *
@@ -97,92 +97,102 @@ interface IBaseBlock : View.OnTouchListener, View.OnDragListener, View.OnClickLi
     }
 
     override fun onDrag(v: View?, event: DragEvent?): Boolean {
-        if (v != null && event != null) {
-            val px = event.x
-            val py = event.y
-            val block = event.localState
-            val parent = v.parent
-            if (parent != null && parent is ViewGroup
-                && block is IBaseBlock && block is View && block.getBlackOwn() is View) {
-                when (event.action) {
-                    DragEvent.ACTION_DRAG_STARTED -> {
-                        LogUtil.i(msg = "start")
-                        block.visibility = View.VISIBLE
-                    }
-                    DragEvent.ACTION_DRAG_ENDED -> {
-                        LogUtil.i(msg = "end")
-                        block.visibility = View.VISIBLE
-                    }
-                    DragEvent.ACTION_DRAG_ENTERED -> {
-                        LogUtil.i(msg = "view in dragging entered")
-                        block.isInRectF(true)
-                    }
-                    DragEvent.ACTION_DRAG_EXITED -> {
-                        LogUtil.i(msg = "view in dragging exited")
-                        block.isInRectF(false)
-                    }
-                    DragEvent.ACTION_DRAG_LOCATION -> {
-                        LogUtil.i(msg = "view position: x->$px y->$py")
-                        when {
-                            inTopRectF(px, py) -> {
-                                // in the top
-                                LogUtil.d(msg = "location in the top")
-                                val blackOwn = block.getBlackOwn() as View
-                                if (blackOwn.parent == null) {
-                                    LogUtil.d(msg = "top add index:${parent.indexOfChild(v)}")
-                                    parent.addView(blackOwn, parent.indexOfChild(v))
-                                }
-                            }
-                            inBottomRectF(px, py) -> {
-                                // in the bottom
-                                LogUtil.d(msg = "location in the bottom")
-                                val blackOwn = block.getBlackOwn() as View
-                                if (blackOwn.parent == null) {
-                                    LogUtil.d(msg = "bottom add index:${parent.indexOfChild(v)}")
-                                    parent.addView(blackOwn, parent.indexOfChild(v) + 1)
-                                }
-                            }
-                            else -> {
-                                // 未在附近，移除阴影
-                                LogUtil.d(msg = "location in other")
-                                val blackOwn = block.getBlackOwn() as View
-                                if (blackOwn.parent != null) {
-                                    LogUtil.d(msg = "other add index:${parent.indexOfChild(v)}")
-                                    parent.removeView(blackOwn)
-                                }
-                            }
+        if (v == null || event == null || v.parent !is LinearLayout) {
+            return false
+        }
+        val block = event.localState
+        if (block !is IBaseBlock || block !is View || block.getBlackOwn() !is View) {
+            return false
+        }
+        val px = event.x
+        val py = event.y
+        val parent = v.parent as ViewGroup
+        when (event.action) {
+            // DragEvent.ACTION_DRAG_STARTED -> {
+            //     LogUtil.i(msg = "start")
+            //     block.visibility = View.VISIBLE
+            // }
+            // DragEvent.ACTION_DRAG_ENDED -> {
+            //     LogUtil.i(msg = "end")
+            //     block.visibility = View.VISIBLE
+            // }
+            // DragEvent.ACTION_DRAG_ENTERED -> {
+            //     LogUtil.i(msg = "view in dragging entered")
+            //     block.isInRectF(true)
+            // }
+            // DragEvent.ACTION_DRAG_EXITED -> {
+            //     LogUtil.i(msg = "view in dragging exited")
+            //     block.isInRectF(false)
+            //     val blackOwn = block.getBlackOwn() as View
+            //     if (blackOwn.parent != null) {
+            //         parent.removeView(blackOwn)
+            //     }
+            // }
+            DragEvent.ACTION_DRAG_LOCATION -> {
+                // 自由drag进入了该view才会有position
+                LogUtil.i(msg = "view position: x->$px y->$py")
+                when {
+                    inTopRectF(px, py) -> {
+                        // in the top
+                        LogUtil.d(msg = "location in the top")
+                        val blackOwn = block.getBlackOwn() as View
+                        if (blackOwn.parent == null) {
+                            LogUtil.d(msg = "top add index:${parent.indexOfChild(v)}")
+                            parent.addView(blackOwn, parent.indexOfChild(v))
                         }
                     }
-                    DragEvent.ACTION_DROP -> {
-                        LogUtil.i(msg = "release dragging view x:$px y:$py")
-                        when {
-                            inTopRectF(px, py) -> {
-                                // in the top
-                                LogUtil.d(msg = "drop in the top")
-                                (block.parent as? ViewGroup)?.removeView(block)
-                                block.setStatus(Status.STATUS_DRAG)
-                                parent.removeView(block.getBlackOwn() as View)
-                                parent.addView(block, parent.indexOfChild(v))
-                            }
-                            inBottomRectF(px, py) -> {
-                                // in the bottom
-                                LogUtil.d(msg = "drop in the bottom")
-                                (block.parent as? ViewGroup)?.removeView(block)
-                                block.setStatus(Status.STATUS_DRAG)
-                                parent.removeView(block.getBlackOwn() as View)
-                                parent.addView(block, parent.indexOfChild(v) + 1)
-                            }
-                            else -> {
-                                // 未在附近，不处理
-                                LogUtil.d(msg = "drop in other")
-                            }
+                    inBottomRectF(px, py) -> {
+                        // in the bottom
+                        // TODO 遗留问题，阴影在bottom时不显示 top添加view位置异常  适配不同layout
+                        LogUtil.d(msg = "location in the bottom")
+                        val blackOwn = block.getBlackOwn() as View
+                        if (blackOwn.parent == null) {
+                            LogUtil.d(msg = "bottom add index:${parent.indexOfChild(v)}")
+                            parent.addView(blackOwn, parent.indexOfChild(v) + 1)
                         }
+                    }
+                    else -> {
+                        // 未在附近，移除阴影
+                        LogUtil.d(msg = "location in other")
+                        val blackOwn = block.getBlackOwn() as View
+                        if (blackOwn.parent != null) {
+                            LogUtil.d(msg = "other add index:${parent.indexOfChild(v)}")
+                            parent.removeView(blackOwn)
+                        }
+                    }
+                }
+            }
+            DragEvent.ACTION_DROP -> {
+                LogUtil.i(msg = "release dragging view x:$px y:$py")
+                when {
+                    inTopRectF(px, py) -> {
+                        // in the top
+                        LogUtil.d(msg = "drop in the top index:${parent.indexOfChild(v)} ${parent.indexOfChild(block.getBlackOwn() as View)}")
+                        (block.parent as? ViewGroup)?.removeView(block)
+                        block.setStatus(Status.STATUS_DRAG)
+                        parent.removeView(block.getBlackOwn() as View)
+                        LogUtil.d(msg = "drop in the top index1:${parent.indexOfChild(v)}")
+                        parent.addView(block, parent.indexOfChild(v))
+                        return true
+                    }
+                    inBottomRectF(px, py) -> {
+                        // in the bottom
+                        LogUtil.d(msg = "drop in the bottom index:${parent.indexOfChild(v)} ${parent.indexOfChild(block.getBlackOwn() as View)}")
+                        (block.parent as? ViewGroup)?.removeView(block)
+                        block.setStatus(Status.STATUS_DRAG)
+                        parent.removeView(block.getBlackOwn() as View)
+                        parent.addView(block, parent.indexOfChild(v) + 1)
+                        return true
+                    }
+                    else -> {
+                        // 未在附近，不处理
+                        LogUtil.d(msg = "drop in other")
                     }
                 }
             }
         }
         //是否响应拖拽事件，true响应，返回false只能接受到ACTION_DRAG_STARTED事件，后续事件不会收到
-        return true
+        return false
     }
 
     override fun onClick(v: View?) {
@@ -218,16 +228,12 @@ interface IBaseBlock : View.OnTouchListener, View.OnDragListener, View.OnClickLi
     /**
      * 判断是否在积木上方附近
      */
-    fun inTopRectF(x: Float, y: Float): Boolean {
-        return false
-    }
+    fun inTopRectF(x: Float, y: Float): Boolean
 
     /**
      * 判断是否在积木下方附近
      */
     fun inBottomRectF(x: Float, y: Float): Boolean
-
-    fun isInRectF(inRectF: Boolean)
 
     /**
      * 积木状态

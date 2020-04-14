@@ -8,7 +8,6 @@ import android.util.AttributeSet
 import android.view.Gravity
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
-import com.hesheng1024.base.utils.LogUtil
 
 /**
  *
@@ -24,12 +23,8 @@ abstract class BaseBgBlockView : LinearLayout, IBaseBlock {
      * 积木的背景色
      */
     private var mBgColor = this.getBgColor()
-
     @Volatile
     private var mStatus = IBaseBlock.Status.STATUS_CLONE
-
-    @Volatile
-    private var mInRectF = false
     private var mBlackOwn: IBaseBlock? = null
 
     constructor(context: Context) : this(context, null)
@@ -99,26 +94,12 @@ abstract class BaseBgBlockView : LinearLayout, IBaseBlock {
     }
 
     override fun inTopRectF(x: Float, y: Float): Boolean {
-        val isIn = if (mInRectF) {
-            x < measuredWidth / 2 && x > 0 && y < measuredHeight / 2 && y > 0
-        } else {
-            x < left + measuredWidth / 2 && x > left && y < top && y > top - measuredHeight / 2 * 3
-        }
-        LogUtil.d(msg = "isIn:$isIn")
-        return isIn
+        return (x <= left + measuredWidth && x >= left
+                && y < top + measuredHeight / 2 && y >= top - measuredHeight / 2 * 3)
     }
 
     override fun inBottomRectF(x: Float, y: Float): Boolean {
-        val isIn = if (mInRectF) {
-            x < measuredWidth / 2 && x > 0 && y < measuredHeight && y > measuredHeight / 2
-        } else {
-            x < left + measuredWidth / 2 && x > left && y < top + measuredHeight / 2 * 3 && y > top
-        }
-        LogUtil.d(msg = "isIn:$isIn")
-        return isIn
-    }
-
-    override fun isInRectF(inRectF: Boolean) {
-        this.mInRectF = inRectF
+        return (x <= left + measuredWidth && x >= left
+                && y <= bottom + measuredHeight / 2 * 3 && y > bottom - measuredHeight / 2)
     }
 }
