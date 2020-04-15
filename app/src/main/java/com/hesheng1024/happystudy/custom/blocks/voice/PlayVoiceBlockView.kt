@@ -14,6 +14,7 @@ import com.hesheng1024.base.utils.DensityUtil
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.base.BaseBgBlockView
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
+import com.hesheng1024.happystudy.custom.base.IRoleView
 
 /**
  *
@@ -62,8 +63,8 @@ class PlayVoiceBlockView : BaseBgBlockView {
         addView(spinner, lp)
     }
 
-    override fun onRun(role: View) {
-
+    override fun onRun(role: IRoleView) {
+        role.playVoice()
     }
 
     override fun clone(): IBaseBlock {

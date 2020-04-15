@@ -7,13 +7,15 @@ import com.hesheng1024.base.utils.LogUtil
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.base.BaseTextBlockView
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
+import com.hesheng1024.happystudy.custom.base.IRoleListener
+import com.hesheng1024.happystudy.custom.base.IRoleView
 
 /**
  *
  * @author hesheng1024
  * @date 2020/3/30 20:59
  */
-class HideBlockView : BaseTextBlockView {
+class HideBlockView : BaseTextBlockView, IRoleListener {
 
     constructor(context: Context) : this(context, null)
 
@@ -26,8 +28,8 @@ class HideBlockView : BaseTextBlockView {
         setText(R.string.hide)
     }
 
-    override fun onRun(role: View) {
-        role.visibility = View.INVISIBLE
+    override fun onRun(role: IRoleView) {
+        role.hide()
     }
 
     override fun clone(): IBaseBlock {

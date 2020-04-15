@@ -58,12 +58,10 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
         initProgramme()
 
         switch_programme_show.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked && iv_programme_role.visibility != View.VISIBLE) {
-                iv_programme_role.visibility = View.VISIBLE
+            if (isChecked ) {
+                role_view_programme.show()
             } else {
-                if (iv_programme_role.visibility != View.INVISIBLE) {
-                    iv_programme_role.visibility = View.INVISIBLE
-                }
+                role_view_programme.hide()
             }
         }
         ibtn_programme_run.setOnClickListener {

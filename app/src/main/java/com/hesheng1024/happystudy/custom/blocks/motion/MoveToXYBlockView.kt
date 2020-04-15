@@ -5,8 +5,6 @@ import android.content.Context
 import android.text.InputType
 import android.util.AttributeSet
 import android.view.Gravity
-import android.view.View
-import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
@@ -14,6 +12,7 @@ import com.hesheng1024.base.utils.DensityUtil
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.base.BaseBgBlockView
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
+import com.hesheng1024.happystudy.custom.base.IRoleView
 
 /**
  *
@@ -78,7 +77,8 @@ class MoveToXYBlockView : BaseBgBlockView {
         addView(mEtY, lpY)
     }
 
-    override fun onRun(role: View) {
+    override fun onRun(role: IRoleView) {
+        role.moveToXY(mEtX.text.toString().toFloat(), mEtY.text.toString().toFloat())
     }
 
     override fun clone(): IBaseBlock {

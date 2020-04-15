@@ -3,17 +3,17 @@ package com.hesheng1024.happystudy.custom.blocks.appearance
 import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import android.widget.TextView
 import androidx.appcompat.widget.AppCompatEditText
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.DensityUtil
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.base.BaseBgBlockView
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
+import com.hesheng1024.happystudy.custom.base.IRoleListener
+import com.hesheng1024.happystudy.custom.base.IRoleView
 
 /**
  *
@@ -21,10 +21,9 @@ import com.hesheng1024.happystudy.custom.base.IBaseBlock
  * @date 2020/3/29 19:34
  */
 @SuppressLint("ViewConstructor")
-class SayBlockView : BaseBgBlockView {
+class SayBlockView : BaseBgBlockView, IRoleListener {
 
     private val mEtContent: AppCompatEditText
-    private val mSayLayout: View
 
     constructor(context: Context) : this(context, null)
 
@@ -33,12 +32,11 @@ class SayBlockView : BaseBgBlockView {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
         setBgColorId(R.color.colorAppearancePurple)
         mEtContent = AppCompatEditText(context)
-        mSayLayout = LayoutInflater.from(context).inflate(R.layout.activity_test, null)
         initView()
     }
 
     private fun initView() {
-        val tv = TextView(context)
+        val tv = AppCompatTextView(context)
         tv.setText(R.string.say)
         tv.setTextColor(ContextCompat.getColor(context, android.R.color.white))
         addView(tv, 0)
@@ -51,11 +49,8 @@ class SayBlockView : BaseBgBlockView {
         addView(mEtContent, 1, lp)
     }
 
-    override fun onRun(role: View) {
-        val lp = FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT)
-        lp.leftMargin = role.right - 8
-        lp.topMargin = role.top - mSayLayout.measuredHeight
-        (role.parent as? ViewGroup)?.addView(mSayLayout, lp)
+    override fun onRun(role: IRoleView) {
+        role.say(mEtContent.text.toString())
     }
 
     override fun clone(): IBaseBlock {

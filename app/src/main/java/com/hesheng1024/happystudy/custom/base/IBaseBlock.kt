@@ -17,7 +17,7 @@ import com.hesheng1024.base.utils.LogUtil
  * @author hesheng1024
  * @date 2020/4/11 10:57
  */
-interface IBaseBlock : View.OnTouchListener, View.OnDragListener, View.OnClickListener, IRoleListener {
+interface IBaseBlock : IRoleListener, View.OnTouchListener, View.OnDragListener, View.OnClickListener {
 
     companion object {
         // 直接定义到接口中，可能会被实现类给覆盖重写，所以不规范，应当定义为静态

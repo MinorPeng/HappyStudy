@@ -14,6 +14,7 @@ import com.hesheng1024.base.utils.DensityUtil
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.base.BaseBlockViewGroup
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
+import com.hesheng1024.happystudy.custom.base.IRoleView
 import com.hesheng1024.happystudy.custom.blocks.calculate.LogicBgBlockView
 import com.hesheng1024.happystudy.custom.blocks.motion.MoveBlockView
 import kotlin.math.max
@@ -291,7 +292,7 @@ class IfElseBlockView : BaseBlockViewGroup {
         canvas.drawPath(path, paint)
     }
 
-    override fun onRun(role: View) {
+    override fun onRun(role: IRoleView) {
 
     }
 

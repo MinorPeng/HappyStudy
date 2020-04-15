@@ -5,15 +5,13 @@ import android.content.Context
 import android.text.InputType
 import android.util.AttributeSet
 import android.view.Gravity
-import android.view.View
-import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.DensityUtil
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
-import com.hesheng1024.happystudy.custom.blocks.appearance.SayBlockView
+import com.hesheng1024.happystudy.custom.base.IRoleView
 
 /**
  *
@@ -68,7 +66,7 @@ class LessThanBlockView : BaseLogicBlockView {
         addView(mEtRight)
     }
 
-    override fun onRun(role: View) {
+    override fun onRun(role: IRoleView) {
 
     }
 

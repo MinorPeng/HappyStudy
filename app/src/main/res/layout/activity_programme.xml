@@ -88,12 +88,11 @@
         android:background="@android:color/white"
         tools:layout_editor_absoluteY="145dp">
 
-        <ImageView
-            android:id="@+id/iv_programme_role"
+        <com.hesheng1024.happystudy.custom.RoleView
+            android:id="@+id/role_view_programme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:contentDescription="@string/role"
-            android:src="@mipmap/ic_launcher" />
+            android:layout_gravity="center" />
+
     </FrameLayout>
 </RelativeLayout>

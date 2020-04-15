@@ -3,11 +3,11 @@ package com.hesheng1024.happystudy.custom.blocks.event
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
-import android.view.View
 import com.hesheng1024.base.utils.DensityUtil
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.base.BaseTextBlockView
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
+import com.hesheng1024.happystudy.custom.base.IRoleView
 
 /**
  *
@@ -56,7 +56,7 @@ class ClickRoleBlockView : BaseTextBlockView {
         canvas.drawPath(path, paint)
     }
 
-    override fun onRun(role: View) {
+    override fun onRun(role: IRoleView) {
 
     }
 

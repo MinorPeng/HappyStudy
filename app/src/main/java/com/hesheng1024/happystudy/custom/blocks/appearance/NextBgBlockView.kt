@@ -8,13 +8,15 @@ import com.hesheng1024.base.utils.LogUtil
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.base.BaseTextBlockView
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
+import com.hesheng1024.happystudy.custom.base.IRoleListener
+import com.hesheng1024.happystudy.custom.base.IRoleView
 
 /**
  *
  * @author hesheng1024
  * @date 2020/3/26 20:37
  */
-class NextBgBlockView : BaseTextBlockView {
+class NextBgBlockView : BaseTextBlockView, IRoleListener {
 
     constructor(context: Context) : this(context, null)
 
@@ -28,7 +30,8 @@ class NextBgBlockView : BaseTextBlockView {
         setText(R.string.next_bg)
     }
 
-    override fun onRun(role: View) {
+    override fun onRun(role: IRoleView) {
+        role.nextBackground()
     }
 
     override fun clone(): IBaseBlock {

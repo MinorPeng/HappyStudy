@@ -3,9 +3,9 @@ package com.hesheng1024.happystudy.custom.blocks.calculate
 import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
-import android.view.View
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
+import com.hesheng1024.happystudy.custom.base.IRoleView
 
 /**
  *
@@ -33,7 +33,7 @@ class LogicBgBlockView : BaseLogicBlockView {
         minimumHeight = (sDisLeft * 2.3).toInt()
     }
 
-    override fun onRun(role: View) {
+    override fun onRun(role: IRoleView) {
 
     }
 

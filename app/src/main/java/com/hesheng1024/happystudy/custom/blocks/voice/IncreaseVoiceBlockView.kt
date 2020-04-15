@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.text.InputType
 import android.util.AttributeSet
-import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatEditText
@@ -13,6 +12,7 @@ import com.hesheng1024.base.utils.DensityUtil
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.base.BaseBgBlockView
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
+import com.hesheng1024.happystudy.custom.base.IRoleView
 
 /**
  *
@@ -56,8 +56,8 @@ class IncreaseVoiceBlockView : BaseBgBlockView {
         addView(mEt, lp)
     }
 
-    override fun onRun(role: View) {
-
+    override fun onRun(role: IRoleView) {
+        role.increaseVolume(mEt.text.toString().toFloat())
     }
 
     override fun clone(): IBaseBlock {

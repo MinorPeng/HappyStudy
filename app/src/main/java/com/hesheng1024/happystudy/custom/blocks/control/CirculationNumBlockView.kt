@@ -4,8 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import android.view.Gravity
-import android.view.View
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatEditText
@@ -13,6 +11,7 @@ import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.DensityUtil
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
+import com.hesheng1024.happystudy.custom.base.IRoleView
 import com.hesheng1024.happystudy.custom.blocks.motion.MoveBlockView
 
 /**
@@ -78,7 +77,7 @@ class CirculationNumBlockView : BaseControlBlockView {
         addView(mo)
     }
 
-    override fun onRun(role: View) {
+    override fun onRun(role: IRoleView) {
 
     }
 

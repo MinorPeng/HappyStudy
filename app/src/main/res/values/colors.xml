@@ -14,4 +14,9 @@
     <color name="colorCalculateGreen">#59C059</color>
     <color name="colorCalculateGreenDark">#389438</color>
 
+    <color name="colorRoleBg1">#FFFFFF</color>
+    <color name="colorRoleBg2">#BBBBBB</color>
+    <color name="colorRoleBg3">#DCEDC8</color>
+    <color name="colorRoleBg4">#BBDEFB</color>
+
 </resources>

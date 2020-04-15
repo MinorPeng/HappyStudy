@@ -13,7 +13,7 @@ import androidx.core.content.ContextCompat
  * @author hesheng1024
  * @date 2020/3/24 18:08
  */
-abstract class BaseBlockViewGroup : ViewGroup, IRoleListener, IBaseBlock {
+abstract class BaseBlockViewGroup : ViewGroup, IBaseBlock {
 
     private val mPaint = Paint()
     private val mPath = Path()

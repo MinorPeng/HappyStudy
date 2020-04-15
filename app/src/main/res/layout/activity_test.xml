@@ -2,7 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:background="@color/colorPrimary"
     android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="这是一句很长很长的话，\n我也不知道能说多长"
+        android:gravity="center"
+        android:paddingStart="@dimen/dp10"
+        android:paddingTop="@dimen/dp8"
+        android:paddingBottom="@dimen/dp8"
+        android:paddingEnd="@dimen/dp10"
+        android:background="@drawable/bg_message"/>
+
 
     <LinearLayout
         android:id="@+id/frame_test_start"
