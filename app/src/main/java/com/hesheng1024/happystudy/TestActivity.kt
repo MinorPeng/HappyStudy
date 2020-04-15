@@ -31,6 +31,8 @@ class TestActivity : AppCompatActivity() {
     }
 
     private fun initView() {
+        (tv_test.layoutParams as ViewGroup.MarginLayoutParams).leftMargin = 16
+        (tv_test.layoutParams as ViewGroup.MarginLayoutParams).topMargin = 16
         frame_test_end.setOnDragListener { v, event ->
             for (child in frame_test_end.children) {
                 LogUtil.d(msg = "c$child")

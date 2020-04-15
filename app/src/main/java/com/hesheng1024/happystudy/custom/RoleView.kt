@@ -9,6 +9,8 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.base.IRoleView
+import com.hesheng1024.happystudy.utils.MediaPlayerUtil
+import com.hesheng1024.happystudy.utils.VolumeUtil
 import java.util.ArrayList
 
 /**
@@ -104,51 +106,63 @@ class RoleView : RelativeLayout, IRoleView {
 
     override fun moveStep(step: Int) {
         showSayLayout(false)
-
+        (layoutParams as LayoutParams).leftMargin += step
     }
 
     override fun moveToXY(x: Float, y: Float) {
         showSayLayout(false)
+        (layoutParams as LayoutParams).leftMargin = x.toInt()
+        (layoutParams as LayoutParams).topMargin = -y.toInt()
     }
 
     override fun decreaseX(x: Float) {
         showSayLayout(false)
+        (layoutParams as LayoutParams).leftMargin -= x.toInt()
     }
 
     override fun decreaseY(y: Float) {
         showSayLayout(false)
+        (layoutParams as LayoutParams).topMargin += y.toInt()
     }
 
     override fun increaseX(x: Float) {
         showSayLayout(false)
+        (layoutParams as LayoutParams).leftMargin += x.toInt()
     }
 
     override fun increaseY(y: Float) {
         showSayLayout(false)
+        (layoutParams as LayoutParams).topMargin -= y.toInt()
     }
 
     override fun leftRotate(rotation: Float) {
         showSayLayout(false)
+        mIvRole.rotation = -rotation
     }
 
     override fun rightRotate(rotation: Float) {
         showSayLayout(false)
+        mIvRole.rotation = rotation
     }
 
     override fun decreaseVolume(volume: Float) {
         showSayLayout(false)
+        VolumeUtil.adjustVolume(-volume.toInt())
     }
 
     override fun increaseVolume(volume: Float) {
         showSayLayout(false)
+        VolumeUtil.adjustVolume(volume.toInt())
     }
 
     override fun playVoice() {
         showSayLayout(false)
+        MediaPlayerUtil.play()
     }
 
     override fun stopVoice() {
         showSayLayout(false)
+        MediaPlayerUtil.stop()
     }
 
     private fun showSayLayout(isShow: Boolean, content: String = "") {
