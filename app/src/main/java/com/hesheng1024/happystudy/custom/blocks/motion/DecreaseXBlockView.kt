@@ -64,6 +64,10 @@ class DecreaseXBlockView : BaseBgBlockView  {
     override fun clone(): IBaseBlock {
         val newObj = DecreaseXBlockView(context)
         newObj.layoutParams = this.layoutParams
+        if (newObj.layoutParams.width <= 0 || newObj.layoutParams.height <= 0) {
+            newObj.layoutParams.width = measuredWidth
+            newObj.layoutParams.height = measuredHeight
+        }
         newObj.mEt.setText(this.mEt.text.toString())
         return newObj
     }

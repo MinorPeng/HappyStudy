@@ -3,10 +3,8 @@ package com.hesheng1024.happystudy.modules.programme.v.impl
 import android.view.DragEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
-import androidx.core.view.MarginLayoutParamsCompat
 import androidx.core.view.children
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,14 +12,12 @@ import com.hesheng1024.base.base.BaseActivity
 import com.hesheng1024.base.utils.ContextHolder
 import com.hesheng1024.base.utils.LogUtil
 import com.hesheng1024.happystudy.R
-import com.hesheng1024.happystudy.custom.base.BaseTextBlockView
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
 import com.hesheng1024.happystudy.modules.programme.adapter.BlocksRecyclerAdapter
 import com.hesheng1024.happystudy.modules.programme.m.Block
 import com.hesheng1024.happystudy.modules.programme.p.ProgrammePresenter
 import com.hesheng1024.happystudy.modules.programme.v.IProgrammeView
 import kotlinx.android.synthetic.main.activity_programme.*
-import kotlinx.android.synthetic.main.activity_test.*
 import kotlinx.android.synthetic.main.layout_block_categories.*
 import kotlinx.android.synthetic.main.layout_programme_utils.*
 
@@ -43,13 +39,9 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
     private var mToPos = 0
     private var mShouldScroll = false
 
-    override fun getLayoutId(): Int {
-        return R.layout.activity_programme
-    }
+    override fun getLayoutId(): Int = R.layout.activity_programme
 
-    override fun createPresenter(): ProgrammePresenter {
-        return ProgrammePresenter(this)
-    }
+    override fun createPresenter(): ProgrammePresenter = ProgrammePresenter(this)
 
     override fun initView() {
         ibtn_programme_back.setOnClickListener { finishActivity() }
@@ -172,7 +164,6 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
     private fun initProgramme() {
         linear_layout_programme.setOnDragListener { v, event ->
             for (child in linear_layout_programme.children) {
-                LogUtil.d(msg = "c$child")
                 if (child is IBaseBlock && child.onDrag(child, event)) {
                     return@setOnDragListener true
                 }
@@ -200,6 +191,7 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
                     LogUtil.i(msg = "view pos in frame: x->${event.x} y->${event.y}")
                 }
                 DragEvent.ACTION_DROP -> {
+                    LogUtil.i(msg = "drop in linear layout x->${event.x} y->{$event.y}")
                     (block.parent as? ViewGroup)?.removeView(block)
                     block.setStatus(IBaseBlock.Status.STATUS_DRAG)
                     val lp = LinearLayout.LayoutParams(block.layoutParams)

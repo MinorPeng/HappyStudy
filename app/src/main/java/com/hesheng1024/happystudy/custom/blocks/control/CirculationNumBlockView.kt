@@ -84,6 +84,10 @@ class CirculationNumBlockView : BaseControlBlockView {
     override fun clone(): IBaseBlock {
         val newObj = CirculationNumBlockView(context)
         newObj.layoutParams = this.layoutParams
+        if (newObj.layoutParams.width <= 0 || newObj.layoutParams.height <= 0) {
+            newObj.layoutParams.width = measuredWidth
+            newObj.layoutParams.height = measuredHeight
+        }
         newObj.mEtCount.setText(this.mEtCount.text.toString())
         return newObj
     }

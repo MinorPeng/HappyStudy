@@ -299,6 +299,10 @@ class IfElseBlockView : BaseBlockViewGroup {
     override fun clone(): IBaseBlock {
         val newObj = IfElseBlockView(context)
         newObj.layoutParams = this.layoutParams
+        if (newObj.layoutParams.width <= 0 || newObj.layoutParams.height <= 0) {
+            newObj.layoutParams.width = measuredWidth
+            newObj.layoutParams.height = measuredHeight
+        }
         return newObj
     }
 

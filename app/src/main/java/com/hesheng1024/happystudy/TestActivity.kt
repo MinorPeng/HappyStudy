@@ -12,7 +12,6 @@ import androidx.core.view.children
 import com.hesheng1024.base.utils.LogUtil
 import com.hesheng1024.happystudy.custom.base.BaseTextBlockView
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
-import com.hesheng1024.happystudy.custom.blocks.appearance.NextBgBlockView
 import kotlinx.android.synthetic.main.activity_test.*
 
 /**
@@ -31,8 +30,9 @@ class TestActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-        (tv_test.layoutParams as ViewGroup.MarginLayoutParams).leftMargin = 16
-        (tv_test.layoutParams as ViewGroup.MarginLayoutParams).topMargin = 16
+        // (tv_test.layoutParams as ViewGroup.MarginLayoutParams).leftMargin = 16
+        // (tv_test.layoutParams as ViewGroup.MarginLayoutParams).topMargin = 16
+        // MediaPlayerUtil.play()
         frame_test_end.setOnDragListener { v, event ->
             for (child in frame_test_end.children) {
                 LogUtil.d(msg = "c$child")

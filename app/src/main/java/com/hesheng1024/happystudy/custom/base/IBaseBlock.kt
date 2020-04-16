@@ -67,6 +67,7 @@ interface IBaseBlock : IRoleListener, View.OnTouchListener, View.OnDragListener,
                         Status.STATUS_CLONE -> {
                             // 从左边拖动需要clone一个
                             val newObj = clone()
+                            newObj.setStatus(Status.STATUS_DRAG)
                             val shadowBuilder = View.DragShadowBuilder(v)
                             v.startDrag(null, shadowBuilder, newObj, 0)
                             //震动反馈
@@ -109,6 +110,15 @@ interface IBaseBlock : IRoleListener, View.OnTouchListener, View.OnDragListener,
         val py = event.y
         val parent = v.parent as ViewGroup
         when (event.action) {
+            DragEvent.ACTION_DRAG_EXITED -> {
+                // 避免快速向外拖动导致监听不到坐标，就无法remove阴影
+                LogUtil.i(msg = "view in dragging out frame")
+                val blackOwn = block.getBlackOwn() as View
+                if (blackOwn.parent != null) {
+                    parent.removeView(blackOwn)
+                }
+                return false
+            }
             DragEvent.ACTION_DRAG_LOCATION -> {
                 // 自由drag进入了该view才会有position
                 LogUtil.i(msg = "view position: x->$px y->$py")
@@ -121,6 +131,7 @@ interface IBaseBlock : IRoleListener, View.OnTouchListener, View.OnDragListener,
                             LogUtil.d(msg = "top add index:${parent.indexOfChild(v)}")
                             parent.addView(blackOwn, parent.indexOfChild(v), block.layoutParams)
                         }
+                        return false
                     }
                     inBottomRectF(px, py) -> {
                         // in the bottom
@@ -131,6 +142,7 @@ interface IBaseBlock : IRoleListener, View.OnTouchListener, View.OnDragListener,
                             LogUtil.d(msg = "bottom add index:${parent.indexOfChild(v)}")
                             parent.addView(blackOwn, parent.indexOfChild(v) + 1, block.layoutParams)
                         }
+                        return false
                     }
                     else -> {
                         // 未在附近，移除阴影
@@ -140,6 +152,7 @@ interface IBaseBlock : IRoleListener, View.OnTouchListener, View.OnDragListener,
                             LogUtil.d(msg = "other add index:${parent.indexOfChild(v)}")
                             parent.removeView(blackOwn)
                         }
+                        return false
                     }
                 }
             }
@@ -168,12 +181,12 @@ interface IBaseBlock : IRoleListener, View.OnTouchListener, View.OnDragListener,
                     else -> {
                         // 未在附近，不处理
                         LogUtil.d(msg = "drop in other")
+                        return false
                     }
                 }
             }
+            else -> return false
         }
-        //是否响应拖拽事件，true响应，返回false只能接受到ACTION_DRAG_STARTED事件，后续事件不会收到
-        return false
     }
 
     override fun onClick(v: View?) {

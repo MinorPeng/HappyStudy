@@ -37,7 +37,12 @@ class NextBgBlockView : BaseTextBlockView, IRoleListener {
     override fun clone(): IBaseBlock {
         val newObj = NextBgBlockView(context)
         newObj.layoutParams = this.layoutParams
-        LogUtil.d(msg = "clone0 w:${newObj.layoutParams.width} h:${newObj.layoutParams.height} lp:${layoutParams}")
+        if (newObj.layoutParams.width <= 0 || newObj.layoutParams.height <= 0) {
+            newObj.layoutParams.width = measuredWidth
+            newObj.layoutParams.height = measuredHeight
+        }
+        LogUtil.d(msg = "clone0 mw:$measuredWidth mh:$measuredHeight w:${newObj.layoutParams.width} " +
+                "h:${newObj.layoutParams.height} lp:${layoutParams}")
         return newObj
     }
 }

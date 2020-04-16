@@ -35,6 +35,10 @@ class HideBlockView : BaseTextBlockView, IRoleListener {
     override fun clone(): IBaseBlock {
         val newObj = HideBlockView(context)
         newObj.layoutParams = this.layoutParams
+        if (newObj.layoutParams.width <= 0 || newObj.layoutParams.height <= 0) {
+            newObj.layoutParams.width = measuredWidth
+            newObj.layoutParams.height = measuredHeight
+        }
         return newObj
     }
 }

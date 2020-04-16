@@ -16,6 +16,7 @@
         android:paddingTop="@dimen/dp8"
         android:paddingBottom="@dimen/dp8"
         android:paddingEnd="@dimen/dp10"
+        android:visibility="gone"
         android:background="@drawable/bg_message"/>
 
 

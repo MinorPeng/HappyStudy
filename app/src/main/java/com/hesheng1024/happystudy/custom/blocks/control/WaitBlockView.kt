@@ -69,6 +69,10 @@ class WaitBlockView : BaseBgBlockView {
     override fun clone(): IBaseBlock {
         val newObj = WaitBlockView(context)
         newObj.layoutParams = this.layoutParams
+        if (newObj.layoutParams.width <= 0 || newObj.layoutParams.height <= 0) {
+            newObj.layoutParams.width = measuredWidth
+            newObj.layoutParams.height = measuredHeight
+        }
         newObj.mEtSeconds.setText(this.mEtSeconds.text.toString())
         return newObj
     }

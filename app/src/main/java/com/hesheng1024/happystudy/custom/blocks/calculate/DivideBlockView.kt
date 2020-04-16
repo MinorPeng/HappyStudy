@@ -73,6 +73,10 @@ class DivideBlockView : BaseCalculateBlockView {
     override fun clone(): IBaseBlock {
         val newObj = DivideBlockView(context)
         newObj.layoutParams = this.layoutParams
+        if (newObj.layoutParams.width <= 0 || newObj.layoutParams.height <= 0) {
+            newObj.layoutParams.width = measuredWidth
+            newObj.layoutParams.height = measuredHeight
+        }
         newObj.mEtLeft.setText(this.mEtLeft.text.toString())
         newObj.mEtRight.setText(this.mEtRight.text.toString())
         return newObj
