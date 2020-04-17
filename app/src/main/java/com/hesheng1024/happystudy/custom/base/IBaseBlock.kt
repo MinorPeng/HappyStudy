@@ -5,43 +5,44 @@ import android.graphics.CornerPathEffect
 import android.graphics.Paint
 import android.graphics.Path
 import android.view.*
-import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.ContextHolder
 import com.hesheng1024.base.utils.DensityUtil
 import com.hesheng1024.base.utils.LogUtil
+import com.hesheng1024.happystudy.custom.blocks.calculate.BaseCalculateBlockView
+import com.hesheng1024.happystudy.custom.blocks.calculate.BaseLogicBlockView
 
 /**
  *
  * @author hesheng1024
  * @date 2020/4/11 10:57
  */
-interface IBaseBlock : IRoleListener, View.OnTouchListener, View.OnDragListener, View.OnClickListener {
+interface IBaseBlock : IRoleListener, View.OnTouchListener, View.OnClickListener {
 
     companion object {
         // 直接定义到接口中，可能会被实现类给覆盖重写，所以不规范，应当定义为静态
-        const val sRadius: Float = 6f
-        const val sStrokeW: Float = 2f
-        val sDis2Left: Float = DensityUtil.dp2px(ContextHolder.getMainContext(), 10f).toFloat()
-        val sDis2Top: Float = DensityUtil.dp2px(ContextHolder.getMainContext(), 4f).toFloat()
-        val sLineLen: Float = DensityUtil.dp2px(ContextHolder.getMainContext(), 12f).toFloat()
+        const val sRadius = 6f
+        const val sStrokeW = 2f
+        val DIS_TO_LEFT = DensityUtil.dp2px(ContextHolder.getMainContext(), 10f).toFloat()
+        val DIS_TO_TOP = DensityUtil.dp2px(ContextHolder.getMainContext(), 4f).toFloat()
+        val LINE_LEN = DensityUtil.dp2px(ContextHolder.getMainContext(), 12f).toFloat()
     }
 
     fun drawBackground(canvas: Canvas, paint: Paint, path: Path, measuredW: Float, measuredH: Float) {
         path.reset()
         path.moveTo(0f, 0f)
-        path.lineTo(sDis2Left, 0f)
-        path.lineTo(sDis2Left + sDis2Top, sDis2Top)
-        path.lineTo(sDis2Left + sDis2Top + sLineLen, sDis2Top)
-        path.lineTo(sDis2Left + sDis2Top * 2 + sLineLen, 0f)
+        path.lineTo(DIS_TO_LEFT, 0f)
+        path.lineTo(DIS_TO_LEFT + DIS_TO_TOP, DIS_TO_TOP)
+        path.lineTo(DIS_TO_LEFT + DIS_TO_TOP + LINE_LEN, DIS_TO_TOP)
+        path.lineTo(DIS_TO_LEFT + DIS_TO_TOP * 2 + LINE_LEN, 0f)
         path.lineTo(measuredW, 0f)
-        path.lineTo(measuredW, measuredH - sDis2Top)
-        path.lineTo(sDis2Left + sDis2Top * 2 + sLineLen, measuredH - sDis2Top)
-        path.lineTo(sDis2Left + sDis2Top + sLineLen, measuredH)
-        path.lineTo(sDis2Left + sDis2Top, measuredH)
-        path.lineTo(sDis2Left, measuredH - sDis2Top)
-        path.lineTo(0f, measuredH - sDis2Top)
+        path.lineTo(measuredW, measuredH - DIS_TO_TOP)
+        path.lineTo(DIS_TO_LEFT + DIS_TO_TOP * 2 + LINE_LEN, measuredH - DIS_TO_TOP)
+        path.lineTo(DIS_TO_LEFT + DIS_TO_TOP + LINE_LEN, measuredH)
+        path.lineTo(DIS_TO_LEFT + DIS_TO_TOP, measuredH)
+        path.lineTo(DIS_TO_LEFT, measuredH - DIS_TO_TOP)
+        path.lineTo(0f, measuredH - DIS_TO_TOP)
         path.lineTo(0f, 0f)
         paint.style = Paint.Style.FILL
         paint.color = getBgColor()
@@ -97,19 +98,31 @@ interface IBaseBlock : IRoleListener, View.OnTouchListener, View.OnDragListener,
         return false
     }
 
-    override fun onDrag(v: View?, event: DragEvent?): Boolean {
-        if (v == null || event == null || v.parent !is LinearLayout) {
+    /**
+     * 子View处理DragEvent
+     * 用于处理父View分发的DragEvent，是parent的DragEvent
+     *
+     * @param event DragEvent
+     * @return true 子View处理该事件 false 子View不处理
+     */
+    fun onDragEv(event: DragEvent?): Boolean {
+        val v = this
+        if (v !is View || event == null || v.parent !is ViewGroup) {
+            LogUtil.e(msg = "v:$v event:$event")
             return false
         }
         val block = event.localState
-        if (block !is IBaseBlock || block !is View || block.getBlackOwn() !is View) {
+        if (block !is IBaseBlock || block.getStatus() != Status.STATUS_DRAG || block !is View
+            || block is BaseCalculateBlockView || block is BaseLogicBlockView
+            || block.getBlackOwn() !is View) {
+            LogUtil.e(msg = "block error return false: $block")
             return false
         }
-        (block.layoutParams as LinearLayout.LayoutParams).bottomMargin = -sDis2Top.toInt()
+        (block.layoutParams as ViewGroup.MarginLayoutParams).bottomMargin = -DIS_TO_TOP.toInt()
         val px = event.x
         val py = event.y
         val parent = v.parent as ViewGroup
-        when (event.action) {
+        return when (event.action) {
             DragEvent.ACTION_DRAG_EXITED -> {
                 // 避免快速向外拖动导致监听不到坐标，就无法remove阴影
                 LogUtil.i(msg = "view in dragging out frame")
@@ -117,7 +130,7 @@ interface IBaseBlock : IRoleListener, View.OnTouchListener, View.OnDragListener,
                 if (blackOwn.parent != null) {
                     parent.removeView(blackOwn)
                 }
-                return false
+                false
             }
             DragEvent.ACTION_DRAG_LOCATION -> {
                 // 自由drag进入了该view才会有position
@@ -131,7 +144,6 @@ interface IBaseBlock : IRoleListener, View.OnTouchListener, View.OnDragListener,
                             LogUtil.d(msg = "top add index:${parent.indexOfChild(v)}")
                             parent.addView(blackOwn, parent.indexOfChild(v), block.layoutParams)
                         }
-                        return false
                     }
                     inBottomRectF(px, py) -> {
                         // in the bottom
@@ -142,7 +154,6 @@ interface IBaseBlock : IRoleListener, View.OnTouchListener, View.OnDragListener,
                             LogUtil.d(msg = "bottom add index:${parent.indexOfChild(v)}")
                             parent.addView(blackOwn, parent.indexOfChild(v) + 1, block.layoutParams)
                         }
-                        return false
                     }
                     else -> {
                         // 未在附近，移除阴影
@@ -152,9 +163,9 @@ interface IBaseBlock : IRoleListener, View.OnTouchListener, View.OnDragListener,
                             LogUtil.d(msg = "other add index:${parent.indexOfChild(v)}")
                             parent.removeView(blackOwn)
                         }
-                        return false
                     }
                 }
+                false
             }
             DragEvent.ACTION_DROP -> {
                 LogUtil.i(msg = "release dragging view x:$px y:$py")
@@ -185,7 +196,7 @@ interface IBaseBlock : IRoleListener, View.OnTouchListener, View.OnDragListener,
                     }
                 }
             }
-            else -> return false
+            else -> false
         }
     }
 

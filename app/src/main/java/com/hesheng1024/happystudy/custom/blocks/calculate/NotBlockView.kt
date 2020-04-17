@@ -18,6 +18,8 @@ import com.hesheng1024.happystudy.custom.base.IRoleView
 @SuppressLint("ViewConstructor")
 class NotBlockView : BaseLogicBlockView {
 
+    private val mLogicBg: LogicBgBlockView
+
     constructor(context: Context) : this(context, null)
 
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -27,17 +29,17 @@ class NotBlockView : BaseLogicBlockView {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
         this.setPadding(
-            IBaseBlock.sDis2Top.toInt(),
-            IBaseBlock.sDis2Top.toInt(),
-            IBaseBlock.sDis2Top.toInt(),
-            IBaseBlock.sDis2Top.toInt()
+            IBaseBlock.DIS_TO_TOP.toInt(),
+            IBaseBlock.DIS_TO_TOP.toInt(),
+            IBaseBlock.DIS_TO_TOP.toInt(),
+            IBaseBlock.DIS_TO_TOP.toInt()
         )
+        mLogicBg = LogicBgBlockView(context)
         initView()
     }
 
     private fun initView() {
-        val logicBlockView = LogicBgBlockView(context)
-        addView(logicBlockView)
+        addView(mLogicBg)
 
         val lpTvMoreThan = generateDefaultLayoutParams() as MarginLayoutParams
         lpTvMoreThan.leftMargin = DensityUtil.dp2px(context, 8f)
@@ -60,5 +62,9 @@ class NotBlockView : BaseLogicBlockView {
             newObj.layoutParams.height = measuredHeight
         }
         return newObj
+    }
+
+    override fun judgeResult(): Boolean {
+        return mLogicBg.judgeResult()
     }
 }

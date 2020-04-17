@@ -43,10 +43,10 @@ class IfElseBlockView : BaseBlockViewGroup {
         setBgColorId(R.color.colorControlYellow)
         this.setWillNotDraw(false)
         this.setPadding(
-            (IBaseBlock.sDis2Top * 2).toInt(),
-            IBaseBlock.sDis2Top.toInt(),
-            (IBaseBlock.sDis2Top * 2).toInt(),
-            (IBaseBlock.sDis2Top * 2)
+            (IBaseBlock.DIS_TO_TOP * 2).toInt(),
+            IBaseBlock.DIS_TO_TOP.toInt(),
+            (IBaseBlock.DIS_TO_TOP * 2).toInt(),
+            (IBaseBlock.DIS_TO_TOP * 2)
                 .toInt()
         )
         initView()
@@ -122,7 +122,7 @@ class IfElseBlockView : BaseBlockViewGroup {
                 ChildTag.TAG_CHILD_IF -> {
                     val childWidth = child.measuredWidth + childLp.leftMargin + childLp.rightMargin
                     val childHeight =
-                        child.measuredHeight + childLp.topMargin + childLp.bottomMargin - IBaseBlock.sDis2Top.toInt()
+                        child.measuredHeight + childLp.topMargin + childLp.bottomMargin - IBaseBlock.DIS_TO_TOP.toInt()
                     // if view max width
                     childMaxW = max(childMaxW, childWidth)
                     // if view height sum
@@ -139,7 +139,7 @@ class IfElseBlockView : BaseBlockViewGroup {
                 ChildTag.TAG_CHILD_ELSE -> {
                     val childWidth = child.measuredWidth + childLp.leftMargin + childLp.rightMargin
                     val childHeight =
-                        child.measuredHeight + childLp.topMargin + childLp.bottomMargin - IBaseBlock.sDis2Top.toInt()
+                        child.measuredHeight + childLp.topMargin + childLp.bottomMargin - IBaseBlock.DIS_TO_TOP.toInt()
                     // else view max width
                     childMaxW = max(childMaxW, childWidth)
                     // else view height sum
@@ -159,14 +159,14 @@ class IfElseBlockView : BaseBlockViewGroup {
             }
         }
         mTopViewW = max(max(topViewW, max(centerViewW, bottomViewW)) + paddingLeft + paddingRight + 0f, mTopViewW)
-        mTopViewH = max(topViewMaxH + paddingTop + paddingBottom - IBaseBlock.sDis2Top, mTopViewH)
+        mTopViewH = max(topViewMaxH + paddingTop + paddingBottom - IBaseBlock.DIS_TO_TOP, mTopViewH)
         mChildIfH = childIfH.toFloat()
         mChildElseH = childElseH.toFloat()
 
         childIfH = if (childIfH == 0) mTopViewH.toInt() else childIfH
         childElseH = if (childElseH == 0) mTopViewH.toInt() else childElseH
-        var width = max(mTopViewW, childMaxW + IBaseBlock.sDis2Left).toInt()
-        var height = childIfH + childElseH + mTopViewH.toInt() * 3 + IBaseBlock.sDis2Top.toInt()
+        var width = max(mTopViewW, childMaxW + IBaseBlock.DIS_TO_LEFT).toInt()
+        var height = childIfH + childElseH + mTopViewH.toInt() * 3 + IBaseBlock.DIS_TO_TOP.toInt()
 
         width = if (modeW == MeasureSpec.EXACTLY) sizeW else width
         height = if (modeH == MeasureSpec.EXACTLY) sizeH else height
@@ -198,7 +198,7 @@ class IfElseBlockView : BaseBlockViewGroup {
                     topL += child.measuredWidth + childLp.leftMargin + childLp.rightMargin
                 }
                 ChildTag.TAG_CHILD_IF -> {
-                    childL = IBaseBlock.sDis2Left.toInt() + childLp.leftMargin
+                    childL = IBaseBlock.DIS_TO_LEFT.toInt() + childLp.leftMargin
                     childT = ifT + childLp.topMargin
                     childR = childL + child.measuredWidth
                     childB = childT + child.measuredHeight
@@ -213,7 +213,7 @@ class IfElseBlockView : BaseBlockViewGroup {
                     centerL += child.measuredWidth + childLp.leftMargin + childLp.rightMargin
                 }
                 ChildTag.TAG_CHILD_ELSE -> {
-                    childL = IBaseBlock.sDis2Left.toInt() + childLp.leftMargin
+                    childL = IBaseBlock.DIS_TO_LEFT.toInt() + childLp.leftMargin
                     childT = elseT + childLp.topMargin
                     childR = childL + child.measuredWidth
                     childB = childT + child.measuredHeight
@@ -223,7 +223,7 @@ class IfElseBlockView : BaseBlockViewGroup {
                     // layout from right to left
                     childL = mTopViewW.toInt() - child.measuredWidth - childLp.rightMargin - paddingRight
                     childT = measuredHeight - (mTopViewH.toInt() - child.measuredHeight) / 2 - child.measuredHeight -
-                            IBaseBlock.sDis2Top.toInt()
+                            IBaseBlock.DIS_TO_TOP.toInt()
                     childR = childL + child.measuredWidth
                     childB = childT + child.measuredHeight
                 }
@@ -239,47 +239,47 @@ class IfElseBlockView : BaseBlockViewGroup {
         path.reset()
         // top
         path.moveTo(0f, 0f)
-        path.lineTo(IBaseBlock.sDis2Left, 0f)
-        path.lineTo(IBaseBlock.sDis2Left + IBaseBlock.sDis2Top, IBaseBlock.sDis2Top)
-        path.lineTo(IBaseBlock.sDis2Left + IBaseBlock.sDis2Top + IBaseBlock.sLineLen, IBaseBlock.sDis2Top)
-        path.lineTo(IBaseBlock.sDis2Left + IBaseBlock.sDis2Top * 2 + IBaseBlock.sLineLen, 0f)
+        path.lineTo(IBaseBlock.DIS_TO_LEFT, 0f)
+        path.lineTo(IBaseBlock.DIS_TO_LEFT + IBaseBlock.DIS_TO_TOP, IBaseBlock.DIS_TO_TOP)
+        path.lineTo(IBaseBlock.DIS_TO_LEFT + IBaseBlock.DIS_TO_TOP + IBaseBlock.LINE_LEN, IBaseBlock.DIS_TO_TOP)
+        path.lineTo(IBaseBlock.DIS_TO_LEFT + IBaseBlock.DIS_TO_TOP * 2 + IBaseBlock.LINE_LEN, 0f)
         path.lineTo(mTopViewW, 0f)
 
         path.lineTo(mTopViewW, mTopViewH)
-        path.lineTo(IBaseBlock.sDis2Left * 2 + IBaseBlock.sDis2Top * 2 + IBaseBlock.sLineLen, mTopViewH)
-        path.lineTo(IBaseBlock.sDis2Left * 2 + IBaseBlock.sDis2Top + IBaseBlock.sLineLen, mTopViewH + IBaseBlock.sDis2Top)
-        path.lineTo(IBaseBlock.sDis2Left * 2 + IBaseBlock.sDis2Top, mTopViewH + IBaseBlock.sDis2Top)
-        path.lineTo(IBaseBlock.sDis2Left * 2, mTopViewH)
-        path.lineTo(IBaseBlock.sDis2Left, mTopViewH)
+        path.lineTo(IBaseBlock.DIS_TO_LEFT * 2 + IBaseBlock.DIS_TO_TOP * 2 + IBaseBlock.LINE_LEN, mTopViewH)
+        path.lineTo(IBaseBlock.DIS_TO_LEFT * 2 + IBaseBlock.DIS_TO_TOP + IBaseBlock.LINE_LEN, mTopViewH + IBaseBlock.DIS_TO_TOP)
+        path.lineTo(IBaseBlock.DIS_TO_LEFT * 2 + IBaseBlock.DIS_TO_TOP, mTopViewH + IBaseBlock.DIS_TO_TOP)
+        path.lineTo(IBaseBlock.DIS_TO_LEFT * 2, mTopViewH)
+        path.lineTo(IBaseBlock.DIS_TO_LEFT, mTopViewH)
         // center
         val centerH = mChildIfH + mTopViewH
-        path.lineTo(IBaseBlock.sDis2Left, centerH)
-        path.lineTo(IBaseBlock.sDis2Left * 2, centerH)
-        path.lineTo(IBaseBlock.sDis2Left * 2 + IBaseBlock.sDis2Top, centerH + IBaseBlock.sDis2Top)
-        path.lineTo(IBaseBlock.sDis2Left * 2 + IBaseBlock.sDis2Top + IBaseBlock.sLineLen, centerH + IBaseBlock.sDis2Top)
-        path.lineTo(IBaseBlock.sDis2Left * 2 + IBaseBlock.sDis2Top * 2 + IBaseBlock.sLineLen, centerH)
+        path.lineTo(IBaseBlock.DIS_TO_LEFT, centerH)
+        path.lineTo(IBaseBlock.DIS_TO_LEFT * 2, centerH)
+        path.lineTo(IBaseBlock.DIS_TO_LEFT * 2 + IBaseBlock.DIS_TO_TOP, centerH + IBaseBlock.DIS_TO_TOP)
+        path.lineTo(IBaseBlock.DIS_TO_LEFT * 2 + IBaseBlock.DIS_TO_TOP + IBaseBlock.LINE_LEN, centerH + IBaseBlock.DIS_TO_TOP)
+        path.lineTo(IBaseBlock.DIS_TO_LEFT * 2 + IBaseBlock.DIS_TO_TOP * 2 + IBaseBlock.LINE_LEN, centerH)
         path.lineTo(mTopViewW, centerH)
 
         path.lineTo(mTopViewW, centerH + mTopViewH)
-        path.lineTo(IBaseBlock.sDis2Left * 2 + IBaseBlock.sDis2Top * 2 + IBaseBlock.sLineLen, centerH + mTopViewH)
-        path.lineTo(IBaseBlock.sDis2Left * 2 + IBaseBlock.sDis2Top + IBaseBlock.sLineLen, centerH + mTopViewH + IBaseBlock.sDis2Top)
-        path.lineTo(IBaseBlock.sDis2Left * 2 + IBaseBlock.sDis2Top, centerH + mTopViewH + IBaseBlock.sDis2Top)
-        path.lineTo(IBaseBlock.sDis2Left * 2, centerH + mTopViewH)
-        path.lineTo(IBaseBlock.sDis2Left, centerH + mTopViewH)
+        path.lineTo(IBaseBlock.DIS_TO_LEFT * 2 + IBaseBlock.DIS_TO_TOP * 2 + IBaseBlock.LINE_LEN, centerH + mTopViewH)
+        path.lineTo(IBaseBlock.DIS_TO_LEFT * 2 + IBaseBlock.DIS_TO_TOP + IBaseBlock.LINE_LEN, centerH + mTopViewH + IBaseBlock.DIS_TO_TOP)
+        path.lineTo(IBaseBlock.DIS_TO_LEFT * 2 + IBaseBlock.DIS_TO_TOP, centerH + mTopViewH + IBaseBlock.DIS_TO_TOP)
+        path.lineTo(IBaseBlock.DIS_TO_LEFT * 2, centerH + mTopViewH)
+        path.lineTo(IBaseBlock.DIS_TO_LEFT, centerH + mTopViewH)
         // bottom
-        path.lineTo(IBaseBlock.sDis2Left, measuredH - mTopViewH - IBaseBlock.sDis2Top)
-        path.lineTo(IBaseBlock.sDis2Left * 2, measuredH - mTopViewH - IBaseBlock.sDis2Top)
-        path.lineTo(IBaseBlock.sDis2Left * 2 + IBaseBlock.sDis2Top, (measuredH - mTopViewH))
-        path.lineTo(IBaseBlock.sDis2Left * 2 + IBaseBlock.sDis2Top + IBaseBlock.sLineLen, (measuredH - mTopViewH))
-        path.lineTo(IBaseBlock.sDis2Left * 2 + IBaseBlock.sDis2Top * 2 + IBaseBlock.sLineLen, measuredH - mTopViewH - IBaseBlock.sDis2Top)
-        path.lineTo(mTopViewW, measuredH - mTopViewH - IBaseBlock.sDis2Top)
+        path.lineTo(IBaseBlock.DIS_TO_LEFT, measuredH - mTopViewH - IBaseBlock.DIS_TO_TOP)
+        path.lineTo(IBaseBlock.DIS_TO_LEFT * 2, measuredH - mTopViewH - IBaseBlock.DIS_TO_TOP)
+        path.lineTo(IBaseBlock.DIS_TO_LEFT * 2 + IBaseBlock.DIS_TO_TOP, (measuredH - mTopViewH))
+        path.lineTo(IBaseBlock.DIS_TO_LEFT * 2 + IBaseBlock.DIS_TO_TOP + IBaseBlock.LINE_LEN, (measuredH - mTopViewH))
+        path.lineTo(IBaseBlock.DIS_TO_LEFT * 2 + IBaseBlock.DIS_TO_TOP * 2 + IBaseBlock.LINE_LEN, measuredH - mTopViewH - IBaseBlock.DIS_TO_TOP)
+        path.lineTo(mTopViewW, measuredH - mTopViewH - IBaseBlock.DIS_TO_TOP)
 
-        path.lineTo(mTopViewW, measuredH - IBaseBlock.sDis2Top)
-        path.lineTo(IBaseBlock.sDis2Left + IBaseBlock.sDis2Top * 2 + IBaseBlock.sLineLen, measuredH - IBaseBlock.sDis2Top)
-        path.lineTo(IBaseBlock.sDis2Left + IBaseBlock.sDis2Top + IBaseBlock.sLineLen, measuredH)
-        path.lineTo(IBaseBlock.sDis2Left + IBaseBlock.sDis2Top, measuredH)
-        path.lineTo(IBaseBlock.sDis2Left, measuredH - IBaseBlock.sDis2Top)
-        path.lineTo(0f, measuredH - IBaseBlock.sDis2Top)
+        path.lineTo(mTopViewW, measuredH - IBaseBlock.DIS_TO_TOP)
+        path.lineTo(IBaseBlock.DIS_TO_LEFT + IBaseBlock.DIS_TO_TOP * 2 + IBaseBlock.LINE_LEN, measuredH - IBaseBlock.DIS_TO_TOP)
+        path.lineTo(IBaseBlock.DIS_TO_LEFT + IBaseBlock.DIS_TO_TOP + IBaseBlock.LINE_LEN, measuredH)
+        path.lineTo(IBaseBlock.DIS_TO_LEFT + IBaseBlock.DIS_TO_TOP, measuredH)
+        path.lineTo(IBaseBlock.DIS_TO_LEFT, measuredH - IBaseBlock.DIS_TO_TOP)
+        path.lineTo(0f, measuredH - IBaseBlock.DIS_TO_TOP)
         path.close()
 
         paint.style = Paint.Style.FILL

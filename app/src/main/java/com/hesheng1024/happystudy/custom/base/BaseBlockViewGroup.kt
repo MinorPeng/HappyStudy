@@ -93,11 +93,11 @@ abstract class BaseBlockViewGroup : ViewGroup, IBaseBlock {
 
     override fun inTopRectF(x: Float, y: Float): Boolean {
         return (x <= left + measuredWidth && x >= left
-                && y < top + measuredHeight / 2 && y >= top - measuredHeight / 2 * 3)
+                && y < top + measuredHeight / 3 && y >= top - measuredHeight / 3 * 4)
     }
 
     override fun inBottomRectF(x: Float, y: Float): Boolean {
         return (x <= left + measuredWidth && x >= left
-                && y <= bottom + measuredHeight / 2 * 3 && y > bottom - measuredHeight / 2)
+                && y <= bottom + measuredHeight / 3 * 4 && y > bottom - measuredHeight / 3)
     }
 }

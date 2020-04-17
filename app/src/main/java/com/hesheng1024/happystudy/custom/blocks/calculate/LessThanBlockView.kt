@@ -81,4 +81,8 @@ class LessThanBlockView : BaseLogicBlockView {
         newObj.mEtRight.setText(this.mEtRight.text.toString())
         return newObj
     }
+
+    override fun judgeResult(): Boolean {
+        return mEtLeft.text.toString().toFloat() < mEtRight.text.toString().toFloat()
+    }
 }

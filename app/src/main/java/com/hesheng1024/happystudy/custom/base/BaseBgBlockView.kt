@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Path
 import android.util.AttributeSet
+import android.view.DragEvent
 import android.view.Gravity
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
@@ -39,10 +40,10 @@ abstract class BaseBgBlockView : LinearLayout, IBaseBlock {
             : super(context, attrs, defStyleAttr, defStyleRes) {
         this.setWillNotDraw(false)
         this.setPadding(
-            (IBaseBlock.sDis2Top * 2).toInt(),
-            IBaseBlock.sDis2Top.toInt(),
-            (IBaseBlock.sDis2Top * 2).toInt(),
-            (IBaseBlock.sDis2Top * 2).toInt()
+            (IBaseBlock.DIS_TO_TOP * 2).toInt(),
+            IBaseBlock.DIS_TO_TOP.toInt(),
+            (IBaseBlock.DIS_TO_TOP * 2).toInt(),
+            (IBaseBlock.DIS_TO_TOP * 2).toInt()
         )
         gravity = Gravity.CENTER
         this.setOnTouchListener(this)
@@ -96,11 +97,11 @@ abstract class BaseBgBlockView : LinearLayout, IBaseBlock {
 
     override fun inTopRectF(x: Float, y: Float): Boolean {
         return (x <= left + measuredWidth && x >= left
-                && y < top + measuredHeight / 2 && y >= top - measuredHeight / 2 * 3)
+                && y < top + measuredHeight / 3 && y >= top - measuredHeight / 3 * 4)
     }
 
     override fun inBottomRectF(x: Float, y: Float): Boolean {
         return (x <= left + measuredWidth && x >= left
-                && y <= bottom + measuredHeight / 2 * 3 && y > bottom - measuredHeight / 2)
+                && y <= bottom + measuredHeight / 3 * 4 && y > bottom - measuredHeight / 3)
     }
 }

@@ -18,6 +18,9 @@ import com.hesheng1024.happystudy.custom.base.IRoleView
 @SuppressLint("ViewConstructor")
 class AndBlockView : BaseLogicBlockView {
 
+    private val mLeftLogicBg: LogicBgBlockView
+    private val mRightLogicBg: LogicBgBlockView
+
     constructor(context: Context) : this(context, null)
 
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -27,17 +30,18 @@ class AndBlockView : BaseLogicBlockView {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
         this.setPadding(
-            IBaseBlock.sDis2Top.toInt(),
-            IBaseBlock.sDis2Top.toInt(),
-            IBaseBlock.sDis2Top.toInt(),
-            IBaseBlock.sDis2Top.toInt()
+            IBaseBlock.DIS_TO_TOP.toInt(),
+            IBaseBlock.DIS_TO_TOP.toInt(),
+            IBaseBlock.DIS_TO_TOP.toInt(),
+            IBaseBlock.DIS_TO_TOP.toInt()
         )
+        mLeftLogicBg = LogicBgBlockView(context)
+        mRightLogicBg = LogicBgBlockView(context)
         initView()
     }
 
     private fun initView() {
-        val logicBlockViewLeft = LogicBgBlockView(context)
-        addView(logicBlockViewLeft)
+        addView(mLeftLogicBg)
 
         val lpTvMoreThan = generateDefaultLayoutParams() as MarginLayoutParams
         lpTvMoreThan.leftMargin = DensityUtil.dp2px(context, 8f)
@@ -47,8 +51,7 @@ class AndBlockView : BaseLogicBlockView {
         tvMoreThan.setTextColor(ContextCompat.getColor(context, android.R.color.white))
         addView(tvMoreThan, lpTvMoreThan)
 
-        val logicBlockViewRight = LogicBgBlockView(context)
-        addView(logicBlockViewRight)
+        addView(mRightLogicBg)
     }
 
     override fun onRun(role: IRoleView) {
@@ -63,5 +66,9 @@ class AndBlockView : BaseLogicBlockView {
             newObj.layoutParams.height = measuredHeight
         }
         return newObj
+    }
+
+    override fun judgeResult(): Boolean {
+        return mLeftLogicBg.judgeResult() && mRightLogicBg.judgeResult()
     }
 }

@@ -37,10 +37,10 @@ abstract class BaseTextBlockView : AppCompatTextView, IBaseBlock {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
         gravity = Gravity.CENTER
         this.setPadding(
-            (IBaseBlock.sDis2Top * 2).toInt(),
-            (IBaseBlock.sDis2Top * 2).toInt(),
-            (IBaseBlock.sDis2Top * 2).toInt(),
-            (IBaseBlock.sDis2Top * 2).toInt()
+            (IBaseBlock.DIS_TO_TOP * 2).toInt(),
+            (IBaseBlock.DIS_TO_TOP * 2).toInt(),
+            (IBaseBlock.DIS_TO_TOP * 2).toInt(),
+            (IBaseBlock.DIS_TO_TOP * 2).toInt()
         )
         this.setTextColor(ContextCompat.getColor(context, android.R.color.white))
         this.setOnTouchListener(this)
@@ -61,17 +61,13 @@ abstract class BaseTextBlockView : AppCompatTextView, IBaseBlock {
         this.mBgColor = color
     }
 
-    override fun getBgColor(): Int {
-        return mBgColor
-    }
+    override fun getBgColor(): Int = mBgColor
 
     override fun setStatus(status: IBaseBlock.Status) {
         this.mStatus = status
     }
 
-    override fun getStatus(): IBaseBlock.Status {
-        return mStatus
-    }
+    override fun getStatus(): IBaseBlock.Status = mStatus
 
     @Synchronized
     override fun getBlackOwn(): IBaseBlock {
@@ -88,14 +84,14 @@ abstract class BaseTextBlockView : AppCompatTextView, IBaseBlock {
 
     override fun inTopRectF(x: Float, y: Float): Boolean {
         val isIn = (x <= left + measuredWidth && x >= left
-                && y < top + measuredHeight / 2 && y >= top - measuredHeight / 2 * 3)
+                && y < top + measuredHeight / 3 && y >= top - measuredHeight / 3 * 4)
         LogUtil.d(msg = "top isIn:$isIn l:$left t:$top r:$right b:$bottom x:$x y:$y")
         return isIn
     }
 
     override fun inBottomRectF(x: Float, y: Float): Boolean {
         val isIn = (x <= left + measuredWidth && x >= left
-                && y <= bottom + measuredHeight / 2 * 3 && y > bottom - measuredHeight / 2)
+                && y <= bottom + measuredHeight / 3 * 4 && y > bottom - measuredHeight / 3)
         LogUtil.d(msg = "bottom isIn:$isIn l:$left t:$top r:$right b:$bottom x:$x y:$y")
         return isIn
     }

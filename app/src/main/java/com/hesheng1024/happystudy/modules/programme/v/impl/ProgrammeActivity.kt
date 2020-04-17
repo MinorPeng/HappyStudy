@@ -13,6 +13,8 @@ import com.hesheng1024.base.utils.ContextHolder
 import com.hesheng1024.base.utils.LogUtil
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
+import com.hesheng1024.happystudy.custom.blocks.calculate.BaseCalculateBlockView
+import com.hesheng1024.happystudy.custom.blocks.calculate.BaseLogicBlockView
 import com.hesheng1024.happystudy.modules.programme.adapter.BlocksRecyclerAdapter
 import com.hesheng1024.happystudy.modules.programme.m.Block
 import com.hesheng1024.happystudy.modules.programme.p.ProgrammePresenter
@@ -148,7 +150,7 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
                     LogUtil.i(msg = "view in dragging out frame")
                 }
                 DragEvent.ACTION_DRAG_LOCATION -> {
-                    LogUtil.i(msg = "view pos in frame: x->${event.x} y->${event.y}")
+                    // LogUtil.i(msg = "view pos in frame: x->${event.x} y->${event.y}")
                 }
                 DragEvent.ACTION_DROP -> {
                     LogUtil.i(msg = "release dragging view")
@@ -163,15 +165,20 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
 
     private fun initProgramme() {
         linear_layout_programme.setOnDragListener { v, event ->
+            val block = event.localState
+            // 当block不是IBaseBlock的实现不处理，block不是View不处理，
+            // 当block是BaseCalculateBlockView或者BaseLogicBlockView则不处理（后两者是因为不应该在parent中添加，只应该在一些类型中的积木如控制类的积木中添加）
+            if (block !is IBaseBlock || block !is View || block is BaseCalculateBlockView || block is BaseLogicBlockView) {
+                LogUtil.e(msg = "block error return true: $block")
+                return@setOnDragListener true
+            }
+
             for (child in linear_layout_programme.children) {
-                if (child is IBaseBlock && child.onDrag(child, event)) {
+                if (child is IBaseBlock && child.onDragEv(event)) {
                     return@setOnDragListener true
                 }
             }
-            val block = event.localState
-            if (block !is IBaseBlock || block !is View) {
-                return@setOnDragListener true
-            }
+
             when (event.action) {
                 DragEvent.ACTION_DRAG_STARTED -> {
                     LogUtil.i(msg = "start")
@@ -188,7 +195,7 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
                     LogUtil.i(msg = "view in dragging out frame")
                 }
                 DragEvent.ACTION_DRAG_LOCATION -> {
-                    LogUtil.i(msg = "view pos in frame: x->${event.x} y->${event.y}")
+                    // LogUtil.i(msg = "view pos in frame: x->${event.x} y->${event.y}")
                 }
                 DragEvent.ACTION_DROP -> {
                     LogUtil.i(msg = "drop in linear layout x->${event.x} y->{$event.y}")
@@ -198,7 +205,7 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
                     // lp.leftMargin = event.x.toInt() - lp.width / 2
                     // lp.topMargin = event.y.toInt() - lp.height / 2
                     // lp.topMargin = -IBaseBlock.sDis2Top.toInt()
-                    (block.layoutParams as LinearLayout.LayoutParams).bottomMargin = -IBaseBlock.sDis2Top.toInt()
+                    (block.layoutParams as LinearLayout.LayoutParams).bottomMargin = -IBaseBlock.DIS_TO_TOP.toInt()
                     linear_layout_programme.addView(block, block.layoutParams)
                 }
             }

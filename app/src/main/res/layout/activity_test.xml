@@ -23,22 +23,19 @@
     <LinearLayout
         android:id="@+id/frame_test_start"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp64"
+        android:layout_height="wrap_content"
         android:background="@android:color/darker_gray"
         android:orientation="horizontal">
 
-        <com.hesheng1024.happystudy.custom.blocks.appearance.NextBgBlockView
-            android:id="@+id/block_test"
-            android:layout_width="100dp"
-            android:layout_height="@dimen/dp64" />
 
         <com.hesheng1024.happystudy.custom.blocks.appearance.ShowBlockView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <com.hesheng1024.happystudy.custom.blocks.appearance.HideBlockView
-            android:layout_width="100dp"
-            android:layout_height="@dimen/dp64" />
+        <com.hesheng1024.happystudy.custom.blocks.control.CirculationUtilBlockView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
 
     </LinearLayout>
 

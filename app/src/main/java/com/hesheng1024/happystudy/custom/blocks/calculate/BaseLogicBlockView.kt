@@ -16,7 +16,7 @@ import com.hesheng1024.happystudy.custom.base.IBaseBlock
  * @date 2020/4/3 15:43
  */
 abstract class BaseLogicBlockView : BaseBgBlockView {
-    protected val sDisLeft = IBaseBlock.sDis2Left + IBaseBlock.sDis2Top
+    protected val sDisLeft = IBaseBlock.DIS_TO_LEFT + IBaseBlock.DIS_TO_TOP
 
     constructor(context: Context) : this(context, null)
 
@@ -27,7 +27,7 @@ abstract class BaseLogicBlockView : BaseBgBlockView {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
         this.setBgColorId(R.color.colorCalculateGreen)
-        this.setPadding(sDisLeft.toInt(), IBaseBlock.sDis2Top.toInt(), sDisLeft.toInt(), IBaseBlock.sDis2Top.toInt())
+        this.setPadding(sDisLeft.toInt(), IBaseBlock.DIS_TO_TOP.toInt(), sDisLeft.toInt(), IBaseBlock.DIS_TO_TOP.toInt())
     }
 
     override fun drawBackground(canvas: Canvas, paint: Paint, path: Path, measuredW: Float, measuredH: Float) {
@@ -49,4 +49,6 @@ abstract class BaseLogicBlockView : BaseBgBlockView {
         paint.color = getBgBorderColor()
         canvas.drawPath(path, paint)
     }
+
+    abstract fun judgeResult(): Boolean
 }

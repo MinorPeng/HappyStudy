@@ -26,10 +26,10 @@ abstract class BaseCalculateBlockView : BaseBgBlockView {
             : super(context, attrs, defStyleAttr, defStyleRes) {
         this.setBgColorId(R.color.colorCalculateGreen)
         this.setPadding(
-            IBaseBlock.sDis2Top.toInt(),
-            IBaseBlock.sDis2Top.toInt(),
-            IBaseBlock.sDis2Top.toInt(),
-            IBaseBlock.sDis2Top.toInt()
+            IBaseBlock.DIS_TO_TOP.toInt(),
+            IBaseBlock.DIS_TO_TOP.toInt(),
+            IBaseBlock.DIS_TO_TOP.toInt(),
+            IBaseBlock.DIS_TO_TOP.toInt()
         )
     }
 
@@ -49,4 +49,6 @@ abstract class BaseCalculateBlockView : BaseBgBlockView {
         paint.color = getBgBorderColor()
         canvas.drawPath(path, paint)
     }
+
+    abstract fun calculateResult(): Float
 }

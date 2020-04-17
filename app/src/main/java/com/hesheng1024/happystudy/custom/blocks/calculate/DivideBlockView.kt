@@ -21,8 +21,8 @@ import com.hesheng1024.happystudy.custom.base.IRoleView
 @SuppressLint("ViewConstructor")
 class DivideBlockView : BaseCalculateBlockView {
 
-    private val mEtLeft: AppCompatEditText
-    private val mEtRight: AppCompatEditText
+    private val mLeftBgBlock: CalculateBgBlock
+    private val mRightBgBlock: CalculateBgBlock
 
     constructor(context: Context) : this(context, null)
 
@@ -32,20 +32,22 @@ class DivideBlockView : BaseCalculateBlockView {
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
-        mEtLeft = AppCompatEditText(context)
-        mEtRight = AppCompatEditText(context)
+        mLeftBgBlock = CalculateBgBlock(context)
+        mRightBgBlock = CalculateBgBlock(context)
         initView()
     }
 
     private fun initView() {
-        mEtLeft.setBackgroundResource(R.drawable.bg_et_circle_whilte)
-        mEtLeft.gravity = Gravity.CENTER
-        mEtLeft.inputType = InputType.TYPE_CLASS_NUMBER
-        mEtLeft.minEms = 2
-        mEtLeft.setOnDragListener { v, event ->
+        val etLeft = AppCompatEditText(context)
+        etLeft.setBackgroundResource(R.drawable.bg_et_circle_whilte)
+        etLeft.gravity = Gravity.CENTER
+        etLeft.inputType = InputType.TYPE_CLASS_NUMBER
+        etLeft.minEms = 2
+        etLeft.setOnDragListener { v, event ->
             return@setOnDragListener true
         }
-        addView(mEtLeft)
+        mLeftBgBlock.addView(etLeft, 0)
+        addView(mLeftBgBlock, 0)
 
         val lpTvDivide = generateDefaultLayoutParams() as MarginLayoutParams
         lpTvDivide.leftMargin = DensityUtil.dp2px(context, 8f)
@@ -55,15 +57,17 @@ class DivideBlockView : BaseCalculateBlockView {
         tvDivide.setTextColor(ContextCompat.getColor(context, android.R.color.white))
         addView(tvDivide, lpTvDivide)
 
-        mEtRight.setBackgroundResource(R.drawable.bg_et_circle_whilte)
-        mEtRight.gravity = Gravity.CENTER
-        mEtRight.inputType = InputType.TYPE_CLASS_NUMBER
-        mEtRight.setText(R.string.fifty)
-        mEtRight.minEms = 2
-        mEtRight.setOnDragListener { v, event ->
+        val etRight = AppCompatEditText(context)
+        etRight.setBackgroundResource(R.drawable.bg_et_circle_whilte)
+        etRight.gravity = Gravity.CENTER
+        etRight.inputType = InputType.TYPE_CLASS_NUMBER
+        etRight.setText(R.string.fifty)
+        etRight.minEms = 2
+        etRight.setOnDragListener { v, event ->
             return@setOnDragListener true
         }
-        addView(mEtRight)
+        mRightBgBlock.addView(etRight, 0)
+        addView(mRightBgBlock, 2)
     }
 
     override fun onRun(role: IRoleView) {
@@ -77,8 +81,32 @@ class DivideBlockView : BaseCalculateBlockView {
             newObj.layoutParams.width = measuredWidth
             newObj.layoutParams.height = measuredHeight
         }
-        newObj.mEtLeft.setText(this.mEtLeft.text.toString())
-        newObj.mEtRight.setText(this.mEtRight.text.toString())
         return newObj
+    }
+
+    override fun calculateResult(): Float {
+        val left = when (val leftBlock = mLeftBgBlock.getChildAt(0)) {
+            is AppCompatEditText -> {
+                leftBlock.text.toString().toFloat()
+            }
+            is BaseCalculateBlockView -> {
+                leftBlock.calculateResult()
+            }
+            else -> {
+                -1f
+            }
+        }
+        val right = when (val rightBlock = mRightBgBlock.getChildAt(0)) {
+            is AppCompatEditText -> {
+                rightBlock.text.toString().toFloat()
+            }
+            is BaseCalculateBlockView -> {
+                rightBlock.calculateResult()
+            }
+            else -> {
+                -1f
+            }
+        }
+        return left / right
     }
 }

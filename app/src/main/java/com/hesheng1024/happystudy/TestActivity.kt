@@ -34,15 +34,20 @@ class TestActivity : AppCompatActivity() {
         // (tv_test.layoutParams as ViewGroup.MarginLayoutParams).topMargin = 16
         // MediaPlayerUtil.play()
         frame_test_end.setOnDragListener { v, event ->
+            //v 永远是设置该监听的view，这里即fl_blue
+            // LogUtil.i(msg = "name:${v.javaClass.simpleName}")
+            val block = event.localState
+            if (block !is IBaseBlock || block !is View) {
+                return@setOnDragListener true
+            }
+
             for (child in frame_test_end.children) {
-                LogUtil.d(msg = "c$child")
-                if (child is IBaseBlock && child.onDrag(child, event)) {
+                // LogUtil.d(msg = "c$child")
+                if (child is IBaseBlock && child.onDragEv(event)) {
                     return@setOnDragListener true
                 }
             }
-            //v 永远是设置该监听的view，这里即fl_blue
-            LogUtil.i(msg = "name:${v.javaClass.simpleName}")
-            val block = event.localState as BaseTextBlockView
+
             when(event.action) {
                 DragEvent.ACTION_DRAG_STARTED -> {
                     LogUtil.i(msg = "start")
@@ -59,18 +64,9 @@ class TestActivity : AppCompatActivity() {
                     LogUtil.i(msg = "view in dragging out frame")
                 }
                 DragEvent.ACTION_DRAG_LOCATION -> {
-                    LogUtil.i(msg = "view pos in frame: x->${event.x} y->${event.y}")
+                    // LogUtil.i(msg = "view pos in frame: x->${event.x} y->${event.y}")
                 }
                 DragEvent.ACTION_DROP -> {
-                    // if (block.parent != null && block.parent is ViewGroup) {
-                    //     (block.parent.parent as? ViewGroup)?.removeView(block.parent as ViewGroup)
-                    //
-                    // } else {
-                    //     val linearLayout = LinearLayout(this)
-                    //     linearLayout.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
-                    //         LinearLayout.LayoutParams.WRAP_CONTENT)
-                    //
-                    // }
                     (block.parent as? ViewGroup)?.removeView(block)
                     block.setStatus(IBaseBlock.Status.STATUS_DRAG)
                     val lp = FrameLayout.LayoutParams(block.layoutParams)
@@ -87,7 +83,10 @@ class TestActivity : AppCompatActivity() {
         frame_test_start.setOnDragListener { v, event ->
             //v 永远是设置该监听的view，这里即fl_blue
             LogUtil.i(msg = "name:${v.javaClass.simpleName}")
-            val block = event.localState as BaseTextBlockView
+            val block = event.localState
+            if (block !is IBaseBlock || block !is View) {
+                return@setOnDragListener true
+            }
             when(event.action) {
                 DragEvent.ACTION_DRAG_STARTED -> {
                     LogUtil.i(msg = "start")
@@ -104,7 +103,7 @@ class TestActivity : AppCompatActivity() {
                     LogUtil.i(msg = "view in dragging out frame")
                 }
                 DragEvent.ACTION_DRAG_LOCATION -> {
-                    LogUtil.i(msg = "view pos in frame: x->${event.x} y->${event.y}")
+                    // LogUtil.i(msg = "view pos in frame: x->${event.x} y->${event.y}")
                 }
                 DragEvent.ACTION_DROP -> {
                     LogUtil.i(msg = "release dragging view")
