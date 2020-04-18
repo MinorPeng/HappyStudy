@@ -43,24 +43,19 @@ class DeathCirculationBlockView : BaseControlBlockView {
         ivCirculation.setImageResource(R.drawable.ic_circulation_16)
         ivCirculation.tag = ChildTag.TAG_BOTTOM
         addView(ivCirculation)
-
-        // TODO test
-        val mo = MoveBlockView(context)
-        mo.tag = ChildTag.TAG_CHILD
-        addView(mo)
     }
 
     override fun onRun(role: IRoleView) {
-
+        while (true) {
+            onChildRun(role)
+        }
     }
 
     override fun clone(): IBaseBlock {
         val newObj = DeathCirculationBlockView(context)
         newObj.layoutParams = this.layoutParams
-        if (newObj.layoutParams.width <= 0 || newObj.layoutParams.height <= 0) {
-            newObj.layoutParams.width = measuredWidth
-            newObj.layoutParams.height = measuredHeight
-        }
+        newObj.minimumWidth = measuredWidth
+        newObj.minimumHeight = measuredHeight
         return newObj
     }
 }

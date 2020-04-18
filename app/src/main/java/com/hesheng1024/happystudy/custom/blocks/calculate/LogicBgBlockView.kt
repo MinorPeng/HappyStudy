@@ -3,6 +3,9 @@ package com.hesheng1024.happystudy.custom.blocks.calculate
 import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
+import android.view.View
+import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatEditText
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.base.IRoleView
@@ -23,6 +26,7 @@ class LogicBgBlockView : BaseLogicBlockView {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
         setBgColorId(R.color.colorCalculateGreenDark)
+        setStatus(IBaseBlock.Status.STATUS_NONE)
         this.setPadding(
             sDisLeft.toInt(),
             IBaseBlock.DIS_TO_TOP.toInt(),
@@ -40,18 +44,61 @@ class LogicBgBlockView : BaseLogicBlockView {
     override fun clone(): IBaseBlock {
         val newObj = LogicBgBlockView(context)
         newObj.layoutParams = this.layoutParams
-        if (newObj.layoutParams.width <= 0 || newObj.layoutParams.height <= 0) {
-            newObj.layoutParams.width = measuredWidth
-            newObj.layoutParams.height = measuredHeight
+        val child = getChildAt(0)
+        if (child == null) {
+            newObj.minimumWidth = measuredWidth
+            newObj.minimumHeight = measuredHeight
+        } else if (child is BaseLogicBlockView){
+            newObj.addView(child.clone() as BaseLogicBlockView)
         }
         return newObj
     }
 
     override fun judgeResult(): Boolean {
         val child = getChildAt(0)
-        if (child is BaseLogicBlockView) {
+        if (child != null && child is BaseLogicBlockView) {
             return child.judgeResult()
         }
         return false
+    }
+
+    override fun addView(child: View?) {
+        removeAllViews()
+        super.addView(child)
+    }
+
+    override fun addView(child: View?, index: Int) {
+        removeAllViews()
+        super.addView(child, index)
+    }
+
+    override fun addView(child: View?, params: ViewGroup.LayoutParams?) {
+        removeAllViews()
+        super.addView(child, params)
+    }
+
+    override fun addView(child: View?, index: Int, params: ViewGroup.LayoutParams?) {
+        removeAllViews()
+        super.addView(child, index, params)
+    }
+
+    override fun addView(child: View?, width: Int, height: Int) {
+        removeAllViews()
+        super.addView(child, width, height)
+    }
+
+    override fun addViewInLayout(child: View?, index: Int, params: ViewGroup.LayoutParams?): Boolean {
+        removeAllViews()
+        return super.addViewInLayout(child, index, params)
+    }
+
+    override fun addViewInLayout(
+        child: View?,
+        index: Int,
+        params: ViewGroup.LayoutParams?,
+        preventRequestLayout: Boolean
+    ): Boolean {
+        removeAllViews()
+        return super.addViewInLayout(child, index, params, preventRequestLayout)
     }
 }

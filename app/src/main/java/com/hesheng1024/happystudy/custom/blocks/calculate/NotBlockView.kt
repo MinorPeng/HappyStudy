@@ -57,9 +57,11 @@ class NotBlockView : BaseLogicBlockView {
     override fun clone(): IBaseBlock {
         val newObj = NotBlockView(context)
         newObj.layoutParams = this.layoutParams
-        if (newObj.layoutParams.width <= 0 || newObj.layoutParams.height <= 0) {
-            newObj.layoutParams.width = measuredWidth
-            newObj.layoutParams.height = measuredHeight
+        newObj.minimumWidth = measuredWidth
+        newObj.minimumHeight = measuredHeight
+        val child = mLogicBg.getChildAt(0)
+        if ( child is BaseLogicBlockView) {
+            newObj.mLogicBg.addView(child.clone() as BaseLogicBlockView)
         }
         return newObj
     }

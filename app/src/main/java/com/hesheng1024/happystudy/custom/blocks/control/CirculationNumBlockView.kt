@@ -2,6 +2,7 @@ package com.hesheng1024.happystudy.custom.blocks.control
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.text.InputType
 import android.util.AttributeSet
 import android.view.Gravity
 import android.widget.ImageView
@@ -12,6 +13,8 @@ import com.hesheng1024.base.utils.DensityUtil
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.base.IRoleView
+import com.hesheng1024.happystudy.custom.blocks.calculate.BaseCalculateBlockView
+import com.hesheng1024.happystudy.custom.blocks.calculate.CalculateBgBlock
 import com.hesheng1024.happystudy.custom.blocks.motion.MoveBlockView
 
 /**
@@ -22,7 +25,7 @@ import com.hesheng1024.happystudy.custom.blocks.motion.MoveBlockView
 @SuppressLint("ViewConstructor")
 class CirculationNumBlockView : BaseControlBlockView {
 
-    private val mEtCount: AppCompatEditText
+    private val mCalculateBg: CalculateBgBlock
 
     constructor(context: Context) : this(context, null)
 
@@ -32,7 +35,7 @@ class CirculationNumBlockView : BaseControlBlockView {
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
-        mEtCount = AppCompatEditText(context)
+        mCalculateBg = CalculateBgBlock(context)
         initView()
     }
 
@@ -45,18 +48,21 @@ class CirculationNumBlockView : BaseControlBlockView {
         tvCirculation.setTextColor(whiteColor)
         addView(tvCirculation)
 
-        val lpEtCount = generateDefaultLayoutParams() as MarginLayoutParams
-        lpEtCount.leftMargin = DensityUtil.dp2px(context, 8f)
-        lpEtCount.rightMargin =  DensityUtil.dp2px(context, 8f)
-        mEtCount.setText(R.string.ten)
-        mEtCount.minEms = 2
-        mEtCount.tag = ChildTag.TAG_TOP
-        mEtCount.gravity = Gravity.CENTER
-        mEtCount.setBackgroundResource(R.drawable.bg_et_circle_whilte)
-        mEtCount.setOnDragListener { v, event ->
+        val lpBgBlock = generateDefaultLayoutParams() as MarginLayoutParams
+        lpBgBlock.leftMargin = DensityUtil.dp2px(context, 8f)
+        lpBgBlock.rightMargin =  DensityUtil.dp2px(context, 8f)
+        val etCount = AppCompatEditText(context)
+        etCount.setText(R.string.ten)
+        etCount.minEms = 2
+        etCount.gravity = Gravity.CENTER
+        etCount.inputType = InputType.TYPE_CLASS_NUMBER
+        etCount.setBackgroundResource(R.drawable.bg_et_circle_whilte)
+        etCount.setOnDragListener { v, event ->
             return@setOnDragListener true
         }
-        addView(mEtCount, lpEtCount)
+        mCalculateBg.addView(etCount)
+        mCalculateBg.tag = ChildTag.TAG_TOP
+        addView(mCalculateBg, lpBgBlock)
 
 
         val tvCount = TextView(context)
@@ -78,17 +84,30 @@ class CirculationNumBlockView : BaseControlBlockView {
     }
 
     override fun onRun(role: IRoleView) {
-
+        for (i in 1..mCalculateBg.calculateResult().toInt()) {
+            onChildRun(role)
+        }
     }
 
     override fun clone(): IBaseBlock {
         val newObj = CirculationNumBlockView(context)
         newObj.layoutParams = this.layoutParams
-        if (newObj.layoutParams.width <= 0 || newObj.layoutParams.height <= 0) {
-            newObj.layoutParams.width = measuredWidth
-            newObj.layoutParams.height = measuredHeight
+        newObj.minimumWidth = measuredWidth
+        newObj.minimumHeight = measuredHeight
+        when (val child = mCalculateBg.getChildAt(0)) {
+            is AppCompatEditText -> {
+                if (newObj.mCalculateBg.getChildAt(0) is AppCompatEditText) {
+                    (newObj.mCalculateBg.getChildAt(0) as AppCompatEditText).setText(child.text.toString())
+                } else {
+                    val newEt = AppCompatEditText(context)
+                    newEt.setText(child.text.toString())
+                    newObj.mCalculateBg.addView(newEt, 0)
+                }
+            }
+            is BaseCalculateBlockView -> {
+                newObj.mCalculateBg.addView(child.clone() as BaseCalculateBlockView)
+            }
         }
-        newObj.mEtCount.setText(this.mEtCount.text.toString())
         return newObj
     }
 }

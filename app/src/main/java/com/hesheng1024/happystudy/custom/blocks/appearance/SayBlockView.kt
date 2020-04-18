@@ -56,10 +56,8 @@ class SayBlockView : BaseBgBlockView, IRoleListener {
     override fun clone(): IBaseBlock {
         val newObj = SayBlockView(context)
         newObj.layoutParams = this.layoutParams
-        if (newObj.layoutParams.width <= 0 || newObj.layoutParams.height <= 0) {
-            newObj.layoutParams.width = measuredWidth
-            newObj.layoutParams.height = measuredHeight
-        }
+        newObj.minimumWidth = measuredWidth
+        newObj.minimumHeight = measuredHeight
         newObj.mEtContent.setText(this.mEtContent.text.toString())
         return newObj
     }

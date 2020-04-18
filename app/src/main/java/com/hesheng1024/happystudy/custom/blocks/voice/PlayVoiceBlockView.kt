@@ -70,10 +70,8 @@ class PlayVoiceBlockView : BaseBgBlockView {
     override fun clone(): IBaseBlock {
         val newObj = PlayVoiceBlockView(context)
         newObj.layoutParams = this.layoutParams
-        if (newObj.layoutParams.width <= 0 || newObj.layoutParams.height <= 0) {
-            newObj.layoutParams.width = measuredWidth
-            newObj.layoutParams.height = measuredHeight
-        }
+        newObj.minimumWidth = measuredWidth
+        newObj.minimumHeight = measuredHeight
         return newObj
     }
 }

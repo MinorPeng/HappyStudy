@@ -82,10 +82,13 @@ abstract class BaseBlockViewGroup : ViewGroup, IBaseBlock {
     override fun getBlackOwn(): IBaseBlock {
         if (mBlackOwn == null) {
             mBlackOwn = clone()
-            mBlackOwn?.setBgColor(getBgBorderColor())
-            mBlackOwn?.setStatus(IBaseBlock.Status.STATUS_NONE)
             if (mBlackOwn is BaseBlockViewGroup) {
-                (mBlackOwn as BaseBlockViewGroup).removeAllViews()
+                val own = mBlackOwn as BaseBlockViewGroup
+                own.minimumWidth = minimumWidth
+                own.minimumHeight = minimumHeight
+                own.setBgColor(getBgBorderColor())
+                own.setStatus(IBaseBlock.Status.STATUS_NONE)
+                own.removeAllViews()
             }
         }
         return mBlackOwn!!

@@ -73,10 +73,13 @@ abstract class BaseTextBlockView : AppCompatTextView, IBaseBlock {
     override fun getBlackOwn(): IBaseBlock {
         if (mBlackOwn == null) {
             mBlackOwn = clone()
-            mBlackOwn?.setBgColor(getBgBorderColor())
-            mBlackOwn?.setStatus(IBaseBlock.Status.STATUS_NONE)
             if (mBlackOwn is BaseTextBlockView) {
-                (mBlackOwn as BaseTextBlockView).text = ""
+                val own = mBlackOwn as BaseTextBlockView
+                own.minimumWidth = minimumWidth
+                own.minimumHeight = minimumHeight
+                own.setBgColor(getBgBorderColor())
+                own.setStatus(IBaseBlock.Status.STATUS_NONE)
+                own.text = ""
             }
         }
         return mBlackOwn!!

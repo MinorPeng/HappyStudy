@@ -86,10 +86,13 @@ abstract class BaseBgBlockView : LinearLayout, IBaseBlock {
     override fun getBlackOwn(): IBaseBlock {
         if (mBlackOwn == null) {
             mBlackOwn = clone()
-            mBlackOwn?.setBgColor(getBgBorderColor())
-            mBlackOwn?.setStatus(IBaseBlock.Status.STATUS_NONE)
             if (mBlackOwn is BaseBgBlockView) {
-                (mBlackOwn as BaseBgBlockView).removeAllViews()
+                val own = mBlackOwn as BaseBgBlockView
+                own.minimumWidth = minimumWidth
+                own.minimumHeight = minimumHeight
+                own.setBgColor(getBgBorderColor())
+                own.setStatus(IBaseBlock.Status.STATUS_NONE)
+                own.removeAllViews()
             }
         }
         return mBlackOwn!!

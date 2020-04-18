@@ -1,59 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:background="@color/colorPrimary"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:background="@color/colorPrimary">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_test"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="这是一句很长很长的话，\n我也不知道能说多长"
+        android:background="@drawable/bg_message"
         android:gravity="center"
         android:paddingStart="@dimen/dp10"
         android:paddingTop="@dimen/dp8"
-        android:paddingBottom="@dimen/dp8"
         android:paddingEnd="@dimen/dp10"
+        android:paddingBottom="@dimen/dp8"
         android:visibility="gone"
-        android:background="@drawable/bg_message"/>
+        tools:text="这是一句很长很长的话，\n我也不知道能说多长" />
 
-
-    <LinearLayout
-        android:id="@+id/frame_test_start"
+    <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/darker_gray"
-        android:orientation="horizontal">
+        android:background="@android:color/darker_gray">
 
-
-        <com.hesheng1024.happystudy.custom.blocks.appearance.ShowBlockView
+        <LinearLayout
+            android:id="@+id/frame_test_start"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-        <com.hesheng1024.happystudy.custom.blocks.control.CirculationUtilBlockView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            <com.hesheng1024.happystudy.custom.blocks.appearance.ShowBlockView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
+            <com.hesheng1024.happystudy.custom.blocks.control.CirculationUtilBlockView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
-    </LinearLayout>
+            <com.hesheng1024.happystudy.custom.blocks.calculate.NotBlockView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
-    <LinearLayout
-        android:id="@+id/frame_test_end"
+            <com.hesheng1024.happystudy.custom.blocks.calculate.AddBlockView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/dp24"
-        android:background="@color/colorGrayBorderB"
-        android:orientation="vertical">
+        android:background="@color/colorGrayBorderB">
 
-        <Button
-            android:id="@+id/btn_test"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/frame_test_end"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp24"
-            android:layout_marginTop="@dimen/dp24" />
+            android:padding="@dimen/dp16"
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/btn_test"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp24"
+                android:layout_marginTop="@dimen/dp24" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

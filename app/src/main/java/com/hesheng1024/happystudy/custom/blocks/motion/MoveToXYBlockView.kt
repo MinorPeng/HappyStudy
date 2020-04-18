@@ -84,10 +84,8 @@ class MoveToXYBlockView : BaseBgBlockView {
     override fun clone(): IBaseBlock {
         val newObj = MoveToXYBlockView(context)
         newObj.layoutParams = this.layoutParams
-        if (newObj.layoutParams.width <= 0 || newObj.layoutParams.height <= 0) {
-            newObj.layoutParams.width = measuredWidth
-            newObj.layoutParams.height = measuredHeight
-        }
+        newObj.minimumWidth = measuredWidth
+        newObj.minimumHeight = measuredHeight
         newObj.mEtX.setText(this.mEtX.text.toString())
         newObj.mEtY.setText(this.mEtY.text.toString())
         return newObj

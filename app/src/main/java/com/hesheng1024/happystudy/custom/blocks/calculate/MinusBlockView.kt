@@ -21,8 +21,8 @@ import com.hesheng1024.happystudy.custom.base.IRoleView
 @SuppressLint("ViewConstructor")
 class MinusBlockView : BaseCalculateBlockView {
 
-    private val mLeftBgBlock: CalculateBgBlock
-    private val mRightBgBlock: CalculateBgBlock
+    private val mLeftCalculateBg: CalculateBgBlock
+    private val mRightCalculateBg: CalculateBgBlock
 
     constructor(context: Context) : this(context, null)
 
@@ -32,8 +32,8 @@ class MinusBlockView : BaseCalculateBlockView {
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
-        mLeftBgBlock = CalculateBgBlock(context)
-        mRightBgBlock = CalculateBgBlock(context)
+        mLeftCalculateBg = CalculateBgBlock(context)
+        mRightCalculateBg = CalculateBgBlock(context)
         initView()
     }
 
@@ -46,8 +46,8 @@ class MinusBlockView : BaseCalculateBlockView {
         etLeft.setOnDragListener { v, event ->
             return@setOnDragListener true
         }
-        mLeftBgBlock.addView(etLeft, 0)
-        addView(mLeftBgBlock, 0)
+        mLeftCalculateBg.addView(etLeft, 0)
+        addView(mLeftCalculateBg, 0)
 
         val lpTvMinus = generateDefaultLayoutParams() as MarginLayoutParams
         lpTvMinus.leftMargin = DensityUtil.dp2px(context, 8f)
@@ -66,8 +66,8 @@ class MinusBlockView : BaseCalculateBlockView {
         etRight.setOnDragListener { v, event ->
             return@setOnDragListener true
         }
-        mRightBgBlock.addView(etRight, 0)
-        addView(mRightBgBlock, 2)
+        mRightCalculateBg.addView(etRight, 0)
+        addView(mRightCalculateBg, 2)
     }
 
     override fun onRun(role: IRoleView) {
@@ -77,36 +77,38 @@ class MinusBlockView : BaseCalculateBlockView {
     override fun clone(): IBaseBlock {
         val newObj = MinusBlockView(context)
         newObj.layoutParams = this.layoutParams
-        if (newObj.layoutParams.width <= 0 || newObj.layoutParams.height <= 0) {
-            newObj.layoutParams.width = measuredWidth
-            newObj.layoutParams.height = measuredHeight
+        newObj.minimumWidth = measuredWidth
+        newObj.minimumHeight = measuredHeight
+        when (val child = mLeftCalculateBg.getChildAt(0)) {
+            is AppCompatEditText -> {
+                if (newObj.mLeftCalculateBg.getChildAt(0) is AppCompatEditText) {
+                    (newObj.mLeftCalculateBg.getChildAt(0) as AppCompatEditText).setText(child.text.toString())
+                } else {
+                    val newEt = AppCompatEditText(context)
+                    newEt.setText(child.text.toString())
+                    newObj.mLeftCalculateBg.addView(newEt, 0)
+                }
+            }
+            is BaseCalculateBlockView -> {
+                newObj.mLeftCalculateBg.addView(child.clone() as BaseCalculateBlockView)
+            }
+        }
+        when (val child = mRightCalculateBg.getChildAt(0)) {
+            is AppCompatEditText -> {
+                if (newObj.mRightCalculateBg.getChildAt(0) is AppCompatEditText) {
+                    (newObj.mRightCalculateBg.getChildAt(0) as AppCompatEditText).setText(child.text.toString())
+                } else {
+                    val newEt = AppCompatEditText(context)
+                    newEt.setText(child.text.toString())
+                    newObj.mRightCalculateBg.addView(newEt, 0)
+                }
+            }
+            is BaseCalculateBlockView -> {
+                newObj.mRightCalculateBg.addView(child.clone() as BaseCalculateBlockView)
+            }
         }
         return newObj
     }
 
-    override fun calculateResult(): Float {
-        val left = when (val leftBlock = mLeftBgBlock.getChildAt(0)) {
-            is AppCompatEditText -> {
-                leftBlock.text.toString().toFloat()
-            }
-            is BaseCalculateBlockView -> {
-                leftBlock.calculateResult()
-            }
-            else -> {
-                -1f
-            }
-        }
-        val right = when (val rightBlock = mRightBgBlock.getChildAt(0)) {
-            is AppCompatEditText -> {
-                rightBlock.text.toString().toFloat()
-            }
-            is BaseCalculateBlockView -> {
-                rightBlock.calculateResult()
-            }
-            else -> {
-                -1f
-            }
-        }
-        return left - right
-    }
+    override fun calculateResult(): Float = mLeftCalculateBg.calculateResult() - mRightCalculateBg.calculateResult()
 }

@@ -59,16 +59,20 @@ class AndBlockView : BaseLogicBlockView {
     }
 
     override fun clone(): IBaseBlock {
-        val newObj = AddBlockView(context)
+        val newObj = AndBlockView(context)
         newObj.layoutParams = this.layoutParams
-        if (newObj.layoutParams.width <= 0 || newObj.layoutParams.height <= 0) {
-            newObj.layoutParams.width = measuredWidth
-            newObj.layoutParams.height = measuredHeight
+        newObj.minimumWidth = measuredWidth
+        newObj.minimumHeight = measuredHeight
+        var child = mLeftLogicBg.getChildAt(0)
+        if ( child is BaseLogicBlockView) {
+            newObj.mLeftLogicBg.addView(child.clone() as BaseLogicBlockView)
+        }
+        child = mRightLogicBg.getChildAt(0)
+        if (child is BaseLogicBlockView) {
+            newObj.mRightLogicBg.addView(child.clone() as BaseLogicBlockView)
         }
         return newObj
     }
 
-    override fun judgeResult(): Boolean {
-        return mLeftLogicBg.judgeResult() && mRightLogicBg.judgeResult()
-    }
+    override fun judgeResult(): Boolean = mLeftLogicBg.judgeResult() && mRightLogicBg.judgeResult()
 }

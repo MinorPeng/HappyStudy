@@ -21,8 +21,8 @@ import com.hesheng1024.happystudy.custom.base.IRoleView
 @SuppressLint("ViewConstructor")
 class LessThanBlockView : BaseLogicBlockView {
 
-    private val mEtLeft: AppCompatEditText
-    private val mEtRight: AppCompatEditText
+    private val mLeftCalculateBg: CalculateBgBlock
+    private val mRightCalculateBg: CalculateBgBlock
 
     constructor(context: Context) : this(context, null)
 
@@ -32,20 +32,22 @@ class LessThanBlockView : BaseLogicBlockView {
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
-        mEtLeft = AppCompatEditText(context)
-        mEtRight = AppCompatEditText(context)
+        mLeftCalculateBg = CalculateBgBlock(context)
+        mRightCalculateBg = CalculateBgBlock(context)
         initView()
     }
 
     private fun initView() {
-        mEtLeft.setBackgroundResource(R.drawable.bg_et_circle_whilte)
-        mEtLeft.gravity = Gravity.CENTER
-        mEtLeft.inputType = InputType.TYPE_CLASS_NUMBER
-        mEtLeft.minEms = 2
-        mEtLeft.setOnDragListener { v, event ->
+        val etLeft = AppCompatEditText(context)
+        etLeft.setBackgroundResource(R.drawable.bg_et_circle_whilte)
+        etLeft.gravity = Gravity.CENTER
+        etLeft.inputType = InputType.TYPE_CLASS_NUMBER
+        etLeft.minEms = 2
+        etLeft.setOnDragListener { v, event ->
             return@setOnDragListener true
         }
-        addView(mEtLeft)
+        mLeftCalculateBg.addView(etLeft)
+        addView(mLeftCalculateBg)
 
         val lpTvMoreThan = generateDefaultLayoutParams() as MarginLayoutParams
         lpTvMoreThan.leftMargin = DensityUtil.dp2px(context, 8f)
@@ -55,15 +57,17 @@ class LessThanBlockView : BaseLogicBlockView {
         tvMoreThan.setTextColor(ContextCompat.getColor(context, android.R.color.white))
         addView(tvMoreThan, lpTvMoreThan)
 
-        mEtRight.setBackgroundResource(R.drawable.bg_et_circle_whilte)
-        mEtRight.gravity = Gravity.CENTER
-        mEtRight.inputType = InputType.TYPE_CLASS_NUMBER
-        mEtRight.setText(R.string.fifty)
-        mEtRight.minEms = 2
-        mEtRight.setOnDragListener { v, event ->
+        val etRight = AppCompatEditText(context)
+        etRight.setBackgroundResource(R.drawable.bg_et_circle_whilte)
+        etRight.gravity = Gravity.CENTER
+        etRight.inputType = InputType.TYPE_CLASS_NUMBER
+        etRight.setText(R.string.fifty)
+        etRight.minEms = 2
+        etRight.setOnDragListener { v, event ->
             return@setOnDragListener true
         }
-        addView(mEtRight)
+        mRightCalculateBg.addView(etRight)
+        addView(mRightCalculateBg)
     }
 
     override fun onRun(role: IRoleView) {
@@ -73,16 +77,38 @@ class LessThanBlockView : BaseLogicBlockView {
     override fun clone(): IBaseBlock {
         val newObj = LessThanBlockView(context)
         newObj.layoutParams = this.layoutParams
-        if (newObj.layoutParams.width <= 0 || newObj.layoutParams.height <= 0) {
-            newObj.layoutParams.width = measuredWidth
-            newObj.layoutParams.height = measuredHeight
+        newObj.minimumWidth = measuredWidth
+        newObj.minimumHeight = measuredHeight
+        when (val child = mLeftCalculateBg.getChildAt(0)) {
+            is AppCompatEditText -> {
+                if (newObj.mLeftCalculateBg.getChildAt(0) is AppCompatEditText) {
+                    (newObj.mLeftCalculateBg.getChildAt(0) as AppCompatEditText).setText(child.text.toString())
+                } else {
+                    val newEt = AppCompatEditText(context)
+                    newEt.setText(child.text.toString())
+                    newObj.mLeftCalculateBg.addView(newEt, 0)
+                }
+            }
+            is BaseCalculateBlockView -> {
+                newObj.mLeftCalculateBg.addView(child.clone() as BaseCalculateBlockView)
+            }
         }
-        newObj.mEtLeft.setText(this.mEtLeft.text.toString())
-        newObj.mEtRight.setText(this.mEtRight.text.toString())
+        when (val child = mRightCalculateBg.getChildAt(0)) {
+            is AppCompatEditText -> {
+                if (newObj.mRightCalculateBg.getChildAt(0) is AppCompatEditText) {
+                    (newObj.mRightCalculateBg.getChildAt(0) as AppCompatEditText).setText(child.text.toString())
+                } else {
+                    val newEt = AppCompatEditText(context)
+                    newEt.setText(child.text.toString())
+                    newObj.mRightCalculateBg.addView(newEt, 0)
+                }
+            }
+            is BaseCalculateBlockView -> {
+                newObj.mRightCalculateBg.addView(child.clone() as BaseCalculateBlockView)
+            }
+        }
         return newObj
     }
 
-    override fun judgeResult(): Boolean {
-        return mEtLeft.text.toString().toFloat() < mEtRight.text.toString().toFloat()
-    }
+    override fun judgeResult(): Boolean = mLeftCalculateBg.calculateResult() < mRightCalculateBg.calculateResult()
 }

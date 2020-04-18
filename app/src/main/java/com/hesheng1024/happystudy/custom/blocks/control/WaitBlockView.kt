@@ -12,6 +12,8 @@ import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.base.BaseBgBlockView
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.base.IRoleView
+import com.hesheng1024.happystudy.custom.blocks.calculate.BaseCalculateBlockView
+import com.hesheng1024.happystudy.custom.blocks.calculate.CalculateBgBlock
 
 /**
  *
@@ -21,7 +23,7 @@ import com.hesheng1024.happystudy.custom.base.IRoleView
 @SuppressLint("ViewConstructor")
 class WaitBlockView : BaseBgBlockView {
 
-    private val mEtSeconds: AppCompatEditText
+    private val mCalculateBg: CalculateBgBlock
     
     constructor(context: Context) : this(context, null)
 
@@ -32,7 +34,7 @@ class WaitBlockView : BaseBgBlockView {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
         setBgColorId(R.color.colorControlYellow)
-        mEtSeconds = AppCompatEditText(context)
+        mCalculateBg = CalculateBgBlock(context)
         initView()
     }
 
@@ -46,14 +48,16 @@ class WaitBlockView : BaseBgBlockView {
         val lpEtSeconds = generateDefaultLayoutParams() as MarginLayoutParams
         lpEtSeconds.leftMargin = DensityUtil.dp2px(context, 8f)
         lpEtSeconds.rightMargin = DensityUtil.dp2px(context, 8f)
-        mEtSeconds.minEms = 2
-        mEtSeconds.setText(R.string.ten)
-        mEtSeconds.setBackgroundResource(R.drawable.bg_et_circle_whilte)
-        mEtSeconds.gravity = Gravity.CENTER
-        mEtSeconds.setOnDragListener { v, event ->
+        val etSeconds = AppCompatEditText(context)
+        etSeconds.minEms = 2
+        etSeconds.setText(R.string.ten)
+        etSeconds.setBackgroundResource(R.drawable.bg_et_circle_whilte)
+        etSeconds.gravity = Gravity.CENTER
+        etSeconds.setOnDragListener { v, event ->
             return@setOnDragListener true
         }
-        addView(mEtSeconds, lpEtSeconds)
+        mCalculateBg.addView(etSeconds)
+        addView(mCalculateBg, lpEtSeconds)
 
 
         val tvSeconds = TextView(context)
@@ -63,17 +67,28 @@ class WaitBlockView : BaseBgBlockView {
     }
 
     override fun onRun(role: IRoleView) {
-
+        Thread.sleep(mCalculateBg.calculateResult().toLong())
     }
 
     override fun clone(): IBaseBlock {
         val newObj = WaitBlockView(context)
         newObj.layoutParams = this.layoutParams
-        if (newObj.layoutParams.width <= 0 || newObj.layoutParams.height <= 0) {
-            newObj.layoutParams.width = measuredWidth
-            newObj.layoutParams.height = measuredHeight
+        newObj.minimumWidth = measuredWidth
+        newObj.minimumHeight = measuredHeight
+        when (val child = mCalculateBg.getChildAt(0)) {
+            is AppCompatEditText -> {
+                if (newObj.mCalculateBg.getChildAt(0) is AppCompatEditText) {
+                    (newObj.mCalculateBg.getChildAt(0) as AppCompatEditText).setText(child.text.toString())
+                } else {
+                    val newEt = AppCompatEditText(context)
+                    newEt.setText(child.text.toString())
+                    newObj.mCalculateBg.addView(newEt, 0)
+                }
+            }
+            is BaseCalculateBlockView -> {
+                newObj.mCalculateBg.addView(child.clone() as BaseCalculateBlockView)
+            }
         }
-        newObj.mEtSeconds.setText(this.mEtSeconds.text.toString())
         return newObj
     }
 }

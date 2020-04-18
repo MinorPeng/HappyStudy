@@ -118,6 +118,7 @@ interface IBaseBlock : IRoleListener, View.OnTouchListener, View.OnClickListener
             LogUtil.e(msg = "block error return false: $block")
             return false
         }
+        // 因为积木有缺角，统一在bottom margin减去
         (block.layoutParams as ViewGroup.MarginLayoutParams).bottomMargin = -DIS_TO_TOP.toInt()
         val px = event.x
         val py = event.y

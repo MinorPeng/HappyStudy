@@ -3,12 +3,17 @@ package com.hesheng1024.happystudy.custom.blocks.control
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import android.view.DragEvent
 import android.view.View
+import android.view.ViewGroup
 import com.hesheng1024.base.utils.DensityUtil
 import com.hesheng1024.base.utils.LogUtil
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.base.BaseBlockViewGroup
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
+import com.hesheng1024.happystudy.custom.base.IRoleView
+import com.hesheng1024.happystudy.custom.blocks.calculate.BaseCalculateBlockView
+import com.hesheng1024.happystudy.custom.blocks.calculate.BaseLogicBlockView
 import kotlin.math.max
 
 /**
@@ -68,9 +73,7 @@ abstract class BaseControlBlockView : BaseBlockViewGroup {
                 }
                 ChildTag.TAG_CHILD -> {
                     val childWidth = child.measuredWidth + childLp.leftMargin + childLp.rightMargin
-                    // 减去多余的缺角，因为前面topH没有计算缺角
-                    val childHeight =
-                        child.measuredHeight + childLp.topMargin + childLp.bottomMargin - IBaseBlock.DIS_TO_TOP.toInt()
+                    val childHeight = child.measuredHeight + childLp.topMargin + childLp.bottomMargin
                     // center view max width
                     centerMaxW = max(centerMaxW, childWidth)
                     // center view height sum
@@ -93,7 +96,7 @@ abstract class BaseControlBlockView : BaseBlockViewGroup {
         mChildRectF.left = IBaseBlock.DIS_TO_LEFT
         mChildRectF.top = mTopViewH
         mChildRectF.right = width - mChildRectF.left
-        mChildRectF.bottom = height - mChildRectF.top - IBaseBlock.DIS_TO_TOP.toInt()
+        mChildRectF.bottom = mChildRectF.top + centerViewH
 
         width = if (modeW == MeasureSpec.EXACTLY) sizeW else width
         height = if (modeH == MeasureSpec.EXACTLY) sizeH else height
@@ -125,8 +128,7 @@ abstract class BaseControlBlockView : BaseBlockViewGroup {
                     childL = IBaseBlock.DIS_TO_LEFT.toInt() + childLp.leftMargin
                     childT = centerT + childLp.topMargin
                     childR = childL + child.measuredWidth
-                    // 减去下方多余的缺角
-                    childB = childT + child.measuredHeight - IBaseBlock.DIS_TO_TOP.toInt()
+                    childB = childT + child.measuredHeight
                     centerT += child.measuredHeight + childLp.topMargin + childLp.bottomMargin
                 }
                 ChildTag.TAG_BOTTOM -> {
@@ -196,9 +198,62 @@ abstract class BaseControlBlockView : BaseBlockViewGroup {
         canvas.drawPath(path, paint)
     }
 
-    fun getTopViewW() = mTopViewW
 
-    fun getTopViewH() = mTopViewH
+    override fun onDragEv(event: DragEvent?): Boolean {
+        if (event == null) {
+            LogUtil.e(msg = "v:$this event:$event")
+            return false
+        }
+        val block = event.localState
+        if (block !is BaseLogicBlockView && block !is BaseCalculateBlockView
+            && block is IBaseBlock && block is View && block.getBlackOwn() is View) {
+            val blackOwn = block.getBlackOwn() as View
+            val oldBlockTag = block.tag
+            val oldBlackOwnTag = blackOwn.tag
+            block.tag = ChildTag.TAG_CHILD
+            blackOwn.tag = ChildTag.TAG_CHILD
+            for (index in 0 until childCount) {
+                val child = getChildAt(index)
+                // 传递给子View进行判断处理 排除掉阴影
+                if (child != null
+                    && child.tag == ChildTag.TAG_CHILD
+                    && child is IBaseBlock
+                    && child.getStatus() == IBaseBlock.Status.STATUS_DRAG
+                    && child.onDragEv(event)) {
+                    return true
+                }
+            }
+            // 除了第一次没有子View会走下面逻辑以外，有子View的情况都不应该走以下逻辑
+            when (event.action) {
+                DragEvent.ACTION_DRAG_LOCATION -> {
+                    val x = event.x - left
+                    val y = event.y - top
+                    if (isInChildRectF(x, y) && blackOwn.parent == null) {
+                        addView(blackOwn)
+                    } else {
+                        removeView(blackOwn)
+                    }
+                }
+                DragEvent.ACTION_DROP -> {
+                    val x = event.x - left
+                    val y = event.y - top
+                    LogUtil.i(msg = "drop in child: x->$x y->$y l:$left t:$top")
+                    if (isInChildRectF(x, y)) {
+                        (block.parent as? ViewGroup)?.removeView(block)
+                        removeView(blackOwn)
+                        addView(block)
+                        return true
+                    }
+                }
+                else -> {
+                    // 如果该ViewGroup不处理，应当将标识重置为之前的状态
+                    block.tag = oldBlockTag
+                    blackOwn.tag = oldBlackOwnTag
+                }
+            }
+        }
+        return super.onDragEv(event)
+    }
 
     /**
      * 判断一个点是否在ChildRectF中
@@ -206,11 +261,19 @@ abstract class BaseControlBlockView : BaseBlockViewGroup {
      * @param x 相对于parent的x
      * @param y 相对于parent的y
      */
-    fun isInChildRectF(x: Float, y: Float): Boolean {
-        val isIn = x >= mChildRectF.left && x <= mChildRectF.right
-                && y >= mChildRectF.top && y <= mChildRectF.bottom
+    private fun isInChildRectF(x: Float, y: Float): Boolean {
+        val isIn = mChildRectF.contains(x, y)
         LogUtil.d(msg = "isIn:$isIn rectF:$mChildRectF x:$x y:$y")
         return isIn
+    }
+
+    fun onChildRun(role: IRoleView) {
+        for (index in 0 until childCount) {
+            val child = getChildAt(index)
+            if (child != null && child.tag == ChildTag.TAG_CHILD && child is IBaseBlock) {
+                child.onRun(role)
+            }
+        }
     }
 
     protected enum class ChildTag(tag: String) {
