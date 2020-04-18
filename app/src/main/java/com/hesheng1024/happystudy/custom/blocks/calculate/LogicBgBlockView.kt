@@ -27,12 +27,7 @@ class LogicBgBlockView : BaseLogicBlockView {
             : super(context, attrs, defStyleAttr, defStyleRes) {
         setBgColorId(R.color.colorCalculateGreenDark)
         setStatus(IBaseBlock.Status.STATUS_NONE)
-        this.setPadding(
-            sDisLeft.toInt(),
-            IBaseBlock.DIS_TO_TOP.toInt(),
-            sDisLeft.toInt(),
-            IBaseBlock.DIS_TO_TOP.toInt()
-        )
+        this.setPadding(0,0, 0, 0)
         minimumWidth = (sDisLeft * 3).toInt()
         minimumHeight = (sDisLeft * 2.3).toInt()
     }
@@ -48,7 +43,7 @@ class LogicBgBlockView : BaseLogicBlockView {
         if (child == null) {
             newObj.minimumWidth = measuredWidth
             newObj.minimumHeight = measuredHeight
-        } else if (child is BaseLogicBlockView){
+        } else if (child is BaseLogicBlockView) {
             newObj.addView(child.clone() as BaseLogicBlockView)
         }
         return newObj
@@ -62,34 +57,9 @@ class LogicBgBlockView : BaseLogicBlockView {
         return false
     }
 
-    override fun addView(child: View?) {
-        removeAllViews()
-        super.addView(child)
-    }
-
-    override fun addView(child: View?, index: Int) {
-        removeAllViews()
-        super.addView(child, index)
-    }
-
-    override fun addView(child: View?, params: ViewGroup.LayoutParams?) {
-        removeAllViews()
-        super.addView(child, params)
-    }
-
     override fun addView(child: View?, index: Int, params: ViewGroup.LayoutParams?) {
         removeAllViews()
         super.addView(child, index, params)
-    }
-
-    override fun addView(child: View?, width: Int, height: Int) {
-        removeAllViews()
-        super.addView(child, width, height)
-    }
-
-    override fun addViewInLayout(child: View?, index: Int, params: ViewGroup.LayoutParams?): Boolean {
-        removeAllViews()
-        return super.addViewInLayout(child, index, params)
     }
 
     override fun addViewInLayout(

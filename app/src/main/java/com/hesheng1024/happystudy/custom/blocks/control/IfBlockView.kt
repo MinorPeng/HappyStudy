@@ -3,9 +3,12 @@ package com.hesheng1024.happystudy.custom.blocks.control
 import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
+import android.view.DragEvent
+import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.DensityUtil
+import com.hesheng1024.base.utils.LogUtil
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.base.IRoleView
@@ -49,6 +52,31 @@ class IfBlockView : BaseControlBlockView {
         lp.rightMargin = DensityUtil.dp2px(context, 8f)
         mLogicBgView.setBgColorId(R.color.colorControlYellowDark)
         mLogicBgView.tag = ChildTag.TAG_TOP
+        // 也可以直接在父类中统一监听，只是坐标计算相对复杂一点
+        var isIn = false
+        mLogicBgView.setOnDragListener { v, event ->
+            when(event.action) {
+                DragEvent.ACTION_DRAG_ENTERED -> {
+                    LogUtil.i(msg = "logicBgView entered")
+                    isIn = true
+                }
+                DragEvent.ACTION_DRAG_EXITED -> {
+                    LogUtil.i(msg = "logicBgView exited")
+                    isIn = false
+                }
+                DragEvent.ACTION_DROP -> {
+                    LogUtil.i(msg = "logicBgView drop")
+                    val logicBlock = event.localState
+                    if (isIn && mLogicBgView.childCount == 0 && logicBlock is BaseLogicBlockView) {
+                        (logicBlock.parent as? ViewGroup)?.removeView(logicBlock)
+                        mLogicBgView.addView(logicBlock)
+                    } else {
+                        LogUtil.i(msg = "can't add view: isIn->$isIn count:${mLogicBgView.childCount} logic:$logicBlock")
+                    }
+                }
+            }
+            return@setOnDragListener true
+        }
         addView(mLogicBgView, lp)
 
         val tvThen = TextView(context)
@@ -56,11 +84,6 @@ class IfBlockView : BaseControlBlockView {
         tvThen.tag = ChildTag.TAG_TOP
         tvThen.setTextColor(whiteColor)
         addView(tvThen)
-
-        // TODO test
-        val mo = MoveBlockView(context)
-        mo.tag = ChildTag.TAG_CHILD
-        addView(mo)
     }
 
     override fun onRun(role: IRoleView) {

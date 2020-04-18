@@ -174,8 +174,12 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
             }
 
             for (child in linear_layout_programme.children) {
-                if (child is IBaseBlock && child.onDragEv(event)) {
-                    return@setOnDragListener true
+                if (child is IBaseBlock) {
+                    val customDragEvent = IBaseBlock.CustomDragEvent(event.x, event.y, event.action, event.localState,
+                        event.clipData, event.clipDescription, event.result)
+                    if (child.onDragEv(customDragEvent)) {
+                        return@setOnDragListener true
+                    }
                 }
             }
 

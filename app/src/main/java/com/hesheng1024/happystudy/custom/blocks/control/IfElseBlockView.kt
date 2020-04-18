@@ -18,7 +18,6 @@ import com.hesheng1024.happystudy.custom.base.IRoleView
 import com.hesheng1024.happystudy.custom.blocks.calculate.BaseCalculateBlockView
 import com.hesheng1024.happystudy.custom.blocks.calculate.BaseLogicBlockView
 import com.hesheng1024.happystudy.custom.blocks.calculate.LogicBgBlockView
-import com.hesheng1024.happystudy.custom.blocks.motion.MoveBlockView
 import kotlin.math.max
 
 /**
@@ -34,6 +33,8 @@ class IfElseBlockView : BaseBlockViewGroup {
     private val mLogicBgView: LogicBgBlockView
     private var mTopViewH = DensityUtil.dp2px(context, 32f).toFloat()
     private var mTopViewW = DensityUtil.dp2px(context, 150f).toFloat()
+    private var mChildIfCount = 0
+    private var mChildElseCount = 0
 
     constructor(context: Context) : this(context, null)
 
@@ -70,6 +71,31 @@ class IfElseBlockView : BaseBlockViewGroup {
         lp.rightMargin = DensityUtil.dp2px(context, 8f)
         mLogicBgView.setBgColorId(R.color.colorControlYellowDark)
         mLogicBgView.tag = ChildTag.TAG_TOP
+        // 也可以直接在父类中统一监听，只是坐标计算相对复杂一点
+        var isIn = false
+        mLogicBgView.setOnDragListener { v, event ->
+            when(event.action) {
+                DragEvent.ACTION_DRAG_ENTERED -> {
+                    LogUtil.i(msg = "logicBgView entered")
+                    isIn = true
+                }
+                DragEvent.ACTION_DRAG_EXITED -> {
+                    LogUtil.i(msg = "logicBgView exited")
+                    isIn = false
+                }
+                DragEvent.ACTION_DROP -> {
+                    LogUtil.i(msg = "logicBgView drop")
+                    val logicBlock = event.localState
+                    if (isIn && mLogicBgView.childCount == 0 && logicBlock is BaseLogicBlockView) {
+                        (logicBlock.parent as? ViewGroup)?.removeView(logicBlock)
+                        mLogicBgView.addView(logicBlock)
+                    } else {
+                        LogUtil.i(msg = "can't add view: isIn->$isIn count:${mLogicBgView.childCount} logic:$logicBlock")
+                    }
+                }
+            }
+            return@setOnDragListener true
+        }
         addView(mLogicBgView, lp)
 
         val tvThen = TextView(context)
@@ -83,10 +109,6 @@ class IfElseBlockView : BaseBlockViewGroup {
         tvElse.tag = ChildTag.TAG_CENTER
         tvElse.setTextColor(whiteColor)
         addView(tvElse)
-
-        val waitBlockView = WaitBlockView(context)
-        waitBlockView.tag = ChildTag.TAG_CHILD_ELSE
-        addView(waitBlockView)
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -168,7 +190,7 @@ class IfElseBlockView : BaseBlockViewGroup {
         mChildElseRectF.left = IBaseBlock.DIS_TO_LEFT
         mChildElseRectF.top = mChildIfRectF.bottom + mTopViewH
         mChildElseRectF.right = width - mChildElseRectF.left
-        mChildElseRectF.bottom = height - mChildElseRectF.top - IBaseBlock.DIS_TO_TOP.toInt()
+        mChildElseRectF.bottom = mChildElseRectF.top + childElseH
 
         width = if (modeW == MeasureSpec.EXACTLY) sizeW else width
         height = if (modeH == MeasureSpec.EXACTLY) sizeH else height
@@ -309,18 +331,101 @@ class IfElseBlockView : BaseBlockViewGroup {
         canvas.drawPath(path, paint)
     }
 
-    override fun onDragEv(event: DragEvent?): Boolean {
-        if (event == null) {
-            LogUtil.e(msg = "v:$this event:$event")
-            return false
-        }
+    override fun onDragEv(event: IBaseBlock.CustomDragEvent): Boolean {
         val block = event.localState
-        if (block !is BaseLogicBlockView && block !is BaseCalculateBlockView
-            && block is IBaseBlock && block is View && block.getBlackOwn() is View) {
+        if (block != this
+            && block is IBaseBlock
+            && block.getStatus() == IBaseBlock.Status.STATUS_DRAG
+            && block !is BaseLogicBlockView
+            && block !is BaseCalculateBlockView
+            &&  block is View
+            && block.getBlackOwn() is View) {
             val blackOwn = block.getBlackOwn() as View
             val oldBlockTag = block.tag
             val oldBlackOwnTag = blackOwn.tag
-            
+            LogUtil.d(msg = "ifCount:$mChildIfCount elseCount:$mChildElseCount")
+            val px = event.x - left
+            val py = event.y - top
+
+            if (mChildIfCount != 0 && isInIfRectF(px, py)) {
+                block.tag = ChildTag.TAG_CHILD_IF
+                blackOwn.tag = ChildTag.TAG_CHILD_IF
+                for (index in 0 until childCount) {
+                    val child = getChildAt(index)
+                    // 传递给子View进行判断处理 排除掉阴影
+                    if (child != null
+                        && child.tag == ChildTag.TAG_CHILD_IF
+                        && child is IBaseBlock
+                        && child.getStatus() == IBaseBlock.Status.STATUS_DRAG) {
+                        val customDragEvent = IBaseBlock.CustomDragEvent(event.x - left, event.y - top,
+                            event.action, event.localState, event.clipData, event.clipDescription, event.result)
+                        if (child.onDragEv(customDragEvent)) {
+                            mChildIfCount++
+                            return true
+                        }
+                    }
+                }
+            }
+            if (mChildElseCount != 0 && isInElseRectF(px, py)) {
+                block.tag = ChildTag.TAG_CHILD_ELSE
+                blackOwn.tag = ChildTag.TAG_CHILD_ELSE
+                for (index in 0 until childCount) {
+                    val child = getChildAt(index)
+                    // 传递给子View进行判断处理 排除掉阴影
+                    if (child != null
+                        && child.tag == ChildTag.TAG_CHILD_ELSE
+                        && child is IBaseBlock
+                        && child.getStatus() == IBaseBlock.Status.STATUS_DRAG) {
+                        val customDragEvent = IBaseBlock.CustomDragEvent(event.x - left, event.y - top,
+                            event.action, event.localState, event.clipData, event.clipDescription, event.result)
+                        if (child.onDragEv(customDragEvent)) {
+                            mChildElseCount++
+                            return true
+                        }
+                    }
+                }
+            }
+
+            when(event.action) {
+                DragEvent.ACTION_DRAG_LOCATION -> {
+                    when {
+                        isInIfRectF(px, py) && blackOwn.parent == null -> {
+                            blackOwn.tag = ChildTag.TAG_CHILD_IF
+                            addView(blackOwn)
+                        }
+                        isInElseRectF(px, py) && blackOwn.parent == null -> {
+                            blackOwn.tag = ChildTag.TAG_CHILD_ELSE
+                            addView(blackOwn)
+                        }
+                        else -> removeView(blackOwn)
+                    }
+                }
+                DragEvent.ACTION_DROP -> {
+                    LogUtil.i(msg = "drop: x->$px y->$py ifRect:$mChildIfRectF elseRect:$mChildElseRectF")
+                    removeView(blackOwn)
+                    when {
+                        isInIfRectF(px, py) -> {
+                            block.tag = ChildTag.TAG_CHILD_IF
+                            (block.parent as? ViewGroup)?.removeView(block)
+                            addView(block)
+                            mChildIfCount++
+                            return true
+                        }
+                        isInElseRectF(px, py) -> {
+                            block.tag = ChildTag.TAG_CHILD_ELSE
+                            (block.parent as? ViewGroup)?.removeView(block)
+                            addView(block)
+                            mChildElseCount++
+                            return true
+                        }
+                        else -> {
+                            // 如果该ViewGroup不处理，应当将标识重置为之前的状态
+                            block.tag = oldBlockTag
+                            blackOwn.tag = oldBlackOwnTag
+                        }
+                    }
+                }
+            }
         }
         return super.onDragEv(event)
     }
@@ -331,9 +436,11 @@ class IfElseBlockView : BaseBlockViewGroup {
      * @param x 相对于parent的x
      * @param y 相对于parent的y
      */
-    private fun isInIfRectF(x: Float, y: Float): Boolean = mChildIfRectF.contains(x, y)
+    private fun isInIfRectF(x: Float, y: Float): Boolean = (x <= mChildIfRectF.right && x > mChildIfRectF.left
+            && y > mChildIfRectF.top - mTopViewH / 3 && y <= mChildIfRectF.bottom + mTopViewH / 3)
 
-    private fun isInElseRectF(x: Float, y: Float): Boolean = mChildElseRectF.contains(x, y)
+    private fun isInElseRectF(x: Float, y: Float): Boolean = (x <= mChildElseRectF.right && x > mChildElseRectF.left
+            && y > mChildElseRectF.top - mTopViewH / 3 && y <= mChildElseRectF.bottom + mTopViewH / 3)
 
     override fun onRun(role: IRoleView) {
         if (mLogicBgView.judgeResult()) {
@@ -371,6 +478,16 @@ class IfElseBlockView : BaseBlockViewGroup {
             newObj.mLogicBgView.addView(child.clone() as BaseLogicBlockView)
         }
         return newObj
+    }
+
+    override fun inTopRectF(x: Float, y: Float): Boolean {
+        return (x <= left + measuredWidth && x >= left
+                && y < top + mTopViewH / 3 && y >= top - mTopViewH / 3 * 4)
+    }
+
+    override fun inBottomRectF(x: Float, y: Float): Boolean {
+        return (x <= left + measuredWidth && x >= left
+                && y <= bottom + mTopViewH / 3 * 4 && y > bottom - mTopViewH / 3)
     }
 
     private enum class ChildTag(tag: String) {

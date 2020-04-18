@@ -76,11 +76,6 @@ class CirculationNumBlockView : BaseControlBlockView {
         ivCirculation.setImageResource(R.drawable.ic_circulation_16)
         ivCirculation.tag = ChildTag.TAG_BOTTOM
         addView(ivCirculation)
-
-        // TODO test
-        val mo = MoveBlockView(context)
-        mo.tag = ChildTag.TAG_CHILD
-        addView(mo)
     }
 
     override fun onRun(role: IRoleView) {

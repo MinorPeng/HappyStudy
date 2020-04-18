@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:background="@color/colorPrimary">
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -19,16 +18,28 @@
         android:visibility="gone"
         tools:text="这是一句很长很长的话，\n我也不知道能说多长" />
 
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         android:background="@android:color/darker_gray">
 
         <LinearLayout
             android:id="@+id/frame_test_start"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.hesheng1024.happystudy.custom.blocks.control.IfElseBlockView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <com.hesheng1024.happystudy.custom.blocks.motion.MoveBlockView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <com.hesheng1024.happystudy.custom.blocks.appearance.HideBlockView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
             <com.hesheng1024.happystudy.custom.blocks.appearance.ShowBlockView
                 android:layout_width="wrap_content"
@@ -47,12 +58,12 @@
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
-    </HorizontalScrollView>
+    </ScrollView>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/dp24"
+        android:layout_marginStart="@dimen/dp24"
         android:background="@color/colorGrayBorderB">
 
         <LinearLayout

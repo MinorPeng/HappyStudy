@@ -198,49 +198,54 @@ abstract class BaseControlBlockView : BaseBlockViewGroup {
         canvas.drawPath(path, paint)
     }
 
-
-    override fun onDragEv(event: DragEvent?): Boolean {
-        if (event == null) {
-            LogUtil.e(msg = "v:$this event:$event")
-            return false
-        }
+    override fun onDragEv(event: IBaseBlock.CustomDragEvent): Boolean {
         val block = event.localState
-        if (block !is BaseLogicBlockView && block !is BaseCalculateBlockView
-            && block is IBaseBlock && block is View && block.getBlackOwn() is View) {
+        // 避免自己add自己
+        if (block != this
+            && block !is BaseLogicBlockView
+            && block !is BaseCalculateBlockView
+            && block is IBaseBlock
+            && block is View
+            && block.getBlackOwn() is View) {
             val blackOwn = block.getBlackOwn() as View
             val oldBlockTag = block.tag
             val oldBlackOwnTag = blackOwn.tag
             block.tag = ChildTag.TAG_CHILD
             blackOwn.tag = ChildTag.TAG_CHILD
-            for (index in 0 until childCount) {
-                val child = getChildAt(index)
-                // 传递给子View进行判断处理 排除掉阴影
-                if (child != null
-                    && child.tag == ChildTag.TAG_CHILD
-                    && child is IBaseBlock
-                    && child.getStatus() == IBaseBlock.Status.STATUS_DRAG
-                    && child.onDragEv(event)) {
-                    return true
+            val px = event.x - left
+            val py = event.y - top
+
+            if (isInChildRectF(px, py)) {
+                for (index in 0 until childCount) {
+                    val child = getChildAt(index)
+                    // 传递给子View进行判断处理 排除掉阴影
+                    if (child != null
+                        && child.tag == ChildTag.TAG_CHILD
+                        && child is IBaseBlock
+                        && child.getStatus() == IBaseBlock.Status.STATUS_DRAG) {
+                        val customDragEvent = IBaseBlock.CustomDragEvent(event.x - left, event.y - top,
+                            event.action, event.localState, event.clipData, event.clipDescription, event.result)
+                        if (child.onDragEv(customDragEvent)) {
+                            return true
+                        }
+                    }
                 }
             }
+
             // 除了第一次没有子View会走下面逻辑以外，有子View的情况都不应该走以下逻辑
             when (event.action) {
                 DragEvent.ACTION_DRAG_LOCATION -> {
-                    val x = event.x - left
-                    val y = event.y - top
-                    if (isInChildRectF(x, y) && blackOwn.parent == null) {
+                    if (isInChildRectF(px, py) && blackOwn.parent == null) {
                         addView(blackOwn)
                     } else {
                         removeView(blackOwn)
                     }
                 }
                 DragEvent.ACTION_DROP -> {
-                    val x = event.x - left
-                    val y = event.y - top
-                    LogUtil.i(msg = "drop in child: x->$x y->$y l:$left t:$top")
-                    if (isInChildRectF(x, y)) {
+                    LogUtil.i(msg = "drop in child: x->$px y->$py l:$left t:$top  rect:$mChildRectF")
+                    removeView(blackOwn)
+                    if (isInChildRectF(px, py)) {
                         (block.parent as? ViewGroup)?.removeView(block)
-                        removeView(blackOwn)
                         addView(block)
                         return true
                     }
@@ -261,11 +266,8 @@ abstract class BaseControlBlockView : BaseBlockViewGroup {
      * @param x 相对于parent的x
      * @param y 相对于parent的y
      */
-    private fun isInChildRectF(x: Float, y: Float): Boolean {
-        val isIn = mChildRectF.contains(x, y)
-        LogUtil.d(msg = "isIn:$isIn rectF:$mChildRectF x:$x y:$y")
-        return isIn
-    }
+    private fun isInChildRectF(x: Float, y: Float): Boolean = (x <= mChildRectF.right && x > mChildRectF.left
+                && y > mChildRectF.top - mTopViewH / 3 && y <= mChildRectF.bottom + mTopViewH / 3)
 
     fun onChildRun(role: IRoleView) {
         for (index in 0 until childCount) {
@@ -274,6 +276,16 @@ abstract class BaseControlBlockView : BaseBlockViewGroup {
                 child.onRun(role)
             }
         }
+    }
+
+    override fun inTopRectF(x: Float, y: Float): Boolean {
+        return (x <= left + measuredWidth && x >= left
+                && y < top + mTopViewH / 3 && y >= top - mTopViewH / 3 * 4)
+    }
+
+    override fun inBottomRectF(x: Float, y: Float): Boolean {
+        return (x <= left + measuredWidth && x >= left
+                && y <= bottom + mTopViewH / 3 * 4 && y > bottom - mTopViewH / 3)
     }
 
     protected enum class ChildTag(tag: String) {

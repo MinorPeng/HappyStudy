@@ -69,6 +69,7 @@ class CirculationUtilBlockView : BaseControlBlockView {
                     LogUtil.i(msg = "logicBgView drop")
                     val logicBlock = event.localState
                     if (isIn && mLogicBgView.childCount == 0 && logicBlock is BaseLogicBlockView) {
+                        (logicBlock.parent as? ViewGroup)?.removeView(logicBlock)
                         mLogicBgView.addView(logicBlock)
                     } else {
                         LogUtil.i(msg = "can't add view: isIn->$isIn count:${mLogicBgView.childCount} logic:$logicBlock")

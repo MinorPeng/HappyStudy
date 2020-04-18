@@ -43,8 +43,12 @@ class TestActivity : AppCompatActivity() {
 
             for (child in frame_test_end.children) {
                 // LogUtil.d(msg = "c$child")
-                if (child is IBaseBlock && child.onDragEv(event)) {
-                    return@setOnDragListener true
+                if (child is IBaseBlock) {
+                    val customDragEvent = IBaseBlock.CustomDragEvent(event.x, event.y, event.action, event.localState,
+                        event.clipData, event.clipDescription, event.result)
+                    if (child.onDragEv(customDragEvent)) {
+                        return@setOnDragListener true
+                    }
                 }
             }
 
