@@ -56,7 +56,7 @@ class ClickRoleBlockView : BaseTextBlockView {
         canvas.drawPath(path, paint)
     }
 
-    override fun onRun(role: IRoleView) {
+    override suspend fun onRun(role: IRoleView) {
 
     }
 

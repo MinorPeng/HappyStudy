@@ -23,6 +23,8 @@ import com.hesheng1024.happystudy.modules.programme.v.IProgrammeView
 import kotlinx.android.synthetic.main.activity_programme.*
 import kotlinx.android.synthetic.main.layout_block_categories.*
 import kotlinx.android.synthetic.main.layout_programme_utils.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 /**
  *
@@ -263,7 +265,9 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
             }
         }
         ibtn_programme_run.setOnClickListener {
-            runProgramme()
+            GlobalScope.launch {
+                runProgramme()
+            }
         }
         et_programme_x.doOnTextChanged { text, start, count, after ->
             role_view_programme.setPX(if (text.isNullOrEmpty()) 0f else text.toString().toFloat())
@@ -276,7 +280,7 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
         }
     }
 
-    private fun runProgramme() {
+    private suspend fun runProgramme() {
         for (index in 0 until linear_layout_programme.childCount) {
             val child = linear_layout_programme.getChildAt(index)
             if (child != null && child is IBaseBlock) {

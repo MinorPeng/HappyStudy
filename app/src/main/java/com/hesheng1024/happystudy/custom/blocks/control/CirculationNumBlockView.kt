@@ -77,7 +77,7 @@ class CirculationNumBlockView : BaseControlBlockView {
         addView(ivCirculation)
     }
 
-    override fun onRun(role: IRoleView) {
+    override suspend fun onRun(role: IRoleView) {
         for (i in 1..mCalculateBg.calculateResult().toInt()) {
             onChildRun(role)
         }

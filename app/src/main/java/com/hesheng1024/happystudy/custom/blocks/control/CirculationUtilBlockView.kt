@@ -84,7 +84,7 @@ class CirculationUtilBlockView : BaseControlBlockView {
         addView(ivCirculation, 2)
     }
 
-    override fun onRun(role: IRoleView) {
+    override suspend fun onRun(role: IRoleView) {
         while (mLogicBg.judgeResult()) {
             onChildRun(role)
         }

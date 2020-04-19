@@ -50,7 +50,7 @@ class SayBlockView : BaseBgBlockView, IRoleListener {
         addView(mEtContent, 1, lp)
     }
 
-    override fun onRun(role: IRoleView) {
+    override suspend fun onRun(role: IRoleView) {
         role.say(mEtContent.text.toString())
     }
 

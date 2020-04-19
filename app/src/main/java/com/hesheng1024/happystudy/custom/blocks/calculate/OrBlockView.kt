@@ -104,7 +104,7 @@ class OrBlockView : BaseLogicBlockView {
         addView(mRightLogicBg)
     }
 
-    override fun onRun(role: IRoleView) {
+    override suspend fun onRun(role: IRoleView) {
 
     }
 

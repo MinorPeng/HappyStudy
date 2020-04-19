@@ -28,7 +28,7 @@ class HideBlockView : BaseTextBlockView, IRoleListener {
         setText(R.string.hide)
     }
 
-    override fun onRun(role: IRoleView) {
+    override suspend fun onRun(role: IRoleView) {
         role.hide()
     }
 

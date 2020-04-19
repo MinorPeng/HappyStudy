@@ -72,7 +72,7 @@ class MultiplyBlockView : BaseCalculateBlockView {
         addView(mRightCalculateBg, 2)
     }
 
-    override fun onRun(role: IRoleView) {
+    override suspend fun onRun(role: IRoleView) {
 
     }
 

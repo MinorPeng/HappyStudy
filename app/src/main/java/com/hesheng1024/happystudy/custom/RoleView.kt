@@ -73,8 +73,8 @@ class RoleView : RelativeLayout, IRoleView {
         mTvSay.setBackgroundResource(R.drawable.bg_message)
         mTvSay.visibility = View.INVISIBLE
         mTvSay.id = TV_SAY_ID
-        mTvSay.maxEms = 10
-        mTvSay.maxLines = 5
+        mTvSay.maxEms = 6
+        mTvSay.maxLines = 3
         mTvSay.setPadding(4, 4, 4, 4)
         addView(mTvSay, tvSayLp)
     }
@@ -183,8 +183,10 @@ class RoleView : RelativeLayout, IRoleView {
     }
 
     private fun showSayLayout(isShow: Boolean, content: String = "") {
-        mTvSay.text = content
         if (isShow && mTvSay.visibility != View.VISIBLE) {
+            if (mTvSay.text.toString() != content) {
+                mTvSay.text = content
+            }
             mTvSay.visibility = View.VISIBLE
         } else if (!isShow && mTvSay.visibility == View.VISIBLE) {
             mTvSay.visibility = View.INVISIBLE

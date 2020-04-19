@@ -23,7 +23,7 @@ class StopAllVoiceBlockView : BaseTextBlockView {
         setText(R.string.stop_all_voice)
     }
 
-    override fun onRun(role: IRoleView) {
+    override suspend fun onRun(role: IRoleView) {
         role.stopVoice()
     }
 

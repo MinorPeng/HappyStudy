@@ -64,7 +64,7 @@ class MoveBlockView : BaseBgBlockView {
         addView(tvStep)
     }
 
-    override fun onRun(role: IRoleView) {
+    override suspend fun onRun(role: IRoleView) {
         role.moveStep(mEt.text.toString().toInt())
     }
 

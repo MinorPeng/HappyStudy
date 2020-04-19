@@ -30,7 +30,7 @@ class NextBgBlockView : BaseTextBlockView, IRoleListener {
         setText(R.string.next_bg)
     }
 
-    override fun onRun(role: IRoleView) {
+    override suspend fun onRun(role: IRoleView) {
         role.nextBackground()
     }
 

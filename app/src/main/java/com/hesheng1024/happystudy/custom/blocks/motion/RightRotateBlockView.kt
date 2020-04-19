@@ -64,7 +64,7 @@ class RightRotateBlockView : BaseBgBlockView {
         addView(tvDegree)
     }
 
-    override fun onRun(role: IRoleView) {
+    override suspend fun onRun(role: IRoleView) {
         role.rightRotate(mEt.text.toString().toFloat())
     }
 

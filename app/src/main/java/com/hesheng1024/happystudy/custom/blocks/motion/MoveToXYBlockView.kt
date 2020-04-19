@@ -79,7 +79,7 @@ class MoveToXYBlockView : BaseBgBlockView {
         addView(mEtY, lpY)
     }
 
-    override fun onRun(role: IRoleView) {
+    override suspend fun onRun(role: IRoleView) {
         role.moveToXY(mEtX.text.toString().toFloat(), mEtY.text.toString().toFloat())
     }
 

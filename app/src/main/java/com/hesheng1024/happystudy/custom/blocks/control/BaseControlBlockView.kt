@@ -281,7 +281,7 @@ abstract class BaseControlBlockView : BaseBlockViewGroup {
                 && y <= bottom + mTopViewH / 3 * 4 && y > bottom)
     }
 
-    fun onChildRun(role: IRoleView) {
+    suspend fun onChildRun(role: IRoleView) {
         for (index in 0 until childCount) {
             val child = getChildAt(index)
             if (child != null && child.tag == ChildTag.TAG_CHILD && child is IBaseBlock) {

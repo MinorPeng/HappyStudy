@@ -56,7 +56,7 @@ class IncreaseVoiceBlockView : BaseBgBlockView {
         addView(mEt, lp)
     }
 
-    override fun onRun(role: IRoleView) {
+    override suspend fun onRun(role: IRoleView) {
         role.increaseVolume(mEt.text.toString().toFloat())
     }
 

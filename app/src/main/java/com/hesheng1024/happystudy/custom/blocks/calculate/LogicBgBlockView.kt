@@ -32,7 +32,7 @@ class LogicBgBlockView : BaseLogicBlockView {
         minimumHeight = (sDisLeft * 2.3).toInt()
     }
 
-    override fun onRun(role: IRoleView) {
+    override suspend fun onRun(role: IRoleView) {
 
     }
 

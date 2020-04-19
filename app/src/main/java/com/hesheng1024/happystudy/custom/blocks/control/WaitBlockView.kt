@@ -2,6 +2,7 @@ package com.hesheng1024.happystudy.custom.blocks.control
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.text.InputType
 import android.util.AttributeSet
 import android.view.Gravity
 import android.widget.TextView
@@ -14,6 +15,7 @@ import com.hesheng1024.happystudy.custom.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.base.IRoleView
 import com.hesheng1024.happystudy.custom.blocks.calculate.BaseCalculateBlockView
 import com.hesheng1024.happystudy.custom.blocks.calculate.CalculateBgBlock
+import kotlinx.coroutines.delay
 
 /**
  *
@@ -50,9 +52,11 @@ class WaitBlockView : BaseBgBlockView {
         lpEtSeconds.rightMargin = DensityUtil.dp2px(context, 8f)
         val etSeconds = AppCompatEditText(context)
         etSeconds.minEms = 2
+        etSeconds.gravity = Gravity.CENTER
+        etSeconds.inputType = InputType.TYPE_CLASS_NUMBER
+        etSeconds.setLines(1)
         etSeconds.setText(R.string.ten)
         etSeconds.setBackgroundResource(R.drawable.bg_et_circle_whilte)
-        etSeconds.gravity = Gravity.CENTER
         etSeconds.setOnDragListener { v, event ->
             return@setOnDragListener true
         }
@@ -66,8 +70,8 @@ class WaitBlockView : BaseBgBlockView {
         addView(tvSeconds)
     }
 
-    override fun onRun(role: IRoleView) {
-        Thread.sleep(mCalculateBg.calculateResult().toLong())
+    override suspend fun onRun(role: IRoleView) {
+        delay(mCalculateBg.calculateResult().toLong() * 1000)
     }
 
     override fun clone(): IBaseBlock {

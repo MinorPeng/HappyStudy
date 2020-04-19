@@ -27,7 +27,7 @@ class CalculateBgBlock : BaseCalculateBlockView {
         this.setPadding(0,0, 0, 0)
     }
 
-    override fun onRun(role: IRoleView) {
+    override suspend fun onRun(role: IRoleView) {
 
     }
 

@@ -24,7 +24,7 @@ class ShowBlockView : BaseTextBlockView, IRoleListener {
         setText(R.string.show)
     }
 
-    override fun onRun(role: IRoleView) {
+    override suspend fun onRun(role: IRoleView) {
         role.show()
     }
 

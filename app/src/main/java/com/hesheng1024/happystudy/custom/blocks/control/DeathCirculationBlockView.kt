@@ -93,7 +93,7 @@ class DeathCirculationBlockView : BaseControlBlockView {
         canvas.drawPath(path, paint)
     }
 
-    override fun onRun(role: IRoleView) {
+    override suspend fun onRun(role: IRoleView) {
         while (true) {
             onChildRun(role)
         }

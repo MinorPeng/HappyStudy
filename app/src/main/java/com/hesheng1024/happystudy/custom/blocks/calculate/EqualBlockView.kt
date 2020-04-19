@@ -72,7 +72,7 @@ class EqualBlockView : BaseLogicBlockView {
         addView(mRightCalculateBg)
     }
 
-    override fun onRun(role: IRoleView) {
+    override suspend fun onRun(role: IRoleView) {
 
     }
 

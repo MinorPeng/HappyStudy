@@ -85,7 +85,7 @@ class IfBlockView : BaseControlBlockView {
         addView(tvThen)
     }
 
-    override fun onRun(role: IRoleView) {
+    override suspend fun onRun(role: IRoleView) {
         if (mLogicBg.judgeResult()) {
             onChildRun(role)
         }

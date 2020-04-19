@@ -63,7 +63,7 @@ class PlayVoiceBlockView : BaseBgBlockView {
         addView(spinner, lp)
     }
 
-    override fun onRun(role: IRoleView) {
+    override suspend fun onRun(role: IRoleView) {
         role.playVoice()
     }
 

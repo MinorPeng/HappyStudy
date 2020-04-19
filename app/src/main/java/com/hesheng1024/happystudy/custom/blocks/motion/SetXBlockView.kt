@@ -58,7 +58,7 @@ class SetXBlockView : BaseBgBlockView {
         addView(mEt, lp)
     }
 
-    override fun onRun(role: IRoleView) {
+    override suspend fun onRun(role: IRoleView) {
         role.setPX(mEt.text.toString().toFloat())
     }
 

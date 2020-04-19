@@ -58,7 +58,7 @@ class DecreaseYBlockView : BaseBgBlockView {
         addView(mEt, lp)
     }
 
-    override fun onRun(role: IRoleView) {
+    override suspend fun onRun(role: IRoleView) {
         role.decreaseY(mEt.text.toString().toFloat())
     }
 

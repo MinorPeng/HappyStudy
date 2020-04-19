@@ -9,5 +9,5 @@ import android.view.View
  */
 interface IRoleListener {
 
-    fun onRun(role: IRoleView)
+    suspend fun onRun(role: IRoleView)
 }

@@ -442,7 +442,7 @@ class IfElseBlockView : BaseBlockViewGroup {
     private fun isInElseRectF(x: Float, y: Float): Boolean = (x <= mChildElseRectF.right && x > mChildElseRectF.left
             && y > mChildElseRectF.top - mTopViewH / 3 && y <= mChildElseRectF.bottom + mTopViewH / 3)
 
-    override fun onRun(role: IRoleView) {
+    override suspend fun onRun(role: IRoleView) {
         if (mLogicBg.judgeResult()) {
             onChildIfRun(role)
         } else {
@@ -450,7 +450,7 @@ class IfElseBlockView : BaseBlockViewGroup {
         }
     }
 
-    private fun onChildIfRun(role: IRoleView) {
+    private suspend fun onChildIfRun(role: IRoleView) {
         for (index in 0 until childCount) {
             val child = getChildAt(0)
             if (child != null && child.tag == ChildTag.TAG_CHILD_IF && child is IBaseBlock) {
@@ -459,7 +459,7 @@ class IfElseBlockView : BaseBlockViewGroup {
         }
     }
 
-    private fun onChildElseRun(role: IRoleView) {
+    private suspend fun onChildElseRun(role: IRoleView) {
         for (index in 0 until childCount) {
             val child = getChildAt(0)
             if (child != null && child.tag == ChildTag.TAG_CHILD_ELSE && child is IBaseBlock) {

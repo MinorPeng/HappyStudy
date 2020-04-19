@@ -47,18 +47,18 @@ class DecreaseXBlockView : BaseBgBlockView  {
         val lp = generateDefaultLayoutParams() as MarginLayoutParams
         lp.leftMargin = DensityUtil.dp2px(context, 8f)
         mEt.minEms = 2
-        mEt.setText(R.string.ten)
-        mEt.setBackgroundResource(R.drawable.bg_et_circle_whilte)
         mEt.inputType = InputType.TYPE_NUMBER_FLAG_DECIMAL
         mEt.gravity = Gravity.CENTER
         mEt.setLines(1)
+        mEt.setText(R.string.ten)
+        mEt.setBackgroundResource(R.drawable.bg_et_circle_whilte)
         mEt.setOnDragListener { v, event ->
             return@setOnDragListener true
         }
         addView(mEt, lp)
     }
 
-    override fun onRun(role: IRoleView) {
+    override suspend fun onRun(role: IRoleView) {
         role.decreaseX(mEt.text.toString().toFloat())
     }
 

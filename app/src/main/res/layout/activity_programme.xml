@@ -60,11 +60,13 @@
         android:layout_marginEnd="@dimen/dp8"
         android:layout_toStartOf="@id/layout_programme_utils"
         android:layout_toEndOf="@id/recycler_view_programme"
-        android:background="@android:color/white">
+        android:background="@android:color/white"
+        android:scrollbarSize="@dimen/dp1">
 
         <HorizontalScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:scrollbarSize="@dimen/dp1">
 
             <LinearLayout
                 android:id="@+id/linear_layout_programme"

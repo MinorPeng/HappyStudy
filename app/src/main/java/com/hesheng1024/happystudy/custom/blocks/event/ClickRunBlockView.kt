@@ -48,7 +48,7 @@ class ClickRunBlockView : BaseEventBlockView {
         addView(tvClick, lp)
     }
 
-    override fun onRun(role: IRoleView) {
+    override suspend fun onRun(role: IRoleView) {
 
     }
 
