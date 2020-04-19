@@ -30,7 +30,7 @@ class IfElseBlockView : BaseBlockViewGroup {
 
     private val mChildIfRectF: RectF = RectF()
     private val mChildElseRectF: RectF = RectF()
-    private val mLogicBgView: LogicBgBlockView
+    private val mLogicBg: LogicBgBlockView
     private var mTopViewH = DensityUtil.dp2px(context, 32f).toFloat()
     private var mTopViewW = DensityUtil.dp2px(context, 150f).toFloat()
     private var mChildIfCount = 0
@@ -52,7 +52,7 @@ class IfElseBlockView : BaseBlockViewGroup {
             (IBaseBlock.DIS_TO_TOP * 2).toInt(),
             (IBaseBlock.DIS_TO_TOP * 2).toInt()
         )
-        mLogicBgView = LogicBgBlockView(context)
+        mLogicBg = LogicBgBlockView(context)
         initView()
     }
 
@@ -69,11 +69,11 @@ class IfElseBlockView : BaseBlockViewGroup {
         val lp = generateDefaultLayoutParams() as MarginLayoutParams
         lp.leftMargin = DensityUtil.dp2px(context, 8f)
         lp.rightMargin = DensityUtil.dp2px(context, 8f)
-        mLogicBgView.setBgColorId(R.color.colorControlYellowDark)
-        mLogicBgView.tag = ChildTag.TAG_TOP
+        mLogicBg.setBgColorId(R.color.colorControlYellowDark)
+        mLogicBg.tag = ChildTag.TAG_TOP
         // 也可以直接在父类中统一监听，只是坐标计算相对复杂一点
         var isIn = false
-        mLogicBgView.setOnDragListener { v, event ->
+        mLogicBg.setOnDragListener { v, event ->
             when(event.action) {
                 DragEvent.ACTION_DRAG_ENTERED -> {
                     LogUtil.i(msg = "logicBgView entered")
@@ -86,17 +86,17 @@ class IfElseBlockView : BaseBlockViewGroup {
                 DragEvent.ACTION_DROP -> {
                     LogUtil.i(msg = "logicBgView drop")
                     val logicBlock = event.localState
-                    if (isIn && mLogicBgView.childCount == 0 && logicBlock is BaseLogicBlockView) {
+                    if (isIn && mLogicBg.childCount == 0 && logicBlock is BaseLogicBlockView) {
                         (logicBlock.parent as? ViewGroup)?.removeView(logicBlock)
-                        mLogicBgView.addView(logicBlock)
+                        mLogicBg.addView(logicBlock)
                     } else {
-                        LogUtil.i(msg = "can't add view: isIn->$isIn count:${mLogicBgView.childCount} logic:$logicBlock")
+                        LogUtil.i(msg = "can't add view: isIn->$isIn count:${mLogicBg.childCount} logic:$logicBlock")
                     }
                 }
             }
             return@setOnDragListener true
         }
-        addView(mLogicBgView, lp)
+        addView(mLogicBg, lp)
 
         val tvThen = TextView(context)
         tvThen.setText(R.string.then)
@@ -443,7 +443,7 @@ class IfElseBlockView : BaseBlockViewGroup {
             && y > mChildElseRectF.top - mTopViewH / 3 && y <= mChildElseRectF.bottom + mTopViewH / 3)
 
     override fun onRun(role: IRoleView) {
-        if (mLogicBgView.judgeResult()) {
+        if (mLogicBg.judgeResult()) {
             onChildIfRun(role)
         } else {
             onChildElseRun(role)
@@ -473,9 +473,9 @@ class IfElseBlockView : BaseBlockViewGroup {
         newObj.layoutParams = this.layoutParams
         newObj.minimumWidth = measuredWidth
         newObj.minimumHeight = measuredHeight
-        val child = mLogicBgView.getChildAt(0)
+        val child = mLogicBg.getChildAt(0)
         if (child != null && child is BaseLogicBlockView) {
-            newObj.mLogicBgView.addView(child.clone() as BaseLogicBlockView)
+            newObj.mLogicBg.addView(child.clone() as BaseLogicBlockView)
         }
         return newObj
     }

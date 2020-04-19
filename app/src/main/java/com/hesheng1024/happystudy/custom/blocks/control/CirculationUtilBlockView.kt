@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import android.view.DragEvent
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -14,7 +13,6 @@ import com.hesheng1024.base.utils.LogUtil
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.base.IRoleView
-import com.hesheng1024.happystudy.custom.blocks.calculate.BaseCalculateBlockView
 import com.hesheng1024.happystudy.custom.blocks.calculate.BaseLogicBlockView
 import com.hesheng1024.happystudy.custom.blocks.calculate.LogicBgBlockView
 
@@ -26,7 +24,7 @@ import com.hesheng1024.happystudy.custom.blocks.calculate.LogicBgBlockView
 @SuppressLint("ViewConstructor")
 class CirculationUtilBlockView : BaseControlBlockView {
 
-    private val mLogicBgView: LogicBgBlockView
+    private val mLogicBg: LogicBgBlockView
 
     constructor(context: Context) : this(context, null)
 
@@ -36,7 +34,7 @@ class CirculationUtilBlockView : BaseControlBlockView {
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
-        mLogicBgView = LogicBgBlockView(context)
+        mLogicBg = LogicBgBlockView(context)
         initView()
     }
 
@@ -51,11 +49,11 @@ class CirculationUtilBlockView : BaseControlBlockView {
 
         val lp = generateDefaultLayoutParams() as MarginLayoutParams
         lp.leftMargin = DensityUtil.dp2px(context, 8f)
-        mLogicBgView.setBgColorId(R.color.colorControlYellowDark)
-        mLogicBgView.tag = ChildTag.TAG_TOP
+        mLogicBg.setBgColorId(R.color.colorControlYellowDark)
+        mLogicBg.tag = ChildTag.TAG_TOP
         // 也可以直接在父类中统一监听，只是坐标计算相对复杂一点
         var isIn = false
-        mLogicBgView.setOnDragListener { v, event ->
+        mLogicBg.setOnDragListener { v, event ->
             when(event.action) {
                 DragEvent.ACTION_DRAG_ENTERED -> {
                     LogUtil.i(msg = "logicBgView entered")
@@ -68,17 +66,17 @@ class CirculationUtilBlockView : BaseControlBlockView {
                 DragEvent.ACTION_DROP -> {
                     LogUtil.i(msg = "logicBgView drop")
                     val logicBlock = event.localState
-                    if (isIn && mLogicBgView.childCount == 0 && logicBlock is BaseLogicBlockView) {
+                    if (isIn && mLogicBg.childCount == 0 && logicBlock is BaseLogicBlockView) {
                         (logicBlock.parent as? ViewGroup)?.removeView(logicBlock)
-                        mLogicBgView.addView(logicBlock)
+                        mLogicBg.addView(logicBlock)
                     } else {
-                        LogUtil.i(msg = "can't add view: isIn->$isIn count:${mLogicBgView.childCount} logic:$logicBlock")
+                        LogUtil.i(msg = "can't add view: isIn->$isIn count:${mLogicBg.childCount} logic:$logicBlock")
                     }
                 }
             }
             return@setOnDragListener true
         }
-        addView(mLogicBgView, 1, lp)
+        addView(mLogicBg, 1, lp)
 
         val ivCirculation = ImageView(context)
         ivCirculation.setImageResource(R.drawable.ic_circulation_16)
@@ -87,7 +85,7 @@ class CirculationUtilBlockView : BaseControlBlockView {
     }
 
     override fun onRun(role: IRoleView) {
-        while (mLogicBgView.judgeResult()) {
+        while (mLogicBg.judgeResult()) {
             onChildRun(role)
         }
     }
@@ -97,9 +95,9 @@ class CirculationUtilBlockView : BaseControlBlockView {
         newObj.layoutParams = this.layoutParams
         newObj.minimumWidth = measuredWidth
         newObj.minimumHeight = measuredHeight
-        val child = mLogicBgView.getChildAt(0)
+        val child = mLogicBg.getChildAt(0)
         if (child != null && child is BaseLogicBlockView) {
-            newObj.mLogicBgView.addView(child.clone() as BaseLogicBlockView)
+            newObj.mLogicBg.addView(child.clone() as BaseLogicBlockView)
         }
         return newObj
     }

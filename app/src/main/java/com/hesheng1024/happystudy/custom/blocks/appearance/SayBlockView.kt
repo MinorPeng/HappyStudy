@@ -44,6 +44,7 @@ class SayBlockView : BaseBgBlockView, IRoleListener {
         val lp = generateDefaultLayoutParams() as MarginLayoutParams
         lp.leftMargin = DensityUtil.dp2px(context, 8f)
         mEtContent.minEms = 2
+        mEtContent.setLines(1)
         mEtContent.setText(R.string.hello)
         mEtContent.setBackgroundResource(R.drawable.bg_et_circle_whilte)
         addView(mEtContent, 1, lp)

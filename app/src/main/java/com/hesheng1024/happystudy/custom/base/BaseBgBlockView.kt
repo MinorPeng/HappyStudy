@@ -99,12 +99,12 @@ abstract class BaseBgBlockView : LinearLayout, IBaseBlock {
     }
 
     override fun inTopRectF(x: Float, y: Float): Boolean {
-        return (x <= left + measuredWidth && x >= left
+        return (x < right && x > left
                 && y < top + measuredHeight / 3 && y >= top - measuredHeight / 3 * 4)
     }
 
     override fun inBottomRectF(x: Float, y: Float): Boolean {
-        return (x <= left + measuredWidth && x >= left
+        return (x < right && x > left
                 && y <= bottom + measuredHeight / 3 * 4 && y > bottom - measuredHeight / 3)
     }
 }

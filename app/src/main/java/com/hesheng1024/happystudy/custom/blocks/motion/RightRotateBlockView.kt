@@ -48,6 +48,7 @@ class RightRotateBlockView : BaseBgBlockView {
         lp.leftMargin = DensityUtil.dp2px(context, 8f)
         lp.rightMargin = DensityUtil.dp2px(context, 8f)
         mEt.minEms = 2
+        mEt.setLines(1)
         mEt.setText(R.string.ten)
         mEt.setBackgroundResource(R.drawable.bg_et_circle_whilte)
         mEt.inputType = InputType.TYPE_CLASS_NUMBER

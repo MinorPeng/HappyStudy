@@ -52,6 +52,7 @@ class LeftRotateBlockView : BaseBgBlockView {
         mEt.setBackgroundResource(R.drawable.bg_et_circle_whilte)
         mEt.inputType = InputType.TYPE_CLASS_NUMBER
         mEt.gravity = Gravity.CENTER
+        mEt.setLines(1)
         mEt.setOnDragListener { v, event ->
             return@setOnDragListener true
         }

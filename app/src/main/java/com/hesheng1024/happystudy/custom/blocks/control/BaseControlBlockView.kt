@@ -238,20 +238,22 @@ abstract class BaseControlBlockView : BaseBlockViewGroup {
                     if (isInChildRectF(px, py) && blackOwn.parent == null) {
                         addView(blackOwn)
                     } else {
-                        removeView(blackOwn)
+                        (blackOwn.parent as? ViewGroup)?.removeView(blackOwn)
                     }
                 }
                 DragEvent.ACTION_DROP -> {
                     LogUtil.i(msg = "drop in child: x->$px y->$py l:$left t:$top  rect:$mChildRectF")
-                    removeView(blackOwn)
                     if (isInChildRectF(px, py)) {
                         (block.parent as? ViewGroup)?.removeView(block)
+                        block.setStatus(IBaseBlock.Status.STATUS_DRAG)
+                        (blackOwn.parent as? ViewGroup)?.removeView(blackOwn)
                         addView(block)
                         return true
                     }
                 }
                 else -> {
                     // 如果该ViewGroup不处理，应当将标识重置为之前的状态
+                    (blackOwn.parent as? ViewGroup)?.removeView(blackOwn)
                     block.tag = oldBlockTag
                     blackOwn.tag = oldBlackOwnTag
                 }
@@ -269,6 +271,16 @@ abstract class BaseControlBlockView : BaseBlockViewGroup {
     private fun isInChildRectF(x: Float, y: Float): Boolean = (x <= mChildRectF.right && x > mChildRectF.left
                 && y > mChildRectF.top - mTopViewH / 3 && y <= mChildRectF.bottom + mTopViewH / 3)
 
+    override fun inTopRectF(x: Float, y: Float): Boolean {
+        return (x < right && x > left
+                && y < top + mTopViewH / 3 && y >= top - mTopViewH / 3 * 4)
+    }
+
+    override fun inBottomRectF(x: Float, y: Float): Boolean {
+        return (x < right && x > left
+                && y <= bottom + mTopViewH / 3 * 4 && y > bottom)
+    }
+
     fun onChildRun(role: IRoleView) {
         for (index in 0 until childCount) {
             val child = getChildAt(index)
@@ -278,15 +290,9 @@ abstract class BaseControlBlockView : BaseBlockViewGroup {
         }
     }
 
-    override fun inTopRectF(x: Float, y: Float): Boolean {
-        return (x <= left + measuredWidth && x >= left
-                && y < top + mTopViewH / 3 && y >= top - mTopViewH / 3 * 4)
-    }
+    fun getTopViewW() = mTopViewW
 
-    override fun inBottomRectF(x: Float, y: Float): Boolean {
-        return (x <= left + measuredWidth && x >= left
-                && y <= bottom + mTopViewH / 3 * 4 && y > bottom - mTopViewH / 3)
-    }
+    fun getTopViewH() = mTopViewH
 
     protected enum class ChildTag(tag: String) {
         TAG_TOP("tag_top"),

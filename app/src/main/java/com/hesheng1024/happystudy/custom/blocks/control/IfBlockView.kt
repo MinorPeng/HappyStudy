@@ -14,7 +14,6 @@ import com.hesheng1024.happystudy.custom.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.base.IRoleView
 import com.hesheng1024.happystudy.custom.blocks.calculate.BaseLogicBlockView
 import com.hesheng1024.happystudy.custom.blocks.calculate.LogicBgBlockView
-import com.hesheng1024.happystudy.custom.blocks.motion.MoveBlockView
 
 /**
  *
@@ -24,7 +23,7 @@ import com.hesheng1024.happystudy.custom.blocks.motion.MoveBlockView
 @SuppressLint("ViewConstructor")
 class IfBlockView : BaseControlBlockView {
 
-    private val mLogicBgView: LogicBgBlockView
+    private val mLogicBg: LogicBgBlockView
 
     constructor(context: Context) : this(context, null)
 
@@ -34,7 +33,7 @@ class IfBlockView : BaseControlBlockView {
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
-        mLogicBgView = LogicBgBlockView(context)
+        mLogicBg = LogicBgBlockView(context)
         initView()
     }
 
@@ -50,11 +49,11 @@ class IfBlockView : BaseControlBlockView {
         val lp = generateDefaultLayoutParams() as MarginLayoutParams
         lp.leftMargin = DensityUtil.dp2px(context, 8f)
         lp.rightMargin = DensityUtil.dp2px(context, 8f)
-        mLogicBgView.setBgColorId(R.color.colorControlYellowDark)
-        mLogicBgView.tag = ChildTag.TAG_TOP
+        mLogicBg.setBgColorId(R.color.colorControlYellowDark)
+        mLogicBg.tag = ChildTag.TAG_TOP
         // 也可以直接在父类中统一监听，只是坐标计算相对复杂一点
         var isIn = false
-        mLogicBgView.setOnDragListener { v, event ->
+        mLogicBg.setOnDragListener { v, event ->
             when(event.action) {
                 DragEvent.ACTION_DRAG_ENTERED -> {
                     LogUtil.i(msg = "logicBgView entered")
@@ -67,17 +66,17 @@ class IfBlockView : BaseControlBlockView {
                 DragEvent.ACTION_DROP -> {
                     LogUtil.i(msg = "logicBgView drop")
                     val logicBlock = event.localState
-                    if (isIn && mLogicBgView.childCount == 0 && logicBlock is BaseLogicBlockView) {
+                    if (isIn && mLogicBg.childCount == 0 && logicBlock is BaseLogicBlockView) {
                         (logicBlock.parent as? ViewGroup)?.removeView(logicBlock)
-                        mLogicBgView.addView(logicBlock)
+                        mLogicBg.addView(logicBlock)
                     } else {
-                        LogUtil.i(msg = "can't add view: isIn->$isIn count:${mLogicBgView.childCount} logic:$logicBlock")
+                        LogUtil.i(msg = "can't add view: isIn->$isIn count:${mLogicBg.childCount} logic:$logicBlock")
                     }
                 }
             }
             return@setOnDragListener true
         }
-        addView(mLogicBgView, lp)
+        addView(mLogicBg, lp)
 
         val tvThen = TextView(context)
         tvThen.setText(R.string.then)
@@ -87,7 +86,7 @@ class IfBlockView : BaseControlBlockView {
     }
 
     override fun onRun(role: IRoleView) {
-        if (mLogicBgView.judgeResult()) {
+        if (mLogicBg.judgeResult()) {
             onChildRun(role)
         }
     }
@@ -97,9 +96,9 @@ class IfBlockView : BaseControlBlockView {
         newObj.layoutParams = this.layoutParams
         newObj.minimumWidth = measuredWidth
         newObj.minimumHeight = measuredHeight
-        val child = mLogicBgView.getChildAt(0)
+        val child = mLogicBg.getChildAt(0)
         if (child != null && child is BaseLogicBlockView) {
-            newObj.mLogicBgView.addView(child.clone() as BaseLogicBlockView)
+            newObj.mLogicBg.addView(child.clone() as BaseLogicBlockView)
         }
         return newObj
     }

@@ -41,11 +41,12 @@ class DivideBlockView : BaseCalculateBlockView {
         val etLeft = AppCompatEditText(context)
         etLeft.setBackgroundResource(R.drawable.bg_et_circle_whilte)
         etLeft.gravity = Gravity.CENTER
-        etLeft.inputType = InputType.TYPE_CLASS_NUMBER
+        etLeft.inputType = InputType.TYPE_NUMBER_FLAG_DECIMAL
         etLeft.minEms = 2
         etLeft.setOnDragListener { v, event ->
             return@setOnDragListener true
         }
+        etLeft.setLines(1)
         mLeftCalculateBg.addView(etLeft, 0)
         addView(mLeftCalculateBg, 0)
 
@@ -60,9 +61,10 @@ class DivideBlockView : BaseCalculateBlockView {
         val etRight = AppCompatEditText(context)
         etRight.setBackgroundResource(R.drawable.bg_et_circle_whilte)
         etRight.gravity = Gravity.CENTER
-        etRight.inputType = InputType.TYPE_CLASS_NUMBER
+        etRight.inputType = InputType.TYPE_NUMBER_FLAG_DECIMAL
         etRight.setText(R.string.fifty)
         etRight.minEms = 2
+        etRight.setLines(1)
         etRight.setOnDragListener { v, event ->
             return@setOnDragListener true
         }

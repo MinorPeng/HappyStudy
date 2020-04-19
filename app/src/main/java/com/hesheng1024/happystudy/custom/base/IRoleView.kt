@@ -29,13 +29,15 @@ interface IRoleView {
 
     fun increaseY(y: Float)
 
+    fun setDirection(direction: Float)
+
     fun leftRotate(rotation: Float)
 
     fun rightRotate(rotation: Float)
 
-    fun setX(x: Float)
+    fun setPX(x: Float)
 
-    fun setY(y: Float)
+    fun setPY(y: Float)
 
 
     fun decreaseVolume(volume: Float)

@@ -8,7 +8,6 @@ ext {
                     targetSdkVersion    : 29,
                     versionCode         : 1,
                     versionName         : "1.0",
-                    jdkversion          : JavaVersion.VERSION_1_8
             ],
 
             dependencies : [

@@ -15,7 +15,6 @@ import com.hesheng1024.happystudy.custom.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.base.IRoleView
 import com.hesheng1024.happystudy.custom.blocks.calculate.BaseCalculateBlockView
 import com.hesheng1024.happystudy.custom.blocks.calculate.CalculateBgBlock
-import com.hesheng1024.happystudy.custom.blocks.motion.MoveBlockView
 
 /**
  *

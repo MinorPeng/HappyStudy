@@ -50,8 +50,9 @@ class MoveBlockView : BaseBgBlockView {
         mEt.minEms = 2
         mEt.setText(R.string.ten)
         mEt.setBackgroundResource(R.drawable.bg_et_circle_whilte)
-        mEt.inputType = InputType.TYPE_CLASS_NUMBER
+        mEt.inputType = InputType.TYPE_NUMBER_FLAG_DECIMAL
         mEt.gravity = Gravity.CENTER
+        mEt.setLines(1)
         mEt.setOnDragListener { v, event ->
             return@setOnDragListener true
         }

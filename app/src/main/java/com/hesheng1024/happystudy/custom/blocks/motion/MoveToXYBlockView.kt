@@ -52,8 +52,9 @@ class MoveToXYBlockView : BaseBgBlockView {
         mEtX.minEms = 2
         mEtX.setText(R.string.ten)
         mEtX.setBackgroundResource(R.drawable.bg_et_circle_whilte)
-        mEtX.inputType = InputType.TYPE_CLASS_NUMBER
+        mEtX.inputType = InputType.TYPE_NUMBER_FLAG_DECIMAL
         mEtX.gravity = Gravity.CENTER
+        mEtX.setLines(1)
         mEtX.setOnDragListener { v, event ->
             return@setOnDragListener true
         }
@@ -69,7 +70,8 @@ class MoveToXYBlockView : BaseBgBlockView {
         mEtY.minEms = 2
         mEtY.setText(R.string.zero)
         mEtY.setBackgroundResource(R.drawable.bg_et_circle_whilte)
-        mEtY.inputType = InputType.TYPE_CLASS_NUMBER
+        mEtY.inputType = InputType.TYPE_NUMBER_FLAG_DECIMAL
+        mEtY.setLines(1)
         mEtY.gravity = Gravity.CENTER
         mEtY.setOnDragListener { v, event ->
             return@setOnDragListener true

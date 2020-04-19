@@ -3,9 +3,12 @@ package com.hesheng1024.happystudy.custom.blocks.calculate
 import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
+import android.view.DragEvent
+import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.DensityUtil
+import com.hesheng1024.base.utils.LogUtil
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.base.IRoleView
@@ -41,6 +44,30 @@ class OrBlockView : BaseLogicBlockView {
     }
 
     private fun initView() {
+        var isIn = false
+        mLeftLogicBg.setOnDragListener { v, event ->
+            when(event.action) {
+                DragEvent.ACTION_DRAG_ENTERED -> {
+                    LogUtil.i(msg = "logicBgView entered")
+                    isIn = true
+                }
+                DragEvent.ACTION_DRAG_EXITED -> {
+                    LogUtil.i(msg = "logicBgView exited")
+                    isIn = false
+                }
+                DragEvent.ACTION_DROP -> {
+                    LogUtil.i(msg = "logicBgView drop")
+                    val logicBlock = event.localState
+                    if (isIn && mLeftLogicBg.childCount == 0 && logicBlock is BaseLogicBlockView) {
+                        (logicBlock.parent as? ViewGroup)?.removeView(logicBlock)
+                        mLeftLogicBg.addView(logicBlock)
+                    } else {
+                        LogUtil.i(msg = "can't add view: isIn->$isIn count:${mLeftLogicBg.childCount} logic:$logicBlock")
+                    }
+                }
+            }
+            return@setOnDragListener true
+        }
         addView(mLeftLogicBg)
 
         val lpTvMoreThan = generateDefaultLayoutParams() as MarginLayoutParams
@@ -51,6 +78,29 @@ class OrBlockView : BaseLogicBlockView {
         tvMoreThan.setTextColor(ContextCompat.getColor(context, android.R.color.white))
         addView(tvMoreThan, lpTvMoreThan)
 
+        mRightLogicBg.setOnDragListener { v, event ->
+            when(event.action) {
+                DragEvent.ACTION_DRAG_ENTERED -> {
+                    LogUtil.i(msg = "logicBgView entered")
+                    isIn = true
+                }
+                DragEvent.ACTION_DRAG_EXITED -> {
+                    LogUtil.i(msg = "logicBgView exited")
+                    isIn = false
+                }
+                DragEvent.ACTION_DROP -> {
+                    LogUtil.i(msg = "logicBgView drop")
+                    val logicBlock = event.localState
+                    if (isIn && mRightLogicBg.childCount == 0 && logicBlock is BaseLogicBlockView) {
+                        (logicBlock.parent as? ViewGroup)?.removeView(logicBlock)
+                        mRightLogicBg.addView(logicBlock)
+                    } else {
+                        LogUtil.i(msg = "can't add view: isIn->$isIn count:${mRightLogicBg.childCount} logic:$logicBlock")
+                    }
+                }
+            }
+            return@setOnDragListener true
+        }
         addView(mRightLogicBg)
     }
 

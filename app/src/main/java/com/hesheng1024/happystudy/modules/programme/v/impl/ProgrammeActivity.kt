@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
+import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hesheng1024.base.base.BaseActivity
@@ -50,17 +51,7 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
         initBlockCategory()
         initRecyclerView()
         initProgramme()
-
-        switch_programme_show.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked ) {
-                role_view_programme.show()
-            } else {
-                role_view_programme.hide()
-            }
-        }
-        ibtn_programme_run.setOnClickListener {
-            runProgramme()
-        }
+        initProgrammeUtil()
     }
 
     private fun initBlockCategory() {
@@ -106,6 +97,56 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
                 changeSelectedCategory(Block.Category.CALCULATE)
                 smoothScrollToPosition(pos)
             }
+        }
+    }
+
+    private fun changeSelectedCategory(category: Block.Category) {
+        if (category == mLastSelectCategory) {
+            return
+        }
+        LogUtil.d(msg = "last:${mLastSelectCategory} now:$category")
+        when (mLastSelectCategory) {
+            Block.Category.MOTION -> tv_programme_motion.setBackgroundColor(mUnSelectedColor)
+            Block.Category.APPEARANCE -> tv_programme_appearance.setBackgroundColor(mUnSelectedColor)
+            Block.Category.VOICE -> tv_programme_voice.setBackgroundColor(mUnSelectedColor)
+            Block.Category.EVENT -> tv_programme_event.setBackgroundColor(mUnSelectedColor)
+            Block.Category.CONTROL -> tv_programme_control.setBackgroundColor(mUnSelectedColor)
+            Block.Category.CALCULATE -> tv_programme_calculate.setBackgroundColor(mUnSelectedColor)
+        }
+        when (category) {
+            Block.Category.MOTION -> tv_programme_motion.setBackgroundColor(mSelectedColor)
+            Block.Category.APPEARANCE -> tv_programme_appearance.setBackgroundColor(mSelectedColor)
+            Block.Category.VOICE -> tv_programme_voice.setBackgroundColor(mSelectedColor)
+            Block.Category.EVENT -> tv_programme_event.setBackgroundColor(mSelectedColor)
+            Block.Category.CONTROL -> tv_programme_control.setBackgroundColor(mSelectedColor)
+            Block.Category.CALCULATE -> tv_programme_calculate.setBackgroundColor(mSelectedColor)
+        }
+        mLastSelectCategory = category
+    }
+
+    private fun smoothScrollToPosition(pos: Int) {
+        val firstItem = recycler_view_programme.getChildLayoutPosition(recycler_view_programme.getChildAt(0))
+        val lastItem = recycler_view_programme.getChildLayoutPosition(
+            recycler_view_programme.getChildAt(recycler_view_programme.childCount - 1)
+        )
+        LogUtil.d(msg = "fir:$firstItem las:$lastItem pos:$pos")
+        if (pos < firstItem) {
+            // 跳转位置在可视界面之前，向前滑动
+            recycler_view_programme.smoothScrollToPosition(pos)
+        } else if (pos <= lastItem) {
+            // 跳转位置在可视界面内，置顶即可
+            val movePos = pos - firstItem
+            LogUtil.d(msg = "movePos:$movePos childCount:${recycler_view_programme.childCount}")
+            if (movePos >= 0 && movePos < recycler_view_programme.childCount) {
+                val top = recycler_view_programme.getChildAt(movePos).top
+                LogUtil.d(msg = "top:$top")
+                recycler_view_programme.smoothScrollBy(0, top)
+            }
+        } else {
+            // 跳转位置在可视界面之后，需要先滑动到可视界面内，再置顶
+            recycler_view_programme.smoothScrollToPosition(pos)
+            mToPos = pos
+            mShouldScroll = true
         }
     }
 
@@ -205,10 +246,6 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
                     LogUtil.i(msg = "drop in linear layout x->${event.x} y->{$event.y}")
                     (block.parent as? ViewGroup)?.removeView(block)
                     block.setStatus(IBaseBlock.Status.STATUS_DRAG)
-                    val lp = LinearLayout.LayoutParams(block.layoutParams)
-                    // lp.leftMargin = event.x.toInt() - lp.width / 2
-                    // lp.topMargin = event.y.toInt() - lp.height / 2
-                    // lp.topMargin = -IBaseBlock.sDis2Top.toInt()
                     (block.layoutParams as LinearLayout.LayoutParams).bottomMargin = -IBaseBlock.DIS_TO_TOP.toInt()
                     linear_layout_programme.addView(block, block.layoutParams)
                 }
@@ -217,61 +254,35 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
         }
     }
 
-    private fun smoothScrollToPosition(pos: Int) {
-        val firstItem = recycler_view_programme.getChildLayoutPosition(recycler_view_programme.getChildAt(0))
-        val lastItem = recycler_view_programme.getChildLayoutPosition(
-            recycler_view_programme.getChildAt(recycler_view_programme.childCount - 1)
-        )
-        LogUtil.d(msg = "fir:$firstItem las:$lastItem pos:$pos")
-        if (pos < firstItem) {
-            // 跳转位置在可视界面之前，向前滑动
-            recycler_view_programme.smoothScrollToPosition(pos)
-        } else if (pos <= lastItem) {
-            // 跳转位置在可视界面内，置顶即可
-            val movePos = pos - firstItem
-            LogUtil.d(msg = "movePos:$movePos childCount:${recycler_view_programme.childCount}")
-            if (movePos >= 0 && movePos < recycler_view_programme.childCount) {
-                val top = recycler_view_programme.getChildAt(movePos).top
-                LogUtil.d(msg = "top:$top")
-                recycler_view_programme.smoothScrollBy(0, top)
+    private fun initProgrammeUtil() {
+        switch_programme_show.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked ) {
+                role_view_programme.show()
+            } else {
+                role_view_programme.hide()
             }
-        } else {
-            // 跳转位置在可视界面之后，需要先滑动到可视界面内，再置顶
-            recycler_view_programme.smoothScrollToPosition(pos)
-            mToPos = pos
-            mShouldScroll = true
         }
-    }
-
-    private fun changeSelectedCategory(category: Block.Category) {
-        if (category == mLastSelectCategory) {
-            return
+        ibtn_programme_run.setOnClickListener {
+            runProgramme()
         }
-        LogUtil.d(msg = "last:${mLastSelectCategory} now:$category")
-        when (mLastSelectCategory) {
-            Block.Category.MOTION -> tv_programme_motion.setBackgroundColor(mUnSelectedColor)
-            Block.Category.APPEARANCE -> tv_programme_appearance.setBackgroundColor(mUnSelectedColor)
-            Block.Category.VOICE -> tv_programme_voice.setBackgroundColor(mUnSelectedColor)
-            Block.Category.EVENT -> tv_programme_event.setBackgroundColor(mUnSelectedColor)
-            Block.Category.CONTROL -> tv_programme_control.setBackgroundColor(mUnSelectedColor)
-            Block.Category.CALCULATE -> tv_programme_calculate.setBackgroundColor(mUnSelectedColor)
+        et_programme_x.doOnTextChanged { text, start, count, after ->
+            role_view_programme.setPX(if (text.isNullOrEmpty()) 0f else text.toString().toFloat())
         }
-        when (category) {
-            Block.Category.MOTION -> tv_programme_motion.setBackgroundColor(mSelectedColor)
-            Block.Category.APPEARANCE -> tv_programme_appearance.setBackgroundColor(mSelectedColor)
-            Block.Category.VOICE -> tv_programme_voice.setBackgroundColor(mSelectedColor)
-            Block.Category.EVENT -> tv_programme_event.setBackgroundColor(mSelectedColor)
-            Block.Category.CONTROL -> tv_programme_control.setBackgroundColor(mSelectedColor)
-            Block.Category.CALCULATE -> tv_programme_calculate.setBackgroundColor(mSelectedColor)
+        et_programme_y.doOnTextChanged { text, start, count, after ->
+            role_view_programme.setPY(if (text.isNullOrEmpty()) 0f else text.toString().toFloat())
         }
-        mLastSelectCategory = category
+        et_programme_direction.doOnTextChanged { text, start, count, after ->
+            role_view_programme.setDirection(if (text.isNullOrEmpty()) 0f else text.toString().toFloat())
+        }
     }
 
     private fun runProgramme() {
-        val x = et_programme_x.text.toString()
-        val y = et_programme_y.text.toString()
-        val direction = et_programme_direction.text.toString()
-
+        for (index in 0 until linear_layout_programme.childCount) {
+            val child = linear_layout_programme.getChildAt(index)
+            if (child != null && child is IBaseBlock) {
+                child.onRun(role_view_programme)
+            }
+        }
     }
 
     override fun setBlocks(blocks: List<Block>) {

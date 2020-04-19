@@ -3,9 +3,12 @@ package com.hesheng1024.happystudy.custom.blocks.calculate
 import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
+import android.view.DragEvent
+import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.DensityUtil
+import com.hesheng1024.base.utils.LogUtil
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.base.IRoleView
@@ -39,6 +42,30 @@ class NotBlockView : BaseLogicBlockView {
     }
 
     private fun initView() {
+        var isIn = false
+        mLogicBg.setOnDragListener { v, event ->
+            when(event.action) {
+                DragEvent.ACTION_DRAG_ENTERED -> {
+                    LogUtil.i(msg = "logicBgView entered")
+                    isIn = true
+                }
+                DragEvent.ACTION_DRAG_EXITED -> {
+                    LogUtil.i(msg = "logicBgView exited")
+                    isIn = false
+                }
+                DragEvent.ACTION_DROP -> {
+                    LogUtil.i(msg = "logicBgView drop")
+                    val logicBlock = event.localState
+                    if (isIn && mLogicBg.childCount == 0 && logicBlock is BaseLogicBlockView) {
+                        (logicBlock.parent as? ViewGroup)?.removeView(logicBlock)
+                        mLogicBg.addView(logicBlock)
+                    } else {
+                        LogUtil.i(msg = "can't add view: isIn->$isIn count:${mLogicBg.childCount} logic:$logicBlock")
+                    }
+                }
+            }
+            return@setOnDragListener true
+        }
         addView(mLogicBg)
 
         val lpTvMoreThan = generateDefaultLayoutParams() as MarginLayoutParams
@@ -67,6 +94,6 @@ class NotBlockView : BaseLogicBlockView {
     }
 
     override fun judgeResult(): Boolean {
-        return mLogicBg.judgeResult()
+        return !mLogicBg.judgeResult()
     }
 }

@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.View
+import android.widget.FrameLayout
 import android.widget.RelativeLayout
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
@@ -72,6 +73,9 @@ class RoleView : RelativeLayout, IRoleView {
         mTvSay.setBackgroundResource(R.drawable.bg_message)
         mTvSay.visibility = View.INVISIBLE
         mTvSay.id = TV_SAY_ID
+        mTvSay.maxEms = 10
+        mTvSay.maxLines = 5
+        mTvSay.setPadding(4, 4, 4, 4)
         addView(mTvSay, tvSayLp)
     }
 
@@ -106,43 +110,56 @@ class RoleView : RelativeLayout, IRoleView {
 
     override fun moveStep(step: Int) {
         showSayLayout(false)
-        (layoutParams as LayoutParams).leftMargin += step
+        (layoutParams as FrameLayout.LayoutParams).leftMargin += step
     }
 
     override fun moveToXY(x: Float, y: Float) {
         showSayLayout(false)
-        (layoutParams as LayoutParams).leftMargin = x.toInt()
-        (layoutParams as LayoutParams).topMargin = -y.toInt()
+        (layoutParams as FrameLayout.LayoutParams).leftMargin = x.toInt()
+        (layoutParams as FrameLayout.LayoutParams).topMargin = -y.toInt()
     }
 
     override fun decreaseX(x: Float) {
         showSayLayout(false)
-        (layoutParams as LayoutParams).leftMargin -= x.toInt()
+        (layoutParams as FrameLayout.LayoutParams).leftMargin -= x.toInt()
     }
 
     override fun decreaseY(y: Float) {
         showSayLayout(false)
-        (layoutParams as LayoutParams).topMargin += y.toInt()
+        (layoutParams as FrameLayout.LayoutParams).topMargin += y.toInt()
     }
 
     override fun increaseX(x: Float) {
         showSayLayout(false)
-        (layoutParams as LayoutParams).leftMargin += x.toInt()
+        (layoutParams as FrameLayout.LayoutParams).leftMargin += x.toInt()
     }
 
     override fun increaseY(y: Float) {
         showSayLayout(false)
-        (layoutParams as LayoutParams).topMargin -= y.toInt()
+        (layoutParams as FrameLayout.LayoutParams).topMargin -= y.toInt()
+    }
+
+    override fun setDirection(direction: Float) {
+        showSayLayout(false)
+        mIvRole.rotation = direction - 90
     }
 
     override fun leftRotate(rotation: Float) {
         showSayLayout(false)
-        mIvRole.rotation = -rotation
+        mIvRole.rotation += -rotation
     }
 
     override fun rightRotate(rotation: Float) {
         showSayLayout(false)
-        mIvRole.rotation = rotation
+        mIvRole.rotation += rotation
+    }
+
+    override fun setPX(x: Float) {
+        moveToXY(x, 0f)
+    }
+
+    override fun setPY(y: Float) {
+        moveToXY(0f, y)
     }
 
     override fun decreaseVolume(volume: Float) {

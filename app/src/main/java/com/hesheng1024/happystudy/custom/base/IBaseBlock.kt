@@ -7,7 +7,6 @@ import android.graphics.CornerPathEffect
 import android.graphics.Paint
 import android.graphics.Path
 import android.view.*
-import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.ContextHolder
 import com.hesheng1024.base.utils.DensityUtil
@@ -16,11 +15,12 @@ import com.hesheng1024.happystudy.custom.blocks.calculate.BaseCalculateBlockView
 import com.hesheng1024.happystudy.custom.blocks.calculate.BaseLogicBlockView
 
 /**
+ * the base of a block
  *
  * @author hesheng1024
  * @date 2020/4/11 10:57
  */
-interface IBaseBlock : IRoleListener, View.OnTouchListener, View.OnClickListener {
+interface IBaseBlock : IRoleListener, View.OnTouchListener {
 
     companion object {
         // 直接定义到接口中，可能会被实现类给覆盖重写，所以不规范，应当定义为静态
@@ -128,24 +128,16 @@ interface IBaseBlock : IRoleListener, View.OnTouchListener, View.OnClickListener
         val px = event.x
         val py = event.y
         val parent = v.parent as ViewGroup
+        val blackOwn = block.getBlackOwn() as View
         return when (event.action) {
-            DragEvent.ACTION_DRAG_EXITED -> {
-                // 避免快速向外拖动导致监听不到坐标，就无法remove阴影
-                LogUtil.i(this::class.java.simpleName, msg = "view in dragging out frame")
-                val blackOwn = block.getBlackOwn() as View
-                if (blackOwn.parent != null) {
-                    parent.removeView(blackOwn)
-                }
-                false
-            }
             DragEvent.ACTION_DRAG_LOCATION -> {
                 // 自由drag进入了该view才会有position
-                LogUtil.i(this::class.java.simpleName, msg = "view position: x->$px y->$py")
+                LogUtil.i(this::class.java.simpleName, msg = "view position: x->$px y->$py tag:${block.tag} " +
+                        "bTag:${blackOwn.tag}")
                 when {
                     inTopRectF(px, py) -> {
                         // in the top
                         LogUtil.d(this::class.java.simpleName, msg = "location in the top")
-                        val blackOwn = block.getBlackOwn() as View
                         if (blackOwn.parent == null) {
                             LogUtil.d(this::class.java.simpleName, msg = "top add index:${parent.indexOfChild(v)}")
                             parent.addView(blackOwn, parent.indexOfChild(v), block.layoutParams)
@@ -153,9 +145,8 @@ interface IBaseBlock : IRoleListener, View.OnTouchListener, View.OnClickListener
                     }
                     inBottomRectF(px, py) -> {
                         // in the bottom
-                        // TODO 遗留问题，阴影在bottom时不显示 top添加view位置异常  适配不同layout
+                        // TODO 适配不同layout
                         LogUtil.d(this::class.java.simpleName, msg = "location in the bottom")
-                        val blackOwn = block.getBlackOwn() as View
                         if (blackOwn.parent == null) {
                             LogUtil.d(this::class.java.simpleName, msg = "bottom add index:${parent.indexOfChild(v)}")
                             parent.addView(blackOwn, parent.indexOfChild(v) + 1, block.layoutParams)
@@ -164,11 +155,7 @@ interface IBaseBlock : IRoleListener, View.OnTouchListener, View.OnClickListener
                     else -> {
                         // 未在附近，移除阴影
                         LogUtil.d(this::class.java.simpleName, msg = "location in other")
-                        val blackOwn = block.getBlackOwn() as View
-                        if (blackOwn.parent != null) {
-                            LogUtil.d(this::class.java.simpleName, msg = "other add index:${parent.indexOfChild(v)}")
-                            parent.removeView(blackOwn)
-                        }
+                        (blackOwn.parent as? ViewGroup)?.removeView(blackOwn)
                     }
                 }
                 false
@@ -178,37 +165,36 @@ interface IBaseBlock : IRoleListener, View.OnTouchListener, View.OnClickListener
                 when {
                     inTopRectF(px, py) -> {
                         // in the top
-                        LogUtil.d(this::class.java.simpleName, msg = "drop in the top index:${parent.indexOfChild(v)} ${parent.indexOfChild(block.getBlackOwn() as View)}")
+                        LogUtil.d(this::class.java.simpleName, msg = "drop in the top index:${parent.indexOfChild(v)}")
+                        (blackOwn.parent as? ViewGroup)?.removeView(blackOwn)
                         (block.parent as? ViewGroup)?.removeView(block)
                         block.setStatus(Status.STATUS_DRAG)
-                        parent.removeView(block.getBlackOwn() as View)
-                        LogUtil.d(this::class.java.simpleName, msg = "drop in the top index1:${parent.indexOfChild(v)}")
                         parent.addView(block, parent.indexOfChild(v), block.layoutParams)
                         return true
                     }
                     inBottomRectF(px, py) -> {
                         // in the bottom
-                        LogUtil.d(this::class.java.simpleName, msg = "drop in the bottom index:${parent.indexOfChild(v)} ${parent.indexOfChild(block.getBlackOwn() as View)}")
+                        LogUtil.d(this::class.java.simpleName, msg = "drop in the bottom index:${parent.indexOfChild(v)}")
+                        (blackOwn.parent as? ViewGroup)?.removeView(blackOwn)
                         (block.parent as? ViewGroup)?.removeView(block)
                         block.setStatus(Status.STATUS_DRAG)
-                        parent.removeView(block.getBlackOwn() as View)
                         parent.addView(block, parent.indexOfChild(v) + 1, block.layoutParams)
                         return true
                     }
                     else -> {
                         // 未在附近，不处理
                         LogUtil.d(this::class.java.simpleName, msg = "drop in other")
+                        parent.removeView(blackOwn)
                     }
                 }
                 false
             }
-            else -> false
+            else -> {
+                // 避免快速向外拖动导致监听不到坐标，就无法remove阴影
+                (blackOwn.parent as? ViewGroup)?.removeView(blackOwn)
+                false
+            }
         }
-    }
-
-    override fun onClick(v: View?) {
-        // TODO 考虑全局角色访问，而非传递参数
-        // this.onRun()
     }
 
     /**
@@ -266,6 +252,9 @@ interface IBaseBlock : IRoleListener, View.OnTouchListener, View.OnClickListener
         STATUS_NONE
     }
 
+    /**
+     * copy a DragEvent to change x, y
+     */
     data class CustomDragEvent(val x: Float, val y: Float, val action: Int, val localState: Any? = null,
                                val clipData: ClipData? = null, val clipDescription: ClipDescription? = null,
                                val result: Boolean)

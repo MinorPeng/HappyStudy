@@ -70,7 +70,9 @@
             android:id="@+id/frame_test_end"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/dp16"
+            android:paddingBottom="@dimen/dp24"
+            android:paddingStart="@dimen/dp16"
+            android:paddingEnd="@dimen/dp16"
             android:orientation="vertical">
 
             <Button

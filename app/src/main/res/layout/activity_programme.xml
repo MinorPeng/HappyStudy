@@ -50,8 +50,7 @@
         android:paddingTop="@dimen/dp16"
         android:text="@string/programme_area" />
 
-    <LinearLayout
-        android:id="@+id/linear_layout_programme"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/tv_programme_programme"
@@ -61,11 +60,26 @@
         android:layout_marginEnd="@dimen/dp8"
         android:layout_toStartOf="@id/layout_programme_utils"
         android:layout_toEndOf="@id/recycler_view_programme"
-        android:background="@android:color/white"
-        android:orientation="vertical"
-        android:paddingStart="@dimen/dp8"
-        android:paddingTop="@dimen/dp16"
-        android:paddingEnd="@dimen/dp8" />
+        android:background="@android:color/white">
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/linear_layout_programme"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:minWidth="@dimen/dp300"
+                android:minHeight="@dimen/dp350"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/dp8"
+                android:paddingTop="@dimen/dp16"
+                android:paddingEnd="@dimen/dp8"
+                android:paddingBottom="@dimen/dp24" />
+        </HorizontalScrollView>
+
+    </ScrollView>
 
     <include
         android:id="@+id/layout_programme_utils"
