@@ -2,7 +2,7 @@ package com.hesheng1024.happystudy.utils
 
 import android.media.MediaPlayer
 import com.hesheng1024.base.utils.ContextHolder
-import com.hesheng1024.base.utils.LogUtil
+import com.hesheng1024.base.utils.logE
 import com.hesheng1024.happystudy.R
 
 /**
@@ -19,7 +19,7 @@ object MediaPlayerUtil {
             mp.stop()
         }
         mMediaPlayer.setOnErrorListener { mp, what, extra ->
-            LogUtil.e(msg = "media error:$what extra:$extra")
+            logE(msg = "media error:$what extra:$extra")
             mp.stop()
             return@setOnErrorListener true
         }

@@ -3,12 +3,10 @@ package com.hesheng1024.happystudy.custom.blocks.appearance
 import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
-import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
-import com.hesheng1024.base.utils.DensityUtil
+import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.base.BaseBgBlockView
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
@@ -42,7 +40,7 @@ class SayBlockView : BaseBgBlockView, IRoleListener {
         addView(tv, 0)
 
         val lp = generateDefaultLayoutParams() as MarginLayoutParams
-        lp.leftMargin = DensityUtil.dp2px(context, 8f)
+        lp.leftMargin = dp2px(context, 8f)
         mEtContent.minEms = 2
         mEtContent.setLines(1)
         mEtContent.setText(R.string.hello)

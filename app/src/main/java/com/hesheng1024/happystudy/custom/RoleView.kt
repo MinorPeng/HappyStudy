@@ -11,8 +11,8 @@ import androidx.appcompat.widget.AppCompatTextView
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.base.IRoleView
 import com.hesheng1024.happystudy.utils.MediaPlayerUtil
-import com.hesheng1024.happystudy.utils.VolumeUtil
-import java.util.ArrayList
+import com.hesheng1024.happystudy.utils.adjustVolume
+import java.util.*
 
 /**
  *
@@ -164,12 +164,12 @@ class RoleView : RelativeLayout, IRoleView {
 
     override fun decreaseVolume(volume: Float) {
         showSayLayout(false)
-        VolumeUtil.adjustVolume(-volume.toInt())
+        adjustVolume(-volume.toInt())
     }
 
     override fun increaseVolume(volume: Float) {
         showSayLayout(false)
-        VolumeUtil.adjustVolume(volume.toInt())
+        adjustVolume(volume.toInt())
     }
 
     override fun playVoice() {

@@ -1,7 +1,7 @@
 package com.hesheng1024.happystudy.modules.programme.m.impl
 
 import android.content.Context
-import com.hesheng1024.base.utils.LogUtil
+import com.hesheng1024.base.utils.logD
 import com.hesheng1024.happystudy.custom.blocks.appearance.HideBlockView
 import com.hesheng1024.happystudy.custom.blocks.appearance.NextBgBlockView
 import com.hesheng1024.happystudy.custom.blocks.appearance.SayBlockView
@@ -69,7 +69,7 @@ class ProgrammeModel : IProgrammeModel {
         blocks.add(Block(Block.Category.CALCULATE, AndBlockView(context)))
         blocks.add(Block(Block.Category.CALCULATE, OrBlockView(context)))
         blocks.add(Block(Block.Category.CALCULATE, NotBlockView(context)))
-        LogUtil.d(msg = "blocks:${blocks.size}")
+        logD(msg = "blocks:${blocks.size}")
         return blocks
     }
 }

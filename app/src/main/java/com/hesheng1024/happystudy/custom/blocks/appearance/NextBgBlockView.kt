@@ -2,9 +2,7 @@ package com.hesheng1024.happystudy.custom.blocks.appearance
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.View
-import android.view.ViewGroup
-import com.hesheng1024.base.utils.LogUtil
+import com.hesheng1024.base.utils.logD
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.base.BaseTextBlockView
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
@@ -39,7 +37,7 @@ class NextBgBlockView : BaseTextBlockView, IRoleListener {
         newObj.layoutParams = this.layoutParams
         newObj.minimumWidth = measuredWidth
         newObj.minimumHeight = measuredHeight
-        LogUtil.d(msg = "clone0 mw:$measuredWidth mh:$measuredHeight w:${newObj.layoutParams.width} " +
+        logD(msg = "clone0 mw:$measuredWidth mh:$measuredHeight w:${newObj.layoutParams.width} " +
                 "h:${newObj.layoutParams.height} lp:${layoutParams}")
         return newObj
     }

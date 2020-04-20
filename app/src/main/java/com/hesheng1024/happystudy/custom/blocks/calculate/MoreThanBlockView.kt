@@ -8,7 +8,7 @@ import android.view.Gravity
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
-import com.hesheng1024.base.utils.DensityUtil
+import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.base.IRoleView
@@ -51,8 +51,8 @@ class MoreThanBlockView : BaseLogicBlockView {
         addView(mLeftCalculateBg)
 
         val lpTvMoreThan = generateDefaultLayoutParams() as MarginLayoutParams
-        lpTvMoreThan.leftMargin = DensityUtil.dp2px(context, 8f)
-        lpTvMoreThan.rightMargin = DensityUtil.dp2px(context, 8f)
+        lpTvMoreThan.leftMargin = dp2px(context, 8f)
+        lpTvMoreThan.rightMargin = dp2px(context, 8f)
         val tvMoreThan = TextView(context)
         tvMoreThan.text = ">"
         tvMoreThan.setTextColor(ContextCompat.getColor(context, android.R.color.white))

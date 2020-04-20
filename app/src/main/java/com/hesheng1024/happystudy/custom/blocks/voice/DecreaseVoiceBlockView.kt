@@ -7,7 +7,7 @@ import android.util.AttributeSet
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
-import com.hesheng1024.base.utils.DensityUtil
+import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.base.BaseBgBlockView
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
@@ -43,7 +43,7 @@ class DecreaseVoiceBlockView : BaseBgBlockView {
         addView(tv)
 
         val lp = generateDefaultLayoutParams() as MarginLayoutParams
-        lp.leftMargin = DensityUtil.dp2px(context, 8f)
+        lp.leftMargin = dp2px(context, 8f)
         mEt.minEms = 2
         mEt.setText(R.string.ten)
         mEt.setBackgroundResource(R.drawable.bg_et_circle_whilte)

@@ -8,7 +8,7 @@ import android.view.Gravity
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
-import com.hesheng1024.base.utils.DensityUtil
+import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.base.BaseBgBlockView
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
@@ -47,8 +47,8 @@ class MoveToXYBlockView : BaseBgBlockView {
         addView(tvX)
 
         val lpX = generateDefaultLayoutParams() as MarginLayoutParams
-        lpX.leftMargin = DensityUtil.dp2px(context, 8f)
-        lpX.rightMargin = DensityUtil.dp2px(context, 8f)
+        lpX.leftMargin = dp2px(context, 8f)
+        lpX.rightMargin = dp2px(context, 8f)
         mEtX.minEms = 2
         mEtX.setText(R.string.ten)
         mEtX.setBackgroundResource(R.drawable.bg_et_circle_whilte)
@@ -66,7 +66,7 @@ class MoveToXYBlockView : BaseBgBlockView {
         addView(tvY)
 
         val lpY = generateDefaultLayoutParams() as MarginLayoutParams
-        lpY.leftMargin = DensityUtil.dp2px(context, 8f)
+        lpY.leftMargin = dp2px(context, 8f)
         mEtY.minEms = 2
         mEtY.setText(R.string.zero)
         mEtY.setBackgroundResource(R.drawable.bg_et_circle_whilte)

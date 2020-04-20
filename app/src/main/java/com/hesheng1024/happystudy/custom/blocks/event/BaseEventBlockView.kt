@@ -3,7 +3,7 @@ package com.hesheng1024.happystudy.custom.blocks.event
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
-import com.hesheng1024.base.utils.DensityUtil
+import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.base.BaseBgBlockView
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
@@ -15,7 +15,7 @@ import com.hesheng1024.happystudy.custom.base.IBaseBlock
  */
 abstract class BaseEventBlockView : BaseBgBlockView {
 
-    private val mDisTop = DensityUtil.dp2px(context, 16f).toFloat()
+    private val mDisTop = dp2px(context, 16f).toFloat()
 
     constructor(context: Context) : this(context, null)
 

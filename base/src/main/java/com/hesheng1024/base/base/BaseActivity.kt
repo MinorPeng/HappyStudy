@@ -11,8 +11,8 @@ import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.hesheng1024.base.R
-import com.hesheng1024.base.utils.LogUtil
-import com.hesheng1024.base.utils.ToastUtil
+import com.hesheng1024.base.utils.logD
+import com.hesheng1024.base.utils.toastShow
 
 /**
  *
@@ -44,7 +44,7 @@ abstract class BaseActivity<P : BasePresenter<out IBaseView, out IBaseModel>> : 
     }
 
     override fun toastMsg(msg: String) {
-        ToastUtil.show(this, msg)
+        toastShow(this, msg)
     }
 
     override fun finishActivity() {
@@ -81,7 +81,7 @@ abstract class BaseActivity<P : BasePresenter<out IBaseView, out IBaseModel>> : 
         if (resourceId > 0) { //还可以通过反射获取
             statusHeight = this.resources.getDimensionPixelOffset(resourceId)
         }
-        LogUtil.d(msg = "statusH:$statusHeight")
+        logD(msg = "statusH:$statusHeight")
         //不知道为什么，获取的高度是实际的高度的2倍 视觉上是这样
         return statusHeight / 2
     }

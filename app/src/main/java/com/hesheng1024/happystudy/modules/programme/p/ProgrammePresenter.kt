@@ -2,7 +2,7 @@ package com.hesheng1024.happystudy.modules.programme.p
 
 import android.content.Context
 import com.hesheng1024.base.base.BasePresenter
-import com.hesheng1024.base.utils.LogUtil
+import com.hesheng1024.base.utils.logE
 import com.hesheng1024.happystudy.modules.programme.m.IProgrammeModel
 import com.hesheng1024.happystudy.modules.programme.m.impl.ProgrammeModel
 import com.hesheng1024.happystudy.modules.programme.v.IProgrammeView
@@ -21,7 +21,7 @@ class ProgrammePresenter(programmeView: IProgrammeView) : BasePresenter<IProgram
     fun getBlocks(context: Context) {
         val blocks = mModel.initBlocks(context)
         if (blocks.isNullOrEmpty()) {
-            LogUtil.e(msg = "init blocks error!")
+            logE(msg = "init blocks error!")
             mView.toastMsg("something error!")
         } else {
             mView.setBlocks(blocks)

@@ -11,7 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hesheng1024.base.base.BaseActivity
 import com.hesheng1024.base.utils.ContextHolder
-import com.hesheng1024.base.utils.LogUtil
+import com.hesheng1024.base.utils.logD
+import com.hesheng1024.base.utils.logE
+import com.hesheng1024.base.utils.logI
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.blocks.calculate.BaseCalculateBlockView
@@ -106,7 +108,7 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
         if (category == mLastSelectCategory) {
             return
         }
-        LogUtil.d(msg = "last:${mLastSelectCategory} now:$category")
+        logD(msg = "last:${mLastSelectCategory} now:$category")
         when (mLastSelectCategory) {
             Block.Category.MOTION -> tv_programme_motion.setBackgroundColor(mUnSelectedColor)
             Block.Category.APPEARANCE -> tv_programme_appearance.setBackgroundColor(mUnSelectedColor)
@@ -131,17 +133,17 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
         val lastItem = recycler_view_programme.getChildLayoutPosition(
             recycler_view_programme.getChildAt(recycler_view_programme.childCount - 1)
         )
-        LogUtil.d(msg = "fir:$firstItem las:$lastItem pos:$pos")
+        logD(msg = "fir:$firstItem las:$lastItem pos:$pos")
         if (pos < firstItem) {
             // 跳转位置在可视界面之前，向前滑动
             recycler_view_programme.smoothScrollToPosition(pos)
         } else if (pos <= lastItem) {
             // 跳转位置在可视界面内，置顶即可
             val movePos = pos - firstItem
-            LogUtil.d(msg = "movePos:$movePos childCount:${recycler_view_programme.childCount}")
+            logD(msg = "movePos:$movePos childCount:${recycler_view_programme.childCount}")
             if (movePos >= 0 && movePos < recycler_view_programme.childCount) {
                 val top = recycler_view_programme.getChildAt(movePos).top
-                LogUtil.d(msg = "top:$top")
+                logD(msg = "top:$top")
                 recycler_view_programme.smoothScrollBy(0, top)
             }
         } else {
@@ -179,24 +181,24 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
             }
             when (event.action) {
                 DragEvent.ACTION_DRAG_STARTED -> {
-                    LogUtil.i(msg = "start")
+                    logI(msg = "start")
                     block.visibility = View.INVISIBLE
                 }
                 DragEvent.ACTION_DRAG_ENDED -> {
-                    LogUtil.i(msg = "end")
+                    logI(msg = "end")
                     block.visibility = View.VISIBLE
                 }
                 DragEvent.ACTION_DRAG_ENTERED -> {
-                    LogUtil.i(msg = "view in dragging in frame")
+                    logI(msg = "view in dragging in frame")
                 }
                 DragEvent.ACTION_DRAG_EXITED -> {
-                    LogUtil.i(msg = "view in dragging out frame")
+                    logI(msg = "view in dragging out frame")
                 }
                 DragEvent.ACTION_DRAG_LOCATION -> {
-                    // LogUtil.i(msg = "view pos in frame: x->${event.x} y->${event.y}")
+                    // logI(msg = "view pos in frame: x->${event.x} y->${event.y}")
                 }
                 DragEvent.ACTION_DROP -> {
-                    LogUtil.i(msg = "release dragging view")
+                    logI(msg = "release dragging view")
                     (block.parent as? ViewGroup)?.removeView(block)
                 }
             }
@@ -212,7 +214,7 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
             // 当block不是IBaseBlock的实现不处理，block不是View不处理，
             // 当block是BaseCalculateBlockView或者BaseLogicBlockView则不处理（后两者是因为不应该在parent中添加，只应该在一些类型中的积木如控制类的积木中添加）
             if (block !is IBaseBlock || block !is View || block is BaseCalculateBlockView || block is BaseLogicBlockView) {
-                LogUtil.e(msg = "block error return true: $block")
+                logE(msg = "block error return true: $block")
                 return@setOnDragListener true
             }
 
@@ -228,24 +230,24 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
 
             when (event.action) {
                 DragEvent.ACTION_DRAG_STARTED -> {
-                    LogUtil.i(msg = "start")
+                    logI(msg = "start")
                     block.visibility = View.VISIBLE
                 }
                 DragEvent.ACTION_DRAG_ENDED -> {
-                    LogUtil.i(msg = "end")
+                    logI(msg = "end")
                     block.visibility = View.VISIBLE
                 }
                 DragEvent.ACTION_DRAG_ENTERED -> {
-                    LogUtil.i(msg = "view in dragging in frame")
+                    logI(msg = "view in dragging in frame")
                 }
                 DragEvent.ACTION_DRAG_EXITED -> {
-                    LogUtil.i(msg = "view in dragging out frame")
+                    logI(msg = "view in dragging out frame")
                 }
                 DragEvent.ACTION_DRAG_LOCATION -> {
-                    // LogUtil.i(msg = "view pos in frame: x->${event.x} y->${event.y}")
+                    // logI(msg = "view pos in frame: x->${event.x} y->${event.y}")
                 }
                 DragEvent.ACTION_DROP -> {
-                    LogUtil.i(msg = "drop in linear layout x->${event.x} y->{$event.y}")
+                    logI(msg = "drop in linear layout x->${event.x} y->{$event.y}")
                     (block.parent as? ViewGroup)?.removeView(block)
                     block.setStatus(IBaseBlock.Status.STATUS_DRAG)
                     (block.layoutParams as LinearLayout.LayoutParams).bottomMargin = -IBaseBlock.DIS_TO_TOP.toInt()

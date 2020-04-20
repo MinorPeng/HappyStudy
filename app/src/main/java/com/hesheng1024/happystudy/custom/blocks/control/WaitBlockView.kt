@@ -8,7 +8,7 @@ import android.view.Gravity
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
-import com.hesheng1024.base.utils.DensityUtil
+import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.base.BaseBgBlockView
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
@@ -48,8 +48,8 @@ class WaitBlockView : BaseBgBlockView {
         addView(tvWait)
 
         val lpEtSeconds = generateDefaultLayoutParams() as MarginLayoutParams
-        lpEtSeconds.leftMargin = DensityUtil.dp2px(context, 8f)
-        lpEtSeconds.rightMargin = DensityUtil.dp2px(context, 8f)
+        lpEtSeconds.leftMargin = dp2px(context, 8f)
+        lpEtSeconds.rightMargin = dp2px(context, 8f)
         val etSeconds = AppCompatEditText(context)
         etSeconds.minEms = 2
         etSeconds.gravity = Gravity.CENTER

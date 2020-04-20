@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.hesheng1024.base.utils.ToastUtil
+import com.hesheng1024.base.utils.toastShow
 
 /**
  *
@@ -35,7 +35,7 @@ abstract class BaseFragment<P : BasePresenter<out IBaseView, out IBaseModel>> : 
     }
 
     override fun toastMsg(msg: String) {
-        ToastUtil.show(context, msg)
+        toastShow(context, msg)
     }
 
     override fun noMore() {}

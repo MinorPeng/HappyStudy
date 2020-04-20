@@ -6,8 +6,8 @@ import android.util.AttributeSet
 import android.view.DragEvent
 import android.view.View
 import android.view.ViewGroup
-import com.hesheng1024.base.utils.DensityUtil
-import com.hesheng1024.base.utils.LogUtil
+import com.hesheng1024.base.utils.dp2px
+import com.hesheng1024.base.utils.logI
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.base.BaseBlockViewGroup
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
@@ -27,8 +27,8 @@ abstract class BaseControlBlockView : BaseBlockViewGroup {
      * Child's RectF of parent
      */
     private val mChildRectF = RectF()
-    private var mTopViewH = DensityUtil.dp2px(context, 32f).toFloat()
-    private var mTopViewW = DensityUtil.dp2px(context, 150f).toFloat()
+    private var mTopViewH = dp2px(context, 32f).toFloat()
+    private var mTopViewW = dp2px(context, 150f).toFloat()
 
     constructor(context: Context) : this(context, null)
 
@@ -242,7 +242,7 @@ abstract class BaseControlBlockView : BaseBlockViewGroup {
                     }
                 }
                 DragEvent.ACTION_DROP -> {
-                    LogUtil.i(msg = "drop in child: x->$px y->$py l:$left t:$top  rect:$mChildRectF")
+                    logI(msg = "drop in child: x->$px y->$py l:$left t:$top  rect:$mChildRectF")
                     if (isInChildRectF(px, py)) {
                         (block.parent as? ViewGroup)?.removeView(block)
                         block.setStatus(IBaseBlock.Status.STATUS_DRAG)

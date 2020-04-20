@@ -9,7 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
-import com.hesheng1024.base.utils.DensityUtil
+import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.base.IRoleView
@@ -48,8 +48,8 @@ class CirculationNumBlockView : BaseControlBlockView {
         addView(tvCirculation)
 
         val lpBgBlock = generateDefaultLayoutParams() as MarginLayoutParams
-        lpBgBlock.leftMargin = DensityUtil.dp2px(context, 8f)
-        lpBgBlock.rightMargin =  DensityUtil.dp2px(context, 8f)
+        lpBgBlock.leftMargin = dp2px(context, 8f)
+        lpBgBlock.rightMargin =  dp2px(context, 8f)
         val etCount = AppCompatEditText(context)
         etCount.setText(R.string.ten)
         etCount.minEms = 2

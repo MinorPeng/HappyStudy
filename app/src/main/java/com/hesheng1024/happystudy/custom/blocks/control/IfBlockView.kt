@@ -7,8 +7,8 @@ import android.view.DragEvent
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import com.hesheng1024.base.utils.DensityUtil
-import com.hesheng1024.base.utils.LogUtil
+import com.hesheng1024.base.utils.dp2px
+import com.hesheng1024.base.utils.logI
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.base.IRoleView
@@ -47,8 +47,8 @@ class IfBlockView : BaseControlBlockView {
         addView(tvIf)
 
         val lp = generateDefaultLayoutParams() as MarginLayoutParams
-        lp.leftMargin = DensityUtil.dp2px(context, 8f)
-        lp.rightMargin = DensityUtil.dp2px(context, 8f)
+        lp.leftMargin = dp2px(context, 8f)
+        lp.rightMargin = dp2px(context, 8f)
         mLogicBg.setBgColorId(R.color.colorControlYellowDark)
         mLogicBg.tag = ChildTag.TAG_TOP
         // 也可以直接在父类中统一监听，只是坐标计算相对复杂一点
@@ -56,21 +56,21 @@ class IfBlockView : BaseControlBlockView {
         mLogicBg.setOnDragListener { v, event ->
             when(event.action) {
                 DragEvent.ACTION_DRAG_ENTERED -> {
-                    LogUtil.i(msg = "logicBgView entered")
+                    logI(msg = "logicBgView entered")
                     isIn = true
                 }
                 DragEvent.ACTION_DRAG_EXITED -> {
-                    LogUtil.i(msg = "logicBgView exited")
+                    logI(msg = "logicBgView exited")
                     isIn = false
                 }
                 DragEvent.ACTION_DROP -> {
-                    LogUtil.i(msg = "logicBgView drop")
+                    logI(msg = "logicBgView drop")
                     val logicBlock = event.localState
                     if (isIn && mLogicBg.childCount == 0 && logicBlock is BaseLogicBlockView) {
                         (logicBlock.parent as? ViewGroup)?.removeView(logicBlock)
                         mLogicBg.addView(logicBlock)
                     } else {
-                        LogUtil.i(msg = "can't add view: isIn->$isIn count:${mLogicBg.childCount} logic:$logicBlock")
+                        logI(msg = "can't add view: isIn->$isIn count:${mLogicBg.childCount} logic:$logicBlock")
                     }
                 }
             }

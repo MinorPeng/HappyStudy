@@ -8,9 +8,7 @@ import android.graphics.Paint
 import android.graphics.Path
 import android.view.*
 import androidx.core.content.ContextCompat
-import com.hesheng1024.base.utils.ContextHolder
-import com.hesheng1024.base.utils.DensityUtil
-import com.hesheng1024.base.utils.LogUtil
+import com.hesheng1024.base.utils.*
 import com.hesheng1024.happystudy.custom.blocks.calculate.BaseCalculateBlockView
 import com.hesheng1024.happystudy.custom.blocks.calculate.BaseLogicBlockView
 
@@ -26,9 +24,9 @@ interface IBaseBlock : IRoleListener, View.OnTouchListener {
         // 直接定义到接口中，可能会被实现类给覆盖重写，所以不规范，应当定义为静态
         const val sRadius = 6f
         const val sStrokeW = 2f
-        val DIS_TO_LEFT = DensityUtil.dp2px(ContextHolder.getMainContext(), 10f).toFloat()
-        val DIS_TO_TOP = DensityUtil.dp2px(ContextHolder.getMainContext(), 4f).toFloat()
-        val LINE_LEN = DensityUtil.dp2px(ContextHolder.getMainContext(), 12f).toFloat()
+        val DIS_TO_LEFT = dp2px(ContextHolder.getMainContext(), 10f).toFloat()
+        val DIS_TO_TOP = dp2px(ContextHolder.getMainContext(), 4f).toFloat()
+        val LINE_LEN = dp2px(ContextHolder.getMainContext(), 12f).toFloat()
     }
 
     fun drawBackground(canvas: Canvas, paint: Paint, path: Path, measuredW: Float, measuredH: Float) {
@@ -110,7 +108,7 @@ interface IBaseBlock : IRoleListener, View.OnTouchListener {
     fun onDragEv(event: CustomDragEvent): Boolean {
         val v = this
         if (v !is View || v.parent !is ViewGroup) {
-            LogUtil.e(this::class.java.simpleName, msg = "v:$v event:$event")
+            logE(this::class.java.simpleName, msg = "v:$v event:$event")
             return false
         }
         val block = event.localState
@@ -120,7 +118,7 @@ interface IBaseBlock : IRoleListener, View.OnTouchListener {
             || block is BaseCalculateBlockView
             || block is BaseLogicBlockView
             || block.getBlackOwn() !is View) {
-            LogUtil.e(this::class.java.simpleName, msg = "block error return false: $block")
+            logE(this::class.java.simpleName, msg = "block error return false: $block")
             return false
         }
         // 因为积木有缺角，统一在bottom margin减去
@@ -132,40 +130,40 @@ interface IBaseBlock : IRoleListener, View.OnTouchListener {
         return when (event.action) {
             DragEvent.ACTION_DRAG_LOCATION -> {
                 // 自由drag进入了该view才会有position
-                LogUtil.i(this::class.java.simpleName, msg = "view position: x->$px y->$py tag:${block.tag} " +
+                logI(this::class.java.simpleName, msg = "view position: x->$px y->$py tag:${block.tag} " +
                         "bTag:${blackOwn.tag}")
                 when {
                     inTopRectF(px, py) -> {
                         // in the top
-                        LogUtil.d(this::class.java.simpleName, msg = "location in the top")
+                        logD(this::class.java.simpleName, msg = "location in the top")
                         if (blackOwn.parent == null) {
-                            LogUtil.d(this::class.java.simpleName, msg = "top add index:${parent.indexOfChild(v)}")
+                            logD(this::class.java.simpleName, msg = "top add index:${parent.indexOfChild(v)}")
                             parent.addView(blackOwn, parent.indexOfChild(v), block.layoutParams)
                         }
                     }
                     inBottomRectF(px, py) -> {
                         // in the bottom
                         // TODO 适配不同layout
-                        LogUtil.d(this::class.java.simpleName, msg = "location in the bottom")
+                        logD(this::class.java.simpleName, msg = "location in the bottom")
                         if (blackOwn.parent == null) {
-                            LogUtil.d(this::class.java.simpleName, msg = "bottom add index:${parent.indexOfChild(v)}")
+                            logD(this::class.java.simpleName, msg = "bottom add index:${parent.indexOfChild(v)}")
                             parent.addView(blackOwn, parent.indexOfChild(v) + 1, block.layoutParams)
                         }
                     }
                     else -> {
                         // 未在附近，移除阴影
-                        LogUtil.d(this::class.java.simpleName, msg = "location in other")
+                        logD(this::class.java.simpleName, msg = "location in other")
                         (blackOwn.parent as? ViewGroup)?.removeView(blackOwn)
                     }
                 }
                 false
             }
             DragEvent.ACTION_DROP -> {
-                LogUtil.i(this::class.java.simpleName, msg = "release dragging view x:$px y:$py")
+                logI(this::class.java.simpleName, msg = "release dragging view x:$px y:$py")
                 when {
                     inTopRectF(px, py) -> {
                         // in the top
-                        LogUtil.d(this::class.java.simpleName, msg = "drop in the top index:${parent.indexOfChild(v)}")
+                        logD(this::class.java.simpleName, msg = "drop in the top index:${parent.indexOfChild(v)}")
                         (blackOwn.parent as? ViewGroup)?.removeView(blackOwn)
                         (block.parent as? ViewGroup)?.removeView(block)
                         block.setStatus(Status.STATUS_DRAG)
@@ -174,7 +172,7 @@ interface IBaseBlock : IRoleListener, View.OnTouchListener {
                     }
                     inBottomRectF(px, py) -> {
                         // in the bottom
-                        LogUtil.d(this::class.java.simpleName, msg = "drop in the bottom index:${parent.indexOfChild(v)}")
+                        logD(this::class.java.simpleName, msg = "drop in the bottom index:${parent.indexOfChild(v)}")
                         (blackOwn.parent as? ViewGroup)?.removeView(blackOwn)
                         (block.parent as? ViewGroup)?.removeView(block)
                         block.setStatus(Status.STATUS_DRAG)
@@ -183,7 +181,7 @@ interface IBaseBlock : IRoleListener, View.OnTouchListener {
                     }
                     else -> {
                         // 未在附近，不处理
-                        LogUtil.d(this::class.java.simpleName, msg = "drop in other")
+                        logD(this::class.java.simpleName, msg = "drop in other")
                         parent.removeView(blackOwn)
                     }
                 }

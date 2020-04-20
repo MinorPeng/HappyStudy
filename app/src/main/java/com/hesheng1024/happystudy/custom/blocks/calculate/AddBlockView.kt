@@ -8,7 +8,7 @@ import android.view.Gravity
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
-import com.hesheng1024.base.utils.DensityUtil
+import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.base.IRoleView
@@ -51,8 +51,8 @@ class AddBlockView: BaseCalculateBlockView {
         addView(mLeftCalculateBg, 0)
 
         val lpTvAdd = generateDefaultLayoutParams() as MarginLayoutParams
-        lpTvAdd.leftMargin = DensityUtil.dp2px(context, 8f)
-        lpTvAdd.rightMargin = DensityUtil.dp2px(context, 8f)
+        lpTvAdd.leftMargin = dp2px(context, 8f)
+        lpTvAdd.rightMargin = dp2px(context, 8f)
         val tvAdd = TextView(context)
         tvAdd.setText(R.string.add)
         tvAdd.setTextColor(ContextCompat.getColor(context, android.R.color.white))

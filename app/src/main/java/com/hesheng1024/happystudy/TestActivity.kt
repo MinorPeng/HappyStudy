@@ -9,8 +9,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
-import com.hesheng1024.base.utils.LogUtil
-import com.hesheng1024.happystudy.custom.base.BaseTextBlockView
+import com.hesheng1024.base.utils.logI
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
 import kotlinx.android.synthetic.main.activity_test.*
 
@@ -35,7 +34,7 @@ class TestActivity : AppCompatActivity() {
         // MediaPlayerUtil.play()
         frame_test_end.setOnDragListener { v, event ->
             //v 永远是设置该监听的view，这里即fl_blue
-            // LogUtil.i(msg = "name:${v.javaClass.simpleName}")
+            // logI(msg = "name:${v.javaClass.simpleName}")
             val block = event.localState
             if (block !is IBaseBlock || block !is View) {
                 return@setOnDragListener true
@@ -54,21 +53,21 @@ class TestActivity : AppCompatActivity() {
 
             when(event.action) {
                 DragEvent.ACTION_DRAG_STARTED -> {
-                    LogUtil.i(msg = "start")
+                    logI(msg = "start")
                     block.visibility = View.VISIBLE
                 }
                 DragEvent.ACTION_DRAG_ENDED -> {
-                    LogUtil.i(msg = "end")
+                    logI(msg = "end")
                     block.visibility = View.VISIBLE
                 }
                 DragEvent.ACTION_DRAG_ENTERED -> {
-                    LogUtil.i(msg = "view in dragging in frame")
+                    logI(msg = "view in dragging in frame")
                 }
                 DragEvent.ACTION_DRAG_EXITED -> {
-                    LogUtil.i(msg = "view in dragging out frame")
+                    logI(msg = "view in dragging out frame")
                 }
                 DragEvent.ACTION_DRAG_LOCATION -> {
-                    // LogUtil.i(msg = "view pos in frame: x->${event.x} y->${event.y}")
+                    // logI(msg = "view pos in frame: x->${event.x} y->${event.y}")
                 }
                 DragEvent.ACTION_DROP -> {
                     (block.parent as? ViewGroup)?.removeView(block)
@@ -76,7 +75,7 @@ class TestActivity : AppCompatActivity() {
                     val lp = FrameLayout.LayoutParams(block.layoutParams)
                     lp.leftMargin = event.x.toInt() - lp.width / 2
                     lp.topMargin = event.y.toInt() - lp.height / 2
-                    LogUtil.i(msg = "release dragging view x:${event.x} y:${event.y}" +
+                    logI(msg = "release dragging view x:${event.x} y:${event.y}" +
                             " w:${lp.width} h:${lp.height} l:${lp.leftMargin} r:${lp.topMargin}")
                     frame_test_end.addView(block, lp)
                 }
@@ -86,31 +85,31 @@ class TestActivity : AppCompatActivity() {
         }
         frame_test_start.setOnDragListener { v, event ->
             //v 永远是设置该监听的view，这里即fl_blue
-            LogUtil.i(msg = "name:${v.javaClass.simpleName}")
+            logI(msg = "name:${v.javaClass.simpleName}")
             val block = event.localState
             if (block !is IBaseBlock || block !is View) {
                 return@setOnDragListener true
             }
             when(event.action) {
                 DragEvent.ACTION_DRAG_STARTED -> {
-                    LogUtil.i(msg = "start")
+                    logI(msg = "start")
                     block.visibility = View.INVISIBLE
                 }
                 DragEvent.ACTION_DRAG_ENDED -> {
-                    LogUtil.i(msg = "end")
+                    logI(msg = "end")
                     block.visibility = View.VISIBLE
                 }
                 DragEvent.ACTION_DRAG_ENTERED -> {
-                    LogUtil.i(msg = "view in dragging in frame")
+                    logI(msg = "view in dragging in frame")
                 }
                 DragEvent.ACTION_DRAG_EXITED -> {
-                    LogUtil.i(msg = "view in dragging out frame")
+                    logI(msg = "view in dragging out frame")
                 }
                 DragEvent.ACTION_DRAG_LOCATION -> {
-                    // LogUtil.i(msg = "view pos in frame: x->${event.x} y->${event.y}")
+                    // logI(msg = "view pos in frame: x->${event.x} y->${event.y}")
                 }
                 DragEvent.ACTION_DROP -> {
-                    LogUtil.i(msg = "release dragging view")
+                    logI(msg = "release dragging view")
                     (block.parent as? ViewGroup)?.removeView(block)
                 }
             }

@@ -9,8 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import com.hesheng1024.base.utils.DensityUtil
-import com.hesheng1024.base.utils.LogUtil
+import com.hesheng1024.base.utils.dp2px
+import com.hesheng1024.base.utils.logD
+import com.hesheng1024.base.utils.logI
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.base.BaseBlockViewGroup
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
@@ -31,8 +32,8 @@ class IfElseBlockView : BaseBlockViewGroup {
     private val mChildIfRectF: RectF = RectF()
     private val mChildElseRectF: RectF = RectF()
     private val mLogicBg: LogicBgBlockView
-    private var mTopViewH = DensityUtil.dp2px(context, 32f).toFloat()
-    private var mTopViewW = DensityUtil.dp2px(context, 150f).toFloat()
+    private var mTopViewH = dp2px(context, 32f).toFloat()
+    private var mTopViewW = dp2px(context, 150f).toFloat()
     private var mChildIfCount = 0
     private var mChildElseCount = 0
 
@@ -67,8 +68,8 @@ class IfElseBlockView : BaseBlockViewGroup {
         addView(tvIf)
 
         val lp = generateDefaultLayoutParams() as MarginLayoutParams
-        lp.leftMargin = DensityUtil.dp2px(context, 8f)
-        lp.rightMargin = DensityUtil.dp2px(context, 8f)
+        lp.leftMargin = dp2px(context, 8f)
+        lp.rightMargin = dp2px(context, 8f)
         mLogicBg.setBgColorId(R.color.colorControlYellowDark)
         mLogicBg.tag = ChildTag.TAG_TOP
         // 也可以直接在父类中统一监听，只是坐标计算相对复杂一点
@@ -76,21 +77,21 @@ class IfElseBlockView : BaseBlockViewGroup {
         mLogicBg.setOnDragListener { v, event ->
             when(event.action) {
                 DragEvent.ACTION_DRAG_ENTERED -> {
-                    LogUtil.i(msg = "logicBgView entered")
+                    logI(msg = "logicBgView entered")
                     isIn = true
                 }
                 DragEvent.ACTION_DRAG_EXITED -> {
-                    LogUtil.i(msg = "logicBgView exited")
+                    logI(msg = "logicBgView exited")
                     isIn = false
                 }
                 DragEvent.ACTION_DROP -> {
-                    LogUtil.i(msg = "logicBgView drop")
+                    logI(msg = "logicBgView drop")
                     val logicBlock = event.localState
                     if (isIn && mLogicBg.childCount == 0 && logicBlock is BaseLogicBlockView) {
                         (logicBlock.parent as? ViewGroup)?.removeView(logicBlock)
                         mLogicBg.addView(logicBlock)
                     } else {
-                        LogUtil.i(msg = "can't add view: isIn->$isIn count:${mLogicBg.childCount} logic:$logicBlock")
+                        logI(msg = "can't add view: isIn->$isIn count:${mLogicBg.childCount} logic:$logicBlock")
                     }
                 }
             }
@@ -343,7 +344,7 @@ class IfElseBlockView : BaseBlockViewGroup {
             val blackOwn = block.getBlackOwn() as View
             val oldBlockTag = block.tag
             val oldBlackOwnTag = blackOwn.tag
-            LogUtil.d(msg = "ifCount:$mChildIfCount elseCount:$mChildElseCount")
+            logD(msg = "ifCount:$mChildIfCount elseCount:$mChildElseCount")
             val px = event.x - left
             val py = event.y - top
 
@@ -401,7 +402,7 @@ class IfElseBlockView : BaseBlockViewGroup {
                     }
                 }
                 DragEvent.ACTION_DROP -> {
-                    LogUtil.i(msg = "drop: x->$px y->$py ifRect:$mChildIfRectF elseRect:$mChildElseRectF")
+                    logI(msg = "drop: x->$px y->$py ifRect:$mChildIfRectF elseRect:$mChildElseRectF")
                     removeView(blackOwn)
                     when {
                         isInIfRectF(px, py) -> {

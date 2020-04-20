@@ -5,7 +5,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import com.hesheng1024.base.utils.DensityUtil
+import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.base.IRoleView
@@ -34,14 +34,14 @@ class ClickRunBlockView : BaseEventBlockView {
         val tv = TextView(context)
         tv.setText(R.string.when_str)
         tv.setTextColor(whiteColor)
-        tv.compoundDrawablePadding = DensityUtil.dp2px(context, 8f)
+        tv.compoundDrawablePadding = dp2px(context, 8f)
         val drawable = ContextCompat.getDrawable(context, R.drawable.ic_run_16)
         drawable?.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
         tv.setCompoundDrawables(null, null, drawable, null)
         addView(tv)
 
         val lp = generateDefaultLayoutParams() as MarginLayoutParams
-        lp.leftMargin = DensityUtil.dp2px(context, 8f)
+        lp.leftMargin = dp2px(context, 8f)
         val tvClick = TextView(context)
         tvClick.setText(R.string.click)
         tvClick.setTextColor(whiteColor)

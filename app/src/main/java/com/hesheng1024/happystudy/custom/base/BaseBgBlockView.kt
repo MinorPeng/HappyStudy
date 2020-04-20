@@ -5,7 +5,6 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Path
 import android.util.AttributeSet
-import android.view.DragEvent
 import android.view.Gravity
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
@@ -33,7 +32,6 @@ abstract class BaseBgBlockView : LinearLayout, IBaseBlock {
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context, attrs, defStyleAttr, 0) {
-
     }
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
