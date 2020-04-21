@@ -27,8 +27,8 @@ abstract class BaseControlBlockView : BaseBlockViewGroup {
      * Child's RectF of parent
      */
     private val mChildRectF = RectF()
-    private var mTopViewH = dp2px(context, 32f).toFloat()
-    private var mTopViewW = dp2px(context, 150f).toFloat()
+    private var mTopViewH = 0f
+    private var mTopViewW = 0f
 
     constructor(context: Context) : this(context, null)
 
@@ -54,6 +54,9 @@ abstract class BaseControlBlockView : BaseBlockViewGroup {
         val sizeH = MeasureSpec.getSize(heightMeasureSpec)
         val modeH = MeasureSpec.getMode(heightMeasureSpec)
 
+        // 每次requestLayout时，不要使用上一次的数据
+        mTopViewH = dp2px(context, 32f).toFloat()
+        mTopViewW = dp2px(context, 150f).toFloat()
         var topViewW = 0
         var topViewMaxH = 0
         var centerMaxW = 0

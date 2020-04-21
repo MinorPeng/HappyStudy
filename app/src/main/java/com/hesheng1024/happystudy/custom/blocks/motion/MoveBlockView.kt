@@ -2,14 +2,11 @@ package com.hesheng1024.happystudy.custom.blocks.motion
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.text.InputType
 import android.util.AttributeSet
-import android.view.Gravity
-import android.widget.TextView
-import androidx.appcompat.widget.AppCompatEditText
-import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.happystudy.R
+import com.hesheng1024.happystudy.custom.BlockEditText
+import com.hesheng1024.happystudy.custom.BlockTextView
 import com.hesheng1024.happystudy.custom.base.BaseBgBlockView
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.base.IRoleView
@@ -22,7 +19,7 @@ import com.hesheng1024.happystudy.custom.base.IRoleView
 @SuppressLint("ViewConstructor")
 class MoveBlockView : BaseBgBlockView {
 
-    private val mEt: AppCompatEditText
+    private val mEt: BlockEditText
     
     constructor(context: Context) : this(context, null)
 
@@ -33,34 +30,22 @@ class MoveBlockView : BaseBgBlockView {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
         setBgColorId(R.color.colorMotionBlue)
-        mEt = AppCompatEditText(context)
+        mEt = BlockEditText(context)
         initView()
     }
 
     private fun initView() {
-        val whiteColor = ContextCompat.getColor(context, android.R.color.white)
-        val tv = TextView(context)
+        val tv = BlockTextView(context)
         tv.setText(R.string.move)
-        tv.setTextColor(whiteColor)
         addView(tv)
 
         val lp = generateDefaultLayoutParams() as MarginLayoutParams
-        lp.leftMargin = dp2px(context, 8f)
-        lp.rightMargin = dp2px(context, 8f)
-        mEt.minEms = 2
-        mEt.setText(R.string.ten)
-        mEt.setBackgroundResource(R.drawable.bg_et_circle_whilte)
-        mEt.inputType = InputType.TYPE_NUMBER_FLAG_DECIMAL
-        mEt.gravity = Gravity.CENTER
-        mEt.setLines(1)
-        mEt.setOnDragListener { v, event ->
-            return@setOnDragListener true
-        }
+        lp.leftMargin = dp2px(context, 4f)
+        lp.rightMargin = dp2px(context, 4f)
         addView(mEt, lp)
 
-        val tvStep = TextView(context)
+        val tvStep = BlockTextView(context)
         tvStep.setText(R.string.step)
-        tvStep.setTextColor(whiteColor)
         addView(tvStep)
     }
 

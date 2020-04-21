@@ -1,8 +1,8 @@
 package com.hesheng1024.happystudy.modules.programme.v.impl
 
-import android.content.Intent
 import android.view.View
 import com.hesheng1024.base.base.BaseFragment
+import com.hesheng1024.happystudy.FLAG_PROGRAMME_NORMAL
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.modules.programme.p.ProgrammeFragPresenter
 import com.hesheng1024.happystudy.modules.programme.v.IProgrammeFragView
@@ -24,7 +24,9 @@ class ProgrammeFragment : BaseFragment<ProgrammeFragPresenter>(), IProgrammeFrag
 
     override fun initView(view: View) {
         btn_programme.setOnClickListener {
-            startActivity(Intent(context, ProgrammeActivity::class.java))
+            context?.let { context ->
+                ProgrammeActivity.startActivity(context, FLAG_PROGRAMME_NORMAL)
+            }
         }
         btn_get_through.setOnClickListener {
             toastMsg("该功能暂未上线!")

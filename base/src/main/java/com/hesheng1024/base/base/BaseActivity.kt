@@ -19,29 +19,22 @@ import com.hesheng1024.base.utils.toastShow
  * @author hesheng1024
  * @date 2020/2/8 10:48
  */
-abstract class BaseActivity<P : BasePresenter<out IBaseView, out IBaseModel>> : AppCompatActivity(),
-    IBaseView {
+abstract class BaseActivity<out P : BasePresenter<IBaseView, IBaseModel>> : AppCompatActivity(), IBaseView {
 
-    protected var mTranslucent = isTranslucent()
-    protected lateinit var mContentView: View
-    protected lateinit var mPresenter: P
+    protected val mPresenter: P = this.createPresenter()
 
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-        if (mTranslucent) {
+        if (isTranslucent()) {
             setTranslucent()
         }
         setContentView(inflateContentView())
-        mPresenter = createPresenter()
         initView()
     }
 
-    protected open fun inflateContentView(): View {
-        mContentView = LayoutInflater.from(this).inflate(getLayoutId(), null)
-        return mContentView
-    }
+    protected open fun inflateContentView(): View = LayoutInflater.from(this).inflate(getLayoutId(), null)
 
     override fun toastMsg(msg: String) {
         toastShow(this, msg)
@@ -111,13 +104,9 @@ abstract class BaseActivity<P : BasePresenter<out IBaseView, out IBaseModel>> : 
      * 是否透明状态栏
      * @return boolean
      */
-    protected open fun isTranslucent(): Boolean {
-        return true
-    }
+    protected open fun isTranslucent(): Boolean = true
 
-    protected open fun getStatusBarBackground(): Int {
-        return R.drawable.bg_toolbar
-    }
+    protected open fun getStatusBarBackground(): Int = R.drawable.bg_toolbar
 
     private fun setTranslucent() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

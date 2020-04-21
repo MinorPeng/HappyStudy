@@ -27,4 +27,34 @@ class ProgrammePresenter(programmeView: IProgrammeView) : BasePresenter<IProgram
             mView.setBlocks(blocks)
         }
     }
+
+    fun getMotionBlocks(context: Context) {
+        val blocks = mModel.initMotionBlocks(context)
+        if (blocks.isNullOrEmpty()) {
+            logE(msg = "init motion blocks error!")
+            mView.toastMsg("something error!")
+        } else {
+            mView.setBlocks(blocks)
+        }
+    }
+
+    fun getAppearanceBlocks(context: Context) {
+        val blocks = mModel.initAppearanceBlocks(context)
+        if (blocks.isNullOrEmpty()) {
+            logE(msg = "init appearance blocks error!")
+            mView.toastMsg("something error!")
+        } else {
+            mView.setBlocks(blocks)
+        }
+    }
+
+    fun getControlBlocks(context: Context) {
+        val blocks = mModel.initControlBlocks(context)
+        if (blocks.isNullOrEmpty()) {
+            logE(msg = "init control blocks error!")
+            mView.toastMsg("something error!")
+        } else {
+            mView.setBlocks(blocks)
+        }
+    }
 }

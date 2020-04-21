@@ -14,23 +14,16 @@ import com.hesheng1024.base.utils.toastShow
  * @author hesheng1024
  * @date 2020/2/7 17:05
  */
-abstract class BaseFragment<P : BasePresenter<out IBaseView, out IBaseModel>> : Fragment(), IBaseView {
+abstract class BaseFragment<out P : BasePresenter<IBaseView, IBaseModel>> : Fragment(), IBaseView {
 
-    protected var mContentView: View? = null
-    protected var mPresenter: P? = null
+    protected val mPresenter = this.createPresenter()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        mContentView = inflater.inflate(getLayoutId(), container, false)
-        return mContentView
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(getLayoutId(), container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mPresenter = createPresenter()
         initView(view)
     }
 
@@ -68,12 +61,7 @@ abstract class BaseFragment<P : BasePresenter<out IBaseView, out IBaseModel>> : 
     protected fun getActionBarHeight(): Int {
         var actionBarHeight = 0
         val tv = TypedValue()
-        if (context != null && context!!.theme.resolveAttribute(
-                R.attr.actionBarSize,
-                tv,
-                true
-            )
-        ) { //方法一
+        if (context != null && context!!.theme.resolveAttribute(R.attr.actionBarSize, tv, true)) { //方法一
             actionBarHeight =
                 TypedValue.complexToDimensionPixelSize(tv.data, resources.displayMetrics)
             //方法二

@@ -3,11 +3,10 @@ package com.hesheng1024.happystudy.custom.blocks.appearance
 import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
-import androidx.appcompat.widget.AppCompatEditText
-import androidx.appcompat.widget.AppCompatTextView
-import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.happystudy.R
+import com.hesheng1024.happystudy.custom.BlockEditText
+import com.hesheng1024.happystudy.custom.BlockTextView
 import com.hesheng1024.happystudy.custom.base.BaseBgBlockView
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.base.IRoleListener
@@ -21,7 +20,7 @@ import com.hesheng1024.happystudy.custom.base.IRoleView
 @SuppressLint("ViewConstructor")
 class SayBlockView : BaseBgBlockView, IRoleListener {
 
-    private val mEtContent: AppCompatEditText
+    private val mEtContent: BlockEditText
 
     constructor(context: Context) : this(context, null)
 
@@ -29,22 +28,18 @@ class SayBlockView : BaseBgBlockView, IRoleListener {
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
         setBgColorId(R.color.colorAppearancePurple)
-        mEtContent = AppCompatEditText(context)
+        mEtContent = BlockEditText(context)
         initView()
     }
 
     private fun initView() {
-        val tv = AppCompatTextView(context)
+        val tv = BlockTextView(context)
         tv.setText(R.string.say)
-        tv.setTextColor(ContextCompat.getColor(context, android.R.color.white))
         addView(tv, 0)
 
         val lp = generateDefaultLayoutParams() as MarginLayoutParams
-        lp.leftMargin = dp2px(context, 8f)
-        mEtContent.minEms = 2
-        mEtContent.setLines(1)
+        lp.leftMargin = dp2px(context, 4f)
         mEtContent.setText(R.string.hello)
-        mEtContent.setBackgroundResource(R.drawable.bg_et_circle_whilte)
         addView(mEtContent, 1, lp)
     }
 

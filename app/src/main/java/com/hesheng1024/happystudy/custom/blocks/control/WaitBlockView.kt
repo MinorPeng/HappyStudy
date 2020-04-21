@@ -4,12 +4,11 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.text.InputType
 import android.util.AttributeSet
-import android.view.Gravity
-import android.widget.TextView
 import androidx.appcompat.widget.AppCompatEditText
-import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.happystudy.R
+import com.hesheng1024.happystudy.custom.BlockEditText
+import com.hesheng1024.happystudy.custom.BlockTextView
 import com.hesheng1024.happystudy.custom.base.BaseBgBlockView
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.base.IRoleView
@@ -41,32 +40,21 @@ class WaitBlockView : BaseBgBlockView {
     }
 
     private fun initView() {
-        val whiteColor = ContextCompat.getColor(context, android.R.color.white)
-        val tvWait = TextView(context)
+        val tvWait = BlockTextView(context)
         tvWait.setText(R.string.wait)
-        tvWait.setTextColor(whiteColor)
         addView(tvWait)
 
         val lpEtSeconds = generateDefaultLayoutParams() as MarginLayoutParams
-        lpEtSeconds.leftMargin = dp2px(context, 8f)
-        lpEtSeconds.rightMargin = dp2px(context, 8f)
-        val etSeconds = AppCompatEditText(context)
-        etSeconds.minEms = 2
-        etSeconds.gravity = Gravity.CENTER
+        lpEtSeconds.leftMargin = dp2px(context, 4f)
+        lpEtSeconds.rightMargin = dp2px(context, 4f)
+        val etSeconds = BlockEditText(context)
         etSeconds.inputType = InputType.TYPE_CLASS_NUMBER
-        etSeconds.setLines(1)
-        etSeconds.setText(R.string.ten)
-        etSeconds.setBackgroundResource(R.drawable.bg_et_circle_whilte)
-        etSeconds.setOnDragListener { v, event ->
-            return@setOnDragListener true
-        }
         mCalculateBg.addView(etSeconds)
         addView(mCalculateBg, lpEtSeconds)
 
 
-        val tvSeconds = TextView(context)
+        val tvSeconds = BlockTextView(context)
         tvSeconds.setText(R.string.seconds)
-        tvSeconds.setTextColor(whiteColor)
         addView(tvSeconds)
     }
 

@@ -8,12 +8,10 @@ import android.graphics.Paint
 import android.graphics.Path
 import android.util.AttributeSet
 import android.widget.ImageView
-import android.widget.TextView
-import androidx.core.content.ContextCompat
 import com.hesheng1024.happystudy.R
+import com.hesheng1024.happystudy.custom.BlockTextView
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.base.IRoleView
-import com.hesheng1024.happystudy.custom.blocks.motion.MoveBlockView
 
 /**
  *
@@ -36,11 +34,9 @@ class DeathCirculationBlockView : BaseControlBlockView {
 
     @SuppressLint("SetTextI18n")
     private fun initView() {
-        val whiteColor = ContextCompat.getColor(context, android.R.color.white)
-        val tvCirculation = TextView(context)
+        val tvCirculation = BlockTextView(context)
         tvCirculation.setText(R.string.circulation)
         tvCirculation.tag = ChildTag.TAG_TOP
-        tvCirculation.setTextColor(whiteColor)
         addView(tvCirculation)
 
         val ivCirculation = ImageView(context)

@@ -4,13 +4,12 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.text.InputType
 import android.util.AttributeSet
-import android.view.Gravity
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.widget.AppCompatEditText
-import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.happystudy.R
+import com.hesheng1024.happystudy.custom.BlockEditText
+import com.hesheng1024.happystudy.custom.BlockTextView
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.base.IRoleView
 import com.hesheng1024.happystudy.custom.blocks.calculate.BaseCalculateBlockView
@@ -40,34 +39,24 @@ class CirculationNumBlockView : BaseControlBlockView {
 
     @SuppressLint("SetTextI18n")
     private fun initView() {
-        val whiteColor = ContextCompat.getColor(context, android.R.color.white)
-        val tvCirculation = TextView(context)
+        val tvCirculation = BlockTextView(context)
         tvCirculation.setText(R.string.circulation)
         tvCirculation.tag = ChildTag.TAG_TOP
-        tvCirculation.setTextColor(whiteColor)
         addView(tvCirculation)
 
         val lpBgBlock = generateDefaultLayoutParams() as MarginLayoutParams
-        lpBgBlock.leftMargin = dp2px(context, 8f)
-        lpBgBlock.rightMargin =  dp2px(context, 8f)
-        val etCount = AppCompatEditText(context)
-        etCount.setText(R.string.ten)
-        etCount.minEms = 2
-        etCount.gravity = Gravity.CENTER
+        lpBgBlock.leftMargin = dp2px(context, 4f)
+        lpBgBlock.rightMargin =  dp2px(context, 4f)
+        val etCount = BlockEditText(context)
         etCount.inputType = InputType.TYPE_CLASS_NUMBER
-        etCount.setBackgroundResource(R.drawable.bg_et_circle_whilte)
-        etCount.setOnDragListener { v, event ->
-            return@setOnDragListener true
-        }
         mCalculateBg.addView(etCount)
         mCalculateBg.tag = ChildTag.TAG_TOP
         addView(mCalculateBg, lpBgBlock)
 
 
-        val tvCount = TextView(context)
+        val tvCount = BlockTextView(context)
         tvCount.setText(R.string.count)
         tvCount.tag = ChildTag.TAG_TOP
-        tvCount.setTextColor(whiteColor)
         addView(tvCount)
 
 

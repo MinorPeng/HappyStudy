@@ -13,7 +13,8 @@
         android:layout_height="@dimen/dp64"
         android:background="@drawable/bg_btn_white_corner_8"
         android:text="@string/motion"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/sp20" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_appearance"
@@ -22,7 +23,8 @@
         android:layout_marginTop="@dimen/dp32"
         android:background="@drawable/bg_btn_white_corner_8"
         android:text="@string/appearance"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/sp20" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_control"
@@ -31,6 +33,7 @@
         android:layout_marginTop="@dimen/dp32"
         android:background="@drawable/bg_btn_white_corner_8"
         android:text="@string/control"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/sp20" />
 
 </LinearLayout>

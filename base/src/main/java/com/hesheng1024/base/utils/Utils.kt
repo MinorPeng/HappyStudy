@@ -14,17 +14,6 @@ import java.util.*
  * @date 2020/4/20 8:44
  */
 
-/*------------------------------ config ------------------------------*/
-val sRootCacheFile: String =
-    if (ContextHolder.getMainContext().externalCacheDir != null)
-        ContextHolder.getMainContext().externalCacheDir.toString()
-    else ContextHolder.getMainContext().cacheDir.toString()
-
-val sRootExternalFile: String =
-    if (ContextHolder.getMainContext().getExternalFilesDir(null) != null)
-        ContextHolder.getMainContext().getExternalFilesDir(null)!!.path
-    else ContextHolder.getMainContext().filesDir.path
-
 /*------------------------------ DensityUtil ------------------------------*/
 fun dp2px(context: Context, dpValue: Float): Int {
     val scale = context.resources.displayMetrics.density

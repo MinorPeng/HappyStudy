@@ -5,11 +5,10 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.DragEvent
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.base.utils.logI
 import com.hesheng1024.happystudy.R
+import com.hesheng1024.happystudy.custom.BlockTextView
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.base.IRoleView
 import com.hesheng1024.happystudy.custom.blocks.calculate.BaseLogicBlockView
@@ -39,16 +38,14 @@ class IfBlockView : BaseControlBlockView {
 
     @SuppressLint("SetTextI18n")
     private fun initView() {
-        val whiteColor = ContextCompat.getColor(context, android.R.color.white)
-        val tvIf = TextView(context)
+        val tvIf = BlockTextView(context)
         tvIf.setText(R.string.if_str)
         tvIf.tag = ChildTag.TAG_TOP
-        tvIf.setTextColor(whiteColor)
         addView(tvIf)
 
         val lp = generateDefaultLayoutParams() as MarginLayoutParams
-        lp.leftMargin = dp2px(context, 8f)
-        lp.rightMargin = dp2px(context, 8f)
+        lp.leftMargin = dp2px(context, 4f)
+        lp.rightMargin = dp2px(context, 4f)
         mLogicBg.setBgColorId(R.color.colorControlYellowDark)
         mLogicBg.tag = ChildTag.TAG_TOP
         // 也可以直接在父类中统一监听，只是坐标计算相对复杂一点
@@ -78,10 +75,9 @@ class IfBlockView : BaseControlBlockView {
         }
         addView(mLogicBg, lp)
 
-        val tvThen = TextView(context)
+        val tvThen = BlockTextView(context)
         tvThen.setText(R.string.then)
         tvThen.tag = ChildTag.TAG_TOP
-        tvThen.setTextColor(whiteColor)
         addView(tvThen)
     }
 

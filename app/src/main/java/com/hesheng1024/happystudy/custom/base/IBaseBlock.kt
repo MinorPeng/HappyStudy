@@ -92,6 +92,10 @@ interface IBaseBlock : IRoleListener, View.OnTouchListener {
                         }
                     }
                 }
+                MotionEvent.ACTION_UP -> {
+                    // TODO 点击积木的响应，暂时不处理
+                    true
+                }
                 else -> false
             }
         }

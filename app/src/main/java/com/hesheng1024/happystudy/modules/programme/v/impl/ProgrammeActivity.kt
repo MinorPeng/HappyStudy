@@ -1,5 +1,7 @@
 package com.hesheng1024.happystudy.modules.programme.v.impl
 
+import android.content.Context
+import android.content.Intent
 import android.view.DragEvent
 import android.view.View
 import android.view.ViewGroup
@@ -14,12 +16,12 @@ import com.hesheng1024.base.utils.ContextHolder
 import com.hesheng1024.base.utils.logD
 import com.hesheng1024.base.utils.logE
 import com.hesheng1024.base.utils.logI
-import com.hesheng1024.happystudy.R
+import com.hesheng1024.happystudy.*
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.blocks.calculate.BaseCalculateBlockView
 import com.hesheng1024.happystudy.custom.blocks.calculate.BaseLogicBlockView
 import com.hesheng1024.happystudy.modules.programme.adapter.BlocksRecyclerAdapter
-import com.hesheng1024.happystudy.modules.programme.m.Block
+import com.hesheng1024.happystudy.modules.Block
 import com.hesheng1024.happystudy.modules.programme.p.ProgrammePresenter
 import com.hesheng1024.happystudy.modules.programme.v.IProgrammeView
 import kotlinx.android.synthetic.main.activity_programme.*
@@ -46,16 +48,42 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
     private var mToPos = 0
     private var mShouldScroll = false
 
+    companion object {
+        fun startActivity(context: Context, flag: String) {
+            context.startActivity(Intent(context, ProgrammeActivity::class.java).putExtra("flag", flag))
+        }
+    }
+
     override fun getLayoutId(): Int = R.layout.activity_programme
 
     override fun createPresenter(): ProgrammePresenter = ProgrammePresenter(this)
 
     override fun initView() {
+        val flag = intent.getStringExtra("flag")
+        if (flag.isNullOrEmpty()) {
+            logE(msg = "intent with no flag, finish")
+            finish()
+            return
+        }
         ibtn_programme_back.setOnClickListener { finishActivity() }
         initBlockCategory()
         initRecyclerView()
         initProgramme()
         initProgrammeUtil()
+        when(flag) {
+            FLAG_PROGRAMME_MOTION -> {
+                initMotion()
+            }
+            FLAG_PROGRAMME_APPEARANCE -> {
+                initAppearance()
+            }
+            FLAG_PROGRAMME_CONTROL -> {
+                initControl()
+            }
+            FLAG_PROGRAMME_NORMAL -> {
+                mPresenter.getBlocks(this)
+            }
+        }
     }
 
     private fun initBlockCategory() {
@@ -205,7 +233,6 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
             //是否响应拖拽事件，true响应，返回false只能接受到ACTION_DRAG_STARTED事件，后续事件不会收到
             return@setOnDragListener true
         }
-        mPresenter.getBlocks(this)
     }
 
     private fun initProgramme() {
@@ -289,6 +316,31 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
                 child.onRun(role_view_programme)
             }
         }
+    }
+
+    private fun initMotion() {
+        mPresenter.getMotionBlocks(this)
+        tv_programme_appearance.isClickable = false
+        tv_programme_voice.isClickable = false
+        tv_programme_event.isClickable = false
+        tv_programme_control.isClickable = false
+        tv_programme_calculate.isClickable = false
+    }
+
+    private fun initAppearance() {
+        mPresenter.getAppearanceBlocks(this)
+        tv_programme_motion.isClickable = false
+        tv_programme_voice.isClickable = false
+        tv_programme_event.isClickable = false
+        tv_programme_control.isClickable = false
+        tv_programme_calculate.isClickable = false
+    }
+
+    private fun initControl() {
+        mPresenter.getControlBlocks(this)
+        tv_programme_appearance.isClickable = false
+        tv_programme_voice.isClickable = false
+        tv_programme_event.isClickable = false
     }
 
     override fun setBlocks(blocks: List<Block>) {

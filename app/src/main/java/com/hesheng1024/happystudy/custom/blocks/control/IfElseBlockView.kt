@@ -7,12 +7,11 @@ import android.util.AttributeSet
 import android.view.DragEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.base.utils.logD
 import com.hesheng1024.base.utils.logI
 import com.hesheng1024.happystudy.R
+import com.hesheng1024.happystudy.custom.BlockTextView
 import com.hesheng1024.happystudy.custom.base.BaseBlockViewGroup
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.base.IRoleView
@@ -32,8 +31,8 @@ class IfElseBlockView : BaseBlockViewGroup {
     private val mChildIfRectF: RectF = RectF()
     private val mChildElseRectF: RectF = RectF()
     private val mLogicBg: LogicBgBlockView
-    private var mTopViewH = dp2px(context, 32f).toFloat()
-    private var mTopViewW = dp2px(context, 150f).toFloat()
+    private var mTopViewH = 0f
+    private var mTopViewW = 0f
     private var mChildIfCount = 0
     private var mChildElseCount = 0
 
@@ -59,17 +58,14 @@ class IfElseBlockView : BaseBlockViewGroup {
 
     @SuppressLint("SetTextI18n")
     private fun initView() {
-        val whiteColor = ContextCompat.getColor(context, android.R.color.white)
-
-        val tvIf = TextView(context)
+        val tvIf = BlockTextView(context)
         tvIf.setText(R.string.if_str)
         tvIf.tag = ChildTag.TAG_TOP
-        tvIf.setTextColor(whiteColor)
         addView(tvIf)
 
         val lp = generateDefaultLayoutParams() as MarginLayoutParams
-        lp.leftMargin = dp2px(context, 8f)
-        lp.rightMargin = dp2px(context, 8f)
+        lp.leftMargin = dp2px(context, 4f)
+        lp.rightMargin = dp2px(context, 4f)
         mLogicBg.setBgColorId(R.color.colorControlYellowDark)
         mLogicBg.tag = ChildTag.TAG_TOP
         // 也可以直接在父类中统一监听，只是坐标计算相对复杂一点
@@ -99,16 +95,14 @@ class IfElseBlockView : BaseBlockViewGroup {
         }
         addView(mLogicBg, lp)
 
-        val tvThen = TextView(context)
+        val tvThen = BlockTextView(context)
         tvThen.setText(R.string.then)
         tvThen.tag = ChildTag.TAG_TOP
-        tvThen.setTextColor(whiteColor)
         addView(tvThen)
 
-        val tvElse = TextView(context)
+        val tvElse = BlockTextView(context)
         tvElse.setText(R.string.else_str)
         tvElse.tag = ChildTag.TAG_CENTER
-        tvElse.setTextColor(whiteColor)
         addView(tvElse)
     }
 
@@ -118,6 +112,8 @@ class IfElseBlockView : BaseBlockViewGroup {
         val sizeH = MeasureSpec.getSize(heightMeasureSpec)
         val modeH = MeasureSpec.getMode(heightMeasureSpec)
 
+        mTopViewH = dp2px(context, 32f).toFloat()
+        mTopViewW = dp2px(context, 150f).toFloat()
         var topViewW = 0
         var topViewMaxH = 0
         var centerViewW = 0

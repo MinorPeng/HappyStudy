@@ -5,17 +5,16 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Path
 import android.util.AttributeSet
-import android.view.Gravity
-import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.logD
+import com.hesheng1024.happystudy.custom.BlockTextView
 
 /**
  *
  * @author hesheng1024
  * @date 2020/3/29 19:40
  */
-abstract class BaseTextBlockView : AppCompatTextView, IBaseBlock {
+abstract class BaseTextBlockView : BlockTextView, IBaseBlock {
 
     private val mPaint = Paint()
     private val mPath = Path()
@@ -35,14 +34,12 @@ abstract class BaseTextBlockView : AppCompatTextView, IBaseBlock {
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        gravity = Gravity.CENTER
         this.setPadding(
             (IBaseBlock.DIS_TO_TOP * 2).toInt(),
             (IBaseBlock.DIS_TO_TOP * 2).toInt(),
             (IBaseBlock.DIS_TO_TOP * 2).toInt(),
             (IBaseBlock.DIS_TO_TOP * 2).toInt()
         )
-        this.setTextColor(ContextCompat.getColor(context, android.R.color.white))
         this.setOnTouchListener(this)
     }
 

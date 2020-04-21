@@ -4,12 +4,10 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.text.InputType
 import android.util.AttributeSet
-import android.widget.EditText
-import android.widget.TextView
-import androidx.appcompat.widget.AppCompatEditText
-import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.happystudy.R
+import com.hesheng1024.happystudy.custom.BlockEditText
+import com.hesheng1024.happystudy.custom.BlockTextView
 import com.hesheng1024.happystudy.custom.base.BaseBgBlockView
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.base.IRoleView
@@ -22,7 +20,7 @@ import com.hesheng1024.happystudy.custom.base.IRoleView
 @SuppressLint("ViewConstructor")
 class IncreaseVoiceBlockView : BaseBgBlockView {
 
-    private val mEt: AppCompatEditText
+    private val mEt: BlockEditText
     
     constructor(context: Context) : this(context, null)
 
@@ -33,26 +31,18 @@ class IncreaseVoiceBlockView : BaseBgBlockView {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
         setBgColorId(R.color.colorVoicePurple)
-        mEt = AppCompatEditText(context)
+        mEt = BlockEditText(context)
         initView()
     }
 
     private fun initView() {
-        val tv = TextView(context)
+        val tv = BlockTextView(context)
         tv.setText(R.string.increase_voice)
-        tv.setTextColor(ContextCompat.getColor(context, android.R.color.white))
         addView(tv)
 
         val lp = generateDefaultLayoutParams() as MarginLayoutParams
-        lp.leftMargin = dp2px(context, 8f)
-        val mEt = EditText(context)
-        mEt.minEms = 2
-        mEt.setText(R.string.ten)
-        mEt.setBackgroundResource(R.drawable.bg_et_circle_whilte)
+        lp.leftMargin = dp2px(context, 4f)
         mEt.inputType = InputType.TYPE_CLASS_NUMBER
-        mEt.setOnDragListener { v, event ->
-            return@setOnDragListener true
-        }
         addView(mEt, lp)
     }
 

@@ -1,7 +1,7 @@
 package com.hesheng1024.happystudy.modules.programme.v
 
 import com.hesheng1024.base.base.IBaseView
-import com.hesheng1024.happystudy.modules.programme.m.Block
+import com.hesheng1024.happystudy.modules.Block
 
 /**
  *

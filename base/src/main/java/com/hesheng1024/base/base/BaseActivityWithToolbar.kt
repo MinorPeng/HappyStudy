@@ -1,5 +1,6 @@
 package com.hesheng1024.base.base
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,31 +14,27 @@ import com.hesheng1024.base.R
  * @author hesheng1024
  * @date 2020/2/8 11:00
  */
-abstract class BaseActivityWithToolbar<P : BasePresenter<out IBaseView, out IBaseModel>> :
-    BaseActivity<P>() {
+abstract class BaseActivityWithToolbar<out P : BasePresenter<IBaseView, IBaseModel>> : BaseActivity<P>() {
 
-    protected var mToolbar: Toolbar? = null
+    private var mToolbar: Toolbar? = null
     private var mTitle: AppCompatTextView? = null
 
+    @SuppressLint("InflateParams")
     override fun inflateContentView(): View {
-        mContentView = LayoutInflater.from(this).inflate(R.layout.activity_base, null)
-        (mContentView as ViewGroup).addView(initToolbar(mContentView as ViewGroup), 0)
-        LayoutInflater.from(this).inflate(getLayoutId(), mContentView as ViewGroup?)
-        return mContentView
+        val contentView = LayoutInflater.from(this).inflate(R.layout.activity_base, null)
+        (contentView as ViewGroup).addView(initToolbar(contentView), 0)
+        LayoutInflater.from(this).inflate(getLayoutId(), contentView as ViewGroup?)
+        return contentView
     }
 
     private fun initToolbar(contentView: ViewGroup): View? {
-        mToolbar = layoutInflater.inflate(
-            R.layout.include_toolbar,
-            contentView,
-            false
-        ) as Toolbar?
+        mToolbar = layoutInflater.inflate(R.layout.include_toolbar, contentView, false) as Toolbar?
         mToolbar?.let { toolbar ->
-            if (mTranslucent) {
+            if (isTranslucent()) {
                 toolbar.setPadding(0, getStatusBarHeight(), 0, 0)
             }
             toolbar.setBackgroundResource(getStatusBarBackground())
-            toolbar.addView(layoutInflater.inflate(getToolbarContent(), mToolbar, false))
+            toolbar.addView(layoutInflater.inflate(getToolbarLayout(), mToolbar, false))
             setSupportActionBar(toolbar)
             supportActionBar?.setDisplayHomeAsUpEnabled(false)
             initToolbarEvent(toolbar)
@@ -59,7 +56,7 @@ abstract class BaseActivityWithToolbar<P : BasePresenter<out IBaseView, out IBas
         setTheTitle(resources.getText(resId).toString())
     }
 
-    protected open fun getToolbarContent(): Int {
-        return R.layout.include_toolbar_content
-    }
+    protected open fun getToolbarLayout(): Int = R.layout.include_toolbar_content
+
+    protected fun getToolbar(): Toolbar? = mToolbar
 }

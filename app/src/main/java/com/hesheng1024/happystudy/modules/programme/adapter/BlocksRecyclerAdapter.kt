@@ -7,7 +7,7 @@ import androidx.appcompat.widget.AppCompatTextView
 import com.hesheng1024.base.base.adapter.BaseRecyclerAdapter
 import com.hesheng1024.base.base.adapter.BaseViewHolder
 import com.hesheng1024.happystudy.R
-import com.hesheng1024.happystudy.modules.programme.m.Block
+import com.hesheng1024.happystudy.modules.Block
 import java.util.*
 
 /**

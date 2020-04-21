@@ -1,6 +1,8 @@
 package com.hesheng1024.happystudy.modules.study.p
 
+import android.content.Context
 import com.hesheng1024.base.base.BasePresenter
+import com.hesheng1024.base.utils.logE
 import com.hesheng1024.happystudy.modules.study.m.IStudyMotionModel
 import com.hesheng1024.happystudy.modules.study.m.impl.StudyMotionModelImpl
 import com.hesheng1024.happystudy.modules.study.v.IStudyMotionView
@@ -14,5 +16,15 @@ class StudyMotionPresenter(view: IStudyMotionView) : BasePresenter<IStudyMotionV
 
     override fun createModel(): IStudyMotionModel {
         return StudyMotionModelImpl()
+    }
+
+    fun getBlocks(context: Context) {
+        val blocks = mModel.initBlocks(context)
+        if (blocks.isNullOrEmpty()) {
+            logE(msg = "init blocks error!")
+            mView.toastMsg("something error!")
+        } else {
+            mView.setBlocks(blocks)
+        }
     }
 }

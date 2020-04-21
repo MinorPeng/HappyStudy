@@ -2,14 +2,12 @@ package com.hesheng1024.happystudy.custom.blocks.calculate
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.text.InputType
 import android.util.AttributeSet
-import android.view.Gravity
-import android.widget.TextView
 import androidx.appcompat.widget.AppCompatEditText
-import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.happystudy.R
+import com.hesheng1024.happystudy.custom.BlockEditText
+import com.hesheng1024.happystudy.custom.BlockTextView
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.base.IRoleView
 
@@ -38,36 +36,20 @@ class MinusBlockView : BaseCalculateBlockView {
     }
 
     private fun initView() {
-        val etLeft = AppCompatEditText(context)
-        etLeft.setBackgroundResource(R.drawable.bg_et_circle_whilte)
-        etLeft.gravity = Gravity.CENTER
-        etLeft.inputType = InputType.TYPE_NUMBER_FLAG_DECIMAL
-        etLeft.minEms = 2
-        etLeft.setLines(1)
-        etLeft.setOnDragListener { v, event ->
-            return@setOnDragListener true
-        }
+        val etLeft = BlockEditText(context)
+        etLeft.setText(R.string.zero)
         mLeftCalculateBg.addView(etLeft, 0)
         addView(mLeftCalculateBg, 0)
 
         val lpTvMinus = generateDefaultLayoutParams() as MarginLayoutParams
         lpTvMinus.leftMargin = dp2px(context, 8f)
         lpTvMinus.rightMargin = dp2px(context, 8f)
-        val tvMinus = TextView(context)
+        val tvMinus = BlockTextView(context)
         tvMinus.setText(R.string.minus)
-        tvMinus.setTextColor(ContextCompat.getColor(context, android.R.color.white))
         addView(tvMinus, lpTvMinus)
 
-        val etRight = AppCompatEditText(context)
-        etRight.setBackgroundResource(R.drawable.bg_et_circle_whilte)
-        etRight.gravity = Gravity.CENTER
-        etRight.inputType = InputType.TYPE_NUMBER_FLAG_DECIMAL
+        val etRight = BlockEditText(context)
         etRight.setText(R.string.fifty)
-        etRight.minEms = 2
-        etRight.setLines(1)
-        etRight.setOnDragListener { v, event ->
-            return@setOnDragListener true
-        }
         mRightCalculateBg.addView(etRight, 0)
         addView(mRightCalculateBg, 2)
     }

@@ -6,11 +6,10 @@ import android.util.AttributeSet
 import android.view.DragEvent
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
-import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.base.utils.logI
 import com.hesheng1024.happystudy.R
+import com.hesheng1024.happystudy.custom.BlockTextView
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.base.IRoleView
 import com.hesheng1024.happystudy.custom.blocks.calculate.BaseLogicBlockView
@@ -40,15 +39,13 @@ class CirculationUtilBlockView : BaseControlBlockView {
 
     @SuppressLint("SetTextI18n")
     private fun initView() {
-        val whiteColor = ContextCompat.getColor(context, android.R.color.white)
-        val tvCirculation = TextView(context)
+        val tvCirculation = BlockTextView(context)
         tvCirculation.setText(R.string.circulation_until)
         tvCirculation.tag = ChildTag.TAG_TOP
-        tvCirculation.setTextColor(whiteColor)
         addView(tvCirculation,0)
 
         val lp = generateDefaultLayoutParams() as MarginLayoutParams
-        lp.leftMargin = dp2px(context, 8f)
+        lp.leftMargin = dp2px(context, 4f)
         mLogicBg.setBgColorId(R.color.colorControlYellowDark)
         mLogicBg.tag = ChildTag.TAG_TOP
         // 也可以直接在父类中统一监听，只是坐标计算相对复杂一点

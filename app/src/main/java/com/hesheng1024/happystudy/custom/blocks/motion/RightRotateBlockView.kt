@@ -4,12 +4,10 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.text.InputType
 import android.util.AttributeSet
-import android.view.Gravity
-import android.widget.TextView
-import androidx.appcompat.widget.AppCompatEditText
-import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.happystudy.R
+import com.hesheng1024.happystudy.custom.BlockEditText
+import com.hesheng1024.happystudy.custom.BlockTextView
 import com.hesheng1024.happystudy.custom.base.BaseBgBlockView
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.base.IRoleView
@@ -22,7 +20,7 @@ import com.hesheng1024.happystudy.custom.base.IRoleView
 @SuppressLint("ViewConstructor")
 class RightRotateBlockView : BaseBgBlockView {
 
-    private val mEt: AppCompatEditText
+    private val mEt: BlockEditText
     
     constructor(context: Context) : this(context, null)
 
@@ -33,34 +31,23 @@ class RightRotateBlockView : BaseBgBlockView {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
         setBgColorId(R.color.colorMotionBlue)
-        mEt = AppCompatEditText(context)
+        mEt = BlockEditText(context)
         initView()
     }
 
     private fun initView() {
-        val whiteColor = ContextCompat.getColor(context, android.R.color.white)
-        val tvRightRotate = TextView(context)
+        val tvRightRotate = BlockTextView(context)
         tvRightRotate.setText(R.string.right_rotate)
-        tvRightRotate.setTextColor(whiteColor)
         addView(tvRightRotate)
 
         val lp = generateDefaultLayoutParams() as MarginLayoutParams
-        lp.leftMargin = dp2px(context, 8f)
-        lp.rightMargin = dp2px(context, 8f)
-        mEt.minEms = 2
-        mEt.setLines(1)
-        mEt.setText(R.string.ten)
-        mEt.setBackgroundResource(R.drawable.bg_et_circle_whilte)
+        lp.leftMargin = dp2px(context, 4f)
+        lp.rightMargin = dp2px(context, 4f)
         mEt.inputType = InputType.TYPE_CLASS_NUMBER
-        mEt.gravity = Gravity.CENTER
-        mEt.setOnDragListener { v, event ->
-            return@setOnDragListener true
-        }
         addView(mEt, lp)
 
-        val tvDegree = TextView(context)
+        val tvDegree = BlockTextView(context)
         tvDegree.setText(R.string.degree)
-        tvDegree.setTextColor(whiteColor)
         addView(tvDegree)
     }
 

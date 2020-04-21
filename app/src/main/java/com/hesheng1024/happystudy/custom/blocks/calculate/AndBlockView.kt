@@ -5,11 +5,10 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.DragEvent
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.base.utils.logI
 import com.hesheng1024.happystudy.R
+import com.hesheng1024.happystudy.custom.BlockTextView
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.base.IRoleView
 
@@ -71,11 +70,10 @@ class AndBlockView : BaseLogicBlockView {
         addView(mLeftLogicBg)
 
         val lpTvMoreThan = generateDefaultLayoutParams() as MarginLayoutParams
-        lpTvMoreThan.leftMargin = dp2px(context, 8f)
-        lpTvMoreThan.rightMargin = dp2px(context, 8f)
-        val tvMoreThan = TextView(context)
+        lpTvMoreThan.leftMargin = dp2px(context, 4f)
+        lpTvMoreThan.rightMargin = dp2px(context, 4f)
+        val tvMoreThan = BlockTextView(context)
         tvMoreThan.setText(R.string.and)
-        tvMoreThan.setTextColor(ContextCompat.getColor(context, android.R.color.white))
         addView(tvMoreThan, lpTvMoreThan)
 
         mRightLogicBg.setOnDragListener { v, event ->

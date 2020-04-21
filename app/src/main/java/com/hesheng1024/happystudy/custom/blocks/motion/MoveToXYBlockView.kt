@@ -2,14 +2,11 @@ package com.hesheng1024.happystudy.custom.blocks.motion
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.text.InputType
 import android.util.AttributeSet
-import android.view.Gravity
-import android.widget.TextView
-import androidx.appcompat.widget.AppCompatEditText
-import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.happystudy.R
+import com.hesheng1024.happystudy.custom.BlockEditText
+import com.hesheng1024.happystudy.custom.BlockTextView
 import com.hesheng1024.happystudy.custom.base.BaseBgBlockView
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.base.IRoleView
@@ -22,8 +19,8 @@ import com.hesheng1024.happystudy.custom.base.IRoleView
 @SuppressLint("ViewConstructor")
 class MoveToXYBlockView : BaseBgBlockView {
 
-    private val mEtX: AppCompatEditText
-    private val mEtY: AppCompatEditText
+    private val mEtX: BlockEditText
+    private val mEtY: BlockEditText
 
     constructor(context: Context) : this(context, null)
 
@@ -34,48 +31,27 @@ class MoveToXYBlockView : BaseBgBlockView {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
         setBgColorId(R.color.colorMotionBlue)
-        mEtX = AppCompatEditText(context)
-        mEtY = AppCompatEditText(context)
+        mEtX = BlockEditText(context)
+        mEtY = BlockEditText(context)
         initView()
     }
 
     private fun initView() {
-        val whiteColor = ContextCompat.getColor(context, android.R.color.white)
-        val tvX = TextView(context)
+        val tvX = BlockTextView(context)
         tvX.setText(R.string.move_x)
-        tvX.setTextColor(whiteColor)
         addView(tvX)
 
         val lpX = generateDefaultLayoutParams() as MarginLayoutParams
-        lpX.leftMargin = dp2px(context, 8f)
-        lpX.rightMargin = dp2px(context, 8f)
-        mEtX.minEms = 2
-        mEtX.setText(R.string.ten)
-        mEtX.setBackgroundResource(R.drawable.bg_et_circle_whilte)
-        mEtX.inputType = InputType.TYPE_NUMBER_FLAG_DECIMAL
-        mEtX.gravity = Gravity.CENTER
-        mEtX.setLines(1)
-        mEtX.setOnDragListener { v, event ->
-            return@setOnDragListener true
-        }
+        lpX.leftMargin = dp2px(context, 4f)
+        lpX.rightMargin = dp2px(context, 4f)
         addView(mEtX, lpX)
 
-        val tvY = TextView(context)
+        val tvY = BlockTextView(context)
         tvY.setText(R.string.y)
-        tvY.setTextColor(whiteColor)
         addView(tvY)
 
         val lpY = generateDefaultLayoutParams() as MarginLayoutParams
         lpY.leftMargin = dp2px(context, 8f)
-        mEtY.minEms = 2
-        mEtY.setText(R.string.zero)
-        mEtY.setBackgroundResource(R.drawable.bg_et_circle_whilte)
-        mEtY.inputType = InputType.TYPE_NUMBER_FLAG_DECIMAL
-        mEtY.setLines(1)
-        mEtY.gravity = Gravity.CENTER
-        mEtY.setOnDragListener { v, event ->
-            return@setOnDragListener true
-        }
         addView(mEtY, lpY)
     }
 

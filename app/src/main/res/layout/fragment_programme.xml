@@ -13,7 +13,8 @@
         android:layout_height="@dimen/dp64"
         android:background="@drawable/bg_btn_white_corner_8"
         android:text="@string/free_programme"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/sp20" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_get_through"
@@ -22,6 +23,7 @@
         android:layout_marginTop="@dimen/dp64"
         android:background="@drawable/bg_btn_white_corner_8"
         android:text="@string/get_through"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/sp20" />
 
 </LinearLayout>
