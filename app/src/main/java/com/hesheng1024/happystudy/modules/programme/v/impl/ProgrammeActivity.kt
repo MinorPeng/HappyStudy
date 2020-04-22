@@ -2,13 +2,14 @@ package com.hesheng1024.happystudy.modules.programme.v.impl
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Point
 import android.view.DragEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
-import androidx.core.widget.doOnTextChanged
+import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hesheng1024.base.base.BaseActivity
@@ -17,16 +18,18 @@ import com.hesheng1024.base.utils.logD
 import com.hesheng1024.base.utils.logE
 import com.hesheng1024.base.utils.logI
 import com.hesheng1024.happystudy.*
+import com.hesheng1024.happystudy.custom.RoleViewGroup
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.blocks.calculate.BaseCalculateBlockView
 import com.hesheng1024.happystudy.custom.blocks.calculate.BaseLogicBlockView
-import com.hesheng1024.happystudy.modules.programme.adapter.BlocksRecyclerAdapter
 import com.hesheng1024.happystudy.modules.Block
+import com.hesheng1024.happystudy.modules.programme.adapter.BlocksRecyclerAdapter
 import com.hesheng1024.happystudy.modules.programme.p.ProgrammePresenter
 import com.hesheng1024.happystudy.modules.programme.v.IProgrammeView
 import kotlinx.android.synthetic.main.activity_programme.*
 import kotlinx.android.synthetic.main.layout_block_categories.*
 import kotlinx.android.synthetic.main.layout_programme_utils.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -70,7 +73,7 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
         initRecyclerView()
         initProgramme()
         initProgrammeUtil()
-        when(flag) {
+        when (flag) {
             FLAG_PROGRAMME_MOTION -> {
                 initMotion()
             }
@@ -281,39 +284,70 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
                     linear_layout_programme.addView(block, block.layoutParams)
                 }
             }
-            return@setOnDragListener  true
+            return@setOnDragListener true
         }
     }
 
     private fun initProgrammeUtil() {
         switch_programme_show.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked ) {
+            if (isChecked) {
                 role_view_programme.show()
             } else {
                 role_view_programme.hide()
             }
         }
         ibtn_programme_run.setOnClickListener {
-            GlobalScope.launch {
-                runProgramme()
+            runProgramme()
+        }
+        // TODO 监听软键盘收起的状态 或者失去焦点
+        et_programme_x.doAfterTextChanged {
+            role_view_programme.setPX(if (it.isNullOrEmpty()) 0f else it.toString().toFloat())
+        }
+        et_programme_y.doAfterTextChanged {
+            role_view_programme.setPY(if (it.isNullOrEmpty()) 0f else it.toString().toFloat())
+        }
+        et_programme_direction.doAfterTextChanged {
+            role_view_programme.setDirection(if (it.isNullOrEmpty()) 0f else it.toString().toFloat())
+        }
+        et_programme_x.setOnEditorActionListener { v, actionId, event ->
+            logD(msg = "action")
+            return@setOnEditorActionListener false
+        }
+        role_view_programme.setListener(object : RoleViewGroup.IChangeListener {
+            override fun directionChange(curDire: Float) {
+                if (et_programme_direction.text.isNullOrEmpty()
+                    || et_programme_direction.text.toString().toInt() != curDire.toInt()) {
+                    et_programme_direction.setText(curDire.toInt().toString())
+                }
             }
-        }
-        et_programme_x.doOnTextChanged { text, start, count, after ->
-            role_view_programme.setPX(if (text.isNullOrEmpty()) 0f else text.toString().toFloat())
-        }
-        et_programme_y.doOnTextChanged { text, start, count, after ->
-            role_view_programme.setPY(if (text.isNullOrEmpty()) 0f else text.toString().toFloat())
-        }
-        et_programme_direction.doOnTextChanged { text, start, count, after ->
-            role_view_programme.setDirection(if (text.isNullOrEmpty()) 0f else text.toString().toFloat())
+
+            override fun positionChanged(curPos: Point) {
+                if (et_programme_x.text.isNullOrEmpty() || et_programme_y.text.isNullOrEmpty()
+                    || et_programme_x.text.toString().toInt() != curPos.x
+                    || et_programme_y.text.toString().toInt() != curPos.y) {
+                    logD(msg = "pos:$curPos")
+                    et_programme_x.setText(curPos.x.toString())
+                    et_programme_y.setText(curPos.y.toString())
+                }
+            }
+        })
+        ibtn_programme_reset.setOnClickListener {
+            et_programme_direction.setText(R.string.ninety)
+            et_programme_y.setText(R.string.zero)
+            et_programme_x.setText(R.string.zero)
+            role_view_programme.setDirection(90f)
+            role_view_programme.moveToXY(0f, 0f)
+            role_view_programme.showSayLayout()
         }
     }
 
-    private suspend fun runProgramme() {
+    private fun runProgramme() {
         for (index in 0 until linear_layout_programme.childCount) {
             val child = linear_layout_programme.getChildAt(index)
             if (child != null && child is IBaseBlock) {
-                child.onRun(role_view_programme)
+                GlobalScope.launch(Dispatchers.IO) {
+                    child.onRun(role_view_programme)
+                }
             }
         }
     }

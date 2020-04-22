@@ -39,6 +39,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':base')
+    implementation 'com.github.huburt-Hu:NewbieGuide:v2.4.0'
 
     testImplementation versions.test.junit
     androidTestImplementation versions.test.extJunit

@@ -45,6 +45,8 @@ abstract class BaseBgBlockView : LinearLayout, IBaseBlock {
         )
         gravity = Gravity.CENTER
         this.setOnTouchListener(this)
+        this.setOnLongClickListener(this)
+        this.setOnClickListener(this)
     }
 
     override fun onDraw(canvas: Canvas?) {

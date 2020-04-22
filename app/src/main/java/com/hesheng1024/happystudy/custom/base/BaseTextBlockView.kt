@@ -31,7 +31,7 @@ abstract class BaseTextBlockView : BlockTextView, IBaseBlock {
 
     constructor(context: Context) : this(context, null)
 
-    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, android.R.attr.textViewStyle)
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
         this.setPadding(
@@ -41,6 +41,8 @@ abstract class BaseTextBlockView : BlockTextView, IBaseBlock {
             (IBaseBlock.DIS_TO_TOP * 2).toInt()
         )
         this.setOnTouchListener(this)
+        this.setOnLongClickListener(this)
+        this.setOnClickListener(this)
     }
 
     override fun onDraw(canvas: Canvas?) {

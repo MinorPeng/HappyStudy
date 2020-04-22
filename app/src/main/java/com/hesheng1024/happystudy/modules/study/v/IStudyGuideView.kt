@@ -5,7 +5,7 @@ import com.hesheng1024.base.base.IBaseView
 /**
  *
  * @author hesheng1024
- * @date 2020/3/19 9:42
+ * @date 2020/4/21 16:03
  */
-interface IStudyView : IBaseView {
+interface IStudyGuideView : IBaseView {
 }

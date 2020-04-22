@@ -18,7 +18,7 @@ import com.hesheng1024.happystudy.custom.blocks.calculate.BaseLogicBlockView
  * @author hesheng1024
  * @date 2020/4/11 10:57
  */
-interface IBaseBlock : IRoleListener, View.OnTouchListener {
+interface IBaseBlock : IRoleListener, View.OnTouchListener, View.OnLongClickListener, View.OnClickListener {
 
     companion object {
         // 直接定义到接口中，可能会被实现类给覆盖重写，所以不规范，应当定义为静态
@@ -55,51 +55,85 @@ interface IBaseBlock : IRoleListener, View.OnTouchListener {
     }
 
     override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-        if (v != null && event != null) {
-            return when (event.action) {
-                MotionEvent.ACTION_DOWN -> {
-                    true
-                }
-                MotionEvent.ACTION_MOVE -> {
-                    //通过ViewParent去重新绘制子view
-                    // offsetLeftAndRight((event.x - mLastX).toInt())
-                    // offsetTopAndBottom((event.y - mLastY).toInt())
-                    when (getStatus()) {
-                        Status.STATUS_CLONE -> {
-                            // 从左边拖动需要clone一个
-                            val newObj = clone()
-                            newObj.setStatus(Status.STATUS_DRAG)
-                            val shadowBuilder = View.DragShadowBuilder(v)
-                            v.startDrag(null, shadowBuilder, newObj, 0)
-                            //震动反馈
-                            v.performHapticFeedback(
-                                HapticFeedbackConstants.LONG_PRESS, HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING
-                            )
-                            true
-                        }
-                        Status.STATUS_DRAG -> {
-                            // drag本身
-                            val shadowBuilder = View.DragShadowBuilder(v)
-                            v.startDrag(null, shadowBuilder, v, 0)
-                            //震动反馈
-                            v.performHapticFeedback(
-                                HapticFeedbackConstants.LONG_PRESS, HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING
-                            )
-                            true
-                        }
-                        Status.STATUS_NONE -> {
-                            false
-                        }
-                    }
-                }
-                MotionEvent.ACTION_UP -> {
-                    // TODO 点击积木的响应，暂时不处理
-                    true
-                }
-                else -> false
+        // if (v != null && event != null) {
+        //     return when (event.action) {
+        //         MotionEvent.ACTION_DOWN -> {
+        //             true
+        //         }
+        //         MotionEvent.ACTION_MOVE -> {
+        //             //通过ViewParent去重新绘制子view
+        //             // offsetLeftAndRight((event.x - mLastX).toInt())
+        //             // offsetTopAndBottom((event.y - mLastY).toInt())
+        //             when (getStatus()) {
+        //                 Status.STATUS_CLONE -> {
+        //                     // 从左边拖动需要clone一个
+        //                     val newObj = clone()
+        //                     newObj.setStatus(Status.STATUS_DRAG)
+        //                     val shadowBuilder = View.DragShadowBuilder(v)
+        //                     v.startDrag(null, shadowBuilder, newObj, 0)
+        //                     //震动反馈
+        //                     v.performHapticFeedback(
+        //                         HapticFeedbackConstants.LONG_PRESS, HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING
+        //                     )
+        //                     true
+        //                 }
+        //                 Status.STATUS_DRAG -> {
+        //                     // drag本身
+        //                     val shadowBuilder = View.DragShadowBuilder(v)
+        //                     v.startDrag(null, shadowBuilder, v, 0)
+        //                     //震动反馈
+        //                     v.performHapticFeedback(
+        //                         HapticFeedbackConstants.LONG_PRESS, HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING
+        //                     )
+        //                     true
+        //                 }
+        //                 Status.STATUS_NONE -> {
+        //                     false
+        //                 }
+        //             }
+        //         }
+        //         MotionEvent.ACTION_UP -> {
+        //             // TODO 点击积木的响应，暂时不处理
+        //             true
+        //         }
+        //         else -> false
+        //     }
+        // }
+        return false
+    }
+
+    override fun onLongClick(v: View?): Boolean {
+        return when (getStatus()) {
+            Status.STATUS_CLONE -> {
+                // 从左边拖动需要clone一个
+                val newObj = clone()
+                newObj.setStatus(Status.STATUS_DRAG)
+                val shadowBuilder = View.DragShadowBuilder(v)
+                v?.startDrag(null, shadowBuilder, newObj, 0)
+                //震动反馈
+                v?.performHapticFeedback(
+                    HapticFeedbackConstants.LONG_PRESS, HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING
+                )
+                true
+            }
+            Status.STATUS_DRAG -> {
+                // drag本身
+                val shadowBuilder = View.DragShadowBuilder(v)
+                v?.startDrag(null, shadowBuilder, v, 0)
+                //震动反馈
+                v?.performHapticFeedback(
+                    HapticFeedbackConstants.LONG_PRESS, HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING
+                )
+                true
+            }
+            Status.STATUS_NONE -> {
+                false
             }
         }
-        return false
+    }
+
+    override fun onClick(v: View?) {
+        logD(msg = "onClick")
     }
 
     /**

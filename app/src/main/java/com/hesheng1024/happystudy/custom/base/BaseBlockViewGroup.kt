@@ -35,6 +35,8 @@ abstract class BaseBlockViewGroup : ViewGroup, IBaseBlock {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
         this.setOnTouchListener(this)
+        this.setOnLongClickListener(this)
+        this.setOnClickListener(this)
     }
 
     override fun onDraw(canvas: Canvas?) {
