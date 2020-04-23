@@ -61,7 +61,7 @@ class StudyGuideActivity : BaseActivity<StudyGuidePresenter>(), IStudyGuideView 
             }
         })
         btn_study_guide_next.setOnClickListener {
-            if (mCurPos == mAdapter.itemCount) {
+            if (mCurPos == mAdapter.itemCount - 1) {
                 ProgrammeActivity.startActivity(this, flag)
             } else {
                 view_pager_study_guide.currentItem = ++mCurPos

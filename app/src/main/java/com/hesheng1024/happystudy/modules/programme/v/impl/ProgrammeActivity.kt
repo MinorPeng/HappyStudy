@@ -386,6 +386,11 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
         tv_programme_appearance.isClickable = false
         tv_programme_voice.isClickable = false
         tv_programme_event.isClickable = false
+        val pos = mAdapter.getPosByCategory(Block.Category.CONTROL)
+        if (pos != -1) {
+            changeSelectedCategory(Block.Category.CONTROL)
+            smoothScrollToPosition(pos)
+        }
     }
 
     override fun setBlocks(blocks: List<Block>) {
