@@ -28,6 +28,7 @@ import com.hesheng1024.happystudy.modules.Block
 import com.hesheng1024.happystudy.modules.programme.adapter.BlocksRecyclerAdapter
 import com.hesheng1024.happystudy.modules.programme.p.ProgrammePresenter
 import com.hesheng1024.happystudy.modules.programme.v.IProgrammeView
+import com.hesheng1024.happystudy.utils.MediaPlayerUtil
 import kotlinx.android.synthetic.main.activity_programme.*
 import kotlinx.android.synthetic.main.layout_block_categories.*
 import kotlinx.android.synthetic.main.layout_programme_utils.*
@@ -95,6 +96,7 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
                 initControl()
             }
             FLAG_PROGRAMME_NORMAL -> {
+                MediaPlayerUtil.init()
                 mPresenter.getBlocks(this)
             }
         }
@@ -389,5 +391,10 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
     override fun setBlocks(blocks: List<Block>) {
         mAdapter.clear()
         mAdapter.addDatas(blocks)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        MediaPlayerUtil.release()
     }
 }
