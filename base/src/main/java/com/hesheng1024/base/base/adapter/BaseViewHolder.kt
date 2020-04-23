@@ -13,12 +13,12 @@ open class BaseViewHolder(private val mItemView: View) : RecyclerView.ViewHolder
 
     private var mViews: SparseArray<View> = SparseArray()
 
-    fun <V : View> getView(viewId: Int): V {
+    fun <V : View> getView(viewId: Int): V? {
         var view = mViews.get(viewId)
         if (view == null) {
             view = mItemView.findViewById(viewId)
             mViews.put(viewId, view)
         }
-        return view as V
+        return view as V?
     }
 }

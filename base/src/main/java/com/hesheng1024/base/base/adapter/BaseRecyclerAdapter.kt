@@ -20,6 +20,11 @@ abstract class BaseRecyclerAdapter<T>(datas: List<T>? = null) : RecyclerView.Ada
         }
     }
 
+    open fun setDatas(data: List<T>) {
+        mDatas.clear()
+        addDatas(data)
+    }
+
     open fun add(data: T) {
         mDatas.add(data)
         notifyDataSetChanged()

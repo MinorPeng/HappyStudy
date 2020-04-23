@@ -13,6 +13,7 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hesheng1024.base.base.BaseActivity
+import com.hesheng1024.base.base.adapter.IBaseIClickListener
 import com.hesheng1024.base.utils.ContextHolder
 import com.hesheng1024.base.utils.logD
 import com.hesheng1024.base.utils.logE
@@ -20,6 +21,7 @@ import com.hesheng1024.base.utils.logI
 import com.hesheng1024.happystudy.*
 import com.hesheng1024.happystudy.custom.RoleViewGroup
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
+import com.hesheng1024.happystudy.custom.base.IRoleView
 import com.hesheng1024.happystudy.custom.blocks.calculate.BaseCalculateBlockView
 import com.hesheng1024.happystudy.custom.blocks.calculate.BaseLogicBlockView
 import com.hesheng1024.happystudy.modules.Block
@@ -50,11 +52,14 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
      */
     private var mToPos = 0
     private var mShouldScroll = false
-
     companion object {
+        private var mRoleView: IRoleView? = null
+
         fun startActivity(context: Context, flag: String) {
             context.startActivity(Intent(context, ProgrammeActivity::class.java).putExtra("flag", flag))
         }
+
+        fun getRoleView(): IRoleView? = mRoleView
     }
 
     override fun getLayoutId(): Int = R.layout.activity_programme
@@ -68,6 +73,7 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
             finish()
             return
         }
+        mRoleView = role_view_programme
         ibtn_programme_back.setOnClickListener { finishActivity() }
         initBlockCategory()
         initRecyclerView()

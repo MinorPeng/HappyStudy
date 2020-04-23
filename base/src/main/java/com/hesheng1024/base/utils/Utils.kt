@@ -123,6 +123,6 @@ private fun getTag(): String {
     val className = stackTraceElement.className
     val methodName = stackTraceElement.methodName
     val lineNum = stackTraceElement.lineNumber
-    return className.substring(className.lastIndexOf('.') + 1) + "($lineNum)"
+    return className.substring(className.lastIndexOf('.') + 1) + "::$methodName($lineNum)"
 }
 

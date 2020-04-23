@@ -8,4 +8,10 @@ import com.hesheng1024.base.base.IBaseModel
  * @date 2020/4/21 16:03
  */
 interface IStudyGuideModel : IBaseModel {
+
+    fun getMotionIvIds(): List<Int>
+
+    fun getAppearanceIvIds(): List<Int>
+
+    fun getControlIvIds(): List<Int>
 }

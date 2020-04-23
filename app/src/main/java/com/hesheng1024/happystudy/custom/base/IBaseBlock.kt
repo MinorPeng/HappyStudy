@@ -6,11 +6,16 @@ import android.graphics.Canvas
 import android.graphics.CornerPathEffect
 import android.graphics.Paint
 import android.graphics.Path
+import android.os.Build
 import android.view.*
 import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.*
 import com.hesheng1024.happystudy.custom.blocks.calculate.BaseCalculateBlockView
 import com.hesheng1024.happystudy.custom.blocks.calculate.BaseLogicBlockView
+import com.hesheng1024.happystudy.modules.programme.v.impl.ProgrammeActivity
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 /**
  * the base of a block
@@ -109,7 +114,11 @@ interface IBaseBlock : IRoleListener, View.OnTouchListener, View.OnLongClickList
                 val newObj = clone()
                 newObj.setStatus(Status.STATUS_DRAG)
                 val shadowBuilder = View.DragShadowBuilder(v)
-                v?.startDrag(null, shadowBuilder, newObj, 0)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    v?.startDragAndDrop(null, shadowBuilder, newObj, 0)
+                } else {
+                    v?.startDrag(null, shadowBuilder, newObj, 0)
+                }
                 //震动反馈
                 v?.performHapticFeedback(
                     HapticFeedbackConstants.LONG_PRESS, HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING
@@ -119,7 +128,11 @@ interface IBaseBlock : IRoleListener, View.OnTouchListener, View.OnLongClickList
             Status.STATUS_DRAG -> {
                 // drag本身
                 val shadowBuilder = View.DragShadowBuilder(v)
-                v?.startDrag(null, shadowBuilder, v, 0)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    v?.startDragAndDrop(null, shadowBuilder, v, 0)
+                } else {
+                    v?.startDrag(null, shadowBuilder, v, 0)
+                }
                 //震动反馈
                 v?.performHapticFeedback(
                     HapticFeedbackConstants.LONG_PRESS, HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING
@@ -134,6 +147,12 @@ interface IBaseBlock : IRoleListener, View.OnTouchListener, View.OnLongClickList
 
     override fun onClick(v: View?) {
         logD(msg = "onClick")
+        // 此处逻辑耦合较高
+        ProgrammeActivity.getRoleView()?.let {
+            GlobalScope.launch(Dispatchers.IO) {
+                this@IBaseBlock.onRun(it)
+            }
+        }
     }
 
     /**
@@ -155,7 +174,8 @@ interface IBaseBlock : IRoleListener, View.OnTouchListener, View.OnLongClickList
             || block !is View
             || block is BaseCalculateBlockView
             || block is BaseLogicBlockView
-            || block.getBlackOwn() !is View) {
+            || block.getBlackOwn() !is View
+        ) {
             logE(this::class.java.simpleName, msg = "block error return false: $block")
             return false
         }
@@ -168,8 +188,10 @@ interface IBaseBlock : IRoleListener, View.OnTouchListener, View.OnLongClickList
         return when (event.action) {
             DragEvent.ACTION_DRAG_LOCATION -> {
                 // 自由drag进入了该view才会有position
-                logI(this::class.java.simpleName, msg = "view position: x->$px y->$py tag:${block.tag} " +
-                        "bTag:${blackOwn.tag}")
+                logI(
+                    this::class.java.simpleName, msg = "view position: x->$px y->$py tag:${block.tag} " +
+                            "bTag:${blackOwn.tag}"
+                )
                 when {
                     inTopRectF(px, py) -> {
                         // in the top
@@ -291,7 +313,9 @@ interface IBaseBlock : IRoleListener, View.OnTouchListener, View.OnLongClickList
     /**
      * copy a DragEvent to change x, y
      */
-    data class CustomDragEvent(val x: Float, val y: Float, val action: Int, val localState: Any? = null,
-                               val clipData: ClipData? = null, val clipDescription: ClipDescription? = null,
-                               val result: Boolean)
+    data class CustomDragEvent(
+        val x: Float, val y: Float, val action: Int, val localState: Any? = null,
+        val clipData: ClipData? = null, val clipDescription: ClipDescription? = null,
+        val result: Boolean
+    )
 }

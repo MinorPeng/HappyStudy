@@ -8,4 +8,6 @@ import com.hesheng1024.base.base.IBaseView
  * @date 2020/4/21 16:03
  */
 interface IStudyGuideView : IBaseView {
+
+    fun setAdapter(resIds: List<Int>)
 }
