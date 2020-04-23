@@ -24,7 +24,12 @@ class StudyGuideActivity : BaseActivity<StudyGuidePresenter>(), IStudyGuideView 
 
     companion object {
         fun startActivity(context: Context, flag: String) {
-            context.startActivity(Intent(context, StudyGuideActivity::class.java).putExtra("flag", flag))
+            when(flag) {
+                FLAG_PROGRAMME_MOTION, FLAG_PROGRAMME_APPEARANCE, FLAG_PROGRAMME_CONTROL -> {
+                    context.startActivity(Intent(context, StudyGuideActivity::class.java).putExtra("flag", flag))
+                }
+                else -> return
+            }
         }
     }
 
@@ -36,8 +41,8 @@ class StudyGuideActivity : BaseActivity<StudyGuidePresenter>(), IStudyGuideView 
 
     override fun initView() {
         val flag = intent.getStringExtra("flag")
-        if (flag != FLAG_PROGRAMME_MOTION && flag != FLAG_PROGRAMME_APPEARANCE && flag != FLAG_PROGRAMME_CONTROL) {
-            toastMsg("页面跳转失败!")
+        if (flag.isNullOrEmpty()) {
+            toastMsg("跳转页面失败!")
             finish()
             return
         }

@@ -46,5 +46,7 @@ interface IRoleView {
 
     fun playVoice()
 
+    fun playVoice(rawId: Int)
+
     fun stopVoice()
 }

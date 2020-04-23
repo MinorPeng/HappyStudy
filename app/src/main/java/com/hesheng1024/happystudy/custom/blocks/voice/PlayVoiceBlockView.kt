@@ -25,6 +25,8 @@ import com.hesheng1024.happystudy.custom.base.IRoleView
 @SuppressLint("ViewConstructor")
 class PlayVoiceBlockView : BaseBgBlockView {
 
+    private var mSelectPos = 0
+
     constructor(context: Context) : this(context, null)
 
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -57,14 +59,21 @@ class PlayVoiceBlockView : BaseBgBlockView {
                     view.setTextColor(whiteColor)
                     view.gravity = Gravity.CENTER
                 }
+                mSelectPos = position
             }
         }
-        spinner.adapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, listOf("song", "喵", "汪"))
+        spinner.adapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, listOf("声音1", "声音2", "声音3"))
         addView(spinner, lp)
     }
 
     override suspend fun onRun(role: IRoleView) {
-        role.playVoice()
+        val rawId = when(mSelectPos) {
+            0 -> R.raw.voice1
+            1 -> R.raw.voice2
+            2 -> R.raw.voice3
+            else -> R.raw.voice1
+        }
+        role.playVoice(rawId)
     }
 
     override fun clone(): IBaseBlock {

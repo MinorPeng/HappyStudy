@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.FrameLayout
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.base.utils.logD
 import com.hesheng1024.happystudy.R
@@ -28,9 +29,14 @@ class RoleViewGroup : FrameLayout, IRoleView {
 
     private val mIvRole: AppCompatImageView
     private val mTvSay: AppCompatTextView
-    private val mBgColorIds = ArrayList<Int>()
+
+    private val mBgColors = ArrayList<Int>()
     private val mCurPos = Point()
-    private var mCurBgId = 0
+
+    private var mRoleR = 0
+    private var mRoleT = 0
+
+    private var mCurColorIndex = 0
     private var mListener: IChangeListener? = null
 
     constructor(context: Context) : this(context, null)
@@ -68,18 +74,29 @@ class RoleViewGroup : FrameLayout, IRoleView {
     }
 
     private fun initData() {
-        mBgColorIds.add(R.color.colorRoleBg1)
-        mBgColorIds.add(R.color.colorRoleBg2)
-        mBgColorIds.add(R.color.colorRoleBg3)
-        mBgColorIds.add(R.color.colorRoleBg4)
+        mBgColors.add(ContextCompat.getColor(context, R.color.colorRoleBg1))
+        mBgColors.add(ContextCompat.getColor(context, R.color.colorRoleBg2))
+        mBgColors.add(ContextCompat.getColor(context, R.color.colorRoleBg3))
+        mBgColors.add(ContextCompat.getColor(context, R.color.colorRoleBg4))
     }
 
     fun setListener(listener: IChangeListener) {
         this.mListener = listener
     }
 
-    private var mRoleR = 0
-    private var mRoleT = 0
+    fun restore() {
+        setDirection(90f)
+        moveToXY(0f, 0f)
+        mCurColorIndex = 0
+        setBgColor()
+        hideSayLayout()
+    }
+
+    fun hideSayLayout() {
+        if (mTvSay.visibility == View.VISIBLE) {
+            mTvSay.visibility = View.INVISIBLE
+        }
+    }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         for (index in 0 until childCount) {
@@ -118,7 +135,12 @@ class RoleViewGroup : FrameLayout, IRoleView {
 
     override fun say(content: String) {
         GlobalScope.launch(Dispatchers.Main) {
-            showSayLayout(content)
+            if (mTvSay.text.toString() != content) {
+                mTvSay.text = content
+            }
+            if (mTvSay.visibility != View.VISIBLE) {
+                mTvSay.visibility = View.VISIBLE
+            }
         }
     }
 
@@ -136,11 +158,19 @@ class RoleViewGroup : FrameLayout, IRoleView {
 
     override fun nextBackground() {
         GlobalScope.launch(Dispatchers.Main) {
-            if (mCurBgId == mBgColorIds.size) {
-                mCurBgId = 0
+            mCurColorIndex++
+            if (mCurColorIndex == mBgColors.size) {
+                mCurColorIndex = 0
             }
-            setBackgroundColor(mBgColorIds[mCurBgId++])
+            setBgColor()
         }
+    }
+
+    private fun setBgColor() {
+        val bgColor = mBgColors[mCurColorIndex]
+        setBackgroundColor(bgColor)
+        mTvSay.setBackgroundColor(bgColor)
+        mIvRole.setBackgroundColor(bgColor)
     }
 
     override fun moveStep(step: Int) {
@@ -233,24 +263,15 @@ class RoleViewGroup : FrameLayout, IRoleView {
         }
     }
 
-    override fun stopVoice() {
+    override fun playVoice(rawId: Int) {
         GlobalScope.launch(Dispatchers.Main) {
-            MediaPlayerUtil.stop()
+            MediaPlayerUtil.play(rawId)
         }
     }
 
-    fun showSayLayout(content: String? = null) {
-        if (!content.isNullOrEmpty()) {
-            if (mTvSay.text.toString() != content) {
-                mTvSay.text = content
-            }
-            if (mTvSay.visibility != View.VISIBLE) {
-                mTvSay.visibility = View.VISIBLE
-            }
-        } else {
-            if (mTvSay.visibility == View.VISIBLE) {
-                mTvSay.visibility = View.INVISIBLE
-            }
+    override fun stopVoice() {
+        GlobalScope.launch(Dispatchers.Main) {
+            MediaPlayerUtil.stop()
         }
     }
 

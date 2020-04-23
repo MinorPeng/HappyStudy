@@ -56,7 +56,12 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
         private var mRoleView: IRoleView? = null
 
         fun startActivity(context: Context, flag: String) {
-            context.startActivity(Intent(context, ProgrammeActivity::class.java).putExtra("flag", flag))
+            when(flag) {
+                FLAG_PROGRAMME_MOTION, FLAG_PROGRAMME_APPEARANCE, FLAG_PROGRAMME_CONTROL, FLAG_PROGRAMME_NORMAL -> {
+                    context.startActivity(Intent(context, ProgrammeActivity::class.java).putExtra("flag", flag))
+                }
+                else -> return
+            }
         }
 
         fun getRoleView(): IRoleView? = mRoleView
@@ -69,7 +74,7 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
     override fun initView() {
         val flag = intent.getStringExtra("flag")
         if (flag.isNullOrEmpty()) {
-            logE(msg = "intent with no flag, finish")
+            toastMsg("跳转页面失败!")
             finish()
             return
         }
@@ -341,9 +346,7 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
             et_programme_direction.setText(R.string.ninety)
             et_programme_y.setText(R.string.zero)
             et_programme_x.setText(R.string.zero)
-            role_view_programme.setDirection(90f)
-            role_view_programme.moveToXY(0f, 0f)
-            role_view_programme.showSayLayout()
+            role_view_programme.restore()
         }
     }
 
