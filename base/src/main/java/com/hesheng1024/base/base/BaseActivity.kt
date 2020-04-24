@@ -1,6 +1,8 @@
 package com.hesheng1024.base.base
 
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.os.Build
@@ -26,7 +28,6 @@ abstract class BaseActivity<out P : BasePresenter<IBaseView, IBaseModel>> : AppC
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         if (isTranslucent()) {
             setTranslucent()
         }
@@ -42,6 +43,11 @@ abstract class BaseActivity<out P : BasePresenter<IBaseView, IBaseModel>> : AppC
 
     override fun finishActivity() {
         finish()
+    }
+
+    override fun startActivityForResult(intent: Intent?, requestCode: Int, options: Bundle?) {
+        super.startActivityForResult(intent, requestCode, options)
+        // 一般情况不需要重写startActivityFromChild
     }
 
     override fun noMore() {}

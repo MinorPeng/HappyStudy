@@ -1,6 +1,7 @@
 package com.hesheng1024.happystudy
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.DragEvent
@@ -23,12 +24,13 @@ class TestActivity : AppCompatActivity() {
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         setContentView(R.layout.activity_test)
         initView()
     }
 
     private fun initView() {
+        btn_test.setOnClickListener {
+        }
         // (tv_test.layoutParams as ViewGroup.MarginLayoutParams).leftMargin = 16
         // (tv_test.layoutParams as ViewGroup.MarginLayoutParams).topMargin = 16
         // MediaPlayerUtil.play()

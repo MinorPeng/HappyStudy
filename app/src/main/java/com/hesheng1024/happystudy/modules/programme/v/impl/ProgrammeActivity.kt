@@ -13,7 +13,6 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hesheng1024.base.base.BaseActivity
-import com.hesheng1024.base.base.adapter.IBaseIClickListener
 import com.hesheng1024.base.utils.ContextHolder
 import com.hesheng1024.base.utils.logD
 import com.hesheng1024.base.utils.logE

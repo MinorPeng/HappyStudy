@@ -18,18 +18,30 @@
             android:name="design_height_in_dp"
             android:value="823" />
 
-        <activity android:name=".modules.home.v.HomeActivity">
+        <activity
+            android:name=".modules.home.v.HomeActivity"
+            android:screenOrientation="sensorLandscape"
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".TestActivity" />
+        <activity
+            android:name=".TestActivity"
+            android:screenOrientation="sensorLandscape"
+            tools:ignore="LockedOrientationActivity" />
 
-        <activity android:name=".modules.programme.v.impl.ProgrammeActivity" />
+        <activity
+            android:name=".modules.programme.v.impl.ProgrammeActivity"
+            android:screenOrientation="sensorLandscape"
+            tools:ignore="LockedOrientationActivity" />
 
-        <activity android:name=".modules.study.v.impl.StudyGuideActivity" />
+        <activity
+            android:name=".modules.study.v.impl.StudyGuideActivity"
+            android:screenOrientation="sensorLandscape"
+            tools:ignore="LockedOrientationActivity" />
 
     </application>
 </manifest>
