@@ -3,6 +3,7 @@ package com.hesheng1024.happystudy.modules.programme.v.impl
 import android.content.Context
 import android.content.Intent
 import android.graphics.Point
+import android.os.Handler
 import android.view.DragEvent
 import android.view.View
 import android.view.ViewGroup
@@ -15,8 +16,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hesheng1024.base.base.BaseActivity
 import com.hesheng1024.base.utils.ContextHolder
 import com.hesheng1024.base.utils.logD
-import com.hesheng1024.base.utils.logE
 import com.hesheng1024.base.utils.logI
+import com.hesheng1024.base.utils.logW
 import com.hesheng1024.happystudy.*
 import com.hesheng1024.happystudy.custom.RoleViewGroup
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
@@ -46,6 +47,7 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
     private val mSelectedColor = ContextCompat.getColor(ContextHolder.getMainContext(), R.color.colorGrayBgSelectedE)
     private val mUnSelectedColor = ContextCompat.getColor(ContextHolder.getMainContext(), android.R.color.white)
     private var mLastSelectCategory = Block.Category.MOTION
+    private var mRunnableEtChanged: Runnable? = null
 
     /**
      * recycler 联动滚动标志量
@@ -212,8 +214,7 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                val firstItem = recyclerView.getChildLayoutPosition(recyclerView.getChildAt(0))
-                val category = mAdapter.getData(firstItem).category
+                val category = mAdapter.get(layoutManager.findFirstCompletelyVisibleItemPosition()).category
                 changeSelectedCategory(category)
             }
         })
@@ -256,7 +257,7 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
             // 当block不是IBaseBlock的实现不处理，block不是View不处理，
             // 当block是BaseCalculateBlockView或者BaseLogicBlockView则不处理（后两者是因为不应该在parent中添加，只应该在一些类型中的积木如控制类的积木中添加）
             if (block !is IBaseBlock || block !is View || block is BaseCalculateBlockView || block is BaseLogicBlockView) {
-                logE(msg = "block error return true: $block")
+                logW(msg = "block error return true: $block")
                 return@setOnDragListener true
             }
 
@@ -311,20 +312,60 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
         ibtn_programme_run.setOnClickListener {
             runProgramme()
         }
-        // TODO 监听软键盘收起的状态 或者失去焦点
+
+        // 此处监听EditText的完成状态通过延时来做动作
+        val mainHandler = Handler(mainLooper)
         et_programme_x.doAfterTextChanged {
-            role_view_programme.setPX(if (it.isNullOrEmpty()) 0f else it.toString().toFloat())
-        }
-        et_programme_y.doAfterTextChanged {
-            role_view_programme.setPY(if (it.isNullOrEmpty()) 0f else it.toString().toFloat())
-        }
-        et_programme_direction.doAfterTextChanged {
-            role_view_programme.setDirection(if (it.isNullOrEmpty()) 0f else it.toString().toFloat())
+            if (mRunnableEtChanged != null) {
+                mainHandler.removeCallbacks(mRunnableEtChanged!!)
+            }
+            mRunnableEtChanged = Runnable {
+                role_view_programme.setPX(if (it.isNullOrEmpty()) 0f else it.toString().toFloat())
+            }
+            mainHandler.postDelayed(mRunnableEtChanged!!, 500)
         }
         et_programme_x.setOnEditorActionListener { v, actionId, event ->
-            logD(msg = "action")
+            if (mRunnableEtChanged != null) {
+                mainHandler.removeCallbacks(mRunnableEtChanged!!)
+            }
+            role_view_programme.setPX(if (v.text.isNullOrEmpty()) 0f else v.text.toString().toFloat())
             return@setOnEditorActionListener false
         }
+
+        et_programme_y.doAfterTextChanged {
+            if (mRunnableEtChanged != null) {
+                mainHandler.removeCallbacks(mRunnableEtChanged!!)
+            }
+            mRunnableEtChanged = Runnable {
+                role_view_programme.setPY(if (it.isNullOrEmpty()) 0f else it.toString().toFloat())
+            }
+            mainHandler.postDelayed(mRunnableEtChanged!!, 500)
+        }
+        et_programme_y.setOnEditorActionListener { v, actionId, event ->
+            if (mRunnableEtChanged != null) {
+                mainHandler.removeCallbacks(mRunnableEtChanged!!)
+            }
+            role_view_programme.setPY(if (v.text.isNullOrEmpty()) 0f else v.text.toString().toFloat())
+            return@setOnEditorActionListener false
+        }
+
+        et_programme_direction.doAfterTextChanged {
+            if (mRunnableEtChanged != null) {
+                mainHandler.removeCallbacks(mRunnableEtChanged!!)
+            }
+            mRunnableEtChanged = Runnable {
+                role_view_programme.setDirection(if (it.isNullOrEmpty()) 0f else it.toString().toFloat())
+            }
+            mainHandler.postDelayed(mRunnableEtChanged!!, 500)
+        }
+        et_programme_direction.setOnEditorActionListener { v, actionId, event ->
+            if (mRunnableEtChanged != null) {
+                mainHandler.removeCallbacks(mRunnableEtChanged!!)
+            }
+            role_view_programme.setDirection(if (v.text.isNullOrEmpty()) 0f else v.text.toString().toFloat())
+            return@setOnEditorActionListener false
+        }
+
         role_view_programme.setListener(object : RoleViewGroup.IChangeListener {
             override fun directionChange(curDire: Float) {
                 if (et_programme_direction.text.isNullOrEmpty()
@@ -343,6 +384,7 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
                 }
             }
         })
+
         ibtn_programme_reset.setOnClickListener {
             et_programme_direction.setText(R.string.ninety)
             et_programme_y.setText(R.string.zero)
@@ -393,8 +435,7 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
     }
 
     override fun setBlocks(blocks: List<Block>) {
-        mAdapter.clear()
-        mAdapter.addDatas(blocks)
+        mAdapter.setList(blocks)
     }
 
     override fun onDestroy() {

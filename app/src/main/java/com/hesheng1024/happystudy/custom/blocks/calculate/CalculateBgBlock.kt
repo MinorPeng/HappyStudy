@@ -2,9 +2,14 @@ package com.hesheng1024.happystudy.custom.blocks.calculate
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.DragEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatEditText
+import com.hesheng1024.base.utils.logD
+import com.hesheng1024.base.utils.logI
+import com.hesheng1024.happystudy.R
+import com.hesheng1024.happystudy.custom.BlockEditText
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.base.IRoleView
 
@@ -13,7 +18,10 @@ import com.hesheng1024.happystudy.custom.base.IRoleView
  * @author hesheng1024
  * @date 2020/4/17 21:39
  */
-class CalculateBgBlock : BaseCalculateBlockView {
+class CalculateBgBlock : BaseCalculateBlockView, View.OnDragListener {
+
+    private val mEt: BlockEditText
+
     constructor(context: Context) : this(context, null)
 
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -25,6 +33,35 @@ class CalculateBgBlock : BaseCalculateBlockView {
         setBgColorId(android.R.color.white)
         setStatus(IBaseBlock.Status.STATUS_NONE)
         this.setPadding(0,0, 0, 0)
+        setOnDragListener(this)
+        mEt = BlockEditText(context)
+        mEt.setText(R.string.zero)
+    }
+
+    override fun onDrag(v: View?, event: DragEvent?): Boolean {
+        if (v == null || event == null) {
+            return false
+        }
+        logD(msg = "event:$event")
+        val calculateBlock = event.localState
+        when(event.action) {
+            DragEvent.ACTION_DRAG_EXITED -> {
+                if (calculateBlock == getChildAt(0)) {
+                    (mEt.parent as? ViewGroup)?.removeView(mEt)
+                    addView(mEt)
+                }
+            }
+            DragEvent.ACTION_DROP -> {
+                logI(msg = "logicBgView drop")
+                if (calculateBlock is BaseCalculateBlockView) {
+                    (calculateBlock.parent as? ViewGroup)?.removeView(calculateBlock)
+                    addView(calculateBlock)
+                } else {
+                    logI(msg = "can't add view:$calculateBlock")
+                }
+            }
+        }
+        return true
     }
 
     override suspend fun onRun(role: IRoleView) {

@@ -3,9 +3,11 @@ package com.hesheng1024.happystudy.custom.blocks.calculate
 import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
+import android.view.DragEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatEditText
+import com.hesheng1024.base.utils.logI
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.base.IRoleView
@@ -16,7 +18,7 @@ import com.hesheng1024.happystudy.custom.base.IRoleView
  * @date 2020/4/4 15:22
  */
 @SuppressLint("ViewConstructor")
-class LogicBgBlockView : BaseLogicBlockView {
+class LogicBgBlockView : BaseLogicBlockView, View.OnDragListener {
     constructor(context: Context) : this(context, null)
 
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -30,6 +32,26 @@ class LogicBgBlockView : BaseLogicBlockView {
         this.setPadding(0,0, 0, 0)
         minimumWidth = (sDisLeft * 3).toInt()
         minimumHeight = (sDisLeft * 2.3).toInt()
+        setOnDragListener(this)
+    }
+
+    override fun onDrag(v: View?, event: DragEvent?): Boolean {
+        if (v == null || event == null) {
+            return false
+        }
+        when(event.action) {
+            DragEvent.ACTION_DROP -> {
+                logI(msg = "logicBgView drop")
+                val logicBlock = event.localState
+                if (childCount == 0 && logicBlock is BaseLogicBlockView) {
+                    (logicBlock.parent as? ViewGroup)?.removeView(logicBlock)
+                    addView(logicBlock)
+                } else {
+                    logI(msg = "can't add view:$logicBlock")
+                }
+            }
+        }
+        return true
     }
 
     override suspend fun onRun(role: IRoleView) {

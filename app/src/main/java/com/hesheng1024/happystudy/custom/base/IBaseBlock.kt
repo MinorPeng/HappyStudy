@@ -10,8 +10,6 @@ import android.os.Build
 import android.view.*
 import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.*
-import com.hesheng1024.happystudy.custom.blocks.calculate.BaseCalculateBlockView
-import com.hesheng1024.happystudy.custom.blocks.calculate.BaseLogicBlockView
 import com.hesheng1024.happystudy.modules.programme.v.impl.ProgrammeActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -98,7 +96,6 @@ interface IBaseBlock : IRoleListener, View.OnTouchListener, View.OnLongClickList
         //             }
         //         }
         //         MotionEvent.ACTION_UP -> {
-        //             // TODO 点击积木的响应，暂时不处理
         //             true
         //         }
         //         else -> false
@@ -172,8 +169,6 @@ interface IBaseBlock : IRoleListener, View.OnTouchListener, View.OnLongClickList
         if (block !is IBaseBlock
             || block.getStatus() != Status.STATUS_DRAG
             || block !is View
-            || block is BaseCalculateBlockView
-            || block is BaseLogicBlockView
             || block.getBlackOwn() !is View
         ) {
             logE(this::class.java.simpleName, msg = "block error return false: $block")

@@ -4,8 +4,8 @@
     style="@style/CommonTextStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/dp8"
-    android:layout_marginBottom="@dimen/dp8"
+    android:paddingTop="@dimen/dp8"
+    android:paddingBottom="@dimen/dp8"
     android:gravity="start"
     tools:text="@string/motion">
 

@@ -17,7 +17,7 @@ class GuideAdapter : BaseRecyclerAdapter<Int>() {
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         holder.getView<AppCompatImageView>(R.id.iv_item_view_pager2_guide)?.let {
-            Glide.with(it.context).load(getData(position)).override(it.width, it.height).into(it)
+            Glide.with(it.context).load(get(position)).override(it.width, it.height).into(it)
         }
     }
 }

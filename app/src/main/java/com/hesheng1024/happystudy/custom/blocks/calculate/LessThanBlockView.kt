@@ -42,8 +42,8 @@ class LessThanBlockView : BaseLogicBlockView {
         addView(mLeftCalculateBg)
 
         val lpTvMoreThan = generateDefaultLayoutParams() as MarginLayoutParams
-        lpTvMoreThan.leftMargin = dp2px(context, 4f)
-        lpTvMoreThan.rightMargin = dp2px(context, 4f)
+        lpTvMoreThan.leftMargin = dp2px(context, 8f)
+        lpTvMoreThan.rightMargin = dp2px(context, 8f)
         val tvMoreThan = BlockTextView(context)
         tvMoreThan.text = "<"
         addView(tvMoreThan, lpTvMoreThan)

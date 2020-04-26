@@ -82,6 +82,6 @@ class StudyGuideActivity : BaseActivity<StudyGuidePresenter>(), IStudyGuideView 
 
     override fun setAdapter(resIds: List<Int>) {
         mAdapter.clear()
-        mAdapter.addDatas(resIds)
+        mAdapter.addList(resIds)
     }
 }

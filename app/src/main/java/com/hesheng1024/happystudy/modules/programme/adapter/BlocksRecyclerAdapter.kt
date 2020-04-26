@@ -22,7 +22,7 @@ class BlocksRecyclerAdapter : BaseRecyclerAdapter<Block>() {
         private const val BLOCK = 12
     }
 
-    override fun addDatas(datas: List<Block>) {
+    override fun addList(datas: List<Block>) {
         if (datas.isEmpty()) {
             return
         }
@@ -36,7 +36,7 @@ class BlocksRecyclerAdapter : BaseRecyclerAdapter<Block>() {
             }
             blocks.add(block)
         }
-        super.addDatas(blocks)
+        super.addList(blocks)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
@@ -52,7 +52,7 @@ class BlocksRecyclerAdapter : BaseRecyclerAdapter<Block>() {
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-        val block = getData(position)
+        val block = get(position)
         when (holder) {
             is BlockTitleViewHolder -> {
                 (holder.itemView as? AppCompatTextView)?.setText(block.category.resId)
@@ -71,8 +71,8 @@ class BlocksRecyclerAdapter : BaseRecyclerAdapter<Block>() {
         if (position == 0) {
             return TITLE
         }
-        if (position < getDatas().size && position >= 1
-            && getData(position).category != getData(position - 1).category
+        if (position < getList().size && position >= 1
+            && get(position).category != get(position - 1).category
         ) {
             return TITLE
         }
@@ -82,8 +82,8 @@ class BlocksRecyclerAdapter : BaseRecyclerAdapter<Block>() {
     override fun getItemLayoutId(): Int = -1
 
     fun getPosByCategory(category: Block.Category): Int {
-        for (index in getDatas().indices) {
-            if (category == getData(index).category) {
+        for (index in getList().indices) {
+            if (category == get(index).category) {
                 return index
             }
         }

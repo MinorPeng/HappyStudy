@@ -42,8 +42,8 @@ class MultiplyBlockView : BaseCalculateBlockView {
         addView(mLeftCalculateBg, 0)
 
         val lpTvMultiply = generateDefaultLayoutParams() as MarginLayoutParams
-        lpTvMultiply.leftMargin = dp2px(context, 4f)
-        lpTvMultiply.rightMargin = dp2px(context, 4f)
+        lpTvMultiply.leftMargin = dp2px(context, 8f)
+        lpTvMultiply.rightMargin = dp2px(context, 8f)
         val tvMultiply = BlockTextView(context)
         tvMultiply.setText(R.string.multiply)
         addView(tvMultiply, lpTvMultiply)

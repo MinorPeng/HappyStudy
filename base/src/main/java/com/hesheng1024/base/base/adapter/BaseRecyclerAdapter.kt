@@ -11,56 +11,56 @@ import androidx.recyclerview.widget.RecyclerView
  */
 abstract class BaseRecyclerAdapter<T>(datas: List<T>? = null) : RecyclerView.Adapter<BaseViewHolder>() {
 
-    private val mDatas: MutableList<T> = ArrayList()
+    private val mData: MutableList<T> = ArrayList()
     protected var mListener: IBaseIClickListener? = null
 
     init {
         if (!datas.isNullOrEmpty()) {
-            this.addDatas(datas)
+            this.addList(datas)
         }
     }
 
-    open fun setDatas(data: List<T>) {
-        mDatas.clear()
-        addDatas(data)
+    open fun setList(data: List<T>) {
+        mData.clear()
+        addList(data)
     }
 
     open fun add(data: T) {
-        mDatas.add(data)
+        mData.add(data)
         notifyDataSetChanged()
     }
 
     open fun add(position: Int, data: T) {
-        mDatas.add(position, data)
+        mData.add(position, data)
         notifyDataSetChanged()
     }
 
-    open fun addDatas(datas: List<T>) {
-        mDatas.addAll(datas)
+    open fun addList(data: List<T>) {
+        mData.addAll(data)
         notifyDataSetChanged()
     }
 
     open fun remove(position: Int) {
-        mDatas.removeAt(position)
+        mData.removeAt(position)
         notifyDataSetChanged()
     }
 
     open fun remove(data: T) {
-        mDatas.remove(data)
+        mData.remove(data)
         notifyDataSetChanged()
     }
 
     open fun clear() {
-        mDatas.clear()
+        mData.clear()
         notifyDataSetChanged()
     }
 
-    open fun getData(position: Int): T {
-        return mDatas[position]
+    open fun get(position: Int): T {
+        return mData[position]
     }
 
-    open fun getDatas(): List<T> {
-        return mDatas
+    open fun getList(): List<T> {
+        return mData
     }
 
     open fun setClickListener(listener: IBaseIClickListener) {
@@ -72,7 +72,7 @@ abstract class BaseRecyclerAdapter<T>(datas: List<T>? = null) : RecyclerView.Ada
     }
 
     override fun getItemCount(): Int {
-        return if (mDatas.isNullOrEmpty()) 0 else mDatas.size
+        return if (mData.isNullOrEmpty()) 0 else mData.size
     }
 
     /**

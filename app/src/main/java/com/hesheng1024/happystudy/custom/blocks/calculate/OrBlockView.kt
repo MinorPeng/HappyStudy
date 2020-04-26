@@ -43,30 +43,6 @@ class OrBlockView : BaseLogicBlockView {
     }
 
     private fun initView() {
-        var isIn = false
-        mLeftLogicBg.setOnDragListener { v, event ->
-            when(event.action) {
-                DragEvent.ACTION_DRAG_ENTERED -> {
-                    logI(msg = "logicBgView entered")
-                    isIn = true
-                }
-                DragEvent.ACTION_DRAG_EXITED -> {
-                    logI(msg = "logicBgView exited")
-                    isIn = false
-                }
-                DragEvent.ACTION_DROP -> {
-                    logI(msg = "logicBgView drop")
-                    val logicBlock = event.localState
-                    if (isIn && mLeftLogicBg.childCount == 0 && logicBlock is BaseLogicBlockView) {
-                        (logicBlock.parent as? ViewGroup)?.removeView(logicBlock)
-                        mLeftLogicBg.addView(logicBlock)
-                    } else {
-                        logI(msg = "can't add view: isIn->$isIn count:${mLeftLogicBg.childCount} logic:$logicBlock")
-                    }
-                }
-            }
-            return@setOnDragListener true
-        }
         addView(mLeftLogicBg)
 
         val lpTvMoreThan = generateDefaultLayoutParams() as MarginLayoutParams
@@ -76,29 +52,6 @@ class OrBlockView : BaseLogicBlockView {
         tvMoreThan.setText(R.string.or)
         addView(tvMoreThan, lpTvMoreThan)
 
-        mRightLogicBg.setOnDragListener { v, event ->
-            when(event.action) {
-                DragEvent.ACTION_DRAG_ENTERED -> {
-                    logI(msg = "logicBgView entered")
-                    isIn = true
-                }
-                DragEvent.ACTION_DRAG_EXITED -> {
-                    logI(msg = "logicBgView exited")
-                    isIn = false
-                }
-                DragEvent.ACTION_DROP -> {
-                    logI(msg = "logicBgView drop")
-                    val logicBlock = event.localState
-                    if (isIn && mRightLogicBg.childCount == 0 && logicBlock is BaseLogicBlockView) {
-                        (logicBlock.parent as? ViewGroup)?.removeView(logicBlock)
-                        mRightLogicBg.addView(logicBlock)
-                    } else {
-                        logI(msg = "can't add view: isIn->$isIn count:${mRightLogicBg.childCount} logic:$logicBlock")
-                    }
-                }
-            }
-            return@setOnDragListener true
-        }
         addView(mRightLogicBg)
     }
 

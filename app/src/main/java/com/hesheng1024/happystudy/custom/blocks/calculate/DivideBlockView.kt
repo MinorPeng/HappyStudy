@@ -42,8 +42,8 @@ class DivideBlockView : BaseCalculateBlockView {
         addView(mLeftCalculateBg, 0)
 
         val lpTvDivide = generateDefaultLayoutParams() as MarginLayoutParams
-        lpTvDivide.leftMargin = dp2px(context, 4f)
-        lpTvDivide.rightMargin = dp2px(context, 4f)
+        lpTvDivide.leftMargin = dp2px(context, 8f)
+        lpTvDivide.rightMargin = dp2px(context, 8f)
         val tvDivide = BlockTextView(context)
         tvDivide.setText(R.string.divide)
         addView(tvDivide, lpTvDivide)

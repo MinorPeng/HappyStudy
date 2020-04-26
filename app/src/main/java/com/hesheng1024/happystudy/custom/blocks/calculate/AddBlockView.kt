@@ -42,8 +42,8 @@ class AddBlockView: BaseCalculateBlockView {
         addView(mLeftCalculateBg, 0)
 
         val lpTvAdd = generateDefaultLayoutParams() as MarginLayoutParams
-        lpTvAdd.leftMargin = dp2px(context, 4f)
-        lpTvAdd.rightMargin = dp2px(context, 4f)
+        lpTvAdd.leftMargin = dp2px(context, 8f)
+        lpTvAdd.rightMargin = dp2px(context, 8f)
         val tvAdd = BlockTextView(context)
         tvAdd.setText(R.string.add)
         addView(tvAdd,1, lpTvAdd)
