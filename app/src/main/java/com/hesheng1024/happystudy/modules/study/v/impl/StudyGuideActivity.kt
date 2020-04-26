@@ -46,6 +46,8 @@ class StudyGuideActivity : BaseActivity<StudyGuidePresenter>(), IStudyGuideView 
             finish()
             return
         }
+        ibtn_study_guide_back.setOnClickListener { finish() }
+
         view_pager_study_guide.adapter = mAdapter
         view_pager_study_guide.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         view_pager_study_guide.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
