@@ -10,6 +10,9 @@ import com.hesheng1024.happystudy.custom.BlockTextView
 import com.hesheng1024.happystudy.custom.base.BaseBgBlockView
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.base.IRoleView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 /**
  *
@@ -50,7 +53,9 @@ class MoveBlockView : BaseBgBlockView {
     }
 
     override suspend fun onRun(role: IRoleView) {
-        role.moveStep(mEt.text.toString().toInt())
+        GlobalScope.launch(Dispatchers.Main) {
+            role.moveStep(mEt.text.toString().toInt())
+        }
     }
 
     override fun clone(): IBaseBlock {

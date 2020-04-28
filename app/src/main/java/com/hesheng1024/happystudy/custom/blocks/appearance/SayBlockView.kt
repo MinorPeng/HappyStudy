@@ -11,6 +11,9 @@ import com.hesheng1024.happystudy.custom.base.BaseBgBlockView
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.base.IRoleListener
 import com.hesheng1024.happystudy.custom.base.IRoleView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 /**
  *
@@ -44,7 +47,9 @@ class SayBlockView : BaseBgBlockView, IRoleListener {
     }
 
     override suspend fun onRun(role: IRoleView) {
-        role.say(mEtContent.text.toString())
+        GlobalScope.launch(Dispatchers.Main) {
+            role.say(mEtContent.text.toString())
+        }
     }
 
     override fun clone(): IBaseBlock {

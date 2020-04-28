@@ -10,9 +10,15 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
+import com.hesheng1024.base.utils.logD
 import com.hesheng1024.base.utils.logI
+import com.hesheng1024.base.utils.toastShow
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
 import kotlinx.android.synthetic.main.activity_test.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  *
@@ -29,6 +35,18 @@ class TestActivity : AppCompatActivity() {
     }
 
     private fun initView() {
+        GlobalScope.launch(Dispatchers.IO) {
+            logD(msg = "00000")
+            delay(1000L)
+            logD(msg = "11111")
+            GlobalScope.launch(Dispatchers.Main) {
+                logD(msg = "33333")
+                toastShow(this@TestActivity, "main")
+            }
+            logD(msg = "22222")
+            delay(1000L)
+            logD(msg = "22223")
+        }
         btn_test.setOnClickListener {
         }
         // (tv_test.layoutParams as ViewGroup.MarginLayoutParams).leftMargin = 16

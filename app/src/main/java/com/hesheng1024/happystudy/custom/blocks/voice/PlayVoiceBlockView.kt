@@ -16,6 +16,9 @@ import com.hesheng1024.happystudy.custom.BlockTextView
 import com.hesheng1024.happystudy.custom.base.BaseBgBlockView
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.base.IRoleView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 /**
  *
@@ -73,7 +76,9 @@ class PlayVoiceBlockView : BaseBgBlockView {
             2 -> R.raw.voice3
             else -> R.raw.voice1
         }
-        role.playVoice(rawId)
+        GlobalScope.launch(Dispatchers.Main) {
+            role.playVoice(rawId)
+        }
     }
 
     override fun clone(): IBaseBlock {

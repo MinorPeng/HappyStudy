@@ -7,6 +7,9 @@ import com.hesheng1024.happystudy.custom.base.BaseTextBlockView
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.base.IRoleListener
 import com.hesheng1024.happystudy.custom.base.IRoleView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 /**
  *
@@ -27,7 +30,9 @@ class HideBlockView : BaseTextBlockView, IRoleListener {
     }
 
     override suspend fun onRun(role: IRoleView) {
-        role.hide()
+        GlobalScope.launch(Dispatchers.Main) {
+            role.hide()
+        }
     }
 
     override fun clone(): IBaseBlock {

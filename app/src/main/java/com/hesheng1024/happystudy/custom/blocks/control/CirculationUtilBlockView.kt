@@ -48,31 +48,6 @@ class CirculationUtilBlockView : BaseControlBlockView {
         lp.leftMargin = dp2px(context, 4f)
         mLogicBg.setBgColorId(R.color.colorControlYellowDark)
         mLogicBg.tag = ChildTag.TAG_TOP
-        // 也可以直接在父类中统一监听，只是坐标计算相对复杂一点
-        var isIn = false
-        mLogicBg.setOnDragListener { v, event ->
-            when(event.action) {
-                DragEvent.ACTION_DRAG_ENTERED -> {
-                    logI(msg = "logicBgView entered")
-                    isIn = true
-                }
-                DragEvent.ACTION_DRAG_EXITED -> {
-                    logI(msg = "logicBgView exited")
-                    isIn = false
-                }
-                DragEvent.ACTION_DROP -> {
-                    logI(msg = "logicBgView drop")
-                    val logicBlock = event.localState
-                    if (isIn && mLogicBg.childCount == 0 && logicBlock is BaseLogicBlockView) {
-                        (logicBlock.parent as? ViewGroup)?.removeView(logicBlock)
-                        mLogicBg.addView(logicBlock)
-                    } else {
-                        logI(msg = "can't add view: isIn->$isIn count:${mLogicBg.childCount} logic:$logicBlock")
-                    }
-                }
-            }
-            return@setOnDragListener true
-        }
         addView(mLogicBg, 1, lp)
 
         val ivCirculation = ImageView(context)

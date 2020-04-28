@@ -4,6 +4,7 @@
     android:id="@+id/iv_item_view_pager2_guide"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:scaleType="fitXY"
     tools:src="@drawable/motion_step1">
 
 </androidx.appcompat.widget.AppCompatImageView>

@@ -6,6 +6,7 @@ import android.text.InputType
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatEditText
 import com.hesheng1024.base.utils.dp2px
+import com.hesheng1024.base.utils.logD
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.BlockEditText
 import com.hesheng1024.happystudy.custom.BlockTextView
@@ -59,7 +60,7 @@ class WaitBlockView : BaseBgBlockView {
     }
 
     override suspend fun onRun(role: IRoleView) {
-        delay(mCalculateBg.calculateResult().toLong() * 1000)
+        delay((mCalculateBg.calculateResult() * 1000).toLong())
     }
 
     override fun clone(): IBaseBlock {

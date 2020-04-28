@@ -11,6 +11,9 @@ import com.hesheng1024.happystudy.custom.BlockTextView
 import com.hesheng1024.happystudy.custom.base.BaseBgBlockView
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.base.IRoleView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 /**
  *
@@ -52,7 +55,9 @@ class LeftRotateBlockView : BaseBgBlockView {
     }
 
     override suspend fun onRun(role: IRoleView) {
-        role.leftRotate(mEt.text.toString().toFloat())
+        GlobalScope.launch(Dispatchers.Main) {
+            role.leftRotate(mEt.text.toString().toFloat())
+        }
     }
 
     override fun clone(): IBaseBlock {

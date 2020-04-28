@@ -492,6 +492,6 @@ class IfElseBlockView : BaseBlockViewGroup {
         TAG_CENTER("tag_center"),
         TAG_BOTTOM("tag_bottom"),
         TAG_CHILD_IF("tag_child_if"),
-        TAG_CHILD_ELSE("tag_child_if_else")
+        TAG_CHILD_ELSE("tag_child_else")
     }
 }

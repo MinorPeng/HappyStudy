@@ -134,36 +134,28 @@ class RoleViewGroup : FrameLayout, IRoleView {
 
 
     override fun say(content: String) {
-        GlobalScope.launch(Dispatchers.Main) {
-            if (mTvSay.text.toString() != content) {
-                mTvSay.text = content
-            }
-            if (mTvSay.visibility != View.VISIBLE) {
-                mTvSay.visibility = View.VISIBLE
-            }
+        if (mTvSay.text.toString() != content) {
+            mTvSay.text = content
+        }
+        if (mTvSay.visibility != View.VISIBLE) {
+            mTvSay.visibility = View.VISIBLE
         }
     }
 
     override fun hide() {
-        GlobalScope.launch(Dispatchers.Main) {
-            mIvRole.visibility = View.INVISIBLE
-        }
+        mIvRole.visibility = View.INVISIBLE
     }
 
     override fun show() {
-        GlobalScope.launch(Dispatchers.Main) {
-            mIvRole.visibility = View.VISIBLE
-        }
+        mIvRole.visibility = View.VISIBLE
     }
 
     override fun nextBackground() {
-        GlobalScope.launch(Dispatchers.Main) {
-            mCurColorIndex++
-            if (mCurColorIndex == mBgColors.size) {
-                mCurColorIndex = 0
-            }
-            setBgColor()
+        mCurColorIndex++
+        if (mCurColorIndex == mBgColors.size) {
+            mCurColorIndex = 0
         }
+        setBgColor()
     }
 
     private fun setBgColor() {
@@ -215,26 +207,22 @@ class RoleViewGroup : FrameLayout, IRoleView {
     }
 
     private fun setPosition() {
-        GlobalScope.launch(Dispatchers.Main) {
-            val lp = mIvRole.layoutParams as LayoutParams
-            lp.leftMargin = mCurPos.x
-            lp.topMargin = -mCurPos.y
-            requestLayout()
-            mListener?.positionChanged(mCurPos)
-        }
+        val lp = mIvRole.layoutParams as LayoutParams
+        lp.leftMargin = mCurPos.x
+        lp.topMargin = -mCurPos.y
+        requestLayout()
+        mListener?.positionChanged(mCurPos)
     }
 
     override fun setDirection(direction: Float) {
-        GlobalScope.launch(Dispatchers.Main) {
-            val d = when {
-                direction <= -180 -> 180 - direction
-                direction > 180 -> direction - 180
-                else -> direction
-            }
-            mIvRole.rotation = d - 90
-            logD(msg = "setDirection?? ${mIvRole.rotation} $direction")
-            mListener?.directionChange(d)
+        val d = when {
+            direction <= -180 -> 180 - direction
+            direction > 180 -> direction - 180
+            else -> direction
         }
+        mIvRole.rotation = d - 90
+        logD(msg = "setDirection?? ${mIvRole.rotation} $direction")
+        mListener?.directionChange(d)
     }
 
     override fun leftRotate(rotation: Float) {
@@ -246,33 +234,23 @@ class RoleViewGroup : FrameLayout, IRoleView {
     }
 
     override fun decreaseVolume(volume: Float) {
-        GlobalScope.launch(Dispatchers.Main) {
-            adjustVolume(-volume.toInt())
-        }
+        adjustVolume(-volume.toInt())
     }
 
     override fun increaseVolume(volume: Float) {
-        GlobalScope.launch(Dispatchers.Main) {
-            adjustVolume(volume.toInt())
-        }
+        adjustVolume(volume.toInt())
     }
 
     override fun playVoice() {
-        GlobalScope.launch(Dispatchers.Main) {
-            MediaPlayerUtil.play()
-        }
+        MediaPlayerUtil.play()
     }
 
     override fun playVoice(rawId: Int) {
-        GlobalScope.launch(Dispatchers.Main) {
-            MediaPlayerUtil.play(rawId)
-        }
+        MediaPlayerUtil.play(rawId)
     }
 
     override fun stopVoice() {
-        GlobalScope.launch(Dispatchers.Main) {
-            MediaPlayerUtil.stop()
-        }
+        MediaPlayerUtil.stop()
     }
 
     interface IChangeListener {

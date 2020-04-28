@@ -310,7 +310,9 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
             }
         }
         ibtn_programme_run.setOnClickListener {
-            runProgramme()
+            GlobalScope.launch(Dispatchers.IO) {
+                runProgramme()
+            }
         }
 
         // 此处监听EditText的完成状态通过延时来做动作
@@ -393,13 +395,11 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
         }
     }
 
-    private fun runProgramme() {
+    private suspend fun runProgramme() {
         for (index in 0 until linear_layout_programme.childCount) {
             val child = linear_layout_programme.getChildAt(index)
             if (child != null && child is IBaseBlock) {
-                GlobalScope.launch(Dispatchers.IO) {
-                    child.onRun(role_view_programme)
-                }
+                child.onRun(role_view_programme)
             }
         }
     }

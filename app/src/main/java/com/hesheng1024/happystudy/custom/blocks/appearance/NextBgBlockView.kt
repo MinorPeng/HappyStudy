@@ -8,6 +8,9 @@ import com.hesheng1024.happystudy.custom.base.BaseTextBlockView
 import com.hesheng1024.happystudy.custom.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.base.IRoleListener
 import com.hesheng1024.happystudy.custom.base.IRoleView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 /**
  *
@@ -29,7 +32,9 @@ class NextBgBlockView : BaseTextBlockView, IRoleListener {
     }
 
     override suspend fun onRun(role: IRoleView) {
-        role.nextBackground()
+        GlobalScope.launch(Dispatchers.Main) {
+            role.nextBackground()
+        }
     }
 
     override fun clone(): IBaseBlock {
