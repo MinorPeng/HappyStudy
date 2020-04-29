@@ -40,6 +40,7 @@ abstract class BaseLogicBlockView : BaseBgBlockView {
         path.lineTo(sDisLeft, measuredH)
         path.close()
 
+        canvas.clipPath(path)
         paint.style = Paint.Style.FILL
         paint.color = getBgColor()
         paint.pathEffect = CornerPathEffect(IBaseBlock.sRadius)

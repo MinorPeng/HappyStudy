@@ -27,9 +27,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_programme"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/dp160"
         android:layout_height="match_parent"
-        android:minWidth="@dimen/dp160"
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
         android:layout_toEndOf="@id/ibtn_programme_back"
@@ -88,7 +87,7 @@
     <include
         android:id="@+id/layout_programme_utils"
         layout="@layout/layout_programme_utils"
-        android:layout_width="@dimen/dp150"
+        android:layout_width="@dimen/dp180"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true" />

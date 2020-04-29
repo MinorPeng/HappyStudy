@@ -47,6 +47,8 @@ interface IBaseBlock : IRoleListener, View.OnTouchListener, View.OnLongClickList
         path.lineTo(DIS_TO_LEFT, measuredH - DIS_TO_TOP)
         path.lineTo(0f, measuredH - DIS_TO_TOP)
         path.lineTo(0f, 0f)
+        // 避免过度绘制?
+        canvas.clipPath(path)
         paint.style = Paint.Style.FILL
         paint.color = getBgColor()
         paint.pathEffect = CornerPathEffect(sRadius)

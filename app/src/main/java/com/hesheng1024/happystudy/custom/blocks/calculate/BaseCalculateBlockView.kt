@@ -40,6 +40,7 @@ abstract class BaseCalculateBlockView : BaseBgBlockView {
         path.arcTo(measuredW - measuredH, 0f, measuredW, measuredH, -90f, 180f, false)
         path.close()
 
+        canvas.clipPath(path)
         paint.style = Paint.Style.FILL
         paint.color = getBgColor()
         paint.pathEffect = CornerPathEffect(IBaseBlock.sRadius)

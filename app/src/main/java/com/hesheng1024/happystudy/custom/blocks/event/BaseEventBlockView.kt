@@ -47,6 +47,8 @@ abstract class BaseEventBlockView : BaseBgBlockView {
         path.lineTo(IBaseBlock.DIS_TO_LEFT, measuredH - IBaseBlock.DIS_TO_TOP)
         path.lineTo(0f, measuredH - IBaseBlock.DIS_TO_TOP)
         path.lineTo(0f, IBaseBlock.DIS_TO_TOP)
+
+        canvas.clipPath(path)
         paint.style = Paint.Style.FILL
         paint.color = getBgColor()
         paint.pathEffect = CornerPathEffect(IBaseBlock.sRadius)

@@ -2,6 +2,7 @@ package com.hesheng1024.happystudy.custom.blocks.appearance
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.text.InputType
 import android.util.AttributeSet
 import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.happystudy.R
@@ -43,6 +44,7 @@ class SayBlockView : BaseBgBlockView, IRoleListener {
         val lp = generateDefaultLayoutParams() as MarginLayoutParams
         lp.leftMargin = dp2px(context, 4f)
         mEtContent.setText(R.string.hello)
+        mEtContent.inputType = InputType.TYPE_CLASS_TEXT
         addView(mEtContent, 1, lp)
     }
 

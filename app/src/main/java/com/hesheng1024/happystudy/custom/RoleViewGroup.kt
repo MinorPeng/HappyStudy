@@ -5,6 +5,7 @@ import android.graphics.Point
 import android.text.method.ScrollingMovementMethod
 import android.util.AttributeSet
 import android.view.View
+import android.view.ViewStub
 import android.widget.FrameLayout
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
@@ -15,9 +16,6 @@ import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.base.IRoleView
 import com.hesheng1024.happystudy.utils.MediaPlayerUtil
 import com.hesheng1024.happystudy.utils.adjustVolume
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import java.util.*
 
 /**
@@ -28,7 +26,8 @@ import java.util.*
 class RoleViewGroup : FrameLayout, IRoleView {
 
     private val mIvRole: AppCompatImageView
-    private val mTvSay: AppCompatTextView
+    private var mTvSay: AppCompatTextView? = null
+    private val mViewStub: ViewStub
 
     private val mBgColors = ArrayList<Int>()
     private val mCurPos = Point()
@@ -48,7 +47,7 @@ class RoleViewGroup : FrameLayout, IRoleView {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
         mIvRole = AppCompatImageView(context)
-        mTvSay = AppCompatTextView(context)
+        mViewStub = ViewStub(context)
         initView()
         initData()
     }
@@ -61,16 +60,9 @@ class RoleViewGroup : FrameLayout, IRoleView {
         addView(mIvRole, lpRole)
 
         val lpSay = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
-        mTvSay.setBackgroundResource(R.drawable.bg_message)
-        mTvSay.visibility = View.INVISIBLE
-        mTvSay.maxEms = 6
-        mTvSay.maxLines = 4
-        mTvSay.isVerticalScrollBarEnabled = true
-        mTvSay.scrollBarSize = 1
-        mTvSay.textSize = 10f
-        mTvSay.tag = ChildTag.TAG_SAY
-        mTvSay.movementMethod = ScrollingMovementMethod.getInstance()
-        addView(mTvSay, lpSay)
+        mViewStub.layoutResource = R.layout.layout_programme_role_say
+        mViewStub.tag = ChildTag.TAG_SAY
+        addView(mViewStub, lpSay)
     }
 
     private fun initData() {
@@ -89,13 +81,7 @@ class RoleViewGroup : FrameLayout, IRoleView {
         moveToXY(0f, 0f)
         mCurColorIndex = 0
         setBgColor()
-        hideSayLayout()
-    }
-
-    fun hideSayLayout() {
-        if (mTvSay.visibility == View.VISIBLE) {
-            mTvSay.visibility = View.INVISIBLE
-        }
+        mViewStub.visibility = View.INVISIBLE
     }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
@@ -134,11 +120,15 @@ class RoleViewGroup : FrameLayout, IRoleView {
 
 
     override fun say(content: String) {
-        if (mTvSay.text.toString() != content) {
-            mTvSay.text = content
+        try {
+            mTvSay = mViewStub.inflate() as AppCompatTextView
+            mTvSay?.tag = ChildTag.TAG_SAY
+            mTvSay?.movementMethod = ScrollingMovementMethod.getInstance()
+        } catch (e: Exception) {
+            mViewStub.visibility = View.VISIBLE
         }
-        if (mTvSay.visibility != View.VISIBLE) {
-            mTvSay.visibility = View.VISIBLE
+        if (mTvSay?.text.toString() != content) {
+            mTvSay?.text = content
         }
     }
 
@@ -161,7 +151,6 @@ class RoleViewGroup : FrameLayout, IRoleView {
     private fun setBgColor() {
         val bgColor = mBgColors[mCurColorIndex]
         setBackgroundColor(bgColor)
-        mTvSay.setBackgroundColor(bgColor)
         mIvRole.setBackgroundColor(bgColor)
     }
 

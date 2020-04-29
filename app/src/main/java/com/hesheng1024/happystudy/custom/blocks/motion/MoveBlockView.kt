@@ -2,6 +2,7 @@ package com.hesheng1024.happystudy.custom.blocks.motion
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.text.InputType
 import android.util.AttributeSet
 import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.happystudy.R
@@ -45,6 +46,7 @@ class MoveBlockView : BaseBgBlockView {
         val lp = generateDefaultLayoutParams() as MarginLayoutParams
         lp.leftMargin = dp2px(context, 4f)
         lp.rightMargin = dp2px(context, 4f)
+        mEt.inputType = InputType.TYPE_CLASS_NUMBER
         addView(mEt, lp)
 
         val tvStep = BlockTextView(context)

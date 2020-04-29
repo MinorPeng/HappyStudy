@@ -25,7 +25,8 @@ class BlockEditText : AppCompatEditText, View.OnDragListener {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
         gravity = Gravity.CENTER
         textSize = TEXT_SIZE_BLOCK_14
-        inputType = InputType.TYPE_NUMBER_FLAG_DECIMAL
+        inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL or
+                InputType.TYPE_NUMBER_FLAG_SIGNED
         minEms = 2
         isCursorVisible = false
         imeOptions = EditorInfo.IME_ACTION_DONE
