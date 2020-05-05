@@ -11,10 +11,13 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
+import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import com.hesheng1024.base.R
 import com.hesheng1024.base.utils.logD
 import com.hesheng1024.base.utils.toastShow
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 /**
  *
@@ -56,6 +59,7 @@ abstract class BaseActivity<out P : BasePresenter<IBaseView, IBaseModel>> : AppC
      * 获取布局id
      * @return layout_block_edit_text id
      */
+    @LayoutRes
     protected abstract fun getLayoutId(): Int
 
     /**
