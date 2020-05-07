@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.text.InputType
 import android.util.AttributeSet
+import android.view.View
 import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.blocks.BlockEditText
@@ -34,24 +35,12 @@ class LeftRotateBlockView : BaseLinearBlockView {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
         setBgColorId(R.color.colorMotionBlue500)
-        mEt = BlockEditText(context)
+        View.inflate(context, R.layout.layout_left_rotate_block, this)
+        mEt = findViewById(R.id.et_left_rotate_block_degree)
         initView()
     }
 
     private fun initView() {
-        val tvLeftRotate = BlockTextView(context)
-        tvLeftRotate.setText(R.string.left_rotate)
-        addView(tvLeftRotate)
-
-        val lp = generateDefaultLayoutParams() as MarginLayoutParams
-        lp.leftMargin = dp2px(context, 4f)
-        lp.rightMargin = dp2px(context, 4f)
-        mEt.inputType = InputType.TYPE_CLASS_NUMBER
-        addView(mEt, lp)
-
-        val tvDegree = BlockTextView(context)
-        tvDegree.setText(R.string.degree)
-        addView(tvDegree)
     }
 
     override suspend fun onRun(role: IRoleView) {

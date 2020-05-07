@@ -93,4 +93,7 @@
     <string name="left_bottom">左下</string>
     <string name="border_length">边长</string>
     <string name="draw">绘制</string>
+    <string name="equal">=</string>
+    <string name="less_than"><![CDATA[<]]></string>
+    <string name="more_than"><![CDATA[>]]></string>
 </resources>

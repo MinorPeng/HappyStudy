@@ -7,6 +7,7 @@ import android.graphics.Path
 import android.util.AttributeSet
 import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.logD
+import com.hesheng1024.happystudy.TEXT_SIZE_BLOCK_14
 import com.hesheng1024.happystudy.custom.blocks.BlockTextView
 
 /**
@@ -40,6 +41,8 @@ abstract class BaseTextBlockView : BlockTextView, IBaseBlock {
             (IBaseBlock.DIS_TO_TOP * 2).toInt(),
             (IBaseBlock.DIS_TO_TOP * 2).toInt()
         )
+        textSize = TEXT_SIZE_BLOCK_14
+        this.setTextColor(ContextCompat.getColor(context, android.R.color.white))
         this.setOnTouchListener(this)
         this.setOnLongClickListener(this)
         this.setOnClickListener(this)

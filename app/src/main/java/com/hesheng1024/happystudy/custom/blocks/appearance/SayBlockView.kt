@@ -2,12 +2,10 @@ package com.hesheng1024.happystudy.custom.blocks.appearance
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.text.InputType
 import android.util.AttributeSet
-import com.hesheng1024.base.utils.dp2px
+import android.view.View
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.blocks.BlockEditText
-import com.hesheng1024.happystudy.custom.blocks.BlockTextView
 import com.hesheng1024.happystudy.custom.blocks.base.BaseLinearBlockView
 import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.blocks.base.IRoleListener
@@ -32,20 +30,13 @@ class SayBlockView : BaseLinearBlockView, IRoleListener {
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
         setBgColorId(R.color.colorAppearanceDeepPurple500)
-        mEtContent = BlockEditText(context)
+        View.inflate(context, R.layout.layout_say_block, this)
+        mEtContent = findViewById(R.id.et_say_block_content)
         initView()
     }
 
     private fun initView() {
-        val tv = BlockTextView(context)
-        tv.setText(R.string.say)
-        addView(tv, 0)
-
-        val lp = generateDefaultLayoutParams() as MarginLayoutParams
-        lp.leftMargin = dp2px(context, 4f)
-        mEtContent.setText(R.string.hello)
-        mEtContent.inputType = InputType.TYPE_CLASS_TEXT
-        addView(mEtContent, 1, lp)
+        // mEtContent.inputType = InputType.TYPE_CLASS_TEXT
     }
 
     override suspend fun onRun(role: IRoleView) {

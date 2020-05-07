@@ -2,18 +2,15 @@ package com.hesheng1024.happystudy.custom.blocks.control
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.text.InputType
 import android.util.AttributeSet
+import android.view.View
 import androidx.appcompat.widget.AppCompatEditText
-import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.happystudy.R
-import com.hesheng1024.happystudy.custom.blocks.BlockEditText
-import com.hesheng1024.happystudy.custom.blocks.BlockTextView
 import com.hesheng1024.happystudy.custom.blocks.base.BaseLinearBlockView
 import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
-import com.hesheng1024.happystudy.custom.role.IRoleView
 import com.hesheng1024.happystudy.custom.blocks.calculate.BaseCalculateBlockView
 import com.hesheng1024.happystudy.custom.blocks.calculate.CalculateBgBlock
+import com.hesheng1024.happystudy.custom.role.IRoleView
 import kotlinx.coroutines.delay
 
 /**
@@ -35,27 +32,12 @@ class WaitBlockView : BaseLinearBlockView {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
         setBgColorId(R.color.colorControlOrange500)
-        mCalculateBg = CalculateBgBlock(context)
+        View.inflate(context, R.layout.layout_wait_block, this)
+        mCalculateBg = findViewById(R.id.bg_wait_block_sec)
         initView()
     }
 
     private fun initView() {
-        val tvWait = BlockTextView(context)
-        tvWait.setText(R.string.wait)
-        addView(tvWait)
-
-        val lpEtSeconds = generateDefaultLayoutParams() as MarginLayoutParams
-        lpEtSeconds.leftMargin = dp2px(context, 4f)
-        lpEtSeconds.rightMargin = dp2px(context, 4f)
-        val etSeconds = BlockEditText(context)
-        etSeconds.inputType = InputType.TYPE_CLASS_NUMBER
-        mCalculateBg.addView(etSeconds)
-        addView(mCalculateBg, lpEtSeconds)
-
-
-        val tvSeconds = BlockTextView(context)
-        tvSeconds.setText(R.string.seconds)
-        addView(tvSeconds)
     }
 
     override suspend fun onRun(role: IRoleView) {

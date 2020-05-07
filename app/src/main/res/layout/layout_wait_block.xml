@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    tools:background="@color/colorControlOrange500"
+    tools:padding="@dimen/dp4"
+    tools:parentTag="android.widget.LinearLayout">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        style="@style/BlockTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/wait" />
+
+    <com.hesheng1024.happystudy.custom.blocks.calculate.CalculateBgBlock
+        android:id="@+id/bg_wait_block_sec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp4"
+        android:layout_marginEnd="@dimen/dp4">
+
+        <com.hesheng1024.happystudy.custom.blocks.BlockEditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:text="@string/one" />
+    </com.hesheng1024.happystudy.custom.blocks.calculate.CalculateBgBlock>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        style="@style/BlockTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/seconds" />
+
+</merge>

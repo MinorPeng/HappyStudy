@@ -3,22 +3,16 @@ package com.hesheng1024.happystudy.custom.blocks.voice
 import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
-import android.view.Gravity
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.TextView
 import androidx.core.content.ContextCompat
-import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.happystudy.R
-import com.hesheng1024.happystudy.custom.blocks.BlockTextView
 import com.hesheng1024.happystudy.custom.blocks.base.BaseLinearBlockView
 import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.role.IRoleView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import org.angmarch.views.NiceSpinner
 
 /**
  *
@@ -39,34 +33,21 @@ class PlayVoiceBlockView : BaseLinearBlockView {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
         setBgColorId(R.color.colorVoicePurple500)
+        View.inflate(context, R.layout.layout_play_voice_block, this)
         initView()
     }
 
     private fun initView() {
-        val whiteColor = ContextCompat.getColor(context, android.R.color.white)
-        val tv = BlockTextView(context)
-        tv.setText(R.string.when_str)
-        addView(tv)
+        val spinner = findViewById<NiceSpinner>(R.id.spinner_play_voice_block)
 
-        val lp = generateDefaultLayoutParams() as MarginLayoutParams
-        lp.leftMargin = dp2px(context, 4f)
-        val spinner = Spinner(context)
+        spinner.setLines(1)
+        spinner.setArrowDrawable(R.drawable.ic_spinner_white_16)
+        spinner.setTextColor(ContextCompat.getColor(context, android.R.color.white))
+        spinner.setArrowTintColor(ContextCompat.getColor(context, android.R.color.white))
         spinner.setBackgroundResource(R.drawable.bg_spinner_circle_purple)
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-
-            }
-
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                if (view is TextView) {
-                    view.setTextColor(whiteColor)
-                    view.gravity = Gravity.CENTER
-                }
-                mSelectPos = position
-            }
+        spinner.setOnSpinnerItemSelectedListener { parent, view, position, id ->
+            mSelectPos = position
         }
-        spinner.adapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, listOf("声音1", "声音2", "声音3"))
-        addView(spinner, lp)
     }
 
     override suspend fun onRun(role: IRoleView) {

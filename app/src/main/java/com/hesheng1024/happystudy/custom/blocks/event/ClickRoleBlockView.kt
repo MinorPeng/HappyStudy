@@ -3,6 +3,7 @@ package com.hesheng1024.happystudy.custom.blocks.event
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.blocks.base.BaseTextBlockView
@@ -30,6 +31,7 @@ class ClickRoleBlockView : BaseTextBlockView {
             (IBaseBlock.DIS_TO_TOP * 2).toInt(),
             (IBaseBlock.DIS_TO_TOP * 3).toInt()
         )
+        setTextColor(ContextCompat.getColor(context, android.R.color.black))
         setText(R.string.click_role)
     }
 

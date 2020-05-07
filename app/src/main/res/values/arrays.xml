@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="voices">
-        <item>song</item>
-        <item>喵</item>
+        <item>声音1</item>
+        <item>声音2</item>
+        <item>声音3</item>
     </string-array>
 </resources>

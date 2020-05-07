@@ -7,7 +7,8 @@
     tools:padding="@dimen/dp4"
     tools:parentTag="android.widget.RelativeLayout">
 
-    <com.hesheng1024.happystudy.custom.blocks.BlockTextView
+    <androidx.appcompat.widget.AppCompatTextView
+        style="@style/BlockTextStyle"
         android:id="@+id/tv_draw_ring_block_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -18,7 +19,8 @@
         android:text="@string/draw_ring"
         android:textStyle="bold" />
 
-    <com.hesheng1024.happystudy.custom.blocks.BlockTextView
+    <androidx.appcompat.widget.AppCompatTextView
+        style="@style/BlockTextStyle"
         android:id="@+id/tv_draw_ring_block_center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -54,7 +56,8 @@
         tools:background="@drawable/bg_et_circle_white"
         tools:gravity="center" />
 
-    <com.hesheng1024.happystudy.custom.blocks.BlockTextView
+    <androidx.appcompat.widget.AppCompatTextView
+        style="@style/BlockTextStyle"
         android:id="@+id/tv_draw_ring_block_r"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -78,7 +81,8 @@
         tools:background="@drawable/bg_et_circle_white"
         tools:gravity="center" />
 
-    <com.hesheng1024.happystudy.custom.blocks.BlockTextView
+    <androidx.appcompat.widget.AppCompatTextView
+        style="@style/BlockTextStyle"
         android:id="@+id/tv_draw_ring_block_w"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -101,7 +105,8 @@
         tools:background="@drawable/bg_et_circle_white"
         tools:gravity="center" />
 
-    <com.hesheng1024.happystudy.custom.blocks.BlockTextView
+    <androidx.appcompat.widget.AppCompatTextView
+        style="@style/BlockTextStyle"
         android:id="@+id/tv_draw_ring_block_color"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

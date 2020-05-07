@@ -2,12 +2,10 @@ package com.hesheng1024.happystudy.custom.blocks.voice
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.text.InputType
 import android.util.AttributeSet
-import com.hesheng1024.base.utils.dp2px
+import android.view.View
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.blocks.BlockEditText
-import com.hesheng1024.happystudy.custom.blocks.BlockTextView
 import com.hesheng1024.happystudy.custom.blocks.base.BaseLinearBlockView
 import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.role.IRoleView
@@ -34,19 +32,12 @@ class DecreaseVoiceBlockView : BaseLinearBlockView {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
         setBgColorId(R.color.colorVoicePurple500)
-        mEt = BlockEditText(context)
+        View.inflate(context, R.layout.layout_decrease_voice_block, this)
+        mEt = findViewById(R.id.et_decrease_voice_num)
         initView()
     }
 
     private fun initView() {
-        val tv = BlockTextView(context)
-        tv.setText(R.string.decrease_voice)
-        addView(tv)
-
-        val lp = generateDefaultLayoutParams() as MarginLayoutParams
-        lp.leftMargin = dp2px(context, 4f)
-        mEt.inputType = InputType.TYPE_CLASS_NUMBER
-        addView(mEt, lp)
     }
 
     override suspend fun onRun(role: IRoleView) {

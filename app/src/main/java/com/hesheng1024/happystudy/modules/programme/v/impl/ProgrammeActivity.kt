@@ -168,7 +168,7 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
             Block.Category.EVENT -> tv_programme_event.setBackgroundColor(mUnSelectedColor)
             Block.Category.CONTROL -> tv_programme_control.setBackgroundColor(mUnSelectedColor)
             Block.Category.CALCULATE -> tv_programme_calculate.setBackgroundColor(mUnSelectedColor)
-            Block.Category.DRAW -> tv_programme_calculate.setBackgroundColor(mUnSelectedColor)
+            Block.Category.DRAW -> tv_programme_draw.setBackgroundColor(mUnSelectedColor)
         }
         when (category) {
             Block.Category.MOTION -> tv_programme_motion.setBackgroundColor(mSelectedColor)
@@ -177,7 +177,7 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
             Block.Category.EVENT -> tv_programme_event.setBackgroundColor(mSelectedColor)
             Block.Category.CONTROL -> tv_programme_control.setBackgroundColor(mSelectedColor)
             Block.Category.CALCULATE -> tv_programme_calculate.setBackgroundColor(mSelectedColor)
-            Block.Category.DRAW -> tv_programme_calculate.setBackgroundColor(mSelectedColor)
+            Block.Category.DRAW -> tv_programme_draw.setBackgroundColor(mSelectedColor)
         }
         mLastSelectCategory = category
     }

@@ -12,4 +12,10 @@
         <item name="android:gravity">center</item>
     </style>
 
+    <style name="BlockTextStyle" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/sp14</item>
+        <item name="android:lines">1</item>
+    </style>
+
 </resources>

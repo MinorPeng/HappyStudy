@@ -3,10 +3,9 @@ package com.hesheng1024.happystudy.custom.blocks.motion
 import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
-import com.hesheng1024.base.utils.dp2px
+import android.view.View
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.blocks.BlockEditText
-import com.hesheng1024.happystudy.custom.blocks.BlockTextView
 import com.hesheng1024.happystudy.custom.blocks.base.BaseLinearBlockView
 import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.role.IRoleView
@@ -34,28 +33,13 @@ class MoveToXYBlockView : BaseLinearBlockView {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
         setBgColorId(R.color.colorMotionBlue500)
-        mEtX = BlockEditText(context)
-        mEtY = BlockEditText(context)
+        View.inflate(context, R.layout.layout_move_to_xy_block, this)
+        mEtX = findViewById(R.id.et_move_to_xy_block_x)
+        mEtY = findViewById(R.id.et_move_to_xy_block_y)
         initView()
     }
 
     private fun initView() {
-        val tvX = BlockTextView(context)
-        tvX.setText(R.string.move_x)
-        addView(tvX)
-
-        val lpX = generateDefaultLayoutParams() as MarginLayoutParams
-        lpX.leftMargin = dp2px(context, 4f)
-        lpX.rightMargin = dp2px(context, 4f)
-        addView(mEtX, lpX)
-
-        val tvY = BlockTextView(context)
-        tvY.setText(R.string.y)
-        addView(tvY)
-
-        val lpY = generateDefaultLayoutParams() as MarginLayoutParams
-        lpY.leftMargin = dp2px(context, 8f)
-        addView(mEtY, lpY)
     }
 
     override suspend fun onRun(role: IRoleView) {

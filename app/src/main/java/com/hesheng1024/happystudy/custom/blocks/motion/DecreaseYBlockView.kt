@@ -3,10 +3,9 @@ package com.hesheng1024.happystudy.custom.blocks.motion
 import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
-import com.hesheng1024.base.utils.dp2px
+import android.view.View
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.blocks.BlockEditText
-import com.hesheng1024.happystudy.custom.blocks.BlockTextView
 import com.hesheng1024.happystudy.custom.blocks.base.BaseLinearBlockView
 import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.role.IRoleView
@@ -33,18 +32,12 @@ class DecreaseYBlockView : BaseLinearBlockView {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
         setBgColorId(R.color.colorMotionBlue500)
-        mEt = BlockEditText(context)
+        View.inflate(context, R.layout.layout_decrease_y_block, this)
+        mEt = findViewById(R.id.et_decrease_y_block_y)
         initView()
     }
 
     private fun initView() {
-        val tvY = BlockTextView(context)
-        tvY.setText(R.string.decrease_y)
-        addView(tvY)
-
-        val lp = generateDefaultLayoutParams() as MarginLayoutParams
-        lp.leftMargin = dp2px(context, 8f)
-        addView(mEt, lp)
     }
 
     override suspend fun onRun(role: IRoleView) {

@@ -2,12 +2,10 @@ package com.hesheng1024.happystudy.custom.blocks.motion
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.text.InputType
 import android.util.AttributeSet
-import com.hesheng1024.base.utils.dp2px
+import android.view.View
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.blocks.BlockEditText
-import com.hesheng1024.happystudy.custom.blocks.BlockTextView
 import com.hesheng1024.happystudy.custom.blocks.base.BaseLinearBlockView
 import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.role.IRoleView
@@ -34,24 +32,12 @@ class MoveBlockView : BaseLinearBlockView {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
         setBgColorId(R.color.colorMotionBlue500)
-        mEt = BlockEditText(context)
+        View.inflate(context, R.layout.layout_move_block, this)
+        mEt = findViewById(R.id.et_move_block_step)
         initView()
     }
 
     private fun initView() {
-        val tv = BlockTextView(context)
-        tv.setText(R.string.move)
-        addView(tv)
-
-        val lp = generateDefaultLayoutParams() as MarginLayoutParams
-        lp.leftMargin = dp2px(context, 4f)
-        lp.rightMargin = dp2px(context, 4f)
-        mEt.inputType = InputType.TYPE_CLASS_NUMBER
-        addView(mEt, lp)
-
-        val tvStep = BlockTextView(context)
-        tvStep.setText(R.string.step)
-        addView(tvStep)
     }
 
     override suspend fun onRun(role: IRoleView) {

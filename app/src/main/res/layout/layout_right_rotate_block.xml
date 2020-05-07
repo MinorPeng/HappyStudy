@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    tools:background="@color/colorMotionBlue500"
+    tools:padding="@dimen/dp4"
+    tools:parentTag="android.widget.LinearLayout">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        style="@style/BlockTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/right_rotate" />
+
+    <com.hesheng1024.happystudy.custom.blocks.BlockEditText
+        android:id="@+id/et_right_rotate_block_degree"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp4"
+        android:layout_marginEnd="@dimen/dp4"
+        android:inputType="numberSigned"
+        android:text="@string/ten" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        style="@style/BlockTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/degree" />
+
+</merge>

@@ -3,11 +3,9 @@ package com.hesheng1024.happystudy.custom.blocks.calculate
 import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
+import android.view.View
 import androidx.appcompat.widget.AppCompatEditText
-import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.happystudy.R
-import com.hesheng1024.happystudy.custom.blocks.BlockEditText
-import com.hesheng1024.happystudy.custom.blocks.BlockTextView
 import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.role.IRoleView
 
@@ -30,28 +28,13 @@ class MinusBlockView : BaseCalculateBlockView {
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
-        mLeftCalculateBg = CalculateBgBlock(context)
-        mRightCalculateBg = CalculateBgBlock(context)
+        View.inflate(context, R.layout.layout_minus_block, this)
+        mLeftCalculateBg = findViewById(R.id.bg_minus_block_left)
+        mRightCalculateBg = findViewById(R.id.bg_minus_block_right)
         initView()
     }
 
     private fun initView() {
-        val etLeft = BlockEditText(context)
-        etLeft.setText(R.string.zero)
-        mLeftCalculateBg.addView(etLeft, 0)
-        addView(mLeftCalculateBg, 0)
-
-        val lpTvMinus = generateDefaultLayoutParams() as MarginLayoutParams
-        lpTvMinus.leftMargin = dp2px(context, 8f)
-        lpTvMinus.rightMargin = dp2px(context, 8f)
-        val tvMinus = BlockTextView(context)
-        tvMinus.setText(R.string.minus)
-        addView(tvMinus, lpTvMinus)
-
-        val etRight = BlockEditText(context)
-        etRight.setText(R.string.fifty)
-        mRightCalculateBg.addView(etRight, 0)
-        addView(mRightCalculateBg, 2)
     }
 
     override suspend fun onRun(role: IRoleView) {

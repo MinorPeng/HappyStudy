@@ -49,6 +49,7 @@ class CirculationNumBlockView : BaseControlBlockView {
         lpBgBlock.rightMargin =  dp2px(context, 4f)
         val etCount = BlockEditText(context)
         etCount.inputType = InputType.TYPE_CLASS_NUMBER
+        etCount.setText(R.string.ten)
         mCalculateBg.addView(etCount)
         mCalculateBg.tag = ChildTag.TAG_TOP
         addView(mCalculateBg, lpBgBlock)

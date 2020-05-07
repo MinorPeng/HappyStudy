@@ -18,7 +18,7 @@ open class BlockTextView : AppCompatTextView {
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, android.R.attr.textViewStyle)
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        this.setTextColor(ContextCompat.getColor(context, android.R.color.white))
+        setTextColor(ContextCompat.getColor(context, android.R.color.white))
         textSize = TEXT_SIZE_BLOCK_14
     }
 }

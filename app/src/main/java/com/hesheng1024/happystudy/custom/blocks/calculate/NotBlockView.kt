@@ -3,9 +3,8 @@ package com.hesheng1024.happystudy.custom.blocks.calculate
 import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
-import com.hesheng1024.base.utils.dp2px
+import android.view.View
 import com.hesheng1024.happystudy.R
-import com.hesheng1024.happystudy.custom.blocks.BlockTextView
 import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.role.IRoleView
 
@@ -33,19 +32,12 @@ class NotBlockView : BaseLogicBlockView {
             IBaseBlock.DIS_TO_TOP.toInt(),
             IBaseBlock.DIS_TO_TOP.toInt()
         )
-        mLogicBg = LogicBgBlockView(context)
+        View.inflate(context, R.layout.layout_not_block, this)
+        mLogicBg = findViewById(R.id.bg_not_block_left)
         initView()
     }
 
     private fun initView() {
-        addView(mLogicBg)
-
-        val lpTvMoreThan = generateDefaultLayoutParams() as MarginLayoutParams
-        lpTvMoreThan.leftMargin = dp2px(context, 4f)
-        lpTvMoreThan.rightMargin = sDisLeft.toInt()
-        val tvMoreThan = BlockTextView(context)
-        tvMoreThan.setText(R.string.not)
-        addView(tvMoreThan, lpTvMoreThan)
     }
 
     override suspend fun onRun(role: IRoleView) {

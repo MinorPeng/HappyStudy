@@ -36,13 +36,13 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:minWidth="@dimen/dp160">
+            android:layout_height="match_parent">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_programme"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:minWidth="@dimen/dp160"
                 android:paddingStart="@dimen/dp0"
                 android:paddingEnd="@dimen/dp4" />
         </LinearLayout>

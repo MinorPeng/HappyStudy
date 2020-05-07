@@ -7,7 +7,8 @@
     tools:padding="@dimen/dp4"
     tools:parentTag="android.widget.RelativeLayout">
 
-    <com.hesheng1024.happystudy.custom.blocks.BlockTextView
+    <androidx.appcompat.widget.AppCompatTextView
+        style="@style/BlockTextStyle"
         android:id="@+id/tv_draw_triangle_block_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -18,7 +19,8 @@
         android:text="@string/draw_triangle"
         android:textStyle="bold" />
 
-    <com.hesheng1024.happystudy.custom.blocks.BlockTextView
+    <androidx.appcompat.widget.AppCompatTextView
+        style="@style/BlockTextStyle"
         android:id="@+id/tv_draw_triangle_block_p1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -54,7 +56,8 @@
         tools:background="@drawable/bg_et_circle_white"
         tools:gravity="center" />
 
-    <com.hesheng1024.happystudy.custom.blocks.BlockTextView
+    <androidx.appcompat.widget.AppCompatTextView
+        style="@style/BlockTextStyle"
         android:id="@+id/tv_draw_triangle_block_p2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -90,7 +93,8 @@
         tools:background="@drawable/bg_et_circle_white"
         tools:gravity="center" />
 
-    <com.hesheng1024.happystudy.custom.blocks.BlockTextView
+    <androidx.appcompat.widget.AppCompatTextView
+        style="@style/BlockTextStyle"
         android:id="@+id/tv_draw_triangle_block_p3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -126,7 +130,8 @@
         tools:background="@drawable/bg_et_circle_white"
         tools:gravity="center" />
 
-    <com.hesheng1024.happystudy.custom.blocks.BlockTextView
+    <androidx.appcompat.widget.AppCompatTextView
+        style="@style/BlockTextStyle"
         android:id="@+id/tv_draw_triangle_block_w"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -150,7 +155,8 @@
         tools:background="@drawable/bg_et_circle_white"
         tools:gravity="center" />
 
-    <com.hesheng1024.happystudy.custom.blocks.BlockTextView
+    <androidx.appcompat.widget.AppCompatTextView
+        style="@style/BlockTextStyle"
         android:id="@+id/tv_draw_triangle_block_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -169,7 +175,8 @@
         android:layout_marginTop="@dimen/dp4"
         android:layout_toEndOf="@id/tv_draw_triangle_block_style" />
 
-    <com.hesheng1024.happystudy.custom.blocks.BlockTextView
+    <androidx.appcompat.widget.AppCompatTextView
+        style="@style/BlockTextStyle"
         android:id="@+id/tv_draw_triangle_block_color"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
