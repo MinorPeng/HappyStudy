@@ -6,13 +6,12 @@ import android.text.InputType
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatEditText
 import com.hesheng1024.base.utils.dp2px
-import com.hesheng1024.base.utils.logD
 import com.hesheng1024.happystudy.R
-import com.hesheng1024.happystudy.custom.BlockEditText
-import com.hesheng1024.happystudy.custom.BlockTextView
-import com.hesheng1024.happystudy.custom.base.BaseBgBlockView
-import com.hesheng1024.happystudy.custom.base.IBaseBlock
-import com.hesheng1024.happystudy.custom.base.IRoleView
+import com.hesheng1024.happystudy.custom.blocks.BlockEditText
+import com.hesheng1024.happystudy.custom.blocks.BlockTextView
+import com.hesheng1024.happystudy.custom.blocks.base.BaseLinearBlockView
+import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
+import com.hesheng1024.happystudy.custom.role.IRoleView
 import com.hesheng1024.happystudy.custom.blocks.calculate.BaseCalculateBlockView
 import com.hesheng1024.happystudy.custom.blocks.calculate.CalculateBgBlock
 import kotlinx.coroutines.delay
@@ -23,7 +22,7 @@ import kotlinx.coroutines.delay
  * @date 2020/4/1 20:28
  */
 @SuppressLint("ViewConstructor")
-class WaitBlockView : BaseBgBlockView {
+class WaitBlockView : BaseLinearBlockView {
 
     private val mCalculateBg: CalculateBgBlock
     
@@ -35,7 +34,7 @@ class WaitBlockView : BaseBgBlockView {
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
-        setBgColorId(R.color.colorControlYellow)
+        setBgColorId(R.color.colorControlOrange500)
         mCalculateBg = CalculateBgBlock(context)
         initView()
     }

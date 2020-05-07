@@ -1,4 +1,4 @@
-package com.hesheng1024.happystudy.custom
+package com.hesheng1024.happystudy.custom.blocks
 
 import android.content.Context
 import android.text.InputType
@@ -30,7 +30,7 @@ class BlockEditText : AppCompatEditText, View.OnDragListener {
         minEms = 2
         isCursorVisible = false
         imeOptions = EditorInfo.IME_ACTION_DONE
-        setBackgroundResource(R.drawable.bg_et_circle_whilte)
+        setBackgroundResource(R.drawable.bg_et_circle_white)
         setLines(1)
         setText(R.string.ten)
         setOnDragListener(this)

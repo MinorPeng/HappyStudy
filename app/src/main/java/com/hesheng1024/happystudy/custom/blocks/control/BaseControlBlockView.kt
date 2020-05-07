@@ -9,9 +9,9 @@ import android.view.ViewGroup
 import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.base.utils.logI
 import com.hesheng1024.happystudy.R
-import com.hesheng1024.happystudy.custom.base.BaseBlockViewGroup
-import com.hesheng1024.happystudy.custom.base.IBaseBlock
-import com.hesheng1024.happystudy.custom.base.IRoleView
+import com.hesheng1024.happystudy.custom.blocks.base.BaseBlockViewGroup
+import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
+import com.hesheng1024.happystudy.custom.role.IRoleView
 import com.hesheng1024.happystudy.custom.blocks.calculate.BaseCalculateBlockView
 import com.hesheng1024.happystudy.custom.blocks.calculate.BaseLogicBlockView
 import kotlin.math.max
@@ -38,7 +38,7 @@ abstract class BaseControlBlockView : BaseBlockViewGroup {
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
-        this.setBgColorId(R.color.colorControlYellow)
+        this.setBgColorId(R.color.colorControlOrange500)
         this.setWillNotDraw(false)
         this.setPadding(
             (IBaseBlock.DIS_TO_TOP * 2).toInt(),

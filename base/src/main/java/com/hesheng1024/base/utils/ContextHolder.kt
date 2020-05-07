@@ -2,6 +2,7 @@ package com.hesheng1024.base.utils
 
 import android.app.Application
 import android.content.Context
+import androidx.annotation.NonNull
 
 /**
  *
@@ -12,11 +13,11 @@ object ContextHolder {
     private lateinit var sContext: Context
     private lateinit var sApplication: Application
 
-    fun holdMainApplication(application: Application) {
+    fun holdMainApplication(@NonNull application: Application) {
         sApplication = application
     }
 
-    fun holdMainContext(context: Context) {
+    fun holdMainContext(@NonNull context: Context) {
         sContext = context
     }
 

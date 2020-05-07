@@ -3,14 +3,11 @@ package com.hesheng1024.happystudy.custom.blocks.calculate
 import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
-import android.view.DragEvent
-import android.view.ViewGroup
 import com.hesheng1024.base.utils.dp2px
-import com.hesheng1024.base.utils.logI
 import com.hesheng1024.happystudy.R
-import com.hesheng1024.happystudy.custom.BlockTextView
-import com.hesheng1024.happystudy.custom.base.IBaseBlock
-import com.hesheng1024.happystudy.custom.base.IRoleView
+import com.hesheng1024.happystudy.custom.blocks.BlockTextView
+import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
+import com.hesheng1024.happystudy.custom.role.IRoleView
 
 /**
  *

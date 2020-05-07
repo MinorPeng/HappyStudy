@@ -1,21 +1,11 @@
-package com.hesheng1024.happystudy.custom.base
+package com.hesheng1024.happystudy.custom.role
 
 /**
- * 角色操作接口
  *
  * @author hesheng1024
- * @date 2020/4/15 10:14
+ * @date 2020/5/7 8:46
  */
-interface IRoleView {
-
-    fun say(content: String)
-
-    fun hide()
-
-    fun show()
-
-    fun nextBackground()
-
+interface IRoleMotion {
 
     fun moveStep(step: Int)
 
@@ -38,15 +28,4 @@ interface IRoleView {
     fun leftRotate(rotation: Float)
 
     fun rightRotate(rotation: Float)
-
-
-    fun decreaseVolume(volume: Float)
-
-    fun increaseVolume(volume: Float)
-
-    fun playVoice()
-
-    fun playVoice(rawId: Int)
-
-    fun stopVoice()
 }

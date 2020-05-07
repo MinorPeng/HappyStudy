@@ -6,12 +6,12 @@ import android.text.InputType
 import android.util.AttributeSet
 import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.happystudy.R
-import com.hesheng1024.happystudy.custom.BlockEditText
-import com.hesheng1024.happystudy.custom.BlockTextView
-import com.hesheng1024.happystudy.custom.base.BaseBgBlockView
-import com.hesheng1024.happystudy.custom.base.IBaseBlock
-import com.hesheng1024.happystudy.custom.base.IRoleListener
-import com.hesheng1024.happystudy.custom.base.IRoleView
+import com.hesheng1024.happystudy.custom.blocks.BlockEditText
+import com.hesheng1024.happystudy.custom.blocks.BlockTextView
+import com.hesheng1024.happystudy.custom.blocks.base.BaseLinearBlockView
+import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
+import com.hesheng1024.happystudy.custom.blocks.base.IRoleListener
+import com.hesheng1024.happystudy.custom.role.IRoleView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
  * @date 2020/3/29 19:34
  */
 @SuppressLint("ViewConstructor")
-class SayBlockView : BaseBgBlockView, IRoleListener {
+class SayBlockView : BaseLinearBlockView, IRoleListener {
 
     private val mEtContent: BlockEditText
 
@@ -31,7 +31,7 @@ class SayBlockView : BaseBgBlockView, IRoleListener {
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        setBgColorId(R.color.colorAppearancePurple)
+        setBgColorId(R.color.colorAppearanceDeepPurple500)
         mEtContent = BlockEditText(context)
         initView()
     }

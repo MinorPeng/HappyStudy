@@ -7,15 +7,15 @@ import android.graphics.Paint
 import android.graphics.Path
 import android.util.AttributeSet
 import com.hesheng1024.happystudy.R
-import com.hesheng1024.happystudy.custom.base.BaseBgBlockView
-import com.hesheng1024.happystudy.custom.base.IBaseBlock
+import com.hesheng1024.happystudy.custom.blocks.base.BaseLinearBlockView
+import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
 
 /**
  *
  * @author hesheng1024
  * @date 2020/4/3 15:43
  */
-abstract class BaseLogicBlockView : BaseBgBlockView {
+abstract class BaseLogicBlockView : BaseLinearBlockView {
     protected val sDisLeft = IBaseBlock.DIS_TO_LEFT + IBaseBlock.DIS_TO_TOP
 
     constructor(context: Context) : this(context, null)
@@ -26,7 +26,7 @@ abstract class BaseLogicBlockView : BaseBgBlockView {
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
-        this.setBgColorId(R.color.colorCalculateGreen)
+        this.setBgColorId(R.color.colorCalculate500)
         this.setPadding(sDisLeft.toInt(), IBaseBlock.DIS_TO_TOP.toInt(), sDisLeft.toInt(), IBaseBlock.DIS_TO_TOP.toInt())
     }
 

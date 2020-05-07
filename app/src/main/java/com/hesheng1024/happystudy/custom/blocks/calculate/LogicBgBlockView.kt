@@ -6,11 +6,10 @@ import android.util.AttributeSet
 import android.view.DragEvent
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.AppCompatEditText
 import com.hesheng1024.base.utils.logI
 import com.hesheng1024.happystudy.R
-import com.hesheng1024.happystudy.custom.base.IBaseBlock
-import com.hesheng1024.happystudy.custom.base.IRoleView
+import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
+import com.hesheng1024.happystudy.custom.role.IRoleView
 
 /**
  *
@@ -27,7 +26,7 @@ class LogicBgBlockView : BaseLogicBlockView, View.OnDragListener {
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
-        setBgColorId(R.color.colorCalculateGreenDark)
+        setBgColorId(R.color.colorCalculateGreen700)
         setStatus(IBaseBlock.Status.STATUS_NONE)
         this.setPadding(0,0, 0, 0)
         minimumWidth = (sDisLeft * 3).toInt()

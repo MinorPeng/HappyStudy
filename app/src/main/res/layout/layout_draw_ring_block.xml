@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:background="@color/colorDrawRed500"
+    tools:padding="@dimen/dp4"
+    tools:parentTag="android.widget.RelativeLayout">
+
+    <com.hesheng1024.happystudy.custom.blocks.BlockTextView
+        android:id="@+id/tv_draw_ring_block_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/et_draw_ring_block_cx"
+        android:layout_alignBottom="@+id/et_draw_ring_block_cx"
+        android:layout_alignParentStart="true"
+        android:gravity="center_vertical"
+        android:text="@string/draw_ring"
+        android:textStyle="bold" />
+
+    <com.hesheng1024.happystudy.custom.blocks.BlockTextView
+        android:id="@+id/tv_draw_ring_block_center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/et_draw_ring_block_cx"
+        android:layout_alignBottom="@id/et_draw_ring_block_cx"
+        android:layout_marginStart="@dimen/dp8"
+        android:layout_toEndOf="@id/tv_draw_ring_block_title"
+        android:gravity="center_vertical"
+        android:text="@string/center" />
+
+    <com.hesheng1024.happystudy.custom.blocks.BlockEditText
+        android:id="@+id/et_draw_ring_block_cx"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="@dimen/dp4"
+        android:layout_toEndOf="@id/tv_draw_ring_block_center"
+        android:hint="@string/cx"
+        android:text="@string/zero"
+        tools:background="@drawable/bg_et_circle_white"
+        tools:gravity="center" />
+
+    <com.hesheng1024.happystudy.custom.blocks.BlockEditText
+        android:id="@+id/et_draw_ring_block_cy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/et_draw_ring_block_cx"
+        android:layout_alignBottom="@id/et_draw_ring_block_cx"
+        android:layout_marginStart="@dimen/dp4"
+        android:layout_toEndOf="@id/et_draw_ring_block_cx"
+        android:hint="@string/cy"
+        android:text="@string/zero"
+        tools:background="@drawable/bg_et_circle_white"
+        tools:gravity="center" />
+
+    <com.hesheng1024.happystudy.custom.blocks.BlockTextView
+        android:id="@+id/tv_draw_ring_block_r"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/et_draw_ring_block_r"
+        android:layout_alignBottom="@id/et_draw_ring_block_r"
+        android:layout_marginStart="@dimen/dp8"
+        android:layout_toEndOf="@id/et_draw_ring_block_cy"
+        android:gravity="center_vertical"
+        android:text="@string/radius" />
+
+    <com.hesheng1024.happystudy.custom.blocks.BlockEditText
+        android:id="@+id/et_draw_ring_block_r"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/et_draw_ring_block_cx"
+        android:layout_alignBottom="@id/et_draw_ring_block_cx"
+        android:layout_marginStart="@dimen/dp4"
+        android:layout_toEndOf="@id/tv_draw_ring_block_r"
+        android:hint="@string/radius"
+        android:text="@string/five"
+        tools:background="@drawable/bg_et_circle_white"
+        tools:gravity="center" />
+
+    <com.hesheng1024.happystudy.custom.blocks.BlockTextView
+        android:id="@+id/tv_draw_ring_block_w"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/tv_draw_ring_block_center"
+        android:layout_alignTop="@id/et_draw_ring_block_w"
+        android:layout_alignBottom="@id/et_draw_ring_block_w"
+        android:gravity="center_vertical"
+        android:text="@string/line_w" />
+
+    <com.hesheng1024.happystudy.custom.blocks.BlockEditText
+        android:id="@+id/et_draw_ring_block_w"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_draw_ring_block_cx"
+        android:layout_marginStart="@dimen/dp4"
+        android:layout_marginTop="@dimen/dp4"
+        android:layout_toEndOf="@id/tv_draw_ring_block_w"
+        android:hint="@string/line_w"
+        android:text="@string/one"
+        tools:background="@drawable/bg_et_circle_white"
+        tools:gravity="center" />
+
+    <com.hesheng1024.happystudy.custom.blocks.BlockTextView
+        android:id="@+id/tv_draw_ring_block_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/spinner_draw_ring_block_color"
+        android:layout_alignBottom="@id/spinner_draw_ring_block_color"
+        android:layout_marginStart="@dimen/dp8"
+        android:layout_toEndOf="@+id/et_draw_ring_block_w"
+        android:gravity="center_vertical"
+        android:text="@string/color" />
+
+    <com.hesheng1024.happystudy.custom.blocks.draw.DrawColorSpinner
+        android:id="@+id/spinner_draw_ring_block_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/et_draw_ring_block_w"
+        android:layout_alignBottom="@id/et_draw_ring_block_w"
+        android:layout_marginStart="@dimen/dp4"
+        android:layout_toEndOf="@id/tv_draw_ring_block_color" />
+</merge>

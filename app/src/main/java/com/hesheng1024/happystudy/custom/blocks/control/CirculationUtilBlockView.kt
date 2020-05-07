@@ -3,15 +3,12 @@ package com.hesheng1024.happystudy.custom.blocks.control
 import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
-import android.view.DragEvent
-import android.view.ViewGroup
 import android.widget.ImageView
 import com.hesheng1024.base.utils.dp2px
-import com.hesheng1024.base.utils.logI
 import com.hesheng1024.happystudy.R
-import com.hesheng1024.happystudy.custom.BlockTextView
-import com.hesheng1024.happystudy.custom.base.IBaseBlock
-import com.hesheng1024.happystudy.custom.base.IRoleView
+import com.hesheng1024.happystudy.custom.blocks.BlockTextView
+import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
+import com.hesheng1024.happystudy.custom.role.IRoleView
 import com.hesheng1024.happystudy.custom.blocks.calculate.BaseLogicBlockView
 import com.hesheng1024.happystudy.custom.blocks.calculate.LogicBgBlockView
 
@@ -46,7 +43,7 @@ class CirculationUtilBlockView : BaseControlBlockView {
 
         val lp = generateDefaultLayoutParams() as MarginLayoutParams
         lp.leftMargin = dp2px(context, 4f)
-        mLogicBg.setBgColorId(R.color.colorControlYellowDark)
+        mLogicBg.setBgColorId(R.color.colorControlOrange700)
         mLogicBg.tag = ChildTag.TAG_TOP
         addView(mLogicBg, 1, lp)
 

@@ -19,11 +19,11 @@ import com.hesheng1024.base.utils.logD
 import com.hesheng1024.base.utils.logI
 import com.hesheng1024.base.utils.logW
 import com.hesheng1024.happystudy.*
-import com.hesheng1024.happystudy.custom.RoleViewGroup
-import com.hesheng1024.happystudy.custom.base.IBaseBlock
-import com.hesheng1024.happystudy.custom.base.IRoleView
+import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.blocks.calculate.BaseCalculateBlockView
 import com.hesheng1024.happystudy.custom.blocks.calculate.BaseLogicBlockView
+import com.hesheng1024.happystudy.custom.role.IRoleView
+import com.hesheng1024.happystudy.custom.role.RoleViewGroup
 import com.hesheng1024.happystudy.modules.Block
 import com.hesheng1024.happystudy.modules.programme.adapter.BlocksRecyclerAdapter
 import com.hesheng1024.happystudy.modules.programme.p.ProgrammePresenter
@@ -147,6 +147,13 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
                 smoothScrollToPosition(pos)
             }
         }
+        tv_programme_draw.setOnClickListener {
+            val pos = mAdapter.getPosByCategory(Block.Category.DRAW)
+            if (pos != -1) {
+                changeSelectedCategory(Block.Category.DRAW)
+                smoothScrollToPosition(pos)
+            }
+        }
     }
 
     private fun changeSelectedCategory(category: Block.Category) {
@@ -161,6 +168,7 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
             Block.Category.EVENT -> tv_programme_event.setBackgroundColor(mUnSelectedColor)
             Block.Category.CONTROL -> tv_programme_control.setBackgroundColor(mUnSelectedColor)
             Block.Category.CALCULATE -> tv_programme_calculate.setBackgroundColor(mUnSelectedColor)
+            Block.Category.DRAW -> tv_programme_calculate.setBackgroundColor(mUnSelectedColor)
         }
         when (category) {
             Block.Category.MOTION -> tv_programme_motion.setBackgroundColor(mSelectedColor)
@@ -169,6 +177,7 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
             Block.Category.EVENT -> tv_programme_event.setBackgroundColor(mSelectedColor)
             Block.Category.CONTROL -> tv_programme_control.setBackgroundColor(mSelectedColor)
             Block.Category.CALCULATE -> tv_programme_calculate.setBackgroundColor(mSelectedColor)
+            Block.Category.DRAW -> tv_programme_calculate.setBackgroundColor(mSelectedColor)
         }
         mLastSelectCategory = category
     }

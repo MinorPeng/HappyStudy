@@ -4,10 +4,10 @@ import android.content.Context
 import android.util.AttributeSet
 import com.hesheng1024.base.utils.logD
 import com.hesheng1024.happystudy.R
-import com.hesheng1024.happystudy.custom.base.BaseTextBlockView
-import com.hesheng1024.happystudy.custom.base.IBaseBlock
-import com.hesheng1024.happystudy.custom.base.IRoleListener
-import com.hesheng1024.happystudy.custom.base.IRoleView
+import com.hesheng1024.happystudy.custom.blocks.base.BaseTextBlockView
+import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
+import com.hesheng1024.happystudy.custom.blocks.base.IRoleListener
+import com.hesheng1024.happystudy.custom.role.IRoleView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -27,7 +27,7 @@ class NextBgBlockView : BaseTextBlockView, IRoleListener {
             : super(context, attrs, defStyleAttr)
 
     init {
-        setBgColorId(R.color.colorAppearancePurple)
+        setBgColorId(R.color.colorAppearanceDeepPurple500)
         setText(R.string.next_bg)
     }
 

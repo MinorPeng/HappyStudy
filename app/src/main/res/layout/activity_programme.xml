@@ -25,16 +25,28 @@
         android:layout_alignEnd="@id/ibtn_programme_back"
         android:layout_alignParentBottom="true" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_programme"
+    <HorizontalScrollView
+        android:id="@+id/recycler_h_scroll"
         android:layout_width="@dimen/dp160"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@id/ibtn_programme_back"
         android:background="@android:color/white"
-        android:paddingStart="@dimen/dp0"
-        android:paddingEnd="@dimen/dp4" />
+        android:layout_toEndOf="@id/ibtn_programme_back">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:minWidth="@dimen/dp160">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_programme"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="@dimen/dp0"
+                android:paddingEnd="@dimen/dp4" />
+        </LinearLayout>
+    </HorizontalScrollView>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_programme_programme"
@@ -45,7 +57,7 @@
         android:layout_marginStart="@dimen/dp8"
         android:layout_marginEnd="@dimen/dp8"
         android:layout_toStartOf="@id/layout_programme_utils"
-        android:layout_toEndOf="@id/recycler_view_programme"
+        android:layout_toEndOf="@id/recycler_h_scroll"
         android:background="@android:color/white"
         android:gravity="center"
         android:paddingTop="@dimen/dp16"
@@ -60,7 +72,7 @@
         android:layout_marginStart="@dimen/dp8"
         android:layout_marginEnd="@dimen/dp8"
         android:layout_toStartOf="@id/layout_programme_utils"
-        android:layout_toEndOf="@id/recycler_view_programme"
+        android:layout_toEndOf="@id/recycler_h_scroll"
         android:background="@android:color/white"
         android:scrollbarSize="@dimen/dp1">
 
@@ -92,7 +104,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true" />
 
-    <com.hesheng1024.happystudy.custom.RoleViewGroup
+    <com.hesheng1024.happystudy.custom.role.RoleViewGroup
         android:id="@+id/role_view_programme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -105,5 +117,5 @@
         android:background="@android:color/white"
         tools:layout_editor_absoluteY="145dp">
 
-    </com.hesheng1024.happystudy.custom.RoleViewGroup>
+    </com.hesheng1024.happystudy.custom.role.RoleViewGroup>
 </RelativeLayout>

@@ -1,20 +1,19 @@
-package com.hesheng1024.happystudy.custom.base
+package com.hesheng1024.happystudy.custom.blocks.base
 
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Path
 import android.util.AttributeSet
-import android.view.Gravity
-import android.widget.LinearLayout
+import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 
 /**
  *
  * @author hesheng1024
- * @date 2020/3/29 17:39
+ * @date 2020/3/24 18:08
  */
-abstract class BaseBgBlockView : LinearLayout, IBaseBlock {
+abstract class BaseBlockViewGroup : ViewGroup, IBaseBlock {
 
     private val mPaint = Paint()
     private val mPath = Path()
@@ -31,19 +30,10 @@ abstract class BaseBgBlockView : LinearLayout, IBaseBlock {
 
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context, attrs, defStyleAttr, 0) {
-    }
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context, attrs, defStyleAttr, 0)
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
-        this.setWillNotDraw(false)
-        this.setPadding(
-            (IBaseBlock.DIS_TO_TOP * 2).toInt(),
-            IBaseBlock.DIS_TO_TOP.toInt(),
-            (IBaseBlock.DIS_TO_TOP * 2).toInt(),
-            (IBaseBlock.DIS_TO_TOP * 2).toInt()
-        )
-        gravity = Gravity.CENTER
         this.setOnTouchListener(this)
         this.setOnLongClickListener(this)
         this.setOnClickListener(this)
@@ -54,6 +44,14 @@ abstract class BaseBgBlockView : LinearLayout, IBaseBlock {
         canvas?.let {
             drawBackground(canvas, mPaint, mPath, measuredWidth.toFloat(), measuredHeight.toFloat())
         }
+    }
+
+    override fun generateLayoutParams(attrs: AttributeSet?): LayoutParams {
+        return MarginLayoutParams(context, attrs)
+    }
+
+    override fun generateDefaultLayoutParams(): LayoutParams {
+        return MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
     }
 
     /**
@@ -86,8 +84,8 @@ abstract class BaseBgBlockView : LinearLayout, IBaseBlock {
     override fun getBlackOwn(): IBaseBlock {
         if (mBlackOwn == null) {
             mBlackOwn = clone()
-            if (mBlackOwn is BaseBgBlockView) {
-                val own = mBlackOwn as BaseBgBlockView
+            if (mBlackOwn is BaseBlockViewGroup) {
+                val own = mBlackOwn as BaseBlockViewGroup
                 own.minimumWidth = minimumWidth
                 own.minimumHeight = minimumHeight
                 own.setBgColor(getBgBorderColor())
@@ -96,15 +94,5 @@ abstract class BaseBgBlockView : LinearLayout, IBaseBlock {
             }
         }
         return mBlackOwn!!
-    }
-
-    override fun inTopRectF(x: Float, y: Float): Boolean {
-        return (x < right && x > left
-                && y < top + measuredHeight / 3 && y >= top - measuredHeight / 3 * 4)
-    }
-
-    override fun inBottomRectF(x: Float, y: Float): Boolean {
-        return (x < right && x > left
-                && y <= bottom + measuredHeight / 3 * 4 && y > bottom - measuredHeight / 3)
     }
 }

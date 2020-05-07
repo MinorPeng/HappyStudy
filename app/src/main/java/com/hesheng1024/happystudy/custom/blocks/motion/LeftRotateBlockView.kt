@@ -6,11 +6,11 @@ import android.text.InputType
 import android.util.AttributeSet
 import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.happystudy.R
-import com.hesheng1024.happystudy.custom.BlockEditText
-import com.hesheng1024.happystudy.custom.BlockTextView
-import com.hesheng1024.happystudy.custom.base.BaseBgBlockView
-import com.hesheng1024.happystudy.custom.base.IBaseBlock
-import com.hesheng1024.happystudy.custom.base.IRoleView
+import com.hesheng1024.happystudy.custom.blocks.BlockEditText
+import com.hesheng1024.happystudy.custom.blocks.BlockTextView
+import com.hesheng1024.happystudy.custom.blocks.base.BaseLinearBlockView
+import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
+import com.hesheng1024.happystudy.custom.role.IRoleView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
  * @date 2020/3/28 19:05
  */
 @SuppressLint("ViewConstructor")
-class LeftRotateBlockView : BaseBgBlockView {
+class LeftRotateBlockView : BaseLinearBlockView {
 
     private val mEt: BlockEditText
 
@@ -33,7 +33,7 @@ class LeftRotateBlockView : BaseBgBlockView {
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
-        setBgColorId(R.color.colorMotionBlue)
+        setBgColorId(R.color.colorMotionBlue500)
         mEt = BlockEditText(context)
         initView()
     }

@@ -5,9 +5,9 @@ import android.graphics.*
 import android.util.AttributeSet
 import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.happystudy.R
-import com.hesheng1024.happystudy.custom.base.BaseTextBlockView
-import com.hesheng1024.happystudy.custom.base.IBaseBlock
-import com.hesheng1024.happystudy.custom.base.IRoleView
+import com.hesheng1024.happystudy.custom.blocks.base.BaseTextBlockView
+import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
+import com.hesheng1024.happystudy.custom.role.IRoleView
 
 /**
  *
@@ -23,7 +23,7 @@ class ClickRoleBlockView : BaseTextBlockView {
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        setBgColorId(R.color.colorEventYellow)
+        setBgColorId(R.color.colorEventYellow500)
         this.setPadding(
             (IBaseBlock.DIS_TO_TOP * 2).toInt(),
             (IBaseBlock.DIS_TO_TOP * 2 + mDisTop).toInt(),

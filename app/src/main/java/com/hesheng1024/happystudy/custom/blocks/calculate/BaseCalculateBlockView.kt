@@ -7,15 +7,15 @@ import android.graphics.Paint
 import android.graphics.Path
 import android.util.AttributeSet
 import com.hesheng1024.happystudy.R
-import com.hesheng1024.happystudy.custom.base.BaseBgBlockView
-import com.hesheng1024.happystudy.custom.base.IBaseBlock
+import com.hesheng1024.happystudy.custom.blocks.base.BaseLinearBlockView
+import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
 
 /**
  *
  * @author hesheng1024
  * @date 2020/4/3 16:36
  */
-abstract class BaseCalculateBlockView : BaseBgBlockView {
+abstract class BaseCalculateBlockView : BaseLinearBlockView {
     constructor(context: Context) : this(context, null)
 
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -24,7 +24,7 @@ abstract class BaseCalculateBlockView : BaseBgBlockView {
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
-        this.setBgColorId(R.color.colorCalculateGreen)
+        this.setBgColorId(R.color.colorCalculate500)
         this.setPadding(
             IBaseBlock.DIS_TO_TOP.toInt(),
             IBaseBlock.DIS_TO_TOP.toInt(),

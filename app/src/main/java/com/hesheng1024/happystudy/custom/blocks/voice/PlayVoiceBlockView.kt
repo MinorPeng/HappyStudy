@@ -12,10 +12,10 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.happystudy.R
-import com.hesheng1024.happystudy.custom.BlockTextView
-import com.hesheng1024.happystudy.custom.base.BaseBgBlockView
-import com.hesheng1024.happystudy.custom.base.IBaseBlock
-import com.hesheng1024.happystudy.custom.base.IRoleView
+import com.hesheng1024.happystudy.custom.blocks.BlockTextView
+import com.hesheng1024.happystudy.custom.blocks.base.BaseLinearBlockView
+import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
+import com.hesheng1024.happystudy.custom.role.IRoleView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -26,7 +26,7 @@ import kotlinx.coroutines.launch
  * @date 2020/3/30 21:03
  */
 @SuppressLint("ViewConstructor")
-class PlayVoiceBlockView : BaseBgBlockView {
+class PlayVoiceBlockView : BaseLinearBlockView {
 
     private var mSelectPos = 0
 
@@ -38,7 +38,7 @@ class PlayVoiceBlockView : BaseBgBlockView {
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
-        setBgColorId(R.color.colorVoicePurple)
+        setBgColorId(R.color.colorVoicePurple500)
         initView()
     }
 

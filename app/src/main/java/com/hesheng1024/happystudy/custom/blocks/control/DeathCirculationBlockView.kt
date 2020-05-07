@@ -9,9 +9,9 @@ import android.graphics.Path
 import android.util.AttributeSet
 import android.widget.ImageView
 import com.hesheng1024.happystudy.R
-import com.hesheng1024.happystudy.custom.BlockTextView
-import com.hesheng1024.happystudy.custom.base.IBaseBlock
-import com.hesheng1024.happystudy.custom.base.IRoleView
+import com.hesheng1024.happystudy.custom.blocks.BlockTextView
+import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
+import com.hesheng1024.happystudy.custom.role.IRoleView
 
 /**
  *

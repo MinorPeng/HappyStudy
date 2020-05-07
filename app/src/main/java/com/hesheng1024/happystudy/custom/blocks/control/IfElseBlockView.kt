@@ -11,10 +11,10 @@ import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.base.utils.logD
 import com.hesheng1024.base.utils.logI
 import com.hesheng1024.happystudy.R
-import com.hesheng1024.happystudy.custom.BlockTextView
-import com.hesheng1024.happystudy.custom.base.BaseBlockViewGroup
-import com.hesheng1024.happystudy.custom.base.IBaseBlock
-import com.hesheng1024.happystudy.custom.base.IRoleView
+import com.hesheng1024.happystudy.custom.blocks.BlockTextView
+import com.hesheng1024.happystudy.custom.blocks.base.BaseBlockViewGroup
+import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
+import com.hesheng1024.happystudy.custom.role.IRoleView
 import com.hesheng1024.happystudy.custom.blocks.calculate.BaseCalculateBlockView
 import com.hesheng1024.happystudy.custom.blocks.calculate.BaseLogicBlockView
 import com.hesheng1024.happystudy.custom.blocks.calculate.LogicBgBlockView
@@ -44,7 +44,7 @@ class IfElseBlockView : BaseBlockViewGroup {
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
-        setBgColorId(R.color.colorControlYellow)
+        setBgColorId(R.color.colorControlOrange500)
         this.setWillNotDraw(false)
         this.setPadding(
             (IBaseBlock.DIS_TO_TOP * 2).toInt(),
@@ -66,7 +66,7 @@ class IfElseBlockView : BaseBlockViewGroup {
         val lp = generateDefaultLayoutParams() as MarginLayoutParams
         lp.leftMargin = dp2px(context, 4f)
         lp.rightMargin = dp2px(context, 4f)
-        mLogicBg.setBgColorId(R.color.colorControlYellowDark)
+        mLogicBg.setBgColorId(R.color.colorControlOrange700)
         mLogicBg.tag = ChildTag.TAG_TOP
         // 也可以直接在父类中统一监听，只是坐标计算相对复杂一点
         var isIn = false

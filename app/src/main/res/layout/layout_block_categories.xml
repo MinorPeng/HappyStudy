@@ -78,6 +78,16 @@
             android:padding="@dimen/dp8"
             android:text="@string/calculate" />
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_programme_draw"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:drawableTop="@drawable/ic_draw_circle"
+            android:drawablePadding="@dimen/dp4"
+            android:gravity="center"
+            android:padding="@dimen/dp8"
+            android:text="@string/draw" />
     </LinearLayout>
 
 </ScrollView>

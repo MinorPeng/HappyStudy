@@ -1,8 +1,6 @@
 package com.hesheng1024.happystudy
 
 import android.annotation.SuppressLint
-import android.content.Intent
-import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.DragEvent
 import android.view.View
@@ -13,7 +11,7 @@ import androidx.core.view.children
 import com.hesheng1024.base.utils.logD
 import com.hesheng1024.base.utils.logI
 import com.hesheng1024.base.utils.toastShow
-import com.hesheng1024.happystudy.custom.base.IBaseBlock
+import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
 import kotlinx.android.synthetic.main.activity_test.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope

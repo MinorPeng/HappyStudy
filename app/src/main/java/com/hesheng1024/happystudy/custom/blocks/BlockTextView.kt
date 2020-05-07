@@ -1,4 +1,4 @@
-package com.hesheng1024.happystudy.custom
+package com.hesheng1024.happystudy.custom.blocks
 
 import android.content.Context
 import android.util.AttributeSet

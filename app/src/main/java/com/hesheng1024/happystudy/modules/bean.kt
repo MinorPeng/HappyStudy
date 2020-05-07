@@ -15,6 +15,7 @@ data class Block(val category: Category, val view: View) {
         VOICE(R.string.voice),
         EVENT(R.string.event),
         CONTROL(R.string.control),
-        CALCULATE(R.string.calculate);
+        CALCULATE(R.string.calculate),
+        DRAW(R.string.draw);
     }
 }

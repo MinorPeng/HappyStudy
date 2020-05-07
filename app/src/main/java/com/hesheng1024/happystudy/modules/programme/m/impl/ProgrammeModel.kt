@@ -8,6 +8,7 @@ import com.hesheng1024.happystudy.custom.blocks.appearance.SayBlockView
 import com.hesheng1024.happystudy.custom.blocks.appearance.ShowBlockView
 import com.hesheng1024.happystudy.custom.blocks.calculate.*
 import com.hesheng1024.happystudy.custom.blocks.control.*
+import com.hesheng1024.happystudy.custom.blocks.draw.*
 import com.hesheng1024.happystudy.custom.blocks.event.ClickRoleBlockView
 import com.hesheng1024.happystudy.custom.blocks.event.ClickRunBlockView
 import com.hesheng1024.happystudy.custom.blocks.motion.*
@@ -69,6 +70,13 @@ class ProgrammeModel : IProgrammeModel {
         blocks.add(Block(Block.Category.CALCULATE, AndBlockView(context)))
         blocks.add(Block(Block.Category.CALCULATE, OrBlockView(context)))
         blocks.add(Block(Block.Category.CALCULATE, NotBlockView(context)))
+
+        blocks.add(Block(Block.Category.DRAW, DrawCircleBlockView(context)))
+        blocks.add(Block(Block.Category.DRAW, DrawFillCircleBlockView(context)))
+        blocks.add(Block(Block.Category.DRAW, DrawRingBlockView(context)))
+        blocks.add(Block(Block.Category.DRAW, DrawRectBlockView(context)))
+        blocks.add(Block(Block.Category.DRAW, DrawSquareBlockView(context)))
+        blocks.add(Block(Block.Category.DRAW, DrawTriangleBlockView(context)))
         logD(msg = "blocks:${blocks.size}")
         return blocks
     }

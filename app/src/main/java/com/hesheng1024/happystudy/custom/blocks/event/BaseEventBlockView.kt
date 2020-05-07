@@ -5,15 +5,15 @@ import android.graphics.*
 import android.util.AttributeSet
 import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.happystudy.R
-import com.hesheng1024.happystudy.custom.base.BaseBgBlockView
-import com.hesheng1024.happystudy.custom.base.IBaseBlock
+import com.hesheng1024.happystudy.custom.blocks.base.BaseLinearBlockView
+import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
 
 /**
  *
  * @author hesheng1024
  * @date 2020/3/31 10:15
  */
-abstract class BaseEventBlockView : BaseBgBlockView {
+abstract class BaseEventBlockView : BaseLinearBlockView {
 
     private val mDisTop = dp2px(context, 16f).toFloat()
 
@@ -25,7 +25,7 @@ abstract class BaseEventBlockView : BaseBgBlockView {
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
-        this.setBgColorId(R.color.colorEventYellow)
+        this.setBgColorId(R.color.colorEventYellow500)
         this.setPadding(
             (IBaseBlock.DIS_TO_TOP * 2).toInt(),
             (IBaseBlock.DIS_TO_TOP * 2 + mDisTop).toInt(),

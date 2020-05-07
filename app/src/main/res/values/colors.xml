@@ -4,15 +4,20 @@
     <color name="colorGrayBorderB">#BBBBBB</color>
     <color name="colorGrayBgSelectedE">#EEEEEE</color>
 
-    <color name="colorMotionBlue">#4C97FF</color>
-    <color name="colorAppearancePurple">#9966FF</color>
-    <color name="colorVoicePurple">#CF63CF</color>
-    <color name="colorVoicePurpleDark">#C94FC9</color>
-    <color name="colorEventYellow">#FFBF00</color>
-    <color name="colorControlYellow">#FFAB19</color>
-    <color name="colorControlYellowDark">#CF8B17</color>
-    <color name="colorCalculateGreen">#59C059</color>
-    <color name="colorCalculateGreenDark">#389438</color>
+    <color name="colorMotionBlue500">#2196F3</color>
+    <color name="colorMotionBlue700">#1976D2</color>
+    <color name="colorAppearanceDeepPurple500">#673AB7</color>
+    <color name="colorAppearanceDeepPurple700">#512DA8</color>
+    <color name="colorVoicePurple500">#9C27B0</color>
+    <color name="colorVoicePurple700">#7B1FA2</color>
+    <color name="colorEventYellow500">#FFEB3B</color>
+    <color name="colorEventYellow700">#FBC02D</color>
+    <color name="colorControlOrange500">#FF9800</color>
+    <color name="colorControlOrange700">#F57C00</color>
+    <color name="colorCalculate500">#4CAF50</color>
+    <color name="colorCalculateGreen700">#388E3C</color>
+    <color name="colorDrawRed500">#F44336</color>
+    <color name="colorDrawRed700">#D32F2F</color>
 
     <color name="colorRoleBg1">#FFFFFF</color>
     <color name="colorRoleBg2">#BBBBBB</color>

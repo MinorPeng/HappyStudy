@@ -8,5 +8,5 @@ import com.hesheng1024.base.BaseApplication
  * @date 2020/3/19 9:36
  */
 class HappyStudyApplication : BaseApplication() {
-
+    
 }

@@ -3,9 +3,9 @@ package com.hesheng1024.happystudy.custom.blocks.voice
 import android.content.Context
 import android.util.AttributeSet
 import com.hesheng1024.happystudy.R
-import com.hesheng1024.happystudy.custom.base.BaseTextBlockView
-import com.hesheng1024.happystudy.custom.base.IBaseBlock
-import com.hesheng1024.happystudy.custom.base.IRoleView
+import com.hesheng1024.happystudy.custom.blocks.base.BaseTextBlockView
+import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
+import com.hesheng1024.happystudy.custom.role.IRoleView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -22,7 +22,7 @@ class StopAllVoiceBlockView : BaseTextBlockView {
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        setBgColorId(R.color.colorVoicePurple)
+        setBgColorId(R.color.colorVoicePurple500)
         setText(R.string.stop_all_voice)
     }
 

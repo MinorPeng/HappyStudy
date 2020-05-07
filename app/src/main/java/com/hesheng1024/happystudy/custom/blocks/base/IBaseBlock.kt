@@ -1,4 +1,4 @@
-package com.hesheng1024.happystudy.custom.base
+package com.hesheng1024.happystudy.custom.blocks.base
 
 import android.content.ClipData
 import android.content.ClipDescription

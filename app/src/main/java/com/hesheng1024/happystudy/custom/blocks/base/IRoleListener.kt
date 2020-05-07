@@ -1,6 +1,6 @@
-package com.hesheng1024.happystudy.custom.base
+package com.hesheng1024.happystudy.custom.blocks.base
 
-import android.view.View
+import com.hesheng1024.happystudy.custom.role.IRoleView
 
 /**
  *
