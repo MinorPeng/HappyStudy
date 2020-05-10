@@ -15,17 +15,16 @@ import kotlinx.coroutines.launch
 /**
  *
  * @author hesheng1024
- * @date 2020/5/7 15:57
+ * @date 2020/5/10 17:35
  */
-class DrawRectBlockView : BaseRelativeBlockView {
+class DrawLineBlockView : BaseRelativeBlockView {
 
-    private val mEtX1: BlockEditText
-    private val mEtY1: BlockEditText
-    private val mEtX2: BlockEditText
-    private val mEtY2: BlockEditText
+    private val mEtStartX: BlockEditText
+    private val mEtStartY: BlockEditText
+    private val mEtEndX: BlockEditText
+    private val mEtEndY: BlockEditText
     private val mEtW: BlockEditText
     private val mEtRotation: BlockEditText
-    private val mSpinnerStyle: DrawStyleSpinner
     private val mSpinnerColor: DrawColorSpinner
 
     constructor(context: Context) : this(context, null)
@@ -38,44 +37,41 @@ class DrawRectBlockView : BaseRelativeBlockView {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
         setBgColorId(R.color.colorDrawRed500)
-        View.inflate(context, R.layout.layout_draw_rect_block, this)
-        mEtX1 = findViewById(R.id.et_draw_rect_block_x1)
-        mEtY1 = findViewById(R.id.et_draw_rect_block_y1)
-        mEtX2 = findViewById(R.id.et_draw_rect_block_x2)
-        mEtY2 = findViewById(R.id.et_draw_rect_block_y2)
-        mEtW = findViewById(R.id.et_draw_rect_block_w)
-        mEtRotation = findViewById(R.id.et_draw_rect_block_rotation)
-        mSpinnerStyle = findViewById(R.id.spinner_draw_rect_block_style)
-        mSpinnerColor = findViewById(R.id.spinner_draw_rect_block_color)
+        View.inflate(context, R.layout.layout_draw_line_block, this)
+        mEtStartX = findViewById(R.id.et_draw_line_block_start_x)
+        mEtStartY = findViewById(R.id.et_draw_line_block_start_y)
+        mEtEndX = findViewById(R.id.et_draw_line_block_end_x)
+        mEtEndY = findViewById(R.id.et_draw_line_block_end_y)
+        mEtW = findViewById(R.id.et_draw_line_block_w)
+        mEtRotation = findViewById(R.id.et_draw_line_block_rotation)
+        mSpinnerColor = findViewById(R.id.spinner_draw_line_block_color)
     }
 
     override fun clone(): IBaseBlock {
-        val newObj = DrawRectBlockView(context)
+        val newObj = DrawLineBlockView(context)
         newObj.layoutParams = this.layoutParams
         newObj.minimumWidth = measuredWidth
         newObj.minimumHeight = measuredHeight
-        newObj.mEtX1.setText(mEtX1.text.toString())
-        newObj.mEtY1.setText(mEtY1.text.toString())
-        newObj.mEtX2.setText(mEtX2.text.toString())
-        newObj.mEtY2.setText(mEtX2.text.toString())
+        newObj.mEtStartX.setText(mEtStartX.text.toString())
+        newObj.mEtStartY.setText(mEtStartY.text.toString())
+        newObj.mEtEndX.setText(mEtEndX.text.toString())
+        newObj.mEtEndY.setText(mEtEndX.text.toString())
         newObj.mEtW.setText(mEtW.text.toString())
         newObj.mEtRotation.setText(mEtRotation.text.toString())
-        newObj.mSpinnerStyle.selectedIndex = mSpinnerStyle.selectedIndex
         newObj.mSpinnerColor.selectedIndex = mSpinnerColor.selectedIndex
         return newObj
     }
 
     override suspend fun onRun(role: IRoleView) {
         GlobalScope.launch(Dispatchers.Main) {
-            val x1 = mEtX1.text.toString().toFloat()
-            val y1 = mEtY1.text.toString().toFloat()
-            val x2 = mEtX2.text.toString().toFloat()
-            val y2 = mEtY2.text.toString().toFloat()
+            val startX = mEtStartX.text.toString().toFloat()
+            val startY = mEtStartY.text.toString().toFloat()
+            val endX = mEtEndX.text.toString().toFloat()
+            val endY = mEtEndY.text.toString().toFloat()
             val w = mEtW.text.toString().toFloat()
             val color = mSpinnerColor.getSelectedColor()
-            val style = mSpinnerStyle.getSelectedStyle()
             val rotation = mEtRotation.text.toString().toFloat()
-            role.drawRect(x1, y1, x2, y2, w, color, style, rotation)
+            role.drawLine(startX, startY, endX, endY, w, color, rotation)
         }
     }
 }

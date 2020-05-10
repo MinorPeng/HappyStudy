@@ -77,7 +77,7 @@
         android:layout_marginStart="@dimen/dp4"
         android:layout_toEndOf="@id/tv_draw_fill_circle_block_r"
         android:hint="@string/radius"
-        android:text="@string/five"
+        android:text="@string/ten"
         tools:background="@drawable/bg_et_circle_white"
         tools:gravity="center" />
 

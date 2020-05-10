@@ -13,8 +13,7 @@
     <dimen name="dp160">160dp</dimen>
     <dimen name="dp180">180dp</dimen>
     <dimen name="dp300">300dp</dimen>
-    <dimen name="dp330">330dp</dimen>
+    <dimen name="dp320">320dp</dimen>
     <dimen name="dp350">350dp</dimen>
-    <dimen name="dp370">370dp</dimen>
 
 </resources>

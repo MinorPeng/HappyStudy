@@ -12,8 +12,8 @@
         android:id="@+id/tv_draw_line_block_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@id/et_draw_line_block_x1"
-        android:layout_alignBottom="@+id/et_draw_line_block_x1"
+        android:layout_alignTop="@id/et_draw_line_block_start_x"
+        android:layout_alignBottom="@+id/et_draw_line_block_start_x"
         android:layout_alignParentStart="true"
         android:gravity="center_vertical"
         android:text="@string/draw_line"
@@ -24,15 +24,15 @@
         android:id="@+id/tv_draw_line_block_p1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@id/et_draw_line_block_x1"
-        android:layout_alignBottom="@id/et_draw_line_block_x1"
+        android:layout_alignTop="@id/et_draw_line_block_start_x"
+        android:layout_alignBottom="@id/et_draw_line_block_start_x"
         android:layout_marginStart="@dimen/dp8"
         android:layout_toEndOf="@id/tv_draw_line_block_title"
         android:gravity="center_vertical"
         android:text="@string/start_p" />
 
     <com.hesheng1024.happystudy.custom.blocks.BlockEditText
-        android:id="@+id/et_draw_line_block_x1"
+        android:id="@+id/et_draw_line_block_start_x"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -44,13 +44,13 @@
         tools:gravity="center" />
 
     <com.hesheng1024.happystudy.custom.blocks.BlockEditText
-        android:id="@+id/et_draw_line_block_y1"
+        android:id="@+id/et_draw_line_block_start_y"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@id/et_draw_line_block_x1"
-        android:layout_alignBottom="@id/et_draw_line_block_x1"
+        android:layout_alignTop="@id/et_draw_line_block_start_x"
+        android:layout_alignBottom="@id/et_draw_line_block_start_x"
         android:layout_marginStart="@dimen/dp4"
-        android:layout_toEndOf="@id/et_draw_line_block_x1"
+        android:layout_toEndOf="@id/et_draw_line_block_start_x"
         android:hint="@string/y1"
         android:text="@string/zero"
         tools:background="@drawable/bg_et_circle_white"
@@ -61,33 +61,33 @@
         android:id="@+id/tv_draw_line_block_p2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@id/et_draw_line_block_x2"
-        android:layout_alignBottom="@id/et_draw_line_block_x2"
+        android:layout_alignTop="@id/et_draw_line_block_end_x"
+        android:layout_alignBottom="@id/et_draw_line_block_end_x"
         android:layout_marginStart="@dimen/dp8"
-        android:layout_toEndOf="@id/et_draw_line_block_y1"
+        android:layout_toEndOf="@id/et_draw_line_block_start_y"
         android:gravity="center_vertical"
         android:text="@string/end_p" />
 
     <com.hesheng1024.happystudy.custom.blocks.BlockEditText
-        android:id="@+id/et_draw_line_block_x2"
+        android:id="@+id/et_draw_line_block_end_x"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginStart="@dimen/dp4"
         android:layout_toEndOf="@id/tv_draw_line_block_p2"
         android:hint="@string/x2"
-        android:text="@string/zero"
+        android:text="@string/ten"
         tools:background="@drawable/bg_et_circle_white"
         tools:gravity="center" />
 
     <com.hesheng1024.happystudy.custom.blocks.BlockEditText
-        android:id="@+id/et_draw_line_block_y2"
+        android:id="@+id/et_draw_line_block_end_y"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@id/et_draw_line_block_x2"
-        android:layout_alignBottom="@id/et_draw_line_block_x2"
+        android:layout_alignTop="@id/et_draw_line_block_end_x"
+        android:layout_alignBottom="@id/et_draw_line_block_end_x"
         android:layout_marginStart="@dimen/dp4"
-        android:layout_toEndOf="@id/et_draw_line_block_x2"
+        android:layout_toEndOf="@id/et_draw_line_block_end_x"
         android:hint="@string/y2"
         android:text="@string/zero"
         tools:background="@drawable/bg_et_circle_white"
@@ -108,12 +108,38 @@
         android:id="@+id/et_draw_line_block_w"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/et_draw_line_block_x1"
+        android:layout_below="@id/et_draw_line_block_start_x"
         android:layout_marginStart="@dimen/dp4"
         android:layout_marginTop="@dimen/dp4"
         android:layout_toEndOf="@id/tv_draw_line_block_w"
         android:hint="@string/line_w"
         android:text="@string/one"
+        tools:background="@drawable/bg_et_circle_white"
+        tools:gravity="center" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        style="@style/BlockTextStyle"
+        android:id="@+id/tv_draw_line_block_rotation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp8"
+        android:layout_toEndOf="@id/et_draw_line_block_w"
+        android:layout_alignTop="@id/et_draw_line_block_rotation"
+        android:layout_alignBottom="@id/et_draw_line_block_rotation"
+        android:gravity="center_vertical"
+        android:text="@string/right_rotate" />
+
+    <com.hesheng1024.happystudy.custom.blocks.BlockEditText
+        android:id="@+id/et_draw_line_block_rotation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp4"
+        android:layout_alignTop="@id/et_draw_line_block_w"
+        android:layout_alignBottom="@id/et_draw_line_block_w"
+        android:layout_toEndOf="@id/tv_draw_line_block_rotation"
+        android:hint="@string/degree"
+        android:text="@string/zero"
+        android:inputType="numberSigned"
         tools:background="@drawable/bg_et_circle_white"
         tools:gravity="center" />
 
@@ -125,7 +151,7 @@
         android:layout_alignTop="@id/spinner_draw_line_block_color"
         android:layout_alignBottom="@id/spinner_draw_line_block_color"
         android:layout_marginStart="@dimen/dp8"
-        android:layout_toEndOf="@id/et_draw_line_block_w"
+        android:layout_toEndOf="@id/et_draw_line_block_rotation"
         android:gravity="center_vertical"
         android:text="@string/color" />
 

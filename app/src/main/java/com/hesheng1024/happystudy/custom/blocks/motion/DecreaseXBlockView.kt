@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
+import com.hesheng1024.happystudy.BLOCK_ROLE_RUN_DELAY
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.blocks.BlockEditText
 import com.hesheng1024.happystudy.custom.blocks.base.BaseLinearBlockView
@@ -11,6 +12,7 @@ import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.role.IRoleView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 /**
@@ -19,7 +21,7 @@ import kotlinx.coroutines.launch
  * @date 2020/3/28 19:10
  */
 @SuppressLint("ViewConstructor")
-class DecreaseXBlockView : BaseLinearBlockView  {
+class DecreaseXBlockView : BaseLinearBlockView {
 
     private val mEt: BlockEditText
 
@@ -42,6 +44,7 @@ class DecreaseXBlockView : BaseLinearBlockView  {
     }
 
     override suspend fun onRun(role: IRoleView) {
+        delay(BLOCK_ROLE_RUN_DELAY)
         GlobalScope.launch(Dispatchers.Main) {
             role.decreaseX(mEt.text.toString().toFloat())
         }

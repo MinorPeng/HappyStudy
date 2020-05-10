@@ -25,7 +25,7 @@ abstract class BaseEventBlockView : BaseLinearBlockView {
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
-        this.setBgColorId(R.color.colorEventYellow500)
+        this.setBgColorId(R.color.colorEventAmber500)
         this.setPadding(
             (IBaseBlock.DIS_TO_TOP * 2).toInt(),
             (IBaseBlock.DIS_TO_TOP * 2 + mDisTop).toInt(),
@@ -41,7 +41,10 @@ abstract class BaseEventBlockView : BaseLinearBlockView {
         path.arcTo(rectF, -138f, 90f)
         path.lineTo(measuredW, mDisTop)
         path.lineTo(measuredW, measuredH - IBaseBlock.DIS_TO_TOP)
-        path.lineTo(IBaseBlock.DIS_TO_LEFT + IBaseBlock.DIS_TO_TOP * 2 + IBaseBlock.LINE_LEN, measuredH - IBaseBlock.DIS_TO_TOP)
+        path.lineTo(
+            IBaseBlock.DIS_TO_LEFT + IBaseBlock.DIS_TO_TOP * 2 + IBaseBlock.LINE_LEN,
+            measuredH - IBaseBlock.DIS_TO_TOP
+        )
         path.lineTo(IBaseBlock.DIS_TO_LEFT + IBaseBlock.DIS_TO_TOP + IBaseBlock.LINE_LEN, measuredH)
         path.lineTo(IBaseBlock.DIS_TO_LEFT + IBaseBlock.DIS_TO_TOP, measuredH)
         path.lineTo(IBaseBlock.DIS_TO_LEFT, measuredH - IBaseBlock.DIS_TO_TOP)

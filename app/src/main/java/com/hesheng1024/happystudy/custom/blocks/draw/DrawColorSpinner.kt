@@ -33,6 +33,7 @@ class DrawColorSpinner : NiceSpinner {
         initData()
         initView()
     }
+
     private fun initData() {
         mColorMap["黑色"] = Color.BLACK
         mColorMap["红色"] = Color.RED
@@ -57,6 +58,10 @@ class DrawColorSpinner : NiceSpinner {
         this.setLines(1)
         this.setArrowDrawable(R.drawable.ic_spinner_white_16)
         this.setBackgroundResource(R.drawable.bg_spinner_circle_white)
+        mSelectColor?.let {
+            this.setTextColor(it)
+            this.setArrowTintColor(it)
+        }
     }
 
     fun getSelectedColor(): Int = mSelectColor ?: Color.BLACK

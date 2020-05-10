@@ -23,6 +23,7 @@ abstract class BaseLinearBlockView : LinearLayout, IBaseBlock {
      * 积木的背景色
      */
     private var mBgColor = this.getBgColor()
+
     @Volatile
     private var mStatus = IBaseBlock.Status.STATUS_CLONE
     private var mBlackOwn: IBaseBlock? = null

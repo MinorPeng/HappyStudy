@@ -3,12 +3,7 @@ package com.hesheng1024.happystudy.custom.blocks.draw
 import android.content.Context
 import android.graphics.Paint
 import android.util.AttributeSet
-import android.widget.ArrayAdapter
-import android.widget.TextView
-import androidx.appcompat.widget.AppCompatSpinner
 import androidx.core.content.ContextCompat
-import androidx.core.view.setPadding
-import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.happystudy.R
 import org.angmarch.views.NiceSpinner
 
@@ -49,10 +44,10 @@ class DrawStyleSpinner : NiceSpinner {
         val list = mStyleMap.keys.toList()
         mSelectStyle = mStyleMap[list[0]]
         this.attachDataSource(list)
-        this.setOnSpinnerItemSelectedListener { parent, view, position, id -> {
+        this.setOnSpinnerItemSelectedListener { parent, view, position, id ->
             val style = mStyleMap[parent.getItemAtPosition(position)]
             mSelectStyle = style
-        } }
+        }
         this.setLines(1)
         this.setArrowDrawable(R.drawable.ic_spinner_white_16)
         this.setTextColor(ContextCompat.getColor(context, android.R.color.white))

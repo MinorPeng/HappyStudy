@@ -3,7 +3,6 @@ package com.hesheng1024.happystudy.custom.blocks.event
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
-import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.blocks.base.BaseTextBlockView
@@ -24,25 +23,28 @@ class ClickRoleBlockView : BaseTextBlockView {
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        setBgColorId(R.color.colorEventYellow500)
+        setBgColorId(R.color.colorEventAmber500)
         this.setPadding(
             (IBaseBlock.DIS_TO_TOP * 2).toInt(),
             (IBaseBlock.DIS_TO_TOP * 2 + mDisTop).toInt(),
             (IBaseBlock.DIS_TO_TOP * 2).toInt(),
             (IBaseBlock.DIS_TO_TOP * 3).toInt()
         )
-        setTextColor(ContextCompat.getColor(context, android.R.color.black))
         setText(R.string.click_role)
     }
 
     override fun drawBackground(canvas: Canvas, paint: Paint, path: Path, measuredW: Float, measuredH: Float) {
-        val rectF = RectF(-mDisTop, 0f, measuredWidth - IBaseBlock.LINE_LEN, measuredWidth - IBaseBlock.LINE_LEN + mDisTop * 2)
+        val rectF =
+            RectF(-mDisTop, 0f, measuredWidth - IBaseBlock.LINE_LEN, measuredWidth - IBaseBlock.LINE_LEN + mDisTop * 2)
         path.reset()
         path.moveTo(0f, mDisTop)
         path.arcTo(rectF, -138f, 90f)
         path.lineTo(measuredW, mDisTop)
         path.lineTo(measuredW, measuredHeight - IBaseBlock.DIS_TO_TOP)
-        path.lineTo(IBaseBlock.DIS_TO_LEFT + IBaseBlock.DIS_TO_TOP * 2 + IBaseBlock.LINE_LEN, measuredHeight - IBaseBlock.DIS_TO_TOP)
+        path.lineTo(
+            IBaseBlock.DIS_TO_LEFT + IBaseBlock.DIS_TO_TOP * 2 + IBaseBlock.LINE_LEN,
+            measuredHeight - IBaseBlock.DIS_TO_TOP
+        )
         path.lineTo(IBaseBlock.DIS_TO_LEFT + IBaseBlock.DIS_TO_TOP + IBaseBlock.LINE_LEN, measuredH)
         path.lineTo(IBaseBlock.DIS_TO_LEFT + IBaseBlock.DIS_TO_TOP, measuredH)
         path.lineTo(IBaseBlock.DIS_TO_LEFT, measuredH - IBaseBlock.DIS_TO_TOP)

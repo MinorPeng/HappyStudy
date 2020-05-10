@@ -23,6 +23,7 @@ class DrawSquareBlockView : BaseRelativeBlockView {
     private val mEtCy: BlockEditText
     private val mEtLen: BlockEditText
     private val mEtW: BlockEditText
+    private val mEtRotation: BlockEditText
     private val mSpinnerStyle: DrawStyleSpinner
     private val mSpinnerColor: DrawColorSpinner
 
@@ -41,6 +42,7 @@ class DrawSquareBlockView : BaseRelativeBlockView {
         mEtCy = findViewById(R.id.et_draw_square_block_cy)
         mEtLen = findViewById(R.id.et_draw_square_block_bl)
         mEtW = findViewById(R.id.et_draw_square_block_w)
+        mEtRotation = findViewById(R.id.et_draw_square_block_rotation)
         mSpinnerStyle = findViewById(R.id.spinner_draw_square_block_style)
         mSpinnerColor = findViewById(R.id.spinner_draw_square_block_color)
     }
@@ -54,6 +56,7 @@ class DrawSquareBlockView : BaseRelativeBlockView {
         newObj.mEtCy.setText(mEtCy.text.toString())
         newObj.mEtLen.setText(mEtLen.text.toString())
         newObj.mEtW.setText(mEtW.text.toString())
+        newObj.mEtRotation.setText(mEtRotation.text.toString())
         newObj.mSpinnerStyle.selectedIndex = mSpinnerStyle.selectedIndex
         newObj.mSpinnerColor.selectedIndex = mSpinnerColor.selectedIndex
         return newObj
@@ -71,7 +74,8 @@ class DrawSquareBlockView : BaseRelativeBlockView {
             val w = mEtW.text.toString().toFloat()
             val color = mSpinnerColor.getSelectedColor()
             val style = mSpinnerStyle.getSelectedStyle()
-            role.drawRect(l, t, r, b, w, color, style)
+            val rotation = mEtRotation.text.toString().toFloat()
+            role.drawRect(l, t, r, b, w, color, style, rotation)
         }
     }
 }

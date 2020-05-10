@@ -8,8 +8,8 @@
     tools:parentTag="android.widget.RelativeLayout">
 
     <androidx.appcompat.widget.AppCompatTextView
-        style="@style/BlockTextStyle"
         android:id="@+id/tv_draw_square_block_title"
+        style="@style/BlockTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/et_draw_square_block_cx"
@@ -20,8 +20,8 @@
         android:textStyle="bold" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        style="@style/BlockTextStyle"
         android:id="@+id/tv_draw_square_block_p1"
+        style="@style/BlockTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/et_draw_square_block_cx"
@@ -57,8 +57,8 @@
         tools:gravity="center" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        style="@style/BlockTextStyle"
         android:id="@+id/tv_draw_square_block_bl"
+        style="@style/BlockTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/et_draw_square_block_bl"
@@ -77,19 +77,18 @@
         android:layout_marginStart="@dimen/dp4"
         android:layout_toEndOf="@id/tv_draw_square_block_bl"
         android:hint="@string/border_length"
-        android:text="@string/five"
+        android:text="@string/ten"
         tools:background="@drawable/bg_et_circle_white"
         tools:gravity="center" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        style="@style/BlockTextStyle"
         android:id="@+id/tv_draw_square_block_w"
+        style="@style/BlockTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignStart="@id/tv_draw_square_block_p1"
         android:layout_alignTop="@id/et_draw_square_block_w"
         android:layout_alignBottom="@id/et_draw_square_block_w"
-        android:layout_marginStart="@dimen/dp8"
-        android:layout_toEndOf="@id/et_draw_square_block_bl"
         android:gravity="center_vertical"
         android:text="@string/line_w" />
 
@@ -97,9 +96,9 @@
         android:id="@+id/et_draw_square_block_w"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@id/et_draw_square_block_bl"
-        android:layout_alignBottom="@id/et_draw_square_block_bl"
+        android:layout_below="@id/et_draw_square_block_cx"
         android:layout_marginStart="@dimen/dp4"
+        android:layout_marginTop="@dimen/dp4"
         android:layout_toEndOf="@id/tv_draw_square_block_w"
         android:hint="@string/line_w"
         android:text="@string/one"
@@ -107,11 +106,36 @@
         tools:gravity="center" />
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_draw_square_block_rotation"
         style="@style/BlockTextStyle"
-        android:id="@+id/tv_draw_square_block_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@id/tv_draw_square_block_title"
+        android:layout_alignStart="@id/tv_draw_square_block_bl"
+        android:layout_alignTop="@id/et_draw_square_block_rotation"
+        android:layout_alignBottom="@id/et_draw_square_block_rotation"
+        android:gravity="center_vertical"
+        android:text="@string/right_rotate" />
+
+    <com.hesheng1024.happystudy.custom.blocks.BlockEditText
+        android:id="@+id/et_draw_square_block_rotation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/et_draw_square_block_w"
+        android:layout_alignBottom="@id/et_draw_square_block_w"
+        android:layout_marginStart="@dimen/dp4"
+        android:layout_toEndOf="@id/tv_draw_square_block_rotation"
+        android:hint="@string/degree"
+        android:inputType="numberSigned"
+        android:text="@string/zero"
+        tools:background="@drawable/bg_et_circle_white"
+        tools:gravity="center" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_draw_square_block_style"
+        style="@style/BlockTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/tv_draw_square_block_w"
         android:layout_alignTop="@id/spinner_draw_square_block_style"
         android:layout_alignBottom="@id/spinner_draw_square_block_style"
         android:gravity="center_vertical"
@@ -121,14 +145,14 @@
         android:id="@+id/spinner_draw_square_block_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/et_draw_square_block_cx"
+        android:layout_below="@id/et_draw_square_block_w"
         android:layout_marginStart="@dimen/dp4"
         android:layout_marginTop="@dimen/dp4"
         android:layout_toEndOf="@id/tv_draw_square_block_style" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        style="@style/BlockTextStyle"
         android:id="@+id/tv_draw_square_block_color"
+        style="@style/BlockTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/spinner_draw_square_block_color"

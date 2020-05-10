@@ -2,18 +2,17 @@ package com.hesheng1024.happystudy.custom.blocks.motion
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.text.InputType
 import android.util.AttributeSet
 import android.view.View
-import com.hesheng1024.base.utils.dp2px
+import com.hesheng1024.happystudy.BLOCK_ROLE_RUN_DELAY
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.blocks.BlockEditText
-import com.hesheng1024.happystudy.custom.blocks.BlockTextView
 import com.hesheng1024.happystudy.custom.blocks.base.BaseLinearBlockView
 import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.role.IRoleView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 /**
@@ -44,6 +43,7 @@ class LeftRotateBlockView : BaseLinearBlockView {
     }
 
     override suspend fun onRun(role: IRoleView) {
+        delay(BLOCK_ROLE_RUN_DELAY)
         GlobalScope.launch(Dispatchers.Main) {
             role.leftRotate(mEt.text.toString().toFloat())
         }

@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
  */
 @SuppressLint("ViewConstructor")
 class SetXBlockView : BaseLinearBlockView {
-    
+
     private val mEt: BlockEditText
 
     constructor(context: Context) : this(context, null)

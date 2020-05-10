@@ -42,7 +42,7 @@
                 android:id="@+id/recycler_view_programme"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:minWidth="@dimen/dp160"
+                android:minWidth="@dimen/dp350"
                 android:paddingStart="@dimen/dp0"
                 android:paddingEnd="@dimen/dp4" />
         </LinearLayout>

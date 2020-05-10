@@ -18,8 +18,10 @@ interface IRoleDraw {
      * @param color: circle color
      * @param style: stroke, fill, stroke with fill
      */
-    fun drawCircle(@NonNull cx: Float, @NonNull cy: Float, @NonNull r: Float,
-                   @NonNull w: Float, @NonNull color: Int, @NonNull style: Paint.Style)
+    fun drawCircle(
+        @NonNull cx: Float, @NonNull cy: Float, @NonNull r: Float,
+        @NonNull w: Float, @NonNull color: Int, @NonNull style: Paint.Style
+    )
 
     /**
      *
@@ -30,10 +32,13 @@ interface IRoleDraw {
      * @param w: line width
      * @param color: arc color
      * @param style: stroke, fill, stroke with fill
+     * @param rotation: rotation degree
      */
-    fun drawRect(@NonNull x1: Float, @NonNull y1: Float,
-                 @NonNull x2: Float, @NonNull y2: Float,
-                 @NonNull w: Float, @NonNull color: Int, @NonNull style: Paint.Style)
+    fun drawRect(
+        @NonNull x1: Float, @NonNull y1: Float,
+        @NonNull x2: Float, @NonNull y2: Float,
+        @NonNull w: Float, @NonNull color: Int, @NonNull style: Paint.Style, @NonNull rotation: Float = 0f
+    )
 
     /**
      *
@@ -43,10 +48,13 @@ interface IRoleDraw {
      * @param endY: y of end point
      * @param w: line width
      * @param color: line color
+     * @param rotation: rotation degree
      */
-    fun drawLine(@NonNull startX: Float, @NonNull startY: Float,
-                 @NonNull endX: Float, @NonNull endY: Float,
-                 @NonNull w: Float, @NonNull color: Int)
+    fun drawLine(
+        @NonNull startX: Float, @NonNull startY: Float,
+        @NonNull endX: Float, @NonNull endY: Float,
+        @NonNull w: Float, @NonNull color: Int, @NonNull rotation: Float = 0f
+    )
 
     /**
      *
@@ -59,9 +67,12 @@ interface IRoleDraw {
      * @param w: line width
      * @param color: triangle color
      * @param style: stroke, fill, stroke with fill
+     * @param rotation: rotation degree
      */
-    fun drawTriangle(@NonNull x1: Float, @NonNull y1: Float,
-                     @NonNull x2: Float, @NonNull y2: Float,
-                     @NonNull x3: Float, @NonNull y3: Float,
-                     @NonNull w: Float, @NonNull color: Int, @NonNull style: Paint.Style)
+    fun drawTriangle(
+        @NonNull x1: Float, @NonNull y1: Float,
+        @NonNull x2: Float, @NonNull y2: Float,
+        @NonNull x3: Float, @NonNull y3: Float,
+        @NonNull w: Float, @NonNull color: Int, @NonNull style: Paint.Style, @NonNull rotation: Float = 0f
+    )
 }

@@ -4,22 +4,22 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
-    tools:background="@color/colorEventYellow500"
+    tools:background="@color/colorEventAmber500"
     tools:padding="@dimen/dp4"
     tools:parentTag="android.widget.LinearLayout">
 
     <androidx.appcompat.widget.AppCompatTextView
+        style="@style/BlockTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:drawableEnd="@drawable/ic_run_16"
         android:drawablePadding="@dimen/dp4"
-        android:text="@string/when_str"
-        android:textSize="@dimen/sp14" />
+        android:text="@string/when_str" />
 
     <androidx.appcompat.widget.AppCompatTextView
+        style="@style/BlockTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp4"
-        android:text="@string/click"
-        android:textSize="@dimen/sp14" />
+        android:text="@string/click" />
 </merge>

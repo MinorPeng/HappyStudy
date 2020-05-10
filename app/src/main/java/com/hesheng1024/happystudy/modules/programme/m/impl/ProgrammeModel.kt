@@ -18,7 +18,7 @@ import com.hesheng1024.happystudy.custom.blocks.voice.PlayVoiceBlockView
 import com.hesheng1024.happystudy.custom.blocks.voice.StopAllVoiceBlockView
 import com.hesheng1024.happystudy.modules.Block
 import com.hesheng1024.happystudy.modules.programme.m.IProgrammeModel
-import java.util.ArrayList
+import java.util.*
 
 /**
  *
@@ -77,6 +77,7 @@ class ProgrammeModel : IProgrammeModel {
         blocks.add(Block(Block.Category.DRAW, DrawRectBlockView(context)))
         blocks.add(Block(Block.Category.DRAW, DrawSquareBlockView(context)))
         blocks.add(Block(Block.Category.DRAW, DrawTriangleBlockView(context)))
+        blocks.add(Block(Block.Category.DRAW, DrawLineBlockView(context)))
         logD(msg = "blocks:${blocks.size}")
         return blocks
     }

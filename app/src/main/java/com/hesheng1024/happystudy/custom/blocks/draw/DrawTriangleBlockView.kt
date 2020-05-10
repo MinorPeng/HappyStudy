@@ -25,6 +25,7 @@ class DrawTriangleBlockView : BaseRelativeBlockView {
     private val mEtX3: BlockEditText
     private val mEtY3: BlockEditText
     private val mEtW: BlockEditText
+    private val mEtRotation: BlockEditText
     private val mSpinnerStyle: DrawStyleSpinner
     private val mSpinnerColor: DrawColorSpinner
 
@@ -46,6 +47,7 @@ class DrawTriangleBlockView : BaseRelativeBlockView {
         mEtX3 = findViewById(R.id.et_draw_triangle_block_x3)
         mEtY3 = findViewById(R.id.et_draw_triangle_block_y3)
         mEtW = findViewById(R.id.et_draw_triangle_block_w)
+        mEtRotation = findViewById(R.id.et_draw_triangle_block_rotation)
         mSpinnerStyle = findViewById(R.id.spinner_draw_triangle_block_style)
         mSpinnerColor = findViewById(R.id.spinner_draw_triangle_block_color)
     }
@@ -62,6 +64,7 @@ class DrawTriangleBlockView : BaseRelativeBlockView {
         newObj.mEtX3.setText(mEtX3.text.toString())
         newObj.mEtY3.setText(mEtX3.text.toString())
         newObj.mEtW.setText(mEtW.text.toString())
+        newObj.mEtRotation.setText(mEtRotation.text.toString())
         newObj.mSpinnerStyle.selectedIndex = mSpinnerStyle.selectedIndex
         newObj.mSpinnerColor.selectedIndex = mSpinnerColor.selectedIndex
         return newObj
@@ -78,7 +81,8 @@ class DrawTriangleBlockView : BaseRelativeBlockView {
             val w = mEtW.text.toString().toFloat()
             val color = mSpinnerColor.getSelectedColor()
             val style = mSpinnerStyle.getSelectedStyle()
-            role.drawTriangle(x1, y1, x2, y2, x3, y3, w, color, style)
+            val rotation = mEtRotation.text.toString().toFloat()
+            role.drawTriangle(x1, y1, x2, y2, x3, y3, w, color, style, rotation)
         }
     }
 }
