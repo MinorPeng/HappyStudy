@@ -7,7 +7,6 @@ import android.os.Handler
 import android.view.DragEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.core.widget.doAfterTextChanged
@@ -54,11 +53,12 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
      */
     private var mToPos = 0
     private var mShouldScroll = false
+
     companion object {
         private var mRoleView: IRoleView? = null
 
         fun startActivity(context: Context, flag: String) {
-            when(flag) {
+            when (flag) {
                 FLAG_PROGRAMME_MOTION, FLAG_PROGRAMME_APPEARANCE, FLAG_PROGRAMME_CONTROL, FLAG_PROGRAMME_NORMAL -> {
                     context.startActivity(Intent(context, ProgrammeActivity::class.java).putExtra("flag", flag))
                 }
@@ -272,8 +272,10 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
 
             for (child in linear_layout_programme.children) {
                 if (child is IBaseBlock) {
-                    val customDragEvent = IBaseBlock.CustomDragEvent(event.x, event.y, event.action, event.localState,
-                        event.clipData, event.clipDescription, event.result)
+                    val customDragEvent = IBaseBlock.CustomDragEvent(
+                        event.x, event.y, event.action, event.localState,
+                        event.clipData, event.clipDescription, event.result
+                    )
                     if (child.onDragEv(customDragEvent)) {
                         return@setOnDragListener true
                     }
@@ -302,7 +304,7 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
                     logI(msg = "drop in linear layout x->${event.x} y->{$event.y}")
                     (block.parent as? ViewGroup)?.removeView(block)
                     block.setStatus(IBaseBlock.Status.STATUS_DRAG)
-                    (block.layoutParams as LinearLayout.LayoutParams).bottomMargin = -IBaseBlock.DIS_TO_TOP.toInt()
+                    (block.layoutParams as ViewGroup.MarginLayoutParams).bottomMargin = -IBaseBlock.DIS_TO_TOP.toInt()
                     linear_layout_programme.addView(block, block.layoutParams)
                 }
             }
@@ -380,7 +382,8 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
         role_view_programme.setListener(object : RoleViewGroup.IChangeListener {
             override fun directionChange(curDire: Float) {
                 if (et_programme_direction.text.isNullOrEmpty()
-                    || et_programme_direction.text.toString().toInt() != curDire.toInt()) {
+                    || et_programme_direction.text.toString().toInt() != curDire.toInt()
+                ) {
                     et_programme_direction.setText(curDire.toInt().toString())
                 }
             }
@@ -388,7 +391,8 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
             override fun positionChanged(curPos: Point) {
                 if (et_programme_x.text.isNullOrEmpty() || et_programme_y.text.isNullOrEmpty()
                     || et_programme_x.text.toString().toInt() != curPos.x
-                    || et_programme_y.text.toString().toInt() != curPos.y) {
+                    || et_programme_y.text.toString().toInt() != curPos.y
+                ) {
                     logD(msg = "pos:$curPos")
                     et_programme_x.setText(curPos.x.toString())
                     et_programme_y.setText(curPos.y.toString())

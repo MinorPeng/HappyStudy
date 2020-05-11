@@ -65,8 +65,8 @@ class DrawTriangleBlockView : BaseRelativeBlockView {
         newObj.mEtY3.setText(mEtX3.text.toString())
         newObj.mEtW.setText(mEtW.text.toString())
         newObj.mEtRotation.setText(mEtRotation.text.toString())
-        newObj.mSpinnerStyle.selectedIndex = mSpinnerStyle.selectedIndex
-        newObj.mSpinnerColor.selectedIndex = mSpinnerColor.selectedIndex
+        newObj.mSpinnerStyle.clone(mSpinnerStyle)
+        newObj.mSpinnerColor.clone(mSpinnerColor)
         return newObj
     }
 

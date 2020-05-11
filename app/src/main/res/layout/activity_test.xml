@@ -82,7 +82,7 @@
                 android:layout_marginStart="@dimen/dp24"
                 android:layout_marginTop="@dimen/dp24" />
 
-            <com.hesheng1024.happystudy.custom.blocks.draw.DrawCircleBlockView
+            <com.hesheng1024.happystudy.custom.blocks.draw.DrawTriangleBlockView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 

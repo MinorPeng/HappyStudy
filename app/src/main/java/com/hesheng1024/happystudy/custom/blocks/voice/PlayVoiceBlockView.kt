@@ -9,10 +9,10 @@ import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.blocks.base.BaseLinearBlockView
 import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.role.IRoleView
+import com.jaredrummler.materialspinner.MaterialSpinner
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import org.angmarch.views.NiceSpinner
 
 /**
  *
@@ -22,7 +22,7 @@ import org.angmarch.views.NiceSpinner
 @SuppressLint("ViewConstructor")
 class PlayVoiceBlockView : BaseLinearBlockView {
 
-    private var mSelectPos = 0
+    private val mSpinner: MaterialSpinner
 
     constructor(context: Context) : this(context, null)
 
@@ -34,24 +34,22 @@ class PlayVoiceBlockView : BaseLinearBlockView {
             : super(context, attrs, defStyleAttr, defStyleRes) {
         setBgColorId(R.color.colorVoicePurple500)
         View.inflate(context, R.layout.layout_play_voice_block, this)
+        mSpinner = findViewById(R.id.spinner_play_voice_block)
         initView()
     }
 
     private fun initView() {
-        val spinner = findViewById<NiceSpinner>(R.id.spinner_play_voice_block)
-
-        spinner.setLines(1)
-        spinner.setArrowDrawable(R.drawable.ic_spinner_white_16)
-        spinner.setTextColor(ContextCompat.getColor(context, android.R.color.white))
-        spinner.setArrowTintColor(ContextCompat.getColor(context, android.R.color.white))
-        spinner.setBackgroundResource(R.drawable.bg_spinner_circle_purple)
-        spinner.setOnSpinnerItemSelectedListener { parent, view, position, id ->
-            mSelectPos = position
-        }
+        mSpinner.setLines(1)
+        mSpinner.setItems(context.resources.getStringArray(R.array.voices).toList())
+        mSpinner.setTextColor(ContextCompat.getColor(context, android.R.color.white))
+        mSpinner.setArrowColor(ContextCompat.getColor(context, android.R.color.white))
+        mSpinner.setBackgroundColor(ContextCompat.getColor(context, R.color.colorVoicePurple700))
+        mSpinner.setBackgroundResource(R.drawable.bg_spinner_circle_purple)
+        mSpinner.selectedIndex = 0
     }
 
     override suspend fun onRun(role: IRoleView) {
-        val rawId = when(mSelectPos) {
+        val rawId = when (mSpinner.selectedIndex) {
             0 -> R.raw.voice1
             1 -> R.raw.voice2
             2 -> R.raw.voice3
@@ -67,6 +65,7 @@ class PlayVoiceBlockView : BaseLinearBlockView {
         newObj.layoutParams = this.layoutParams
         newObj.minimumWidth = measuredWidth
         newObj.minimumHeight = measuredHeight
+        newObj.mSpinner.selectedIndex = mSpinner.selectedIndex
         return newObj
     }
 }

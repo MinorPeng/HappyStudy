@@ -5,14 +5,14 @@ import android.graphics.Color
 import android.util.AttributeSet
 import android.widget.TextView
 import com.hesheng1024.happystudy.R
-import org.angmarch.views.NiceSpinner
+import com.jaredrummler.materialspinner.MaterialSpinner
 
 /**
  *
  * @author hesheng1024
  * @date 2020/5/7 10:08
  */
-class DrawColorSpinner : NiceSpinner {
+class DrawColorSpinner : MaterialSpinner {
 
     private val mColorMap = LinkedHashMap<String, Int>(8)
     private var mSelectColor: Int? = null
@@ -46,23 +46,28 @@ class DrawColorSpinner : NiceSpinner {
     private fun initView() {
         val list = mColorMap.keys.toList()
         mSelectColor = mColorMap[list[0]]
-        this.attachDataSource(list)
-        this.setOnSpinnerItemSelectedListener { parent, view, position, id ->
-            val color = mColorMap[parent.getItemAtPosition(position)]
+        this.setItems(list)
+        this.setOnItemSelectedListener { view, position, id, item ->
+            val color = mColorMap[item]
             if (view is TextView && color != null) {
                 this.setTextColor(color)
-                this.setArrowTintColor(color)
+                this.setArrowColor(color)
                 mSelectColor = color
             }
         }
         this.setLines(1)
-        this.setArrowDrawable(R.drawable.ic_spinner_white_16)
         this.setBackgroundResource(R.drawable.bg_spinner_circle_white)
         mSelectColor?.let {
             this.setTextColor(it)
-            this.setArrowTintColor(it)
+            this.setArrowColor(it)
         }
     }
 
     fun getSelectedColor(): Int = mSelectColor ?: Color.BLACK
+
+    fun clone(other: DrawColorSpinner) {
+        this.selectedIndex = other.selectedIndex
+        this.setTextColor(other.getSelectedColor())
+        this.setArrowColor(other.getSelectedColor())
+    }
 }

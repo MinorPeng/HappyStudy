@@ -5,9 +5,7 @@
     <corners android:radius="@dimen/dp16" />
     <solid android:color="@color/colorDrawRed700" />
     <padding
-        android:bottom="@dimen/dp4"
         android:left="@dimen/dp8"
-        android:right="@dimen/dp8"
-        android:top="@dimen/dp4" />
+        android:right="@dimen/dp4" />
 
 </shape>
