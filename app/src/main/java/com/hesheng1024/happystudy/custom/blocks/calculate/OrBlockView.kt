@@ -51,14 +51,8 @@ class OrBlockView : BaseLogicBlockView {
         newObj.layoutParams = this.layoutParams
         newObj.minimumWidth = measuredWidth
         newObj.minimumHeight = measuredHeight
-        var child = mLeftLogicBg.getChildAt(0)
-        if ( child is BaseLogicBlockView) {
-            newObj.mLeftLogicBg.addView(child.clone() as BaseLogicBlockView)
-        }
-        child = mRightLogicBg.getChildAt(0)
-        if (child is BaseLogicBlockView) {
-            newObj.mRightLogicBg.addView(child.clone() as BaseLogicBlockView)
-        }
+        newObj.mLeftLogicBg.clone(mLeftLogicBg)
+        newObj.mRightLogicBg.clone(mRightLogicBg)
         return newObj
     }
 

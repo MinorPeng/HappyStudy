@@ -49,10 +49,7 @@ class NotBlockView : BaseLogicBlockView {
         newObj.layoutParams = this.layoutParams
         newObj.minimumWidth = measuredWidth
         newObj.minimumHeight = measuredHeight
-        val child = mLogicBg.getChildAt(0)
-        if ( child is BaseLogicBlockView) {
-            newObj.mLogicBg.addView(child.clone() as BaseLogicBlockView)
-        }
+        newObj.mLogicBg.clone(mLogicBg)
         return newObj
     }
 

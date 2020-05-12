@@ -5,15 +5,15 @@ import android.content.Context
 import android.text.InputType
 import android.util.AttributeSet
 import android.widget.ImageView
-import androidx.appcompat.widget.AppCompatEditText
+import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.happystudy.R
+import com.hesheng1024.happystudy.TEXT_SIZE_BLOCK_12
 import com.hesheng1024.happystudy.custom.blocks.BlockEditText
-import com.hesheng1024.happystudy.custom.blocks.BlockTextView
 import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
-import com.hesheng1024.happystudy.custom.role.IRoleView
-import com.hesheng1024.happystudy.custom.blocks.calculate.BaseCalculateBlockView
 import com.hesheng1024.happystudy.custom.blocks.calculate.CalculateBgBlock
+import com.hesheng1024.happystudy.custom.role.IRoleView
 
 /**
  *
@@ -39,14 +39,16 @@ class CirculationNumBlockView : BaseControlBlockView {
 
     @SuppressLint("SetTextI18n")
     private fun initView() {
-        val tvCirculation = BlockTextView(context)
+        val tvCirculation = AppCompatTextView(context)
         tvCirculation.setText(R.string.circulation)
+        tvCirculation.textSize = TEXT_SIZE_BLOCK_12
+        tvCirculation.setTextColor(ContextCompat.getColor(context, android.R.color.white))
         tvCirculation.tag = ChildTag.TAG_TOP
         addView(tvCirculation)
 
         val lpBgBlock = generateDefaultLayoutParams() as MarginLayoutParams
         lpBgBlock.leftMargin = dp2px(context, 4f)
-        lpBgBlock.rightMargin =  dp2px(context, 4f)
+        lpBgBlock.rightMargin = dp2px(context, 4f)
         val etCount = BlockEditText(context)
         etCount.inputType = InputType.TYPE_CLASS_NUMBER
         etCount.setText(R.string.ten)
@@ -55,8 +57,10 @@ class CirculationNumBlockView : BaseControlBlockView {
         addView(mCalculateBg, lpBgBlock)
 
 
-        val tvCount = BlockTextView(context)
+        val tvCount = AppCompatTextView(context)
         tvCount.setText(R.string.count)
+        tvCount.textSize = TEXT_SIZE_BLOCK_12
+        tvCount.setTextColor(ContextCompat.getColor(context, android.R.color.white))
         tvCount.tag = ChildTag.TAG_TOP
         addView(tvCount)
 
@@ -78,20 +82,7 @@ class CirculationNumBlockView : BaseControlBlockView {
         newObj.layoutParams = this.layoutParams
         newObj.minimumWidth = measuredWidth
         newObj.minimumHeight = measuredHeight
-        when (val child = mCalculateBg.getChildAt(0)) {
-            is AppCompatEditText -> {
-                if (newObj.mCalculateBg.getChildAt(0) is AppCompatEditText) {
-                    (newObj.mCalculateBg.getChildAt(0) as AppCompatEditText).setText(child.text.toString())
-                } else {
-                    val newEt = AppCompatEditText(context)
-                    newEt.setText(child.text.toString())
-                    newObj.mCalculateBg.addView(newEt, 0)
-                }
-            }
-            is BaseCalculateBlockView -> {
-                newObj.mCalculateBg.addView(child.clone() as BaseCalculateBlockView)
-            }
-        }
+        newObj.mCalculateBg.clone(mCalculateBg)
         return newObj
     }
 }

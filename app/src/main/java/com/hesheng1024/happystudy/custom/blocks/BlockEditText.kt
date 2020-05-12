@@ -7,10 +7,9 @@ import android.view.DragEvent
 import android.view.Gravity
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.EditText
 import androidx.appcompat.widget.AppCompatEditText
 import com.hesheng1024.happystudy.R
-import com.hesheng1024.happystudy.TEXT_SIZE_BLOCK_14
+import com.hesheng1024.happystudy.TEXT_SIZE_BLOCK_12
 
 /**
  *
@@ -25,12 +24,14 @@ class BlockEditText : AppCompatEditText, View.OnDragListener {
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
         gravity = Gravity.CENTER
-        textSize = TEXT_SIZE_BLOCK_14
+        textSize = TEXT_SIZE_BLOCK_12
         if (inputType == EditorInfo.TYPE_NULL) {
             inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL or
                     InputType.TYPE_NUMBER_FLAG_SIGNED
         }
-        minEms = 2
+        if (minEms == 0 || minEms == -1) {
+            minEms = 2
+        }
         isCursorVisible = false
         imeOptions = EditorInfo.IME_ACTION_DONE
         setBackgroundResource(R.drawable.bg_et_circle_white)

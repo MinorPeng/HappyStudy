@@ -4,11 +4,9 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
-import androidx.appcompat.widget.AppCompatEditText
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.blocks.base.BaseLinearBlockView
 import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
-import com.hesheng1024.happystudy.custom.blocks.calculate.BaseCalculateBlockView
 import com.hesheng1024.happystudy.custom.blocks.calculate.CalculateBgBlock
 import com.hesheng1024.happystudy.custom.role.IRoleView
 import kotlinx.coroutines.delay
@@ -22,7 +20,7 @@ import kotlinx.coroutines.delay
 class WaitBlockView : BaseLinearBlockView {
 
     private val mCalculateBg: CalculateBgBlock
-    
+
     constructor(context: Context) : this(context, null)
 
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -49,20 +47,7 @@ class WaitBlockView : BaseLinearBlockView {
         newObj.layoutParams = this.layoutParams
         newObj.minimumWidth = measuredWidth
         newObj.minimumHeight = measuredHeight
-        when (val child = mCalculateBg.getChildAt(0)) {
-            is AppCompatEditText -> {
-                if (newObj.mCalculateBg.getChildAt(0) is AppCompatEditText) {
-                    (newObj.mCalculateBg.getChildAt(0) as AppCompatEditText).setText(child.text.toString())
-                } else {
-                    val newEt = AppCompatEditText(context)
-                    newEt.setText(child.text.toString())
-                    newObj.mCalculateBg.addView(newEt, 0)
-                }
-            }
-            is BaseCalculateBlockView -> {
-                newObj.mCalculateBg.addView(child.clone() as BaseCalculateBlockView)
-            }
-        }
+        newObj.mCalculateBg.clone(mCalculateBg)
         return newObj
     }
 }

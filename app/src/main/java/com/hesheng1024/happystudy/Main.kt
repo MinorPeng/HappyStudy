@@ -19,4 +19,10 @@ fun main(args: Array<String>) {
         println("take if:$it")
         it is AImpl
     }.let { println("$it") }
+
+    val map = HashMap<String, Float>()
+
+    var value: Float
+    value = map.getOrElse("") { 1f }
+    println(value)
 }

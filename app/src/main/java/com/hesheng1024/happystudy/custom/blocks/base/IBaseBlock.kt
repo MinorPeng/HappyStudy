@@ -33,6 +33,9 @@ interface IBaseBlock : IRoleListener, View.OnTouchListener, View.OnLongClickList
     }
 
     fun drawBackground(canvas: Canvas, paint: Paint, path: Path, measuredW: Float, measuredH: Float) {
+        if (getBgColor() == android.R.color.transparent || getBgBorderColor() == android.R.color.transparent) {
+            return
+        }
         path.reset()
         path.moveTo(0f, 0f)
         path.lineTo(DIS_TO_LEFT, 0f)

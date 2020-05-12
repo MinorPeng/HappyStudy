@@ -49,6 +49,7 @@ class DrawStyleSpinner : MaterialSpinner {
             val style = mStyleMap[item]
             mSelectStyle = style
         }
+        this.textSize = 10f
         this.setLines(1)
         this.setTextColor(ContextCompat.getColor(context, android.R.color.white))
         this.setArrowColor(ContextCompat.getColor(context, android.R.color.white))

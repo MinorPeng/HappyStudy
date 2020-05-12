@@ -55,6 +55,7 @@ class DrawColorSpinner : MaterialSpinner {
                 mSelectColor = color
             }
         }
+        this.textSize = 10f
         this.setLines(1)
         this.setBackgroundResource(R.drawable.bg_spinner_circle_white)
         mSelectColor?.let {

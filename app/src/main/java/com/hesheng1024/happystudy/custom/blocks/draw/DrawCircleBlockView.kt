@@ -4,9 +4,9 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import com.hesheng1024.happystudy.R
-import com.hesheng1024.happystudy.custom.blocks.BlockEditText
 import com.hesheng1024.happystudy.custom.blocks.base.BaseRelativeBlockView
 import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
+import com.hesheng1024.happystudy.custom.blocks.calculate.CalculateBgBlock
 import com.hesheng1024.happystudy.custom.role.IRoleView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -19,10 +19,10 @@ import kotlinx.coroutines.launch
  */
 class DrawCircleBlockView : BaseRelativeBlockView {
 
-    private val mEtCx: BlockEditText
-    private val mEtCy: BlockEditText
-    private val mEtR: BlockEditText
-    private val mEtW: BlockEditText
+    private val mCalBgCx: CalculateBgBlock
+    private val mCalBgCy: CalculateBgBlock
+    private val mCalBgR: CalculateBgBlock
+    private val mCalBgW: CalculateBgBlock
     private val mSpinnerStyle: DrawStyleSpinner
     private val mSpinnerColor: DrawColorSpinner
 
@@ -37,10 +37,10 @@ class DrawCircleBlockView : BaseRelativeBlockView {
             : super(context, attrs, defStyleAttr, defStyleRes) {
         setBgColorId(R.color.colorDrawRed500)
         View.inflate(context, R.layout.layout_draw_circle_block, this)
-        mEtCx = findViewById(R.id.et_draw_circle_block_cx)
-        mEtCy = findViewById(R.id.et_draw_circle_block_cy)
-        mEtR = findViewById(R.id.et_draw_circle_block_r)
-        mEtW = findViewById(R.id.et_draw_circle_block_w)
+        mCalBgCx = findViewById(R.id.cal_bg_draw_circle_block_cx)
+        mCalBgCy = findViewById(R.id.cal_bg_draw_circle_block_cy)
+        mCalBgR = findViewById(R.id.cal_bg_draw_circle_block_r)
+        mCalBgW = findViewById(R.id.cal_bg_draw_circle_block_w)
         mSpinnerStyle = findViewById(R.id.spinner_draw_circle_block_style)
         mSpinnerColor = findViewById(R.id.spinner_draw_circle_block_color)
     }
@@ -50,10 +50,10 @@ class DrawCircleBlockView : BaseRelativeBlockView {
         newObj.layoutParams = this.layoutParams
         newObj.minimumWidth = measuredWidth
         newObj.minimumHeight = measuredHeight
-        newObj.mEtCx.setText(mEtCx.text.toString())
-        newObj.mEtCy.setText(mEtCy.text.toString())
-        newObj.mEtR.setText(mEtR.text.toString())
-        newObj.mEtW.setText(mEtW.text.toString())
+        newObj.mCalBgCx.clone(mCalBgCx)
+        newObj.mCalBgCy.clone(mCalBgCy)
+        newObj.mCalBgR.clone(mCalBgR)
+        newObj.mCalBgW.clone(mCalBgW)
         newObj.mSpinnerStyle.selectedIndex = mSpinnerStyle.selectedIndex
         newObj.mSpinnerColor.selectedIndex = mSpinnerColor.selectedIndex
         return newObj
@@ -61,10 +61,10 @@ class DrawCircleBlockView : BaseRelativeBlockView {
 
     override suspend fun onRun(role: IRoleView) {
         GlobalScope.launch(Dispatchers.Main) {
-            val cx = mEtCx.text.toString().toFloat()
-            val cy = mEtCy.text.toString().toFloat()
-            val r = mEtR.text.toString().toFloat()
-            val w = mEtW.text.toString().toFloat()
+            val cx = mCalBgCx.calculateResult()
+            val cy = mCalBgCy.calculateResult()
+            val r = mCalBgR.calculateResult()
+            val w = mCalBgW.calculateResult()
             val color = mSpinnerColor.getSelectedColor()
             val style = mSpinnerStyle.getSelectedStyle()
             role.drawCircle(cx, cy, r, w, color, style)

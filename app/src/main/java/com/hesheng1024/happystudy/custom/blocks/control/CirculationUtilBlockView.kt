@@ -4,13 +4,15 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.ImageView
+import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.happystudy.R
-import com.hesheng1024.happystudy.custom.blocks.BlockTextView
+import com.hesheng1024.happystudy.TEXT_SIZE_BLOCK_12
 import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
-import com.hesheng1024.happystudy.custom.role.IRoleView
 import com.hesheng1024.happystudy.custom.blocks.calculate.BaseLogicBlockView
 import com.hesheng1024.happystudy.custom.blocks.calculate.LogicBgBlockView
+import com.hesheng1024.happystudy.custom.role.IRoleView
 
 /**
  *
@@ -36,10 +38,12 @@ class CirculationUtilBlockView : BaseControlBlockView {
 
     @SuppressLint("SetTextI18n")
     private fun initView() {
-        val tvCirculation = BlockTextView(context)
+        val tvCirculation = AppCompatTextView(context)
         tvCirculation.setText(R.string.circulation_until)
+        tvCirculation.textSize = TEXT_SIZE_BLOCK_12
+        tvCirculation.setTextColor(ContextCompat.getColor(context, android.R.color.white))
         tvCirculation.tag = ChildTag.TAG_TOP
-        addView(tvCirculation,0)
+        addView(tvCirculation, 0)
 
         val lp = generateDefaultLayoutParams() as MarginLayoutParams
         lp.leftMargin = dp2px(context, 4f)

@@ -5,17 +5,17 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Path
 import android.util.AttributeSet
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.logD
-import com.hesheng1024.happystudy.TEXT_SIZE_BLOCK_14
-import com.hesheng1024.happystudy.custom.blocks.BlockTextView
+import com.hesheng1024.happystudy.TEXT_SIZE_BLOCK_12
 
 /**
  *
  * @author hesheng1024
  * @date 2020/3/29 19:40
  */
-abstract class BaseTextBlockView : BlockTextView, IBaseBlock {
+abstract class BaseTextBlockView : AppCompatTextView, IBaseBlock {
 
     private val mPaint = Paint()
     private val mPath = Path()
@@ -41,7 +41,7 @@ abstract class BaseTextBlockView : BlockTextView, IBaseBlock {
             (IBaseBlock.DIS_TO_TOP * 2).toInt(),
             (IBaseBlock.DIS_TO_TOP * 2).toInt()
         )
-        textSize = TEXT_SIZE_BLOCK_14
+        textSize = TEXT_SIZE_BLOCK_12
         this.setTextColor(ContextCompat.getColor(context, android.R.color.white))
         this.setOnTouchListener(this)
         this.setOnLongClickListener(this)

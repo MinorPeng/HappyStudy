@@ -30,12 +30,16 @@ class CalculateBgBlock : BaseCalculateBlockView, View.OnDragListener {
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
-        setBgColorId(android.R.color.white)
+        this.setBgColorId(android.R.color.transparent)
         setStatus(IBaseBlock.Status.STATUS_NONE)
-        this.setPadding(0,0, 0, 0)
+        this.setPadding(0, 0, 0, 0)
         setOnDragListener(this)
         mEt = BlockEditText(context)
         mEt.setText(R.string.zero)
+    }
+
+    override fun getBgBorderColor(): Int {
+        return android.R.color.transparent
     }
 
     override fun onDrag(v: View?, event: DragEvent?): Boolean {
@@ -44,7 +48,7 @@ class CalculateBgBlock : BaseCalculateBlockView, View.OnDragListener {
         }
         logD(msg = "event:$event")
         val calculateBlock = event.localState
-        when(event.action) {
+        when (event.action) {
             DragEvent.ACTION_DRAG_EXITED -> {
                 if (calculateBlock == getChildAt(0)) {
                     (mEt.parent as? ViewGroup)?.removeView(mEt)
@@ -79,19 +83,41 @@ class CalculateBgBlock : BaseCalculateBlockView, View.OnDragListener {
             is AppCompatEditText -> {
                 val newEt = AppCompatEditText(context)
                 newEt.setText(child.text.toString())
-                newObj.addView(newEt)
+                newObj.addView(newEt, 0)
             }
             is BaseCalculateBlockView -> {
-                newObj.addView(child.clone() as BaseCalculateBlockView)
+                newObj.addView(child.clone() as BaseCalculateBlockView, 0)
             }
         }
         return newObj
     }
 
+    fun clone(other: CalculateBgBlock) {
+        when (val child = other.getChildAt(0)) {
+            is AppCompatEditText -> {
+                if (getChildAt(0) is AppCompatEditText) {
+                    (getChildAt(0) as AppCompatEditText).setText(child.text.toString())
+                } else {
+                    val newEt = AppCompatEditText(context)
+                    newEt.setText(child.text.toString())
+                    addView(newEt, 0)
+                }
+            }
+            is BaseCalculateBlockView -> {
+                addView(child.clone() as BaseCalculateBlockView, 0)
+            }
+        }
+    }
+
     override fun calculateResult(): Float {
-        return when(val child = getChildAt(0)) {
-            null -> -1f
-            is AppCompatEditText -> child.text.toString().toFloat()
+        return when (val child = getChildAt(0)) {
+            is AppCompatEditText -> {
+                if (child.text.isNullOrEmpty()) {
+                    0f
+                } else {
+                    child.text.toString().toFloat()
+                }
+            }
             is BaseCalculateBlockView -> child.calculateResult()
             else -> -1f
         }

@@ -4,9 +4,9 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import com.hesheng1024.happystudy.R
-import com.hesheng1024.happystudy.custom.blocks.BlockEditText
 import com.hesheng1024.happystudy.custom.blocks.base.BaseRelativeBlockView
 import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
+import com.hesheng1024.happystudy.custom.blocks.calculate.CalculateBgBlock
 import com.hesheng1024.happystudy.custom.role.IRoleView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -19,12 +19,12 @@ import kotlinx.coroutines.launch
  */
 class DrawRectBlockView : BaseRelativeBlockView {
 
-    private val mEtX1: BlockEditText
-    private val mEtY1: BlockEditText
-    private val mEtX2: BlockEditText
-    private val mEtY2: BlockEditText
-    private val mEtW: BlockEditText
-    private val mEtRotation: BlockEditText
+    private val mCalBgX1: CalculateBgBlock
+    private val mCalBgY1: CalculateBgBlock
+    private val mCalBgX2: CalculateBgBlock
+    private val mCalBgY2: CalculateBgBlock
+    private val mCalBgW: CalculateBgBlock
+    private val mCalBgRotation: CalculateBgBlock
     private val mSpinnerStyle: DrawStyleSpinner
     private val mSpinnerColor: DrawColorSpinner
 
@@ -39,12 +39,12 @@ class DrawRectBlockView : BaseRelativeBlockView {
             : super(context, attrs, defStyleAttr, defStyleRes) {
         setBgColorId(R.color.colorDrawRed500)
         View.inflate(context, R.layout.layout_draw_rect_block, this)
-        mEtX1 = findViewById(R.id.et_draw_rect_block_x1)
-        mEtY1 = findViewById(R.id.et_draw_rect_block_y1)
-        mEtX2 = findViewById(R.id.et_draw_rect_block_x2)
-        mEtY2 = findViewById(R.id.et_draw_rect_block_y2)
-        mEtW = findViewById(R.id.et_draw_rect_block_w)
-        mEtRotation = findViewById(R.id.et_draw_rect_block_rotation)
+        mCalBgX1 = findViewById(R.id.cal_bg_draw_rect_block_x1)
+        mCalBgY1 = findViewById(R.id.cal_bg_draw_rect_block_y1)
+        mCalBgX2 = findViewById(R.id.cal_bg_draw_rect_block_x2)
+        mCalBgY2 = findViewById(R.id.cal_bg_draw_rect_block_y2)
+        mCalBgW = findViewById(R.id.cal_bg_draw_rect_block_w)
+        mCalBgRotation = findViewById(R.id.cal_bg_draw_rect_block_rotation)
         mSpinnerStyle = findViewById(R.id.spinner_draw_rect_block_style)
         mSpinnerColor = findViewById(R.id.spinner_draw_rect_block_color)
     }
@@ -54,12 +54,12 @@ class DrawRectBlockView : BaseRelativeBlockView {
         newObj.layoutParams = this.layoutParams
         newObj.minimumWidth = measuredWidth
         newObj.minimumHeight = measuredHeight
-        newObj.mEtX1.setText(mEtX1.text.toString())
-        newObj.mEtY1.setText(mEtY1.text.toString())
-        newObj.mEtX2.setText(mEtX2.text.toString())
-        newObj.mEtY2.setText(mEtX2.text.toString())
-        newObj.mEtW.setText(mEtW.text.toString())
-        newObj.mEtRotation.setText(mEtRotation.text.toString())
+        newObj.mCalBgX1.clone(mCalBgX1)
+        newObj.mCalBgY1.clone(mCalBgY1)
+        newObj.mCalBgX2.clone(mCalBgX2)
+        newObj.mCalBgY2.clone(mCalBgX2)
+        newObj.mCalBgW.clone(mCalBgW)
+        newObj.mCalBgRotation.clone(mCalBgRotation)
         newObj.mSpinnerStyle.selectedIndex = mSpinnerStyle.selectedIndex
         newObj.mSpinnerColor.selectedIndex = mSpinnerColor.selectedIndex
         return newObj
@@ -67,14 +67,14 @@ class DrawRectBlockView : BaseRelativeBlockView {
 
     override suspend fun onRun(role: IRoleView) {
         GlobalScope.launch(Dispatchers.Main) {
-            val x1 = mEtX1.text.toString().toFloat()
-            val y1 = mEtY1.text.toString().toFloat()
-            val x2 = mEtX2.text.toString().toFloat()
-            val y2 = mEtY2.text.toString().toFloat()
-            val w = mEtW.text.toString().toFloat()
+            val x1 = mCalBgX1.calculateResult()
+            val y1 = mCalBgY1.calculateResult()
+            val x2 = mCalBgX2.calculateResult()
+            val y2 = mCalBgY2.calculateResult()
+            val w = mCalBgW.calculateResult()
             val color = mSpinnerColor.getSelectedColor()
             val style = mSpinnerStyle.getSelectedStyle()
-            val rotation = mEtRotation.text.toString().toFloat()
+            val rotation = mCalBgRotation.calculateResult()
             role.drawRect(x1, y1, x2, y2, w, color, style, rotation)
         }
     }

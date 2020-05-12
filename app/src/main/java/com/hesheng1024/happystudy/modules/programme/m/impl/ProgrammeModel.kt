@@ -71,6 +71,13 @@ class ProgrammeModel : IProgrammeModel {
         blocks.add(Block(Block.Category.CALCULATE, OrBlockView(context)))
         blocks.add(Block(Block.Category.CALCULATE, NotBlockView(context)))
 
+        blocks.add(Block(Block.Category.CALCULATE, VarEqualBlockView(context)))
+        blocks.add(Block(Block.Category.CALCULATE, VarAddBlockView(context)))
+        blocks.add(Block(Block.Category.CALCULATE, VarMinusBlockView(context)))
+        blocks.add(Block(Block.Category.CALCULATE, VarMultiplyBlockView(context)))
+        blocks.add(Block(Block.Category.CALCULATE, VarDivideBlockView(context)))
+
+
         blocks.add(Block(Block.Category.DRAW, DrawCircleBlockView(context)))
         blocks.add(Block(Block.Category.DRAW, DrawFillCircleBlockView(context)))
         blocks.add(Block(Block.Category.DRAW, DrawRingBlockView(context)))

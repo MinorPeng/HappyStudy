@@ -8,8 +8,10 @@ import android.graphics.Paint
 import android.graphics.Path
 import android.util.AttributeSet
 import android.widget.ImageView
+import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.content.ContextCompat
 import com.hesheng1024.happystudy.R
-import com.hesheng1024.happystudy.custom.blocks.BlockTextView
+import com.hesheng1024.happystudy.TEXT_SIZE_BLOCK_12
 import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.role.IRoleView
 
@@ -34,8 +36,10 @@ class DeathCirculationBlockView : BaseControlBlockView {
 
     @SuppressLint("SetTextI18n")
     private fun initView() {
-        val tvCirculation = BlockTextView(context)
+        val tvCirculation = AppCompatTextView(context)
         tvCirculation.setText(R.string.circulation)
+        tvCirculation.textSize = TEXT_SIZE_BLOCK_12
+        tvCirculation.setTextColor(ContextCompat.getColor(context, android.R.color.white))
         tvCirculation.tag = ChildTag.TAG_TOP
         addView(tvCirculation)
 
@@ -68,7 +72,10 @@ class DeathCirculationBlockView : BaseControlBlockView {
         path.lineTo(IBaseBlock.DIS_TO_LEFT, measuredH - getTopViewH() - IBaseBlock.DIS_TO_TOP)
         path.lineTo(IBaseBlock.DIS_TO_LEFT * 2, measuredH - getTopViewH() - IBaseBlock.DIS_TO_TOP)
         path.lineTo(IBaseBlock.DIS_TO_LEFT * 2 + IBaseBlock.DIS_TO_TOP, (measuredH - getTopViewH()))
-        path.lineTo(IBaseBlock.DIS_TO_LEFT * 2 + IBaseBlock.DIS_TO_TOP + IBaseBlock.LINE_LEN, (measuredH - getTopViewH()))
+        path.lineTo(
+            IBaseBlock.DIS_TO_LEFT * 2 + IBaseBlock.DIS_TO_TOP + IBaseBlock.LINE_LEN,
+            (measuredH - getTopViewH())
+        )
         path.lineTo(
             IBaseBlock.DIS_TO_LEFT * 2 + IBaseBlock.DIS_TO_TOP * 2 + IBaseBlock.LINE_LEN,
             measuredH - getTopViewH() - IBaseBlock.DIS_TO_TOP

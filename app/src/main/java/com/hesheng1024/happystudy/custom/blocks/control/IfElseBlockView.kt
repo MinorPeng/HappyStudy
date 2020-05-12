@@ -7,17 +7,19 @@ import android.util.AttributeSet
 import android.view.DragEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.base.utils.logD
 import com.hesheng1024.base.utils.logI
 import com.hesheng1024.happystudy.R
-import com.hesheng1024.happystudy.custom.blocks.BlockTextView
+import com.hesheng1024.happystudy.TEXT_SIZE_BLOCK_12
 import com.hesheng1024.happystudy.custom.blocks.base.BaseBlockViewGroup
 import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
-import com.hesheng1024.happystudy.custom.role.IRoleView
 import com.hesheng1024.happystudy.custom.blocks.calculate.BaseCalculateBlockView
 import com.hesheng1024.happystudy.custom.blocks.calculate.BaseLogicBlockView
 import com.hesheng1024.happystudy.custom.blocks.calculate.LogicBgBlockView
+import com.hesheng1024.happystudy.custom.role.IRoleView
 import kotlin.math.max
 
 /**
@@ -58,8 +60,11 @@ class IfElseBlockView : BaseBlockViewGroup {
 
     @SuppressLint("SetTextI18n")
     private fun initView() {
-        val tvIf = BlockTextView(context)
+        val color = ContextCompat.getColor(context, android.R.color.white)
+        val tvIf = AppCompatTextView(context)
         tvIf.setText(R.string.if_str)
+        tvIf.textSize = TEXT_SIZE_BLOCK_12
+        tvIf.setTextColor(color)
         tvIf.tag = ChildTag.TAG_TOP
         addView(tvIf)
 
@@ -71,7 +76,7 @@ class IfElseBlockView : BaseBlockViewGroup {
         // 也可以直接在父类中统一监听，只是坐标计算相对复杂一点
         var isIn = false
         mLogicBg.setOnDragListener { v, event ->
-            when(event.action) {
+            when (event.action) {
                 DragEvent.ACTION_DRAG_ENTERED -> {
                     logI(msg = "logicBgView entered")
                     isIn = true
@@ -95,13 +100,17 @@ class IfElseBlockView : BaseBlockViewGroup {
         }
         addView(mLogicBg, lp)
 
-        val tvThen = BlockTextView(context)
+        val tvThen = AppCompatTextView(context)
         tvThen.setText(R.string.then)
+        tvThen.textSize = TEXT_SIZE_BLOCK_12
+        tvThen.setTextColor(color)
         tvThen.tag = ChildTag.TAG_TOP
         addView(tvThen)
 
-        val tvElse = BlockTextView(context)
+        val tvElse = AppCompatTextView(context)
         tvElse.setText(R.string.else_str)
+        tvElse.textSize = TEXT_SIZE_BLOCK_12
+        tvElse.setTextColor(color)
         tvElse.tag = ChildTag.TAG_CENTER
         addView(tvElse)
     }
@@ -335,8 +344,9 @@ class IfElseBlockView : BaseBlockViewGroup {
             && block.getStatus() == IBaseBlock.Status.STATUS_DRAG
             && block !is BaseLogicBlockView
             && block !is BaseCalculateBlockView
-            &&  block is View
-            && block.getBlackOwn() is View) {
+            && block is View
+            && block.getBlackOwn() is View
+        ) {
             val blackOwn = block.getBlackOwn() as View
             val oldBlockTag = block.tag
             val oldBlackOwnTag = blackOwn.tag
@@ -353,9 +363,12 @@ class IfElseBlockView : BaseBlockViewGroup {
                     if (child != null
                         && child.tag == ChildTag.TAG_CHILD_IF
                         && child is IBaseBlock
-                        && child.getStatus() == IBaseBlock.Status.STATUS_DRAG) {
-                        val customDragEvent = IBaseBlock.CustomDragEvent(event.x - left, event.y - top,
-                            event.action, event.localState, event.clipData, event.clipDescription, event.result)
+                        && child.getStatus() == IBaseBlock.Status.STATUS_DRAG
+                    ) {
+                        val customDragEvent = IBaseBlock.CustomDragEvent(
+                            event.x - left, event.y - top,
+                            event.action, event.localState, event.clipData, event.clipDescription, event.result
+                        )
                         if (child.onDragEv(customDragEvent)) {
                             mChildIfCount++
                             return true
@@ -372,9 +385,12 @@ class IfElseBlockView : BaseBlockViewGroup {
                     if (child != null
                         && child.tag == ChildTag.TAG_CHILD_ELSE
                         && child is IBaseBlock
-                        && child.getStatus() == IBaseBlock.Status.STATUS_DRAG) {
-                        val customDragEvent = IBaseBlock.CustomDragEvent(event.x - left, event.y - top,
-                            event.action, event.localState, event.clipData, event.clipDescription, event.result)
+                        && child.getStatus() == IBaseBlock.Status.STATUS_DRAG
+                    ) {
+                        val customDragEvent = IBaseBlock.CustomDragEvent(
+                            event.x - left, event.y - top,
+                            event.action, event.localState, event.clipData, event.clipDescription, event.result
+                        )
                         if (child.onDragEv(customDragEvent)) {
                             mChildElseCount++
                             return true
@@ -383,7 +399,7 @@ class IfElseBlockView : BaseBlockViewGroup {
                 }
             }
 
-            when(event.action) {
+            when (event.action) {
                 DragEvent.ACTION_DRAG_LOCATION -> {
                     when {
                         isInIfRectF(px, py) && blackOwn.parent == null -> {

@@ -11,5 +11,7 @@ const val FLAG_PROGRAMME_MOTION = "programme_motion"
 const val FLAG_PROGRAMME_APPEARANCE = "programme_appearance"
 const val FLAG_PROGRAMME_CONTROL = "programme_control"
 
-const val TEXT_SIZE_BLOCK_14 = 14f
+const val TEXT_SIZE_BLOCK_12 = 12f
 const val BLOCK_ROLE_RUN_DELAY = 50L
+
+val VariableMap = HashMap<String, Float>()

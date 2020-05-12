@@ -28,9 +28,9 @@ class LogicBgBlockView : BaseLogicBlockView, View.OnDragListener {
             : super(context, attrs, defStyleAttr, defStyleRes) {
         setBgColorId(R.color.colorCalculateGreen700)
         setStatus(IBaseBlock.Status.STATUS_NONE)
-        this.setPadding(0,0, 0, 0)
+        this.setPadding(0, 0, 0, 0)
         minimumWidth = (sDisLeft * 3).toInt()
-        minimumHeight = (sDisLeft * 2.3).toInt()
+        minimumHeight = (sDisLeft * 2).toInt()
         setOnDragListener(this)
     }
 
@@ -38,7 +38,7 @@ class LogicBgBlockView : BaseLogicBlockView, View.OnDragListener {
         if (v == null || event == null) {
             return false
         }
-        when(event.action) {
+        when (event.action) {
             DragEvent.ACTION_DROP -> {
                 logI(msg = "logicBgView drop")
                 val logicBlock = event.localState
@@ -68,6 +68,13 @@ class LogicBgBlockView : BaseLogicBlockView, View.OnDragListener {
             newObj.addView(child.clone() as BaseLogicBlockView)
         }
         return newObj
+    }
+
+    fun clone(other: LogicBgBlockView) {
+        val child = other.getChildAt(0)
+        if (child is BaseLogicBlockView) {
+            addView(child.clone() as BaseLogicBlockView, 0)
+        }
     }
 
     override fun judgeResult(): Boolean {

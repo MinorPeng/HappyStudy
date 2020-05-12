@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.base.utils.logD
 import com.hesheng1024.happystudy.R
+import com.hesheng1024.happystudy.VariableMap
 import com.hesheng1024.happystudy.utils.MediaPlayerUtil
 import com.hesheng1024.happystudy.utils.adjustVolume
 
@@ -84,6 +85,7 @@ class RoleViewGroup : FrameLayout, IRoleView {
     }
 
     fun restore() {
+        VariableMap.clear()
         mCircles.clear()
         mRects.clear()
         mLines.clear()
@@ -148,23 +150,26 @@ class RoleViewGroup : FrameLayout, IRoleView {
             }
             for (rect in mRects) {
                 logD(msg = "draw rect: $rect")
-                canvas.rotate(rect.rotation)
                 mPaint.color = rect.color
                 mPaint.style = rect.style
                 mPaint.strokeWidth = rect.w
                 canvas.drawRect(rect.x1, rect.y1, rect.x2, rect.y2, mPaint)
+                canvas.rotate(rect.rotation)
+                canvas.save()
+                canvas.restore()
             }
             for (line in mLines) {
                 logD(msg = "draw line: $line")
-                canvas.rotate(line.rotation)
                 mPaint.color = line.color
                 mPaint.strokeWidth = line.w
                 canvas.drawLine(line.startX, line.startY, line.endX, line.endY, mPaint)
+                canvas.rotate(line.rotation)
+                canvas.save()
+                canvas.restore()
             }
             for (triangle in mTriangles) {
                 logD(msg = "draw triangle: $triangle")
                 mPath.reset()
-                canvas.rotate(triangle.rotation)
                 mPaint.color = triangle.color
                 mPaint.style = triangle.style
                 mPaint.strokeWidth = triangle.w
@@ -178,6 +183,9 @@ class RoleViewGroup : FrameLayout, IRoleView {
                     else -> Path.FillType.WINDING
                 }
                 canvas.drawPath(mPath, mPaint)
+                canvas.rotate(triangle.rotation)
+                canvas.save()
+                canvas.restore()
             }
         }
     }
@@ -318,7 +326,7 @@ class RoleViewGroup : FrameLayout, IRoleView {
         color: Int, style: Paint.Style, rotation: Float
     ) {
         logD(msg = "draw rect")
-        mRects.add(DrawRect(x1, -y1, x2, -y2, w, color, style, -rotation))
+        mRects.add(DrawRect(x1, -y1, x2, -y2, w, color, style, rotation))
         invalidate()
     }
 
@@ -327,7 +335,7 @@ class RoleViewGroup : FrameLayout, IRoleView {
         w: Float, color: Int, rotation: Float
     ) {
         logD(msg = "draw line")
-        mLines.add(DrawLine(startX, -startY, endX, -endY, w, color, -rotation))
+        mLines.add(DrawLine(startX, -startY, endX, -endY, w, color, rotation))
         invalidate()
     }
 
@@ -336,7 +344,7 @@ class RoleViewGroup : FrameLayout, IRoleView {
         w: Float, color: Int, style: Paint.Style, rotation: Float
     ) {
         logD(msg = "draw triangle")
-        mTriangles.add(DrawTriangle(x1, -y1, x2, -y2, x3, -y3, w, color, style, -rotation))
+        mTriangles.add(DrawTriangle(x1, -y1, x2, -y2, x3, -y3, w, color, style, rotation))
         invalidate()
     }
 

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    tools:background="@color/colorCalculate500"
+    tools:padding="@dimen/dp4"
+    tools:parentTag="android.widget.LinearLayout">
+
+    <com.hesheng1024.happystudy.custom.blocks.BlockEditText
+        android:id="@+id/et_variable_multiply_block_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/variable"
+        android:inputType="text"
+        android:minEms="1"
+        android:digits="@string/lower_case_letter"
+        android:text="@string/i" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        style="@style/BlockTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp8"
+        android:layout_marginEnd="@dimen/dp8"
+        android:text="@string/multiply" />
+
+    <com.hesheng1024.happystudy.custom.blocks.calculate.CalculateBgBlock
+        android:id="@+id/bg_variable_multiply_block_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.hesheng1024.happystudy.custom.blocks.BlockEditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ten" />
+    </com.hesheng1024.happystudy.custom.blocks.calculate.CalculateBgBlock>
+
+</merge>

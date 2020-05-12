@@ -5,14 +5,16 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.DragEvent
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.base.utils.logI
 import com.hesheng1024.happystudy.R
-import com.hesheng1024.happystudy.custom.blocks.BlockTextView
+import com.hesheng1024.happystudy.TEXT_SIZE_BLOCK_12
 import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
-import com.hesheng1024.happystudy.custom.role.IRoleView
 import com.hesheng1024.happystudy.custom.blocks.calculate.BaseLogicBlockView
 import com.hesheng1024.happystudy.custom.blocks.calculate.LogicBgBlockView
+import com.hesheng1024.happystudy.custom.role.IRoleView
 
 /**
  *
@@ -38,8 +40,10 @@ class IfBlockView : BaseControlBlockView {
 
     @SuppressLint("SetTextI18n")
     private fun initView() {
-        val tvIf = BlockTextView(context)
+        val tvIf = AppCompatTextView(context)
         tvIf.setText(R.string.if_str)
+        tvIf.textSize = TEXT_SIZE_BLOCK_12
+        tvIf.setTextColor(ContextCompat.getColor(context, android.R.color.white))
         tvIf.tag = ChildTag.TAG_TOP
         addView(tvIf)
 
@@ -51,7 +55,7 @@ class IfBlockView : BaseControlBlockView {
         // 也可以直接在父类中统一监听，只是坐标计算相对复杂一点
         var isIn = false
         mLogicBg.setOnDragListener { v, event ->
-            when(event.action) {
+            when (event.action) {
                 DragEvent.ACTION_DRAG_ENTERED -> {
                     logI(msg = "logicBgView entered")
                     isIn = true
@@ -75,8 +79,10 @@ class IfBlockView : BaseControlBlockView {
         }
         addView(mLogicBg, lp)
 
-        val tvThen = BlockTextView(context)
+        val tvThen = AppCompatTextView(context)
         tvThen.setText(R.string.then)
+        tvThen.textSize = TEXT_SIZE_BLOCK_12
+        tvThen.setTextColor(ContextCompat.getColor(context, android.R.color.white))
         tvThen.tag = ChildTag.TAG_TOP
         addView(tvThen)
     }

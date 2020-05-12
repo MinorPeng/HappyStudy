@@ -4,9 +4,9 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import com.hesheng1024.happystudy.R
-import com.hesheng1024.happystudy.custom.blocks.BlockEditText
 import com.hesheng1024.happystudy.custom.blocks.base.BaseRelativeBlockView
 import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
+import com.hesheng1024.happystudy.custom.blocks.calculate.CalculateBgBlock
 import com.hesheng1024.happystudy.custom.role.IRoleView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -19,11 +19,11 @@ import kotlinx.coroutines.launch
  */
 class DrawSquareBlockView : BaseRelativeBlockView {
 
-    private val mEtCx: BlockEditText
-    private val mEtCy: BlockEditText
-    private val mEtLen: BlockEditText
-    private val mEtW: BlockEditText
-    private val mEtRotation: BlockEditText
+    private val mCalBgCx: CalculateBgBlock
+    private val mCalBgCy: CalculateBgBlock
+    private val mCalBgLen: CalculateBgBlock
+    private val mCalBgW: CalculateBgBlock
+    private val mCalBgRotation: CalculateBgBlock
     private val mSpinnerStyle: DrawStyleSpinner
     private val mSpinnerColor: DrawColorSpinner
 
@@ -38,11 +38,11 @@ class DrawSquareBlockView : BaseRelativeBlockView {
             : super(context, attrs, defStyleAttr, defStyleRes) {
         setBgColorId(R.color.colorDrawRed500)
         View.inflate(context, R.layout.layout_draw_square_block, this)
-        mEtCx = findViewById(R.id.et_draw_square_block_cx)
-        mEtCy = findViewById(R.id.et_draw_square_block_cy)
-        mEtLen = findViewById(R.id.et_draw_square_block_bl)
-        mEtW = findViewById(R.id.et_draw_square_block_w)
-        mEtRotation = findViewById(R.id.et_draw_square_block_rotation)
+        mCalBgCx = findViewById(R.id.cal_bg_draw_square_block_cx)
+        mCalBgCy = findViewById(R.id.cal_bg_draw_square_block_cy)
+        mCalBgLen = findViewById(R.id.cal_bg_draw_square_block_bl)
+        mCalBgW = findViewById(R.id.cal_bg_draw_square_block_w)
+        mCalBgRotation = findViewById(R.id.cal_bg_draw_square_block_rotation)
         mSpinnerStyle = findViewById(R.id.spinner_draw_square_block_style)
         mSpinnerColor = findViewById(R.id.spinner_draw_square_block_color)
     }
@@ -52,11 +52,11 @@ class DrawSquareBlockView : BaseRelativeBlockView {
         newObj.layoutParams = this.layoutParams
         newObj.minimumWidth = measuredWidth
         newObj.minimumHeight = measuredHeight
-        newObj.mEtCx.setText(mEtCx.text.toString())
-        newObj.mEtCy.setText(mEtCy.text.toString())
-        newObj.mEtLen.setText(mEtLen.text.toString())
-        newObj.mEtW.setText(mEtW.text.toString())
-        newObj.mEtRotation.setText(mEtRotation.text.toString())
+        newObj.mCalBgCx.clone(mCalBgCx)
+        newObj.mCalBgCy.clone(mCalBgCy)
+        newObj.mCalBgLen.clone(mCalBgLen)
+        newObj.mCalBgW.clone(mCalBgW)
+        newObj.mCalBgRotation.clone(mCalBgRotation)
         newObj.mSpinnerStyle.selectedIndex = mSpinnerStyle.selectedIndex
         newObj.mSpinnerColor.selectedIndex = mSpinnerColor.selectedIndex
         return newObj
@@ -64,17 +64,17 @@ class DrawSquareBlockView : BaseRelativeBlockView {
 
     override suspend fun onRun(role: IRoleView) {
         GlobalScope.launch(Dispatchers.Main) {
-            val cx = mEtCx.text.toString().toFloat()
-            val cy = mEtCy.text.toString().toFloat()
-            val len = mEtLen.text.toString().toFloat()
+            val cx = mCalBgCx.calculateResult()
+            val cy = mCalBgCy.calculateResult()
+            val len = mCalBgLen.calculateResult()
             val l = cx - len / 2
             val t = cy + len / 2
             val r = cx + len / 2
             val b = cy - len / 2
-            val w = mEtW.text.toString().toFloat()
+            val w = mCalBgW.calculateResult()
             val color = mSpinnerColor.getSelectedColor()
             val style = mSpinnerStyle.getSelectedStyle()
-            val rotation = mEtRotation.text.toString().toFloat()
+            val rotation = mCalBgRotation.calculateResult()
             role.drawRect(l, t, r, b, w, color, style, rotation)
         }
     }

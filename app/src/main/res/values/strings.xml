@@ -96,4 +96,7 @@
     <string name="equal">=</string>
     <string name="less_than"><![CDATA[<]]></string>
     <string name="more_than"><![CDATA[>]]></string>
+    <string name="i">i</string>
+    <string name="variable">变量</string>
+    <string name="lower_case_letter">abcdefghijklmnopqrstuvwxyz</string>
 </resources>

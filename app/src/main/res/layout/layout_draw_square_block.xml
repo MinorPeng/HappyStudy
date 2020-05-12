@@ -12,162 +12,180 @@
         style="@style/BlockTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@id/et_draw_square_block_cx"
-        android:layout_alignBottom="@+id/et_draw_square_block_cx"
+        android:layout_alignTop="@id/layout_top"
+        android:layout_alignBottom="@+id/layout_top"
         android:layout_alignParentStart="true"
         android:gravity="center_vertical"
         android:text="@string/draw_square"
         android:textStyle="bold" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_draw_square_block_p1"
-        style="@style/BlockTextStyle"
+    <LinearLayout
+        android:id="@+id/layout_top"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@id/et_draw_square_block_cx"
-        android:layout_alignBottom="@id/et_draw_square_block_cx"
         android:layout_marginStart="@dimen/dp8"
         android:layout_toEndOf="@id/tv_draw_square_block_title"
-        android:gravity="center_vertical"
-        android:text="@string/center" />
+        android:background="@android:color/transparent"
+        android:gravity="center_vertical">
 
-    <com.hesheng1024.happystudy.custom.blocks.BlockEditText
-        android:id="@+id/et_draw_square_block_cx"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_draw_square_block_p1"
+            style="@style/BlockTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="@string/center" />
+
+        <com.hesheng1024.happystudy.custom.blocks.calculate.CalculateBgBlock
+            android:id="@+id/cal_bg_draw_square_block_cx"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp4">
+
+            <com.hesheng1024.happystudy.custom.blocks.BlockEditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/cx"
+                android:text="@string/zero"
+                tools:background="@drawable/bg_et_circle_white"
+                tools:gravity="center" />
+        </com.hesheng1024.happystudy.custom.blocks.calculate.CalculateBgBlock>
+
+        <com.hesheng1024.happystudy.custom.blocks.calculate.CalculateBgBlock
+            android:id="@+id/cal_bg_draw_square_block_cy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp4">
+
+            <com.hesheng1024.happystudy.custom.blocks.BlockEditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/cy"
+                android:text="@string/zero"
+                tools:background="@drawable/bg_et_circle_white"
+                tools:gravity="center" />
+        </com.hesheng1024.happystudy.custom.blocks.calculate.CalculateBgBlock>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_draw_square_block_bl"
+            style="@style/BlockTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp8"
+            android:gravity="center_vertical"
+            android:text="@string/border_length" />
+
+        <com.hesheng1024.happystudy.custom.blocks.calculate.CalculateBgBlock
+            android:id="@+id/cal_bg_draw_square_block_bl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp4">
+
+            <com.hesheng1024.happystudy.custom.blocks.BlockEditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/border_length"
+                android:text="@string/ten"
+                tools:background="@drawable/bg_et_circle_white"
+                tools:gravity="center" />
+        </com.hesheng1024.happystudy.custom.blocks.calculate.CalculateBgBlock>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="@dimen/dp4"
-        android:layout_toEndOf="@id/tv_draw_square_block_p1"
-        android:hint="@string/cx"
-        android:text="@string/zero"
-        tools:background="@drawable/bg_et_circle_white"
-        tools:gravity="center" />
-
-    <com.hesheng1024.happystudy.custom.blocks.BlockEditText
-        android:id="@+id/et_draw_square_block_cy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/et_draw_square_block_cx"
-        android:layout_alignBottom="@id/et_draw_square_block_cx"
-        android:layout_marginStart="@dimen/dp4"
-        android:layout_toEndOf="@id/et_draw_square_block_cx"
-        android:hint="@string/cy"
-        android:text="@string/zero"
-        tools:background="@drawable/bg_et_circle_white"
-        tools:gravity="center" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_draw_square_block_bl"
-        style="@style/BlockTextStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/et_draw_square_block_bl"
-        android:layout_alignBottom="@id/et_draw_square_block_bl"
-        android:layout_marginStart="@dimen/dp8"
-        android:layout_toEndOf="@id/et_draw_square_block_cy"
-        android:gravity="center_vertical"
-        android:text="@string/border_length" />
-
-    <com.hesheng1024.happystudy.custom.blocks.BlockEditText
-        android:id="@+id/et_draw_square_block_bl"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/et_draw_square_block_cx"
-        android:layout_alignBottom="@id/et_draw_square_block_cx"
-        android:layout_marginStart="@dimen/dp4"
-        android:layout_toEndOf="@id/tv_draw_square_block_bl"
-        android:hint="@string/border_length"
-        android:text="@string/ten"
-        tools:background="@drawable/bg_et_circle_white"
-        tools:gravity="center" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_draw_square_block_w"
-        style="@style/BlockTextStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@id/tv_draw_square_block_p1"
-        android:layout_alignTop="@id/et_draw_square_block_w"
-        android:layout_alignBottom="@id/et_draw_square_block_w"
-        android:gravity="center_vertical"
-        android:text="@string/line_w" />
-
-    <com.hesheng1024.happystudy.custom.blocks.BlockEditText
-        android:id="@+id/et_draw_square_block_w"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/et_draw_square_block_cx"
-        android:layout_marginStart="@dimen/dp4"
+        android:layout_below="@id/layout_top"
+        android:layout_alignStart="@id/layout_top"
         android:layout_marginTop="@dimen/dp4"
-        android:layout_toEndOf="@id/tv_draw_square_block_w"
-        android:hint="@string/line_w"
-        android:text="@string/one"
-        tools:background="@drawable/bg_et_circle_white"
-        tools:gravity="center" />
+        android:background="@android:color/transparent"
+        android:gravity="center_vertical">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_draw_square_block_rotation"
-        style="@style/BlockTextStyle"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_draw_square_block_w"
+            style="@style/BlockTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="@string/line_w" />
+
+        <com.hesheng1024.happystudy.custom.blocks.calculate.CalculateBgBlock
+            android:id="@+id/cal_bg_draw_square_block_w"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp4">
+
+            <com.hesheng1024.happystudy.custom.blocks.BlockEditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/line_w"
+                android:text="@string/one"
+                tools:background="@drawable/bg_et_circle_white"
+                tools:gravity="center" />
+        </com.hesheng1024.happystudy.custom.blocks.calculate.CalculateBgBlock>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_draw_square_block_rotation"
+            style="@style/BlockTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp8"
+            android:gravity="center_vertical"
+            android:text="@string/right_rotate" />
+
+        <com.hesheng1024.happystudy.custom.blocks.calculate.CalculateBgBlock
+            android:id="@+id/cal_bg_draw_square_block_rotation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp4">
+
+            <com.hesheng1024.happystudy.custom.blocks.BlockEditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/degree"
+                android:inputType="numberSigned"
+                android:text="@string/zero"
+                tools:background="@drawable/bg_et_circle_white"
+                tools:gravity="center" />
+        </com.hesheng1024.happystudy.custom.blocks.calculate.CalculateBgBlock>
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@id/tv_draw_square_block_bl"
-        android:layout_alignTop="@id/et_draw_square_block_rotation"
-        android:layout_alignBottom="@id/et_draw_square_block_rotation"
-        android:gravity="center_vertical"
-        android:text="@string/right_rotate" />
-
-    <com.hesheng1024.happystudy.custom.blocks.BlockEditText
-        android:id="@+id/et_draw_square_block_rotation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/et_draw_square_block_w"
-        android:layout_alignBottom="@id/et_draw_square_block_w"
-        android:layout_marginStart="@dimen/dp4"
-        android:layout_toEndOf="@id/tv_draw_square_block_rotation"
-        android:hint="@string/degree"
-        android:inputType="numberSigned"
-        android:text="@string/zero"
-        tools:background="@drawable/bg_et_circle_white"
-        tools:gravity="center" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_draw_square_block_style"
-        style="@style/BlockTextStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@id/tv_draw_square_block_w"
-        android:layout_alignTop="@id/spinner_draw_square_block_style"
-        android:layout_alignBottom="@id/spinner_draw_square_block_style"
-        android:gravity="center_vertical"
-        android:text="@string/fill_style" />
-
-    <com.hesheng1024.happystudy.custom.blocks.draw.DrawStyleSpinner
-        android:id="@+id/spinner_draw_square_block_style"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/et_draw_square_block_w"
-        android:layout_marginStart="@dimen/dp4"
+        android:layout_below="@id/layout_center"
+        android:layout_alignStart="@id/layout_center"
         android:layout_marginTop="@dimen/dp4"
-        android:layout_toEndOf="@id/tv_draw_square_block_style" />
+        android:background="@android:color/transparent"
+        android:gravity="center_vertical">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_draw_square_block_color"
-        style="@style/BlockTextStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/spinner_draw_square_block_color"
-        android:layout_alignBottom="@id/spinner_draw_square_block_color"
-        android:layout_marginStart="@dimen/dp8"
-        android:layout_toEndOf="@id/spinner_draw_square_block_style"
-        android:gravity="center_vertical"
-        android:text="@string/color" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_draw_square_block_style"
+            style="@style/BlockTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="@string/fill_style" />
 
-    <com.hesheng1024.happystudy.custom.blocks.draw.DrawColorSpinner
-        android:id="@+id/spinner_draw_square_block_color"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/spinner_draw_square_block_style"
-        android:layout_alignBottom="@id/spinner_draw_square_block_style"
-        android:layout_marginStart="@dimen/dp4"
-        android:layout_toEndOf="@id/tv_draw_square_block_color" />
+        <com.hesheng1024.happystudy.custom.blocks.draw.DrawStyleSpinner
+            android:id="@+id/spinner_draw_square_block_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp4" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_draw_square_block_color"
+            style="@style/BlockTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp8"
+            android:gravity="center_vertical"
+            android:text="@string/color" />
+
+        <com.hesheng1024.happystudy.custom.blocks.draw.DrawColorSpinner
+            android:id="@+id/spinner_draw_square_block_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp4" />
+    </LinearLayout>
 </merge>
