@@ -14,6 +14,7 @@ interface IRoleDraw {
      *
      * @param cx: x of center point
      * @param cy: y of center point
+     * @param r: radius
      * @param w: line width
      * @param color: circle color
      * @param style: stroke, fill, stroke with fill
@@ -22,6 +23,15 @@ interface IRoleDraw {
         @NonNull cx: Float, @NonNull cy: Float, @NonNull r: Float,
         @NonNull w: Float, @NonNull color: Int, @NonNull style: Paint.Style
     )
+
+    /**
+     *
+     * @param cx: x of center point
+     * @param cy: y of center point
+     * @param r: radius
+     * @param color: circle color
+     */
+    fun drawPoint(@NonNull cx: Float, @NonNull cy: Float, @NonNull r: Float, @NonNull color: Int)
 
     /**
      *

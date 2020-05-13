@@ -38,6 +38,9 @@ abstract class BaseBlockViewGroup : ViewGroup, IBaseBlock {
         this.setOnTouchListener(this)
         this.setOnLongClickListener(this)
         this.setOnClickListener(this)
+        // 取消对children进行自动padding缩减操作
+        clipChildren = false
+        clipToPadding = false
     }
 
     override fun onDraw(canvas: Canvas?) {

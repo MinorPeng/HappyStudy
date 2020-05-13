@@ -2,6 +2,7 @@ package com.hesheng1024.happystudy.custom.blocks.base
 
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Path
 import android.util.AttributeSet
@@ -42,7 +43,7 @@ abstract class BaseTextBlockView : AppCompatTextView, IBaseBlock {
             (IBaseBlock.DIS_TO_TOP * 2).toInt()
         )
         textSize = TEXT_SIZE_BLOCK_12
-        this.setTextColor(ContextCompat.getColor(context, android.R.color.white))
+        this.setTextColor(Color.WHITE)
         this.setOnTouchListener(this)
         this.setOnLongClickListener(this)
         this.setOnClickListener(this)

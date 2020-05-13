@@ -2,11 +2,11 @@ package com.hesheng1024.happystudy.custom.blocks.control
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
 import android.text.InputType
 import android.util.AttributeSet
 import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatTextView
-import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.TEXT_SIZE_BLOCK_12
@@ -42,7 +42,7 @@ class CirculationNumBlockView : BaseControlBlockView {
         val tvCirculation = AppCompatTextView(context)
         tvCirculation.setText(R.string.circulation)
         tvCirculation.textSize = TEXT_SIZE_BLOCK_12
-        tvCirculation.setTextColor(ContextCompat.getColor(context, android.R.color.white))
+        tvCirculation.setTextColor(Color.WHITE)
         tvCirculation.tag = ChildTag.TAG_TOP
         addView(tvCirculation)
 
@@ -60,7 +60,7 @@ class CirculationNumBlockView : BaseControlBlockView {
         val tvCount = AppCompatTextView(context)
         tvCount.setText(R.string.count)
         tvCount.textSize = TEXT_SIZE_BLOCK_12
-        tvCount.setTextColor(ContextCompat.getColor(context, android.R.color.white))
+        tvCount.setTextColor(Color.WHITE)
         tvCount.tag = ChildTag.TAG_TOP
         addView(tvCount)
 

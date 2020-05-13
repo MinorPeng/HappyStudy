@@ -2,14 +2,10 @@ package com.hesheng1024.happystudy.custom.blocks.control
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.CornerPathEffect
-import android.graphics.Paint
-import android.graphics.Path
+import android.graphics.*
 import android.util.AttributeSet
 import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatTextView
-import androidx.core.content.ContextCompat
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.TEXT_SIZE_BLOCK_12
 import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
@@ -39,7 +35,7 @@ class DeathCirculationBlockView : BaseControlBlockView {
         val tvCirculation = AppCompatTextView(context)
         tvCirculation.setText(R.string.circulation)
         tvCirculation.textSize = TEXT_SIZE_BLOCK_12
-        tvCirculation.setTextColor(ContextCompat.getColor(context, android.R.color.white))
+        tvCirculation.setTextColor(Color.WHITE)
         tvCirculation.tag = ChildTag.TAG_TOP
         addView(tvCirculation)
 

@@ -2,13 +2,9 @@ package com.hesheng1024.happystudy.custom.blocks.base
 
 import android.content.ClipData
 import android.content.ClipDescription
-import android.graphics.Canvas
-import android.graphics.CornerPathEffect
-import android.graphics.Paint
-import android.graphics.Path
+import android.graphics.*
 import android.os.Build
 import android.view.*
-import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.*
 import com.hesheng1024.happystudy.modules.programme.v.impl.ProgrammeActivity
 import kotlinx.coroutines.Dispatchers
@@ -263,7 +259,7 @@ interface IBaseBlock : IRoleListener, View.OnTouchListener, View.OnLongClickList
      */
     fun getBgColor(): Int
 
-    fun getBgBorderColor(): Int = ContextCompat.getColor(ContextHolder.getMainContext(), android.R.color.darker_gray)
+    fun getBgBorderColor(): Int = Color.LTGRAY
 
     fun setBgColorId(colorId: Int)
 

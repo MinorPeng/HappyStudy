@@ -57,7 +57,7 @@ class DrawRectBlockView : BaseRelativeBlockView {
         newObj.mCalBgX1.clone(mCalBgX1)
         newObj.mCalBgY1.clone(mCalBgY1)
         newObj.mCalBgX2.clone(mCalBgX2)
-        newObj.mCalBgY2.clone(mCalBgX2)
+        newObj.mCalBgY2.clone(mCalBgY2)
         newObj.mCalBgW.clone(mCalBgW)
         newObj.mCalBgRotation.clone(mCalBgRotation)
         newObj.mSpinnerStyle.selectedIndex = mSpinnerStyle.selectedIndex

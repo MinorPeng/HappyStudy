@@ -55,7 +55,7 @@ class DrawLineBlockView : BaseRelativeBlockView {
         newObj.mCalBgStartX.clone(mCalBgStartX)
         newObj.mCalBgStartY.clone(mCalBgStartY)
         newObj.mCalBgEndX.clone(mCalBgEndX)
-        newObj.mCalBgEndY.clone(mCalBgEndX)
+        newObj.mCalBgEndY.clone(mCalBgEndY)
         newObj.mCalBgW.clone(mCalBgW)
         newObj.mCalBgRotation.clone(mCalBgRotation)
         newObj.mSpinnerColor.selectedIndex = mSpinnerColor.selectedIndex

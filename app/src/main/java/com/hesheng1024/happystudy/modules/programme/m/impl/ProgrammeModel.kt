@@ -79,6 +79,7 @@ class ProgrammeModel : IProgrammeModel {
 
 
         blocks.add(Block(Block.Category.DRAW, DrawCircleBlockView(context)))
+        blocks.add(Block(Block.Category.DRAW, DrawPointBlockView(context)))
         blocks.add(Block(Block.Category.DRAW, DrawFillCircleBlockView(context)))
         blocks.add(Block(Block.Category.DRAW, DrawRingBlockView(context)))
         blocks.add(Block(Block.Category.DRAW, DrawRectBlockView(context)))

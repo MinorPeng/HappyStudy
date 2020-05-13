@@ -33,6 +33,7 @@ class RoleViewGroup : FrameLayout, IRoleView {
     private val mPath = Path()
 
     private val mCircles = HashSet<DrawCircle>()
+    private val mPoints = HashSet<DrawPoint>()
     private val mRects = HashSet<DrawRect>()
     private val mLines = HashSet<DrawLine>()
     private val mTriangles = HashSet<DrawTriangle>()
@@ -44,7 +45,7 @@ class RoleViewGroup : FrameLayout, IRoleView {
 
     private var mCurColorIndex = 0
 
-    private var mListener: IChangeListener? = null
+    private var mListener: IRoleChangeListener? = null
 
     constructor(context: Context) : this(context, null)
 
@@ -78,15 +79,22 @@ class RoleViewGroup : FrameLayout, IRoleView {
         mBgColors.add(ContextCompat.getColor(context, R.color.colorRoleBg2))
         mBgColors.add(ContextCompat.getColor(context, R.color.colorRoleBg3))
         mBgColors.add(ContextCompat.getColor(context, R.color.colorRoleBg4))
+
+        // mLines.add(DrawLine(10f, 0f, 50f, 0f, 2f, Color.BLACK, 0f))
+        // mLines.add(DrawLine(10f, 0f, 50f, 0f, 2f, Color.RED, 90f))
+        // mLines.add(DrawLine(10f, 0f, 50f, 0f, 2f, Color.GREEN, 180f))
+        // mLines.add(DrawLine(10f, 0f, 50f, 0f, 2f, Color.BLUE, 270f))
+        // hide()
     }
 
-    fun setListener(listener: IChangeListener) {
+    fun setListener(listener: IRoleChangeListener) {
         this.mListener = listener
     }
 
     fun restore() {
         VariableMap.clear()
         mCircles.clear()
+        mPoints.clear()
         mRects.clear()
         mLines.clear()
         mTriangles.clear()
@@ -148,27 +156,37 @@ class RoleViewGroup : FrameLayout, IRoleView {
                 mPaint.strokeWidth = circle.w
                 canvas.drawCircle(circle.cx, circle.cy, circle.r, mPaint)
             }
+            for (point in mPoints) {
+                logD(msg = "draw point: $point")
+                mPaint.color = point.color
+                mPaint.strokeWidth = point.r
+                mPaint.style = Paint.Style.FILL_AND_STROKE
+                canvas.drawPoint(point.cx, point.cy, mPaint)
+            }
             for (rect in mRects) {
                 logD(msg = "draw rect: $rect")
+                canvas.save()
+                // 旋转操作要在所有的canvas操作之前，否则不生效
+                canvas.rotate(rect.rotation)
                 mPaint.color = rect.color
                 mPaint.style = rect.style
                 mPaint.strokeWidth = rect.w
                 canvas.drawRect(rect.x1, rect.y1, rect.x2, rect.y2, mPaint)
-                canvas.rotate(rect.rotation)
-                canvas.save()
                 canvas.restore()
             }
             for (line in mLines) {
                 logD(msg = "draw line: $line")
+                canvas.save()
+                canvas.rotate(line.rotation)
                 mPaint.color = line.color
                 mPaint.strokeWidth = line.w
                 canvas.drawLine(line.startX, line.startY, line.endX, line.endY, mPaint)
-                canvas.rotate(line.rotation)
-                canvas.save()
                 canvas.restore()
             }
             for (triangle in mTriangles) {
                 logD(msg = "draw triangle: $triangle")
+                canvas.save()
+                canvas.rotate(triangle.rotation)
                 mPath.reset()
                 mPaint.color = triangle.color
                 mPaint.style = triangle.style
@@ -183,8 +201,6 @@ class RoleViewGroup : FrameLayout, IRoleView {
                     else -> Path.FillType.WINDING
                 }
                 canvas.drawPath(mPath, mPaint)
-                canvas.rotate(triangle.rotation)
-                canvas.save()
                 canvas.restore()
             }
         }
@@ -321,6 +337,12 @@ class RoleViewGroup : FrameLayout, IRoleView {
         invalidate()
     }
 
+    override fun drawPoint(cx: Float, cy: Float, r: Float, color: Int) {
+        logD(msg = "draw point")
+        mPoints.add(DrawPoint(cx, -cy, r, color))
+        invalidate()
+    }
+
     override fun drawRect(
         x1: Float, y1: Float, x2: Float, y2: Float, w: Float,
         color: Int, style: Paint.Style, rotation: Float
@@ -348,7 +370,7 @@ class RoleViewGroup : FrameLayout, IRoleView {
         invalidate()
     }
 
-    interface IChangeListener {
+    interface IRoleChangeListener {
         fun directionChange(curDire: Float)
 
         fun positionChanged(curPos: Point)
@@ -371,6 +393,23 @@ class RoleViewGroup : FrameLayout, IRoleView {
             if (other is DrawCircle) {
                 return other.cx.equals(cx) && other.cy.equals(cy) && other.r.equals(r) && other.w.equals(w)
                         && other.color == color && other.style == style
+            }
+            return super.equals(other)
+        }
+
+        override fun hashCode(): Int {
+            return toString().hashCode()
+        }
+    }
+
+    private data class DrawPoint(val cx: Float, val cy: Float, val r: Float, val color: Int) {
+        override fun toString(): String {
+            return "p($cx, $cy) r:$r, color:$color"
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (other is DrawPoint) {
+                return other.cx.equals(cx) && other.cy.equals(cy) && other.r.equals(r) && other.color == color
             }
             return super.equals(other)
         }

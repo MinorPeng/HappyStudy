@@ -2,11 +2,11 @@ package com.hesheng1024.happystudy.custom.blocks.control
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
 import android.util.AttributeSet
 import android.view.DragEvent
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatTextView
-import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.base.utils.logI
 import com.hesheng1024.happystudy.R
@@ -43,7 +43,7 @@ class IfBlockView : BaseControlBlockView {
         val tvIf = AppCompatTextView(context)
         tvIf.setText(R.string.if_str)
         tvIf.textSize = TEXT_SIZE_BLOCK_12
-        tvIf.setTextColor(ContextCompat.getColor(context, android.R.color.white))
+        tvIf.setTextColor(Color.WHITE)
         tvIf.tag = ChildTag.TAG_TOP
         addView(tvIf)
 
@@ -82,7 +82,7 @@ class IfBlockView : BaseControlBlockView {
         val tvThen = AppCompatTextView(context)
         tvThen.setText(R.string.then)
         tvThen.textSize = TEXT_SIZE_BLOCK_12
-        tvThen.setTextColor(ContextCompat.getColor(context, android.R.color.white))
+        tvThen.setTextColor(Color.WHITE)
         tvThen.tag = ChildTag.TAG_TOP
         addView(tvThen)
     }

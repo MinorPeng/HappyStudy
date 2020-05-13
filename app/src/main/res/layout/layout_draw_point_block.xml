@@ -36,25 +36,37 @@
             android:gravity="center_vertical"
             android:text="@string/center" />
 
-        <com.hesheng1024.happystudy.custom.blocks.BlockEditText
-            android:id="@+id/et_draw_point_block_cx"
+        <com.hesheng1024.happystudy.custom.blocks.calculate.CalculateBgBlock
+            android:id="@+id/cal_bg_draw_point_block_cx"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp4"
-            android:hint="@string/cx"
-            android:text="@string/zero"
-            tools:background="@drawable/bg_et_circle_white"
-            tools:gravity="center" />
+            android:layout_height="wrap_content">
 
-        <com.hesheng1024.happystudy.custom.blocks.BlockEditText
-            android:id="@+id/et_draw_point_block_cy"
+            <com.hesheng1024.happystudy.custom.blocks.BlockEditText
+                android:id="@+id/et_draw_point_block_cx"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp4"
+                android:hint="@string/cx"
+                android:text="@string/zero"
+                tools:background="@drawable/bg_et_circle_white"
+                tools:gravity="center" />
+        </com.hesheng1024.happystudy.custom.blocks.calculate.CalculateBgBlock>
+
+        <com.hesheng1024.happystudy.custom.blocks.calculate.CalculateBgBlock
+            android:id="@+id/cal_bg_draw_point_block_cy"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp4"
-            android:hint="@string/cy"
-            android:text="@string/zero"
-            tools:background="@drawable/bg_et_circle_white"
-            tools:gravity="center" />
+            android:layout_height="wrap_content">
+
+            <com.hesheng1024.happystudy.custom.blocks.BlockEditText
+                android:id="@+id/et_draw_point_block_cy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp4"
+                android:hint="@string/cy"
+                android:text="@string/zero"
+                tools:background="@drawable/bg_et_circle_white"
+                tools:gravity="center" />
+        </com.hesheng1024.happystudy.custom.blocks.calculate.CalculateBgBlock>
     </LinearLayout>
 
     <LinearLayout
@@ -74,15 +86,21 @@
             android:gravity="center_vertical"
             android:text="@string/radius" />
 
-        <com.hesheng1024.happystudy.custom.blocks.BlockEditText
-            android:id="@+id/et_draw_point_block_r"
+        <com.hesheng1024.happystudy.custom.blocks.calculate.CalculateBgBlock
+            android:id="@+id/cal_bg_draw_point_block_r"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp4"
-            android:hint="@string/radius"
-            android:text="@string/five"
-            tools:background="@drawable/bg_et_circle_white"
-            tools:gravity="center" />
+            android:layout_height="wrap_content">
+
+            <com.hesheng1024.happystudy.custom.blocks.BlockEditText
+                android:id="@+id/et_draw_point_block_r"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp4"
+                android:hint="@string/radius"
+                android:text="@string/five"
+                tools:background="@drawable/bg_et_circle_white"
+                tools:gravity="center" />
+        </com.hesheng1024.happystudy.custom.blocks.calculate.CalculateBgBlock>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_draw_point_block_color"

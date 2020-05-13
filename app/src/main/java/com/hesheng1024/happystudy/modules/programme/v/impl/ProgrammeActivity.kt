@@ -379,7 +379,7 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
             return@setOnEditorActionListener false
         }
 
-        role_view_programme.setListener(object : RoleViewGroup.IChangeListener {
+        role_view_programme.setListener(object : RoleViewGroup.IRoleChangeListener {
             override fun directionChange(curDire: Float) {
                 if (et_programme_direction.text.isNullOrEmpty()
                     || et_programme_direction.text.toString().toInt() != curDire.toInt()

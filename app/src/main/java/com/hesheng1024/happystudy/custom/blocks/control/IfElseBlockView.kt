@@ -8,7 +8,6 @@ import android.view.DragEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatTextView
-import androidx.core.content.ContextCompat
 import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.base.utils.logD
 import com.hesheng1024.base.utils.logI
@@ -60,7 +59,7 @@ class IfElseBlockView : BaseBlockViewGroup {
 
     @SuppressLint("SetTextI18n")
     private fun initView() {
-        val color = ContextCompat.getColor(context, android.R.color.white)
+        val color = Color.WHITE
         val tvIf = AppCompatTextView(context)
         tvIf.setText(R.string.if_str)
         tvIf.textSize = TEXT_SIZE_BLOCK_12

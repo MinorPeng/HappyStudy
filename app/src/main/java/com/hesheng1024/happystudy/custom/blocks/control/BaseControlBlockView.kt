@@ -11,9 +11,9 @@ import com.hesheng1024.base.utils.logI
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.blocks.base.BaseBlockViewGroup
 import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
-import com.hesheng1024.happystudy.custom.role.IRoleView
 import com.hesheng1024.happystudy.custom.blocks.calculate.BaseCalculateBlockView
 import com.hesheng1024.happystudy.custom.blocks.calculate.BaseLogicBlockView
+import com.hesheng1024.happystudy.custom.role.IRoleView
 import kotlin.math.max
 
 /**
@@ -209,7 +209,8 @@ abstract class BaseControlBlockView : BaseBlockViewGroup {
             && block !is BaseCalculateBlockView
             && block is IBaseBlock
             && block is View
-            && block.getBlackOwn() is View) {
+            && block.getBlackOwn() is View
+        ) {
             val blackOwn = block.getBlackOwn() as View
             val oldBlockTag = block.tag
             val oldBlackOwnTag = blackOwn.tag
@@ -225,9 +226,12 @@ abstract class BaseControlBlockView : BaseBlockViewGroup {
                     if (child != null
                         && child.tag == ChildTag.TAG_CHILD
                         && child is IBaseBlock
-                        && child.getStatus() == IBaseBlock.Status.STATUS_DRAG) {
-                        val customDragEvent = IBaseBlock.CustomDragEvent(event.x - left, event.y - top,
-                            event.action, event.localState, event.clipData, event.clipDescription, event.result)
+                        && child.getStatus() == IBaseBlock.Status.STATUS_DRAG
+                    ) {
+                        val customDragEvent = IBaseBlock.CustomDragEvent(
+                            event.x - left, event.y - top,
+                            event.action, event.localState, event.clipData, event.clipDescription, event.result
+                        )
                         if (child.onDragEv(customDragEvent)) {
                             return true
                         }
@@ -272,7 +276,7 @@ abstract class BaseControlBlockView : BaseBlockViewGroup {
      * @param y 相对于parent的y
      */
     private fun isInChildRectF(x: Float, y: Float): Boolean = (x <= mChildRectF.right && x > mChildRectF.left
-                && y > mChildRectF.top - mTopViewH / 3 && y <= mChildRectF.bottom + mTopViewH / 3)
+            && y > mChildRectF.top - mTopViewH / 3 && y <= mChildRectF.bottom + mTopViewH / 3)
 
     override fun inTopRectF(x: Float, y: Float): Boolean {
         return (x < right && x > left
