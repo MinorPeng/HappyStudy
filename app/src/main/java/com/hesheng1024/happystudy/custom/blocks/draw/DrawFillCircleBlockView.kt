@@ -51,7 +51,7 @@ class DrawFillCircleBlockView : BaseRelativeBlockView {
         newObj.mCalBgCx.clone(mCalBgCx)
         newObj.mCalBgCy.clone(mCalBgCy)
         newObj.mCalBgR.clone(mCalBgR)
-        newObj.mSpinnerColor.selectedIndex = mSpinnerColor.selectedIndex
+        newObj.mSpinnerColor.clone(mSpinnerColor)
         return newObj
     }
 

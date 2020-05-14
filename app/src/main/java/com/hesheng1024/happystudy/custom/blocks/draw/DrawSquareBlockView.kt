@@ -57,8 +57,8 @@ class DrawSquareBlockView : BaseRelativeBlockView {
         newObj.mCalBgLen.clone(mCalBgLen)
         newObj.mCalBgW.clone(mCalBgW)
         newObj.mCalBgRotation.clone(mCalBgRotation)
-        newObj.mSpinnerStyle.selectedIndex = mSpinnerStyle.selectedIndex
-        newObj.mSpinnerColor.selectedIndex = mSpinnerColor.selectedIndex
+        newObj.mSpinnerStyle.clone(mSpinnerStyle)
+        newObj.mSpinnerColor.clone(mSpinnerColor)
         return newObj
     }
 

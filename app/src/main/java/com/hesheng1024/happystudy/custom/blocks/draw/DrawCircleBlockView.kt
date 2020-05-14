@@ -54,8 +54,8 @@ class DrawCircleBlockView : BaseRelativeBlockView {
         newObj.mCalBgCy.clone(mCalBgCy)
         newObj.mCalBgR.clone(mCalBgR)
         newObj.mCalBgW.clone(mCalBgW)
-        newObj.mSpinnerStyle.selectedIndex = mSpinnerStyle.selectedIndex
-        newObj.mSpinnerColor.selectedIndex = mSpinnerColor.selectedIndex
+        newObj.mSpinnerStyle.clone(mSpinnerStyle)
+        newObj.mSpinnerColor.clone(mSpinnerColor)
         return newObj
     }
 

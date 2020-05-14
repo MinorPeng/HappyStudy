@@ -5,7 +5,7 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import androidx.core.content.ContextCompat
 import com.hesheng1024.happystudy.R
-import com.jaredrummler.materialspinner.MaterialSpinner
+import com.hesheng1024.spinner.MaterialSpinner
 
 /**
  *
@@ -43,12 +43,16 @@ class DrawStyleSpinner : MaterialSpinner {
     private fun initView() {
         val list = mStyleMap.keys.toList()
         mSelectStyle = mStyleMap[list[0]]
-        this.selectedIndex = 0
         this.setItems(list)
-        this.setOnItemSelectedListener { view, position, id, item ->
-            val style = mStyleMap[item]
-            mSelectStyle = style
-        }
+        this.setOnItemSelectedListener(object : OnItemSelectedListener {
+            override fun onItemSelected(view: MaterialSpinner?, position: Int, id: Long, item: Any) {
+                mSelectStyle = mStyleMap[item]
+            }
+        })
+        // this.setOnItemSelectedListener { view, position, id, item ->
+        //     val style = mStyleMap[item]
+        //     mSelectStyle = style
+        // }
         this.textSize = 10f
         this.setLines(1)
         this.setTextColor(ContextCompat.getColor(context, android.R.color.white))
@@ -60,6 +64,6 @@ class DrawStyleSpinner : MaterialSpinner {
     fun getSelectedStyle(): Paint.Style = mSelectStyle ?: Paint.Style.STROKE
 
     fun clone(other: DrawStyleSpinner) {
-        this.selectedIndex = other.selectedIndex
+        this.setSelectedIndex(other.getSelectedIndex())
     }
 }

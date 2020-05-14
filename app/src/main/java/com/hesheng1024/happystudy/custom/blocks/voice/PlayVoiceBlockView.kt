@@ -9,7 +9,7 @@ import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.blocks.base.BaseLinearBlockView
 import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.role.IRoleView
-import com.jaredrummler.materialspinner.MaterialSpinner
+import com.hesheng1024.spinner.MaterialSpinner
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -45,11 +45,10 @@ class PlayVoiceBlockView : BaseLinearBlockView {
         mSpinner.setArrowColor(ContextCompat.getColor(context, android.R.color.white))
         mSpinner.setBackgroundColor(ContextCompat.getColor(context, R.color.colorVoicePurple700))
         mSpinner.setBackgroundResource(R.drawable.bg_spinner_circle_purple)
-        mSpinner.selectedIndex = 0
     }
 
     override suspend fun onRun(role: IRoleView) {
-        val rawId = when (mSpinner.selectedIndex) {
+        val rawId = when (mSpinner.getSelectedIndex()) {
             0 -> R.raw.voice1
             1 -> R.raw.voice2
             2 -> R.raw.voice3
@@ -65,7 +64,7 @@ class PlayVoiceBlockView : BaseLinearBlockView {
         newObj.layoutParams = this.layoutParams
         newObj.minimumWidth = measuredWidth
         newObj.minimumHeight = measuredHeight
-        newObj.mSpinner.selectedIndex = mSpinner.selectedIndex
+        newObj.mSpinner.setSelectedIndex(mSpinner.getSelectedIndex())
         return newObj
     }
 }

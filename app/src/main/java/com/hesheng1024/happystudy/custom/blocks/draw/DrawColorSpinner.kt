@@ -5,7 +5,7 @@ import android.graphics.Color
 import android.util.AttributeSet
 import android.widget.TextView
 import com.hesheng1024.happystudy.R
-import com.jaredrummler.materialspinner.MaterialSpinner
+import com.hesheng1024.spinner.MaterialSpinner
 
 /**
  *
@@ -47,14 +47,17 @@ class DrawColorSpinner : MaterialSpinner {
         val list = mColorMap.keys.toList()
         mSelectColor = mColorMap[list[0]]
         this.setItems(list)
-        this.setOnItemSelectedListener { view, position, id, item ->
-            val color = mColorMap[item]
-            if (view is TextView && color != null) {
-                this.setTextColor(color)
-                this.setArrowColor(color)
-                mSelectColor = color
+        this.setOnItemSelectedListener(object : OnItemSelectedListener {
+            override fun onItemSelected(view: MaterialSpinner?, position: Int, id: Long, item: Any) {
+                val color = mColorMap[item]
+                if (view is TextView && color != null) {
+                    setTextColor(color)
+                    setArrowColor(color)
+                    mSelectColor = color
+                }
             }
-        }
+
+        })
         this.textSize = 10f
         this.setLines(1)
         this.setBackgroundResource(R.drawable.bg_spinner_circle_white)
@@ -67,7 +70,7 @@ class DrawColorSpinner : MaterialSpinner {
     fun getSelectedColor(): Int = mSelectColor ?: Color.BLACK
 
     fun clone(other: DrawColorSpinner) {
-        this.selectedIndex = other.selectedIndex
+        this.setSelectedIndex(other.getSelectedIndex())
         this.setTextColor(other.getSelectedColor())
         this.setArrowColor(other.getSelectedColor())
     }

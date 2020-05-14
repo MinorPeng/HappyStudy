@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="block_text_sp12">12sp</dimen>
     <dimen name="sp20">20sp</dimen>
     <dimen name="sp22">22sp</dimen>
 

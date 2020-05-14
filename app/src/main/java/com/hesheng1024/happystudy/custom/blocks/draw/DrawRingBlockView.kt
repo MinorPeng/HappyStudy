@@ -53,7 +53,7 @@ class DrawRingBlockView : BaseRelativeBlockView {
         newObj.mCalBgCy.clone(mCalBgCy)
         newObj.mCalBgR.clone(mCalBgR)
         newObj.mCalBgW.clone(mCalBgW)
-        newObj.mSpinnerColor.selectedIndex = mSpinnerColor.selectedIndex
+        newObj.mSpinnerColor.clone(mSpinnerColor)
         return newObj
     }
 
