@@ -25,7 +25,7 @@ import java.util.*
  * @author hesheng1024
  * @date 2020/4/7 20:24
  */
-class ProgrammeModel : IProgrammeModel {
+class ProgrammeModelImpl : IProgrammeModel {
 
     override fun initBlocks(context: Context): List<Block> {
         val blocks = ArrayList<Block>()
@@ -144,6 +144,19 @@ class ProgrammeModel : IProgrammeModel {
         blocks.add(Block(Block.Category.CALCULATE, AndBlockView(context)))
         blocks.add(Block(Block.Category.CALCULATE, OrBlockView(context)))
         blocks.add(Block(Block.Category.CALCULATE, NotBlockView(context)))
+        return blocks
+    }
+
+    override fun initDrawBlocks(context: Context): List<Block> {
+        val blocks = ArrayList<Block>()
+        blocks.add(Block(Block.Category.DRAW, DrawCircleBlockView(context)))
+        blocks.add(Block(Block.Category.DRAW, DrawPointBlockView(context)))
+        blocks.add(Block(Block.Category.DRAW, DrawFillCircleBlockView(context)))
+        blocks.add(Block(Block.Category.DRAW, DrawRingBlockView(context)))
+        blocks.add(Block(Block.Category.DRAW, DrawRectBlockView(context)))
+        blocks.add(Block(Block.Category.DRAW, DrawSquareBlockView(context)))
+        blocks.add(Block(Block.Category.DRAW, DrawTriangleBlockView(context)))
+        blocks.add(Block(Block.Category.DRAW, DrawLineBlockView(context)))
         return blocks
     }
 }

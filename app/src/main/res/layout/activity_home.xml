@@ -20,6 +20,7 @@
         android:layout_alignParentStart="true"
         android:background="@color/colorGrayBgSelectedE"
         android:text="@string/study_n"
+        android:translationZ="@dimen/dp2"
         android:textSize="@dimen/sp22"
         android:textStyle="bold"
         android:typeface="normal" />
@@ -33,6 +34,7 @@
         android:layout_alignEnd="@+id/divider"
         android:layout_alignParentStart="true"
         android:background="@android:color/white"
+        android:translationZ="@dimen/dp2"
         android:text="@string/programme_n"
         android:textSize="@dimen/sp22"
         android:textStyle="bold" />

@@ -14,4 +14,6 @@ interface IStudyGuideModel : IBaseModel {
     fun getAppearanceIvIds(): List<Int>
 
     fun getControlIvIds(): List<Int>
+
+    fun getDrawIvIds(): List<Int>
 }

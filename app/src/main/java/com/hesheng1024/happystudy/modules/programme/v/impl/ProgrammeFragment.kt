@@ -1,5 +1,6 @@
 package com.hesheng1024.happystudy.modules.programme.v.impl
 
+import android.content.Intent
 import android.view.View
 import com.hesheng1024.base.base.BaseFragment
 import com.hesheng1024.happystudy.FLAG_PROGRAMME_NORMAL
@@ -23,13 +24,17 @@ class ProgrammeFragment : BaseFragment<ProgrammeFragPresenter>(), IProgrammeFrag
     }
 
     override fun initView(view: View) {
-        btn_programme.setOnClickListener {
-            context?.let { context ->
-                ProgrammeActivity.startActivity(context, FLAG_PROGRAMME_NORMAL)
-            }
+        btn_programme_frag_programme.setOnClickListener {
+            ProgrammeActivity.startActivity(it.context, FLAG_PROGRAMME_NORMAL)
         }
-        btn_get_through.setOnClickListener {
+
+        btn_programme_frag_introduce.setOnClickListener {
+            startActivity(Intent(it.context, IntroduceActivity::class.java))
+        }
+
+        btn_programme_frag_get_through.setOnClickListener {
             toastMsg("该功能暂未上线!")
         }
+
     }
 }

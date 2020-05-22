@@ -84,7 +84,6 @@
             <com.hesheng1024.happystudy.custom.blocks.BlockEditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/tv_draw_circle_block_r"
                 android:hint="@string/radius"
                 android:text="@string/ten"
                 tools:background="@drawable/bg_et_circle_white"

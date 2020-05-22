@@ -37,7 +37,15 @@ class StudyGuideModelImpl : IStudyGuideModel {
         resIds.add(R.drawable.control_step4)
         resIds.add(R.drawable.control_step5)
         resIds.add(R.drawable.control_step6)
-        resIds.add(R.drawable.control_step7)
+        return resIds
+    }
+
+    override fun getDrawIvIds(): List<Int> {
+        val resIds = ArrayList<Int>()
+        resIds.add(R.drawable.draw_step1)
+        resIds.add(R.drawable.draw_step2)
+        resIds.add(R.drawable.draw_step3)
+        resIds.add(R.drawable.draw_step4)
         return resIds
     }
 }

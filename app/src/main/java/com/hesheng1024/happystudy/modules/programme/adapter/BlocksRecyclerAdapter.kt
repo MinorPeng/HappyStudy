@@ -6,7 +6,9 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatTextView
 import com.hesheng1024.base.base.adapter.BaseRecyclerAdapter
 import com.hesheng1024.base.base.adapter.BaseViewHolder
+import com.hesheng1024.base.utils.logD
 import com.hesheng1024.happystudy.R
+import com.hesheng1024.happystudy.custom.InterceptLinearLayout
 import com.hesheng1024.happystudy.modules.Block
 import java.util.*
 
@@ -60,6 +62,14 @@ class BlocksRecyclerAdapter : BaseRecyclerAdapter<Block>() {
             is BlockViewHolder -> {
                 (block.view.parent as? ViewGroup)?.removeView(block.view)
                 (holder.itemView as? ViewGroup)?.run {
+                    logD(msg = "add: $mListener")
+                    if (mListener != null && this is InterceptLinearLayout) {
+                        setIntercept(true)
+                        setOnClickListener {
+                            logD(msg = "adapter click")
+                            mListener?.onClick(it, position)
+                        }
+                    }
                     removeAllViews()
                     addView(block.view)
                 }

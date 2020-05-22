@@ -43,5 +43,10 @@
             android:screenOrientation="sensorLandscape"
             tools:ignore="LockedOrientationActivity" />
 
+        <activity
+            android:name=".modules.programme.v.impl.IntroduceActivity"
+            android:screenOrientation="sensorLandscape"
+            tools:ignore="LockedOrientationActivity" />
+
     </application>
 </manifest>

@@ -36,7 +36,6 @@ class SayBlockView : BaseLinearBlockView, IRoleListener {
     }
 
     private fun initView() {
-        // mEtContent.inputType = InputType.TYPE_CLASS_TEXT
     }
 
     override suspend fun onRun(role: IRoleView) {

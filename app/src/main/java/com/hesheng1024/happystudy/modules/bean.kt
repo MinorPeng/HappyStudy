@@ -8,7 +8,7 @@ import com.hesheng1024.happystudy.R
  * @author hesheng1024
  * @date 2020/4/8 15:46
  */
-data class Block(val category: Category, val view: View) {
+data class Block(val category: Category, val view: View, val content: String = "") {
     enum class Category(val resId: Int) {
         MOTION(R.string.motion),
         APPEARANCE(R.string.appearance),

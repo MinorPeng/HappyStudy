@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/ibtn_introduce_back"
+        android:layout_width="@dimen/dp48"
+        android:layout_height="@dimen/dp48"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@android:color/white"
+        android:contentDescription="@string/back"
+        android:src="@drawable/ic_left"
+        android:translationZ="@dimen/dp2" />
+
+    <include
+        android:id="@+id/layout_introduce_blocks"
+        layout="@layout/layout_block_categories"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@id/ibtn_introduce_back"
+        android:layout_alignStart="@id/ibtn_introduce_back"
+        android:layout_alignEnd="@id/ibtn_introduce_back"
+        android:layout_alignParentBottom="true" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_introduce"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:minWidth="@dimen/dp320"
+        android:layout_toEndOf="@id/ibtn_introduce_back"
+        android:background="@android:color/white"
+        android:paddingStart="@dimen/dp0"
+        android:paddingEnd="@dimen/dp4" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_introduce_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/dp16"
+        android:layout_toEndOf="@id/recycler_view_introduce"
+        android:background="@drawable/bg_btn_white_corner_8"
+        tools:text="@string/app_name"
+        android:textSize="@dimen/sp18"
+        android:textColor="@android:color/black"
+        android:padding="@dimen/dp8" />
+
+</RelativeLayout>

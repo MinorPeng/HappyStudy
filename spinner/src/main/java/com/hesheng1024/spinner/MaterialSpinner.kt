@@ -133,6 +133,7 @@ open class MaterialSpinner : AppCompatTextView {
             ta.recycle()
         }
 
+        isSingleLine = true
         if (gravity == (Gravity.TOP or Gravity.START)) {
             gravity = Gravity.CENTER_VERTICAL or Gravity.START
         }
@@ -260,9 +261,9 @@ open class MaterialSpinner : AppCompatTextView {
     }
 
     override fun onRestoreInstanceState(savedState: Parcelable?) {
-        var savedState = savedState
-        if (savedState is Bundle) {
-            val bundle = savedState
+        var state = savedState
+        if (state is Bundle) {
+            val bundle = state
             mSelectedIndex = bundle.getInt("selected_index")
             nothingSelected = bundle.getBoolean("nothing_selected")
             mAdapter?.let {
@@ -276,9 +277,9 @@ open class MaterialSpinner : AppCompatTextView {
                 // Post the show request into the looper to avoid bad token exception
                 post { expand() }
             }
-            savedState = bundle.getParcelable("state")
+            state = bundle.getParcelable("state")
         }
-        super.onRestoreInstanceState(savedState)
+        super.onRestoreInstanceState(state)
     }
 
     override fun setEnabled(enabled: Boolean) {

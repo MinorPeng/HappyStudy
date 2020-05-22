@@ -59,7 +59,8 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
 
         fun startActivity(context: Context, flag: String) {
             when (flag) {
-                FLAG_PROGRAMME_MOTION, FLAG_PROGRAMME_APPEARANCE, FLAG_PROGRAMME_CONTROL, FLAG_PROGRAMME_NORMAL -> {
+                FLAG_PROGRAMME_MOTION, FLAG_PROGRAMME_APPEARANCE, FLAG_PROGRAMME_CONTROL,
+                FLAG_PROGRAMME_DRAW, FLAG_PROGRAMME_NORMAL -> {
                     context.startActivity(Intent(context, ProgrammeActivity::class.java).putExtra("flag", flag))
                 }
                 else -> return
@@ -95,6 +96,9 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
             }
             FLAG_PROGRAMME_CONTROL -> {
                 initControl()
+            }
+            FLAG_PROGRAMME_DRAW -> {
+                initDraw()
             }
             FLAG_PROGRAMME_NORMAL -> {
                 MediaPlayerUtil.init()
@@ -424,6 +428,7 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
         tv_programme_event.isClickable = false
         tv_programme_control.isClickable = false
         tv_programme_calculate.isClickable = false
+        tv_programme_draw.isClickable = false
     }
 
     private fun initAppearance() {
@@ -433,6 +438,7 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
         tv_programme_event.isClickable = false
         tv_programme_control.isClickable = false
         tv_programme_calculate.isClickable = false
+        tv_programme_draw.isClickable = false
     }
 
     private fun initControl() {
@@ -440,9 +446,27 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
         tv_programme_appearance.isClickable = false
         tv_programme_voice.isClickable = false
         tv_programme_event.isClickable = false
+        tv_programme_draw.isClickable = false
         val pos = mAdapter.getPosByCategory(Block.Category.CONTROL)
         if (pos != -1) {
             changeSelectedCategory(Block.Category.CONTROL)
+            smoothScrollToPosition(pos)
+        }
+    }
+
+    private fun initDraw() {
+        mPresenter.getDrawBlocks(this)
+        tv_programme_motion.isClickable = false
+        tv_programme_appearance.isClickable = false
+        tv_programme_voice.isClickable = false
+        tv_programme_event.isClickable = false
+        tv_programme_control.isClickable = false
+        tv_programme_calculate.isClickable = false
+        role_view_programme.hide()
+        switch_programme_show.isSelected = false
+        val pos = mAdapter.getPosByCategory(Block.Category.DRAW)
+        if (pos != -1) {
+            changeSelectedCategory(Block.Category.DRAW)
             smoothScrollToPosition(pos)
         }
     }

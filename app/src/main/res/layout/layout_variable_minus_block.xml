@@ -14,7 +14,6 @@
         android:layout_height="wrap_content"
         android:hint="@string/variable"
         android:inputType="text"
-        android:minEms="1"
         android:digits="@string/lower_case_letter"
         android:text="@string/i" />
 

@@ -2,6 +2,9 @@ package com.hesheng1024.happystudy.custom.blocks
 
 import android.content.Context
 import android.text.InputType
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.AbsoluteSizeSpan
 import android.util.AttributeSet
 import android.view.DragEvent
 import android.view.Gravity
@@ -32,10 +35,18 @@ class BlockEditText : AppCompatEditText, View.OnDragListener {
         if (minEms == 0 || minEms == -1) {
             minEms = 2
         }
+        // 修复hint字体大小和text字体大小不一致的问题，主要是text为number，hint为text时
+        if (hint != null) {
+            val ss = SpannableString(hint)
+            val ass = AbsoluteSizeSpan(textSize.toInt())
+            ss.setSpan(ass, 0, ss.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            hint = SpannableString(ss)
+        }
         isCursorVisible = false
         imeOptions = EditorInfo.IME_ACTION_DONE
         setBackgroundResource(R.drawable.bg_et_circle_white)
-        setLines(1)
+        // setLines(1)
+        isSingleLine = true
         setOnDragListener(this)
     }
 

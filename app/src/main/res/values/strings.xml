@@ -99,4 +99,5 @@
     <string name="i">i</string>
     <string name="variable">变量</string>
     <string name="lower_case_letter">abcdefghijklmnopqrstuvwxyz</string>
+    <string name="introduce_blocks">积木介绍</string>
 </resources>

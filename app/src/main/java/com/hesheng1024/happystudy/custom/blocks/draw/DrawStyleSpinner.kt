@@ -5,6 +5,7 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import androidx.core.content.ContextCompat
 import com.hesheng1024.happystudy.R
+import com.hesheng1024.happystudy.TEXT_SIZE_BLOCK_10
 import com.hesheng1024.spinner.MaterialSpinner
 
 /**
@@ -53,8 +54,8 @@ class DrawStyleSpinner : MaterialSpinner {
         //     val style = mStyleMap[item]
         //     mSelectStyle = style
         // }
-        this.textSize = 10f
-        this.setLines(1)
+        this.textSize = TEXT_SIZE_BLOCK_10
+        this.setItemTextSize(TEXT_SIZE_BLOCK_10)
         this.setTextColor(ContextCompat.getColor(context, android.R.color.white))
         this.setArrowColor(ContextCompat.getColor(context, android.R.color.white))
         this.setBackgroundColor(ContextCompat.getColor(context, R.color.colorDrawRed700))

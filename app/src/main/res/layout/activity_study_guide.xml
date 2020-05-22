@@ -8,8 +8,8 @@
         android:id="@+id/ibtn_study_guide_back"
         android:layout_width="@dimen/dp48"
         android:layout_height="@dimen/dp48"
-        android:translationZ="@dimen/dp2"
-        android:background="@android:color/white"
+        android:translationZ="@dimen/dp1"
+        android:background="@drawable/bg_btn_white_corner_8"
         android:contentDescription="@string/back"
         android:src="@drawable/ic_left" />
 

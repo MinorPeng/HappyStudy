@@ -24,8 +24,8 @@ class StudyGuideActivity : BaseActivity<StudyGuidePresenter>(), IStudyGuideView 
 
     companion object {
         fun startActivity(context: Context, flag: String) {
-            when(flag) {
-                FLAG_PROGRAMME_MOTION, FLAG_PROGRAMME_APPEARANCE, FLAG_PROGRAMME_CONTROL -> {
+            when (flag) {
+                FLAG_PROGRAMME_MOTION, FLAG_PROGRAMME_APPEARANCE, FLAG_PROGRAMME_CONTROL, FLAG_PROGRAMME_DRAW -> {
                     context.startActivity(Intent(context, StudyGuideActivity::class.java).putExtra("flag", flag))
                 }
                 else -> return
@@ -69,17 +69,8 @@ class StudyGuideActivity : BaseActivity<StudyGuidePresenter>(), IStudyGuideView 
                 view_pager_study_guide.currentItem = ++mCurPos
             }
         }
-        when (flag) {
-            FLAG_PROGRAMME_MOTION -> {
-                mPresenter.getMotionIvs()
-            }
-            FLAG_PROGRAMME_APPEARANCE -> {
-                mPresenter.getAppearanceIvs()
-            }
-            FLAG_PROGRAMME_CONTROL -> {
-                mPresenter.getControlIvs()
-            }
-        }
+        // ProgrammeActivity.startActivity(this, flag)
+        mPresenter.getIvIds(flag)
     }
 
     override fun setAdapter(resIds: List<Int>) {

@@ -4,7 +4,7 @@ import android.content.Context
 import com.hesheng1024.base.base.BasePresenter
 import com.hesheng1024.base.utils.logE
 import com.hesheng1024.happystudy.modules.programme.m.IProgrammeModel
-import com.hesheng1024.happystudy.modules.programme.m.impl.ProgrammeModel
+import com.hesheng1024.happystudy.modules.programme.m.impl.ProgrammeModelImpl
 import com.hesheng1024.happystudy.modules.programme.v.IProgrammeView
 
 /**
@@ -12,10 +12,11 @@ import com.hesheng1024.happystudy.modules.programme.v.IProgrammeView
  * @author hesheng1024
  * @date 2020/4/7 20:24
  */
-class ProgrammePresenter(programmeView: IProgrammeView) : BasePresenter<IProgrammeView, IProgrammeModel>(programmeView) {
+class ProgrammePresenter(programmeView: IProgrammeView) :
+    BasePresenter<IProgrammeView, IProgrammeModel>(programmeView) {
 
     override fun createModel(): IProgrammeModel {
-        return ProgrammeModel()
+        return ProgrammeModelImpl()
     }
 
     fun getBlocks(context: Context) {
@@ -52,6 +53,16 @@ class ProgrammePresenter(programmeView: IProgrammeView) : BasePresenter<IProgram
         val blocks = mModel.initControlBlocks(context)
         if (blocks.isNullOrEmpty()) {
             logE(msg = "init control blocks error!")
+            mView.toastMsg("something error!")
+        } else {
+            mView.setBlocks(blocks)
+        }
+    }
+
+    fun getDrawBlocks(context: Context) {
+        val blocks = mModel.initDrawBlocks(context)
+        if (blocks.isNullOrEmpty()) {
+            logE(msg = "init draw blocks error!")
             mView.toastMsg("something error!")
         } else {
             mView.setBlocks(blocks)

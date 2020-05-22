@@ -2,10 +2,7 @@ package com.hesheng1024.happystudy.modules.study.v.impl
 
 import android.view.View
 import com.hesheng1024.base.base.BaseFragment
-import com.hesheng1024.happystudy.FLAG_PROGRAMME_APPEARANCE
-import com.hesheng1024.happystudy.FLAG_PROGRAMME_CONTROL
-import com.hesheng1024.happystudy.FLAG_PROGRAMME_MOTION
-import com.hesheng1024.happystudy.R
+import com.hesheng1024.happystudy.*
 import com.hesheng1024.happystudy.modules.study.p.StudyPresenter
 import com.hesheng1024.happystudy.modules.study.v.IStudyFragView
 import kotlinx.android.synthetic.main.framgment_study.*
@@ -25,20 +22,18 @@ class StudyFragment : BaseFragment<StudyPresenter>(), IStudyFragView {
     }
 
     override fun initView(view: View) {
-        btn_motion.setOnClickListener {
-            context?.let {
-                StudyGuideActivity.startActivity(it, FLAG_PROGRAMME_MOTION)
-            }
+        btn_study_frag_motion.setOnClickListener {
+            StudyGuideActivity.startActivity(it.context, FLAG_PROGRAMME_MOTION)
         }
-        btn_appearance.setOnClickListener {
-            context?.let {
-                StudyGuideActivity.startActivity(it, FLAG_PROGRAMME_APPEARANCE)
-            }
+        btn_study_frag_appearance.setOnClickListener {
+            StudyGuideActivity.startActivity(it.context, FLAG_PROGRAMME_APPEARANCE)
         }
-        btn_control.setOnClickListener {
-            context?.let {
-                StudyGuideActivity.startActivity(it, FLAG_PROGRAMME_CONTROL)
-            }
+        btn_study_frag_control.setOnClickListener {
+            StudyGuideActivity.startActivity(it.context, FLAG_PROGRAMME_CONTROL)
+        }
+
+        btn_study_frag_draw.setOnClickListener {
+            StudyGuideActivity.startActivity(it.context, FLAG_PROGRAMME_DRAW)
         }
     }
 }
