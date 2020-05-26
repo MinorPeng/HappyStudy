@@ -1,9 +1,11 @@
 package com.hesheng1024.happystudy.custom.blocks.draw
 
 import android.content.Context
+import android.text.InputType
 import android.util.AttributeSet
 import android.view.View
 import com.hesheng1024.happystudy.R
+import com.hesheng1024.happystudy.custom.blocks.BlockEditText
 import com.hesheng1024.happystudy.custom.blocks.base.BaseRelativeBlockView
 import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.blocks.calculate.CalculateBgBlock
@@ -22,6 +24,7 @@ class DrawPointBlockView : BaseRelativeBlockView {
     private val mCalBgCx: CalculateBgBlock
     private val mCalBgCy: CalculateBgBlock
     private val mCalBgR: CalculateBgBlock
+    private val mEtName: BlockEditText
     private val mSpinnerColor: DrawColorSpinner
 
     constructor(context: Context) : this(context, null)
@@ -38,7 +41,13 @@ class DrawPointBlockView : BaseRelativeBlockView {
         mCalBgCx = findViewById(R.id.cal_bg_draw_point_block_cx)
         mCalBgCy = findViewById(R.id.cal_bg_draw_point_block_cy)
         mCalBgR = findViewById(R.id.cal_bg_draw_point_block_r)
+        mEtName = findViewById(R.id.et_draw_point_block_name)
         mSpinnerColor = findViewById(R.id.spinner_draw_point_block_color)
+        initView()
+    }
+
+    private fun initView() {
+        mEtName.inputType = InputType.TYPE_CLASS_TEXT
     }
 
     override fun clone(): IBaseBlock {
@@ -49,6 +58,7 @@ class DrawPointBlockView : BaseRelativeBlockView {
         newObj.mCalBgCx.clone(mCalBgCx)
         newObj.mCalBgCy.clone(mCalBgCy)
         newObj.mCalBgR.clone(mCalBgR)
+        newObj.mEtName.setText(mEtName.text.toString())
         newObj.mSpinnerColor.clone(mSpinnerColor)
         return newObj
     }
@@ -58,8 +68,9 @@ class DrawPointBlockView : BaseRelativeBlockView {
             val cx = mCalBgCx.calculateResult()
             val cy = mCalBgCy.calculateResult()
             val r = mCalBgR.calculateResult()
+            val name = mEtName.text.toString()
             val color = mSpinnerColor.getSelectedColor()
-            role.drawPoint(cx, cy, r, color)
+            role.drawPoint(cx, cy, r, color, name)
         }
     }
 }

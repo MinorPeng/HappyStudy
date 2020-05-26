@@ -2,6 +2,7 @@ package com.hesheng1024.happystudy.custom.blocks.appearance
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.text.InputType
 import android.util.AttributeSet
 import android.view.View
 import com.hesheng1024.happystudy.R
@@ -36,6 +37,7 @@ class SayBlockView : BaseLinearBlockView, IRoleListener {
     }
 
     private fun initView() {
+        mEtContent.inputType = InputType.TYPE_CLASS_TEXT
     }
 
     override suspend fun onRun(role: IRoleView) {

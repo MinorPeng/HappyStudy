@@ -11,6 +11,7 @@ import android.view.Gravity
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.widget.AppCompatEditText
+import com.hesheng1024.base.utils.logD
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.TEXT_SIZE_BLOCK_12
 
@@ -19,7 +20,7 @@ import com.hesheng1024.happystudy.TEXT_SIZE_BLOCK_12
  * @author hesheng1024
  * @date 2020/4/21 14:59
  */
-class BlockEditText : AppCompatEditText, View.OnDragListener {
+class BlockEditText : AppCompatEditText, View.OnDragListener, View.OnFocusChangeListener {
 
     constructor(context: Context) : this(context, null)
 
@@ -28,10 +29,8 @@ class BlockEditText : AppCompatEditText, View.OnDragListener {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
         gravity = Gravity.CENTER
         textSize = TEXT_SIZE_BLOCK_12
-        if (inputType == EditorInfo.TYPE_NULL) {
-            inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL or
-                    InputType.TYPE_NUMBER_FLAG_SIGNED
-        }
+        inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL or
+                InputType.TYPE_NUMBER_FLAG_SIGNED
         if (minEms == 0 || minEms == -1) {
             minEms = 2
         }
@@ -45,12 +44,16 @@ class BlockEditText : AppCompatEditText, View.OnDragListener {
         isCursorVisible = false
         imeOptions = EditorInfo.IME_ACTION_DONE
         setBackgroundResource(R.drawable.bg_et_circle_white)
-        // setLines(1)
         isSingleLine = true
         setOnDragListener(this)
+        onFocusChangeListener = this
     }
 
     override fun onDrag(v: View?, event: DragEvent?): Boolean {
         return false
+    }
+
+    override fun onFocusChange(v: View?, hasFocus: Boolean) {
+        isCursorVisible = hasFocus
     }
 }

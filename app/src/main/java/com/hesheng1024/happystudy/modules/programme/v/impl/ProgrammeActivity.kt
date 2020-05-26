@@ -21,6 +21,7 @@ import com.hesheng1024.happystudy.*
 import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.blocks.calculate.BaseCalculateBlockView
 import com.hesheng1024.happystudy.custom.blocks.calculate.BaseLogicBlockView
+import com.hesheng1024.happystudy.custom.blocks.draw.DrawCircleBlockView
 import com.hesheng1024.happystudy.custom.role.IRoleView
 import com.hesheng1024.happystudy.custom.role.RoleViewGroup
 import com.hesheng1024.happystudy.modules.Block
@@ -460,15 +461,20 @@ class ProgrammeActivity : BaseActivity<ProgrammePresenter>(), IProgrammeView {
         tv_programme_appearance.isClickable = false
         tv_programme_voice.isClickable = false
         tv_programme_event.isClickable = false
-        tv_programme_control.isClickable = false
-        tv_programme_calculate.isClickable = false
         role_view_programme.hide()
-        switch_programme_show.isSelected = false
+        switch_programme_show.isChecked = false
         val pos = mAdapter.getPosByCategory(Block.Category.DRAW)
         if (pos != -1) {
             changeSelectedCategory(Block.Category.DRAW)
             smoothScrollToPosition(pos)
         }
+        addBlocksInProgramme()
+    }
+
+    private fun addBlocksInProgramme() {
+        val circleBlock = DrawCircleBlockView(this)
+        circleBlock.setStatus(IBaseBlock.Status.STATUS_DRAG)
+
     }
 
     override fun setBlocks(blocks: List<Block>) {

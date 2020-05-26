@@ -16,6 +16,9 @@ import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.VariableMap
 import com.hesheng1024.happystudy.utils.MediaPlayerUtil
 import com.hesheng1024.happystudy.utils.adjustVolume
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 /**
  *
@@ -32,11 +35,7 @@ class RoleViewGroup : FrameLayout, IRoleView {
     private val mPaint = Paint()
     private val mPath = Path()
 
-    private val mCircles = HashSet<DrawCircle>()
-    private val mPoints = HashSet<DrawPoint>()
-    private val mRects = HashSet<DrawRect>()
-    private val mLines = HashSet<DrawLine>()
-    private val mTriangles = HashSet<DrawTriangle>()
+    private val mShapeMap = HashMap<String, Shape>()
 
     private val mBgColors = ArrayList<Int>()
     private val mCurP = Point()
@@ -93,11 +92,7 @@ class RoleViewGroup : FrameLayout, IRoleView {
 
     fun restore() {
         VariableMap.clear()
-        mCircles.clear()
-        mPoints.clear()
-        mRects.clear()
-        mLines.clear()
-        mTriangles.clear()
+        mShapeMap.clear()
         setDirection(90f)
         moveToXY(0f, 0f)
         mCurColorIndex = 0
@@ -149,59 +144,64 @@ class RoleViewGroup : FrameLayout, IRoleView {
         super.onDraw(canvas)
         canvas?.let {
             canvas.translate(mCenterP.x, mCenterP.y)
-            for (circle in mCircles) {
-                logD(msg = "draw circle: $circle")
-                mPaint.color = circle.color
-                mPaint.style = circle.style
-                mPaint.strokeWidth = circle.w
-                canvas.drawCircle(circle.cx, circle.cy, circle.r, mPaint)
-            }
-            for (point in mPoints) {
-                logD(msg = "draw point: $point")
-                mPaint.color = point.color
-                mPaint.strokeWidth = point.r
-                mPaint.style = Paint.Style.FILL_AND_STROKE
-                canvas.drawPoint(point.cx, point.cy, mPaint)
-            }
-            for (rect in mRects) {
-                logD(msg = "draw rect: $rect")
-                canvas.save()
-                // 旋转操作要在所有的canvas操作之前，否则不生效
-                canvas.rotate(rect.rotation)
-                mPaint.color = rect.color
-                mPaint.style = rect.style
-                mPaint.strokeWidth = rect.w
-                canvas.drawRect(rect.x1, rect.y1, rect.x2, rect.y2, mPaint)
-                canvas.restore()
-            }
-            for (line in mLines) {
-                logD(msg = "draw line: $line")
-                canvas.save()
-                canvas.rotate(line.rotation)
-                mPaint.color = line.color
-                mPaint.strokeWidth = line.w
-                canvas.drawLine(line.startX, line.startY, line.endX, line.endY, mPaint)
-                canvas.restore()
-            }
-            for (triangle in mTriangles) {
-                logD(msg = "draw triangle: $triangle")
-                canvas.save()
-                canvas.rotate(triangle.rotation)
-                mPath.reset()
-                mPaint.color = triangle.color
-                mPaint.style = triangle.style
-                mPaint.strokeWidth = triangle.w
-                mPath.moveTo(triangle.x1, triangle.y1)
-                mPath.lineTo(triangle.x2, triangle.y2)
-                mPath.lineTo(triangle.x3, triangle.y3)
-                mPath.close()
-                mPath.fillType = when (triangle.style) {
-                    Paint.Style.STROKE -> Path.FillType.WINDING
-                    Paint.Style.FILL -> Path.FillType.EVEN_ODD
-                    else -> Path.FillType.WINDING
+            canvas.rotate(0f)
+            for (shape in mShapeMap.values) {
+                when (shape) {
+                    is DrawCircle -> {
+                        logD(msg = "draw circle: $shape")
+                        mPaint.color = shape.color
+                        mPaint.style = shape.style
+                        mPaint.strokeWidth = shape.w
+                        canvas.drawCircle(shape.cx, shape.cy, shape.r, mPaint)
+                    }
+                    is DrawPoint -> {
+                        logD(msg = "draw point: $shape")
+                        mPaint.color = shape.color
+                        mPaint.strokeWidth = shape.r
+                        mPaint.style = Paint.Style.FILL_AND_STROKE
+                        canvas.drawPoint(shape.cx, shape.cy, mPaint)
+                    }
+                    is DrawRect -> {
+                        logD(msg = "draw rect: $shape")
+                        canvas.save()
+                        // 旋转操作要在所有的canvas操作之前，否则不生效
+                        canvas.rotate(shape.rotation)
+                        mPaint.color = shape.color
+                        mPaint.style = shape.style
+                        mPaint.strokeWidth = shape.w
+                        canvas.drawRect(shape.x1, shape.y1, shape.x2, shape.y2, mPaint)
+                        canvas.restore()
+                    }
+                    is DrawLine -> {
+                        logD(msg = "draw line: $shape")
+                        canvas.save()
+                        canvas.rotate(shape.rotation)
+                        mPaint.color = shape.color
+                        mPaint.strokeWidth = shape.w
+                        canvas.drawLine(shape.startX, shape.startY, shape.endX, shape.endY, mPaint)
+                        canvas.restore()
+                    }
+                    is DrawTriangle -> {
+                        logD(msg = "draw shape: $shape")
+                        canvas.save()
+                        canvas.rotate(shape.rotation)
+                        mPath.reset()
+                        mPaint.color = shape.color
+                        mPaint.style = shape.style
+                        mPaint.strokeWidth = shape.w
+                        mPath.moveTo(shape.x1, shape.y1)
+                        mPath.lineTo(shape.x2, shape.y2)
+                        mPath.lineTo(shape.x3, shape.y3)
+                        mPath.close()
+                        mPath.fillType = when (shape.style) {
+                            Paint.Style.STROKE -> Path.FillType.WINDING
+                            Paint.Style.FILL -> Path.FillType.EVEN_ODD
+                            else -> Path.FillType.WINDING
+                        }
+                        canvas.drawPath(mPath, mPaint)
+                        canvas.restore()
+                    }
                 }
-                canvas.drawPath(mPath, mPaint)
-                canvas.restore()
             }
         }
     }
@@ -331,43 +331,96 @@ class RoleViewGroup : FrameLayout, IRoleView {
         MediaPlayerUtil.stop()
     }
 
-    override fun drawCircle(cx: Float, cy: Float, r: Float, w: Float, color: Int, style: Paint.Style) {
+    override fun drawCircle(cx: Float, cy: Float, r: Float, w: Float, color: Int, style: Paint.Style, name: String?) {
         logD(msg = "draw circle")
-        mCircles.add(DrawCircle(cx, -cy, r, w, color, style))
+        var nameStr = name
+        val shape = mShapeMap[nameStr]
+        if (shape is DrawCircle) {
+            shape.update(cx, cy, r, w, color, style)
+        } else {
+            if (nameStr.isNullOrEmpty()) {
+                nameStr = getRandomStr()
+            }
+            mShapeMap[nameStr] = DrawCircle(nameStr, cx, cy, r, w, color, style)
+        }
         invalidate()
     }
 
-    override fun drawPoint(cx: Float, cy: Float, r: Float, color: Int) {
+    override fun drawPoint(cx: Float, cy: Float, r: Float, color: Int, name: String?) {
         logD(msg = "draw point")
-        mPoints.add(DrawPoint(cx, -cy, r, color))
+        var nameStr = name
+        val shape = mShapeMap[nameStr]
+        if (shape is DrawPoint) {
+            shape.update(cx, cy, r, color)
+        } else {
+            if (nameStr.isNullOrEmpty()) {
+                nameStr = getRandomStr()
+            }
+            mShapeMap[nameStr] = DrawPoint(nameStr, cx, cy, r, color)
+        }
         invalidate()
     }
 
     override fun drawRect(
         x1: Float, y1: Float, x2: Float, y2: Float, w: Float,
-        color: Int, style: Paint.Style, rotation: Float
+        color: Int, style: Paint.Style, name: String?, rotation: Float
     ) {
         logD(msg = "draw rect")
-        mRects.add(DrawRect(x1, -y1, x2, -y2, w, color, style, rotation))
+        var nameStr = name
+        val shape = mShapeMap[nameStr]
+        if (shape is DrawRect) {
+            shape.update(x1, y1, x2, y2, w, color, style, rotation)
+        } else {
+            if (nameStr.isNullOrEmpty()) {
+                nameStr = getRandomStr()
+            }
+            mShapeMap[nameStr] = DrawRect(nameStr, x1, y1, x2, y2, w, color, style, rotation)
+        }
         invalidate()
     }
 
     override fun drawLine(
         startX: Float, startY: Float, endX: Float, endY: Float,
-        w: Float, color: Int, rotation: Float
+        w: Float, color: Int, name: String?, rotation: Float
     ) {
         logD(msg = "draw line")
-        mLines.add(DrawLine(startX, -startY, endX, -endY, w, color, rotation))
+        var nameStr = name
+        val shape = mShapeMap[nameStr]
+        if (shape is DrawLine) {
+            shape.update(startX, startY, endX, endY, w, color, rotation)
+        } else {
+            if (nameStr.isNullOrEmpty()) {
+                nameStr = getRandomStr()
+            }
+            mShapeMap[nameStr] = DrawLine(nameStr, startX, startY, endX, endY, w, color, rotation)
+        }
         invalidate()
     }
 
     override fun drawTriangle(
         x1: Float, y1: Float, x2: Float, y2: Float, x3: Float, y3: Float,
-        w: Float, color: Int, style: Paint.Style, rotation: Float
+        w: Float, color: Int, style: Paint.Style, name: String?, rotation: Float
     ) {
         logD(msg = "draw triangle")
-        mTriangles.add(DrawTriangle(x1, -y1, x2, -y2, x3, -y3, w, color, style, rotation))
+        var nameStr = name
+        val shape = mShapeMap[nameStr]
+        if (shape is DrawTriangle) {
+            shape.update(x1, y1, x2, y2, x3, y3, w, color, style, rotation)
+        } else {
+            if (nameStr.isNullOrEmpty()) {
+                nameStr = getRandomStr()
+            }
+            mShapeMap[nameStr] = DrawTriangle(nameStr, x1, y1, x2, y2, x3, y3, w, color, style, rotation)
+        }
         invalidate()
+    }
+
+    private val mRandom = Random()
+    private val mRandomBytes = ByteArray(8)
+
+    private fun getRandomStr(): String {
+        mRandom.nextBytes(mRandomBytes)
+        return String(mRandomBytes)
     }
 
     interface IRoleChangeListener {
@@ -381,111 +434,117 @@ class RoleViewGroup : FrameLayout, IRoleView {
         TAG_SAY
     }
 
+    private interface Shape {
+        val name: String
+    }
+
     private data class DrawCircle(
-        val cx: Float, val cy: Float, val r: Float,
-        val w: Float, val color: Int, val style: Paint.Style
-    ) {
+        override val name: String,
+        var cx: Float, var cy: Float, var r: Float,
+        var w: Float, var color: Int, var style: Paint.Style
+    ) : Shape {
+
+        fun update(cx: Float, cy: Float, r: Float, w: Float, color: Int, style: Paint.Style) {
+            this.cx = cx
+            this.cy = cy
+            this.r = r
+            this.w = w
+            this.color = color
+            this.style = style
+        }
+
         override fun toString(): String {
-            return "p($cx, $cy) r:$r w:$w, color:$color, style:$style"
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (other is DrawCircle) {
-                return other.cx.equals(cx) && other.cy.equals(cy) && other.r.equals(r) && other.w.equals(w)
-                        && other.color == color && other.style == style
-            }
-            return super.equals(other)
-        }
-
-        override fun hashCode(): Int {
-            return toString().hashCode()
+            return "name:$name p($cx, $cy) r:$r w:$w, color:$color, style:$style"
         }
     }
 
-    private data class DrawPoint(val cx: Float, val cy: Float, val r: Float, val color: Int) {
+    private data class DrawPoint(
+        override val name: String, var cx: Float, var cy: Float,
+        var r: Float, var color: Int
+    ) : Shape {
+
+        fun update(cx: Float, cy: Float, r: Float, color: Int) {
+            this.cx = cx
+            this.cy = cy
+            this.r = r
+            this.color = color
+        }
+
         override fun toString(): String {
-            return "p($cx, $cy) r:$r, color:$color"
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (other is DrawPoint) {
-                return other.cx.equals(cx) && other.cy.equals(cy) && other.r.equals(r) && other.color == color
-            }
-            return super.equals(other)
-        }
-
-        override fun hashCode(): Int {
-            return toString().hashCode()
+            return "name:$name p($cx, $cy) r:$r, color:$color"
         }
     }
 
     private data class DrawRect(
-        val x1: Float, val y1: Float, val x2: Float, val y2: Float,
-        val w: Float, val color: Int, val style: Paint.Style, val rotation: Float
-    ) {
+        override val name: String,
+        var x1: Float, var y1: Float, var x2: Float, var y2: Float,
+        var w: Float, var color: Int, var style: Paint.Style, var rotation: Float
+    ) : Shape {
+
+        fun update(
+            x1: Float, y1: Float, x2: Float, y2: Float, w: Float,
+            color: Int, style: Paint.Style, rotation: Float
+        ) {
+            this.x1 = x1
+            this.y1 = y1
+            this.x2 = x2
+            this.y2 = y2
+            this.w = w
+            this.color = color
+            this.style = style
+            this.rotation = rotation
+        }
+
         override fun toString(): String {
-            return "p1($x1, $y1) p2($x2, $y2) w:$w, color:$color, style:$style rotation:$rotation"
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (other is DrawTriangle) {
-                return other.x1.equals(x1) && other.y1.equals(y1) &&
-                        other.x2.equals(x2) && other.y2.equals(y2) &&
-                        other.w.equals(w) && other.color == color &&
-                        other.style == style && other.rotation.equals(rotation)
-            }
-            return super.equals(other)
-        }
-
-        override fun hashCode(): Int {
-            return toString().hashCode()
+            return "name:$name p1($x1, $y1) p2($x2, $y2) w:$w, color:$color, style:$style rotation:$rotation"
         }
     }
 
     private data class DrawLine(
-        val startX: Float, val startY: Float, val endX: Float, val endY: Float,
-        val w: Float, val color: Int, val rotation: Float
-    ) {
+        override val name: String,
+        var startX: Float, var startY: Float, var endX: Float, var endY: Float,
+        var w: Float, var color: Int, var rotation: Float
+    ) : Shape {
+
+        fun update(startX: Float, startY: Float, endX: Float, endY: Float, w: Float, color: Int, rotation: Float) {
+            this.startX = startX
+            this.startY = startY
+            this.endX = endX
+            this.endY = endY
+            this.w = w
+            this.color = color
+            this.rotation = rotation
+        }
+
         override fun toString(): String {
-            return "startP($startX, $startY) endP($endX, $endY) w:$w, color:$color rotation:$rotation"
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (other is DrawLine) {
-                return other.startX.equals(startX) && other.startY.equals(startY) &&
-                        other.endX.equals(endX) && other.endY.equals(endY) &&
-                        other.w.equals(w) && other.color == color && other.rotation.equals(rotation)
-            }
-            return super.equals(other)
-        }
-
-        override fun hashCode(): Int {
-            return toString().hashCode()
+            return "name:$name startP($startX, $startY) endP($endX, $endY) w:$w, color:$color rotation:$rotation"
         }
     }
 
     private data class DrawTriangle(
-        val x1: Float, val y1: Float, val x2: Float, val y2: Float, val x3: Float, val y3: Float,
-        val w: Float, val color: Int, val style: Paint.Style, val rotation: Float
-    ) {
+        override val name: String,
+        var x1: Float, var y1: Float, var x2: Float, var y2: Float, var x3: Float, var y3: Float,
+        var w: Float, var color: Int, var style: Paint.Style, var rotation: Float
+    ) : Shape {
+
+        fun update(
+            x1: Float, y1: Float, x2: Float, y2: Float, x3: Float, y3: Float,
+            w: Float, color: Int, style: Paint.Style, rotation: Float
+        ) {
+            this.x1 = x1
+            this.y1 = y1
+            this.x2 = x2
+            this.y2 = y2
+            this.x3 = x3
+            this.y3 = y3
+            this.color = color
+            this.style = style
+            this.rotation = rotation
+        }
 
         override fun toString(): String {
-            return "p1($x1, $y1) p2($x2, $y2) p3($x3, $y3) w:$w, color:$color, style:$style rotation:$rotation"
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (other is DrawTriangle) {
-                return other.x1.equals(x1) && other.y1.equals(y1) &&
-                        other.x2.equals(x2) && other.y2.equals(y2) &&
-                        other.x3.equals(x3) && other.y2.equals(y3) &&
-                        other.w.equals(w) && other.color == color &&
-                        other.style == style && other.rotation.equals(rotation)
-            }
-            return super.equals(other)
-        }
-
-        override fun hashCode(): Int {
-            return toString().hashCode()
+            return "name:$name p1($x1, $y1) p2($x2, $y2) p3($x3, $y3) " +
+                    "w:$w, color:$color, style:$style rotation:$rotation"
         }
     }
 

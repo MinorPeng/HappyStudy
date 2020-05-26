@@ -1,13 +1,16 @@
 package com.hesheng1024.happystudy.custom.blocks.draw
 
 import android.content.Context
+import android.text.InputType
 import android.util.AttributeSet
 import android.view.View
 import com.hesheng1024.happystudy.R
+import com.hesheng1024.happystudy.custom.blocks.BlockEditText
 import com.hesheng1024.happystudy.custom.blocks.base.BaseRelativeBlockView
 import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.blocks.calculate.CalculateBgBlock
 import com.hesheng1024.happystudy.custom.role.IRoleView
+import com.hesheng1024.happystudy.modules.Block
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -24,6 +27,7 @@ class DrawLineBlockView : BaseRelativeBlockView {
     private val mCalBgEndX: CalculateBgBlock
     private val mCalBgEndY: CalculateBgBlock
     private val mCalBgW: CalculateBgBlock
+    private val mEtName: BlockEditText
     private val mCalBgRotation: CalculateBgBlock
     private val mSpinnerColor: DrawColorSpinner
 
@@ -43,8 +47,14 @@ class DrawLineBlockView : BaseRelativeBlockView {
         mCalBgEndX = findViewById(R.id.cal_bg_draw_line_block_end_x)
         mCalBgEndY = findViewById(R.id.cal_bg_draw_line_block_end_y)
         mCalBgW = findViewById(R.id.cal_bg_draw_line_block_w)
+        mEtName = findViewById(R.id.et_draw_line_block_name)
         mCalBgRotation = findViewById(R.id.cal_bg_draw_line_block_rotation)
         mSpinnerColor = findViewById(R.id.spinner_draw_line_block_color)
+        initView()
+    }
+
+    private fun initView() {
+        mEtName.inputType = InputType.TYPE_CLASS_TEXT
     }
 
     override fun clone(): IBaseBlock {
@@ -57,6 +67,7 @@ class DrawLineBlockView : BaseRelativeBlockView {
         newObj.mCalBgEndX.clone(mCalBgEndX)
         newObj.mCalBgEndY.clone(mCalBgEndY)
         newObj.mCalBgW.clone(mCalBgW)
+        newObj.mEtName.setText(mEtName.text.toString())
         newObj.mCalBgRotation.clone(mCalBgRotation)
         newObj.mSpinnerColor.clone(mSpinnerColor)
         return newObj
@@ -69,9 +80,10 @@ class DrawLineBlockView : BaseRelativeBlockView {
             val endX = mCalBgEndX.calculateResult()
             val endY = mCalBgEndY.calculateResult()
             val w = mCalBgW.calculateResult()
+            val name = mEtName.text.toString()
             val color = mSpinnerColor.getSelectedColor()
             val rotation = mCalBgRotation.calculateResult()
-            role.drawLine(startX, startY, endX, endY, w, color, rotation)
+            role.drawLine(startX, startY, endX, endY, w, color, name, rotation)
         }
     }
 }

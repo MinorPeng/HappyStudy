@@ -2,6 +2,7 @@ package com.hesheng1024.happystudy.custom.role
 
 import android.graphics.Paint
 import androidx.annotation.NonNull
+import androidx.annotation.Nullable
 
 /**
  *
@@ -12,6 +13,7 @@ interface IRoleDraw {
 
     /**
      *
+     * @param name: name of the shape
      * @param cx: x of center point
      * @param cy: y of center point
      * @param r: radius
@@ -19,22 +21,21 @@ interface IRoleDraw {
      * @param color: circle color
      * @param style: stroke, fill, stroke with fill
      */
-    fun drawCircle(
-        @NonNull cx: Float, @NonNull cy: Float, @NonNull r: Float,
-        @NonNull w: Float, @NonNull color: Int, @NonNull style: Paint.Style
-    )
+    fun drawCircle(cx: Float, cy: Float, r: Float, w: Float, color: Int, style: Paint.Style, name: String? = null)
 
     /**
      *
+     * @param name: name of the shape
      * @param cx: x of center point
      * @param cy: y of center point
      * @param r: radius
      * @param color: circle color
      */
-    fun drawPoint(@NonNull cx: Float, @NonNull cy: Float, @NonNull r: Float, @NonNull color: Int)
+    fun drawPoint(cx: Float, cy: Float, r: Float, color: Int, name: String? = null)
 
     /**
      *
+     * @param name: name of the shape
      * @param x1: x of left and top point
      * @param y1: y of left and top point
      * @param x2: x of right and bottom point
@@ -45,13 +46,13 @@ interface IRoleDraw {
      * @param rotation: rotation degree
      */
     fun drawRect(
-        @NonNull x1: Float, @NonNull y1: Float,
-        @NonNull x2: Float, @NonNull y2: Float,
-        @NonNull w: Float, @NonNull color: Int, @NonNull style: Paint.Style, @NonNull rotation: Float = 0f
+        x1: Float, y1: Float, x2: Float, y2: Float, w: Float,
+        color: Int, style: Paint.Style, name: String? = null, rotation: Float = 0f
     )
 
     /**
      *
+     * @param name: name of the shape
      * @param startX: x of start point
      * @param startY: y of start point
      * @param endX: x of end point
@@ -61,13 +62,13 @@ interface IRoleDraw {
      * @param rotation: rotation degree
      */
     fun drawLine(
-        @NonNull startX: Float, @NonNull startY: Float,
-        @NonNull endX: Float, @NonNull endY: Float,
-        @NonNull w: Float, @NonNull color: Int, @NonNull rotation: Float = 0f
+        startX: Float, startY: Float, endX: Float, endY: Float,
+        w: Float, color: Int, name: String? = null, rotation: Float = 0f
     )
 
     /**
      *
+     * @param name: name of the shape
      * @param x1: x of left and bottom point
      * @param y1: y of left and bottom point
      * @param x2: x of right and bottom point
@@ -80,9 +81,7 @@ interface IRoleDraw {
      * @param rotation: rotation degree
      */
     fun drawTriangle(
-        @NonNull x1: Float, @NonNull y1: Float,
-        @NonNull x2: Float, @NonNull y2: Float,
-        @NonNull x3: Float, @NonNull y3: Float,
-        @NonNull w: Float, @NonNull color: Int, @NonNull style: Paint.Style, @NonNull rotation: Float = 0f
+        x1: Float, y1: Float, x2: Float, y2: Float, x3: Float, y3: Float,
+        w: Float, color: Int, style: Paint.Style, name: String? = null, rotation: Float = 0f
     )
 }

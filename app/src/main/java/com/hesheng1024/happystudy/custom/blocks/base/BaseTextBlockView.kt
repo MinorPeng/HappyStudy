@@ -90,14 +90,14 @@ abstract class BaseTextBlockView : AppCompatTextView, IBaseBlock {
 
     override fun inTopRectF(x: Float, y: Float): Boolean {
         val isIn = (x < right && x >= left
-                && y < top + measuredHeight / 3 && y >= top - measuredHeight / 3 * 4)
+                && y <= top + measuredHeight / 3 && y > top)
         logD(msg = "top isIn:$isIn l:$left t:$top r:$right b:$bottom x:$x y:$y")
         return isIn
     }
 
     override fun inBottomRectF(x: Float, y: Float): Boolean {
         val isIn = (x < right && x >= left
-                && y <= bottom + measuredHeight / 3 * 4 && y > bottom - measuredHeight / 3)
+                && y < bottom && y >= bottom - measuredHeight / 3)
         logD(msg = "bottom isIn:$isIn l:$left t:$top r:$right b:$bottom x:$x y:$y")
         return isIn
     }

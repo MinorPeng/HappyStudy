@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
-import androidx.core.content.ContextCompat
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.blocks.base.BaseLinearBlockView
 import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
@@ -23,6 +22,8 @@ import kotlinx.coroutines.launch
 class PlayVoiceBlockView : BaseLinearBlockView {
 
     private val mSpinner: MaterialSpinner
+    private val mVoiceMap = LinkedHashMap<String, Int>()
+    private var mVoiceId: Int? = null
 
     constructor(context: Context) : this(context, null)
 
@@ -39,23 +40,26 @@ class PlayVoiceBlockView : BaseLinearBlockView {
     }
 
     private fun initView() {
-        mSpinner.setLines(1)
-        mSpinner.setItems(context.resources.getStringArray(R.array.voices).toList())
-        mSpinner.setTextColor(ContextCompat.getColor(context, android.R.color.white))
-        mSpinner.setArrowColor(ContextCompat.getColor(context, android.R.color.white))
-        mSpinner.setBackgroundColor(ContextCompat.getColor(context, R.color.colorVoicePurple700))
-        mSpinner.setBackgroundResource(R.drawable.bg_spinner_circle_purple)
+        mVoiceMap["声音1"] = R.raw.voice1
+        mVoiceMap["声音2"] = R.raw.voice2
+        mVoiceMap["声音3"] = R.raw.voice3
+        val list = mVoiceMap.keys.toList()
+        mVoiceId = mVoiceMap[list[0]]
+        mSpinner.setItems(list)
+        mSpinner.setOnItemSelectedListener(object : MaterialSpinner.OnItemSelectedListener {
+            override fun onItemSelected(view: MaterialSpinner?, position: Int, id: Long, item: Any) {
+                if (item is String) {
+                    mVoiceId = mVoiceMap[item]
+                }
+            }
+        })
     }
 
     override suspend fun onRun(role: IRoleView) {
-        val rawId = when (mSpinner.getSelectedIndex()) {
-            0 -> R.raw.voice1
-            1 -> R.raw.voice2
-            2 -> R.raw.voice3
-            else -> R.raw.voice1
-        }
         GlobalScope.launch(Dispatchers.Main) {
-            role.playVoice(rawId)
+            mVoiceId?.let {
+                role.playVoice(it)
+            }
         }
     }
 

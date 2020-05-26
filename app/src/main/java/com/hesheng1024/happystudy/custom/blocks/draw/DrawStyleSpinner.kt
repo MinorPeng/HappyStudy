@@ -50,15 +50,9 @@ class DrawStyleSpinner : MaterialSpinner {
                 mSelectStyle = mStyleMap[item]
             }
         })
-        // this.setOnItemSelectedListener { view, position, id, item ->
-        //     val style = mStyleMap[item]
-        //     mSelectStyle = style
-        // }
         this.textSize = TEXT_SIZE_BLOCK_10
-        this.setItemTextSize(TEXT_SIZE_BLOCK_10)
         this.setTextColor(ContextCompat.getColor(context, android.R.color.white))
         this.setArrowColor(ContextCompat.getColor(context, android.R.color.white))
-        this.setBackgroundColor(ContextCompat.getColor(context, R.color.colorDrawRed700))
         this.setBackgroundResource(R.drawable.bg_spinner_circle_red)
     }
 

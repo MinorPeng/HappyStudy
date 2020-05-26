@@ -11,6 +11,8 @@ import androidx.appcompat.widget.AppCompatTextView
 import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.base.utils.logD
 import com.hesheng1024.base.utils.logI
+import com.hesheng1024.happystudy.CONTROL_BLOCK_DEFAULT_H
+import com.hesheng1024.happystudy.CONTROL_BLOCK_DEFAULT_W
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.TEXT_SIZE_BLOCK_12
 import com.hesheng1024.happystudy.custom.blocks.base.BaseBlockViewGroup
@@ -120,8 +122,8 @@ class IfElseBlockView : BaseBlockViewGroup {
         val sizeH = MeasureSpec.getSize(heightMeasureSpec)
         val modeH = MeasureSpec.getMode(heightMeasureSpec)
 
-        mTopViewH = dp2px(context, 32f).toFloat()
-        mTopViewW = dp2px(context, 150f).toFloat()
+        mTopViewH = dp2px(context, CONTROL_BLOCK_DEFAULT_H).toFloat()
+        mTopViewW = dp2px(context, CONTROL_BLOCK_DEFAULT_W).toFloat()
         var topViewW = 0
         var topViewMaxH = 0
         var centerViewW = 0
@@ -494,12 +496,12 @@ class IfElseBlockView : BaseBlockViewGroup {
 
     override fun inTopRectF(x: Float, y: Float): Boolean {
         return (x <= left + measuredWidth && x >= left
-                && y < top + mTopViewH / 3 && y >= top - mTopViewH / 3 * 4)
+                && y <= top + mTopViewH / 3 && y > top)
     }
 
     override fun inBottomRectF(x: Float, y: Float): Boolean {
         return (x <= left + measuredWidth && x >= left
-                && y <= bottom + mTopViewH / 3 * 4 && y > bottom - mTopViewH / 3)
+                && y < bottom && y >= bottom - mTopViewH / 3)
     }
 
     private enum class ChildTag(tag: String) {

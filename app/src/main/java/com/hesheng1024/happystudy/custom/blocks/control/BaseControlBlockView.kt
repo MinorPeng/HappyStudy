@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.hesheng1024.base.utils.dp2px
 import com.hesheng1024.base.utils.logI
+import com.hesheng1024.happystudy.CONTROL_BLOCK_DEFAULT_H
+import com.hesheng1024.happystudy.CONTROL_BLOCK_DEFAULT_W
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.blocks.base.BaseBlockViewGroup
 import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
@@ -55,8 +57,8 @@ abstract class BaseControlBlockView : BaseBlockViewGroup {
         val modeH = MeasureSpec.getMode(heightMeasureSpec)
 
         // 每次requestLayout时，不要使用上一次的数据
-        mTopViewH = dp2px(context, 32f).toFloat()
-        mTopViewW = dp2px(context, 150f).toFloat()
+        mTopViewH = dp2px(context, CONTROL_BLOCK_DEFAULT_H).toFloat()
+        mTopViewW = dp2px(context, CONTROL_BLOCK_DEFAULT_W).toFloat()
         var topViewW = 0
         var topViewMaxH = 0
         var centerMaxW = 0
@@ -280,12 +282,12 @@ abstract class BaseControlBlockView : BaseBlockViewGroup {
 
     override fun inTopRectF(x: Float, y: Float): Boolean {
         return (x < right && x > left
-                && y < top + mTopViewH / 3 && y >= top - mTopViewH / 3 * 4)
+                && y <= top + mTopViewH / 3 && y > top)
     }
 
     override fun inBottomRectF(x: Float, y: Float): Boolean {
         return (x < right && x > left
-                && y <= bottom + mTopViewH / 3 * 4 && y > bottom)
+                && y < bottom && y >= bottom - mTopViewH / 3)
     }
 
     suspend fun onChildRun(role: IRoleView) {

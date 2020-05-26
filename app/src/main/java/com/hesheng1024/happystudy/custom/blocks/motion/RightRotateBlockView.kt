@@ -2,6 +2,7 @@ package com.hesheng1024.happystudy.custom.blocks.motion
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.text.InputType
 import android.util.AttributeSet
 import android.view.View
 import com.hesheng1024.happystudy.BLOCK_ROLE_RUN_DELAY
@@ -40,6 +41,7 @@ class RightRotateBlockView : BaseLinearBlockView {
     }
 
     private fun initView() {
+        mEt.inputType = InputType.TYPE_CLASS_NUMBER
     }
 
     override suspend fun onRun(role: IRoleView) {

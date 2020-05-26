@@ -64,6 +64,23 @@
                 tools:background="@drawable/bg_et_circle_white"
                 tools:gravity="center" />
         </com.hesheng1024.happystudy.custom.blocks.calculate.CalculateBgBlock>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/BlockTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp8"
+            android:gravity="center_vertical"
+            android:text="@string/name" />
+
+        <com.hesheng1024.happystudy.custom.blocks.BlockEditText
+            android:id="@+id/et_draw_fill_circle_block_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp4"
+            android:hint="@string/name"
+            tools:background="@drawable/bg_et_circle_white"
+            tools:gravity="center" />
     </LinearLayout>
 
     <LinearLayout

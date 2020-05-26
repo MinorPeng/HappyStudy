@@ -5,4 +5,13 @@
         <item>声音2</item>
         <item>声音3</item>
     </string-array>
+
+    <string-array name="get_time">
+        <item>h</item>
+        <item>m</item>
+        <item>s</item>
+        <!--<item>Y</item>-->
+        <!--<item>M</item>-->
+        <!--<item>D</item>-->
+    </string-array>
 </resources>

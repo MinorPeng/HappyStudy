@@ -15,7 +15,16 @@
     <style name="BlockTextStyle" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textSize">@dimen/block_text_sp12</item>
-        <item name="android:lines">1</item>
+        <item name="singleLine">true</item>
+    </style>
+
+    <style name="BlockEditTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:textSize">@dimen/block_text_sp12</item>
+        <item name="android:inputType">numberSigned|number|numberDecimal</item>
+        <item name="android:gravity">center</item>
+        <item name="singleLine">true</item>
+        <item name="android:minEms">2</item>
+        <item name="background">@drawable/bg_et_circle_white</item>
     </style>
 
 </resources>

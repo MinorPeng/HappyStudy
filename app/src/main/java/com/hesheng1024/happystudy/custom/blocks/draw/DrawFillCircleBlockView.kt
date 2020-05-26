@@ -2,9 +2,11 @@ package com.hesheng1024.happystudy.custom.blocks.draw
 
 import android.content.Context
 import android.graphics.Paint
+import android.text.InputType
 import android.util.AttributeSet
 import android.view.View
 import com.hesheng1024.happystudy.R
+import com.hesheng1024.happystudy.custom.blocks.BlockEditText
 import com.hesheng1024.happystudy.custom.blocks.base.BaseRelativeBlockView
 import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.blocks.calculate.CalculateBgBlock
@@ -23,6 +25,7 @@ class DrawFillCircleBlockView : BaseRelativeBlockView {
     private val mCalBgCx: CalculateBgBlock
     private val mCalBgCy: CalculateBgBlock
     private val mCalBgR: CalculateBgBlock
+    private val mEtName: BlockEditText
     private val mSpinnerColor: DrawColorSpinner
 
     constructor(context: Context) : this(context, null)
@@ -39,9 +42,14 @@ class DrawFillCircleBlockView : BaseRelativeBlockView {
         mCalBgCx = findViewById(R.id.cal_bg_draw_fill_circle_block_cx)
         mCalBgCy = findViewById(R.id.cal_bg_draw_fill_circle_block_cy)
         mCalBgR = findViewById(R.id.cal_bg_draw_fill_circle_block_r)
+        mEtName = findViewById(R.id.et_draw_fill_circle_block_name)
         mSpinnerColor = findViewById(R.id.spinner_draw_fill_circle_block_color)
+        initView()
     }
 
+    private fun initView() {
+        mEtName.inputType = InputType.TYPE_CLASS_TEXT
+    }
 
     override fun clone(): IBaseBlock {
         val newObj = DrawFillCircleBlockView(context)
@@ -51,6 +59,7 @@ class DrawFillCircleBlockView : BaseRelativeBlockView {
         newObj.mCalBgCx.clone(mCalBgCx)
         newObj.mCalBgCy.clone(mCalBgCy)
         newObj.mCalBgR.clone(mCalBgR)
+        newObj.mEtName.setText(mEtName.text.toString())
         newObj.mSpinnerColor.clone(mSpinnerColor)
         return newObj
     }
@@ -61,7 +70,8 @@ class DrawFillCircleBlockView : BaseRelativeBlockView {
             val cy = mCalBgCy.calculateResult()
             val r = mCalBgR.calculateResult()
             val color = mSpinnerColor.getSelectedColor()
-            role.drawCircle(cx, cy, r, 1f, color, Paint.Style.FILL)
+            val name = mEtName.text.toString()
+            role.drawCircle(cx, cy, r, 1f, color, Paint.Style.FILL, name)
         }
     }
 }

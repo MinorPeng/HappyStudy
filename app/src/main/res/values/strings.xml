@@ -100,4 +100,6 @@
     <string name="variable">变量</string>
     <string name="lower_case_letter">abcdefghijklmnopqrstuvwxyz</string>
     <string name="introduce_blocks">积木介绍</string>
+    <string name="get_time">获取时间</string>
+    <string name="name">name</string>
 </resources>

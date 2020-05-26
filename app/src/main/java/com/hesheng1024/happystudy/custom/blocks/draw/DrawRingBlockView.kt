@@ -2,9 +2,11 @@ package com.hesheng1024.happystudy.custom.blocks.draw
 
 import android.content.Context
 import android.graphics.Paint
+import android.text.InputType
 import android.util.AttributeSet
 import android.view.View
 import com.hesheng1024.happystudy.R
+import com.hesheng1024.happystudy.custom.blocks.BlockEditText
 import com.hesheng1024.happystudy.custom.blocks.base.BaseRelativeBlockView
 import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.blocks.calculate.CalculateBgBlock
@@ -24,6 +26,7 @@ class DrawRingBlockView : BaseRelativeBlockView {
     private val mCalBgCy: CalculateBgBlock
     private val mCalBgR: CalculateBgBlock
     private val mCalBgW: CalculateBgBlock
+    private val mEtName: BlockEditText
     private val mSpinnerColor: DrawColorSpinner
 
     constructor(context: Context) : this(context, null)
@@ -41,7 +44,13 @@ class DrawRingBlockView : BaseRelativeBlockView {
         mCalBgCy = findViewById(R.id.cal_bg_draw_ring_block_cy)
         mCalBgR = findViewById(R.id.cal_bg_draw_ring_block_r)
         mCalBgW = findViewById(R.id.cal_bg_draw_ring_block_w)
+        mEtName = findViewById(R.id.et_draw_ring_block_name)
         mSpinnerColor = findViewById(R.id.spinner_draw_ring_block_color)
+        initView()
+    }
+
+    private fun initView() {
+        mEtName.inputType = InputType.TYPE_CLASS_TEXT
     }
 
     override fun clone(): IBaseBlock {
@@ -53,6 +62,7 @@ class DrawRingBlockView : BaseRelativeBlockView {
         newObj.mCalBgCy.clone(mCalBgCy)
         newObj.mCalBgR.clone(mCalBgR)
         newObj.mCalBgW.clone(mCalBgW)
+        newObj.mEtName.setText(mEtName.text.toString())
         newObj.mSpinnerColor.clone(mSpinnerColor)
         return newObj
     }
@@ -64,7 +74,8 @@ class DrawRingBlockView : BaseRelativeBlockView {
             val r = mCalBgR.calculateResult()
             val w = mCalBgW.calculateResult()
             val color = mSpinnerColor.getSelectedColor()
-            role.drawCircle(cx, cy, r, w, color, Paint.Style.STROKE)
+            val name = mEtName.text.toString()
+            role.drawCircle(cx, cy, r, w, color, Paint.Style.STROKE, name)
         }
     }
 }

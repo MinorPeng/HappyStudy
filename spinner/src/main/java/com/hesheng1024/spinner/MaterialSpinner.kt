@@ -98,25 +98,10 @@ open class MaterialSpinner : AppCompatTextView {
             )
             mItemTextColor = ta.getColor(R.styleable.MaterialSpinner_itemTextColor, defaultColor)
             mItemTextSize = ta.getDimension(R.styleable.MaterialSpinner_itemTextSize, textSize)
-            mItemPaddingL = ta.getDimension(
-                R.styleable.MaterialSpinner_itemPaddingL,
-                resources.getDimension(R.dimen.ms_item_padding_l)
-            ).toInt()
-            mItemPaddingT = ta.getDimension(
-                R.styleable.MaterialSpinner_itemPaddingT,
-                resources.getDimension(R.dimen.ms_item_padding_t)
-            ).toInt()
-
-            mItemPaddingR = ta.getDimension(
-                R.styleable.MaterialSpinner_itemPaddingR,
-                resources.getDimension(R.dimen.ms_item_padding_r)
-            ).toInt()
-
-            mItemPaddingB = ta.getDimension(
-                R.styleable.MaterialSpinner_itemPaddingB,
-                resources.getDimension(R.dimen.ms_item_padding_b)
-            ).toInt()
-
+            mItemPaddingL = ta.getDimensionPixelSize(R.styleable.MaterialSpinner_itemPaddingL, 0)
+            mItemPaddingT = ta.getDimensionPixelSize(R.styleable.MaterialSpinner_itemPaddingT, 0)
+            mItemPaddingR = ta.getDimensionPixelSize(R.styleable.MaterialSpinner_itemPaddingR, 0)
+            mItemPaddingB = ta.getDimensionPixelSize(R.styleable.MaterialSpinner_itemPaddingB, 0)
 
             entries = ta.getTextArray(R.styleable.MaterialSpinner_entries)
             mHintStr = ta.getString(R.styleable.MaterialSpinner_hint).toString()
@@ -136,15 +121,15 @@ open class MaterialSpinner : AppCompatTextView {
         isSingleLine = true
         if (gravity == (Gravity.TOP or Gravity.START)) {
             gravity = Gravity.CENTER_VERTICAL or Gravity.START
+            if (paddingStart == 0 && paddingTop == 0 && paddingEnd == 0 && paddingBottom == 0) {
+                val l = resources.getDimensionPixelSize(R.dimen.ms_text_padding_l)
+                val t = resources.getDimensionPixelSize(R.dimen.ms_text_padding_t)
+                val r = resources.getDimensionPixelSize(R.dimen.ms_text_padding_r)
+                val b = resources.getDimensionPixelSize(R.dimen.ms_text_padding_b)
+                setPadding(l, t, r, b)
+            }
         }
 
-        if (!isPaddingRelative) {
-            val l = resources.getDimensionPixelOffset(R.dimen.ms_text_padding_l)
-            val t = resources.getDimensionPixelOffset(R.dimen.ms_text_padding_t)
-            val r = resources.getDimensionPixelOffset(R.dimen.ms_text_padding_r)
-            val b = resources.getDimensionPixelOffset(R.dimen.ms_text_padding_b)
-            setPadding(l, t, r, b)
-        }
         isClickable = true
         if (background == null) {
             setBackgroundResource(R.drawable.ms_selector)
@@ -173,12 +158,7 @@ open class MaterialSpinner : AppCompatTextView {
             } else {
                 drawables[2] = mArrowDrawable
             }
-            setCompoundDrawablesWithIntrinsicBounds(
-                drawables[0],
-                drawables[1],
-                drawables[2],
-                drawables[3]
-            )
+            setCompoundDrawablesWithIntrinsicBounds(drawables[0], drawables[1], drawables[2], drawables[3])
         }
     }
 
@@ -356,6 +336,12 @@ open class MaterialSpinner : AppCompatTextView {
             it.setTextColor(mItemTextColor)
             it.setTextSize(mItemTextSize)
             it.setGravity(mItemGravity)
+            if (mItemPaddingL == 0 && mItemPaddingT == 0 && mItemPaddingR == 0 && mItemPaddingB == 0) {
+                mItemPaddingL = resources.getDimensionPixelSize(R.dimen.ms_item_padding_l)
+                mItemPaddingT = resources.getDimensionPixelSize(R.dimen.ms_item_padding_t)
+                mItemPaddingR = resources.getDimensionPixelSize(R.dimen.ms_item_padding_r)
+                mItemPaddingB = resources.getDimensionPixelSize(R.dimen.ms_item_padding_b)
+            }
             it.setTextPadding(mItemPaddingL, mItemPaddingT, mItemPaddingR, mItemPaddingB)
             setAdapterInternal()
         }
@@ -519,6 +505,7 @@ open class MaterialSpinner : AppCompatTextView {
         if (mAdapter == null) {
             return WindowManager.LayoutParams.WRAP_CONTENT
         }
+        // TODO 高度计算不完美
         val itemHeight = resources.getDimension(R.dimen.ms_item_height)
         // val itemHeight = mItemTextSize + mItemPaddingT + mItemPaddingB
         val listViewHeight: Float = mAdapter?.count!! * itemHeight

@@ -1,9 +1,11 @@
 package com.hesheng1024.happystudy.custom.blocks.draw
 
 import android.content.Context
+import android.text.InputType
 import android.util.AttributeSet
 import android.view.View
 import com.hesheng1024.happystudy.R
+import com.hesheng1024.happystudy.custom.blocks.BlockEditText
 import com.hesheng1024.happystudy.custom.blocks.base.BaseRelativeBlockView
 import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.blocks.calculate.CalculateBgBlock
@@ -24,6 +26,7 @@ class DrawSquareBlockView : BaseRelativeBlockView {
     private val mCalBgLen: CalculateBgBlock
     private val mCalBgW: CalculateBgBlock
     private val mCalBgRotation: CalculateBgBlock
+    private val mEtName: BlockEditText
     private val mSpinnerStyle: DrawStyleSpinner
     private val mSpinnerColor: DrawColorSpinner
 
@@ -43,8 +46,14 @@ class DrawSquareBlockView : BaseRelativeBlockView {
         mCalBgLen = findViewById(R.id.cal_bg_draw_square_block_bl)
         mCalBgW = findViewById(R.id.cal_bg_draw_square_block_w)
         mCalBgRotation = findViewById(R.id.cal_bg_draw_square_block_rotation)
+        mEtName = findViewById(R.id.et_draw_square_block_name)
         mSpinnerStyle = findViewById(R.id.spinner_draw_square_block_style)
         mSpinnerColor = findViewById(R.id.spinner_draw_square_block_color)
+        initView()
+    }
+
+    private fun initView() {
+        mEtName.inputType = InputType.TYPE_CLASS_TEXT
     }
 
     override fun clone(): IBaseBlock {
@@ -56,6 +65,7 @@ class DrawSquareBlockView : BaseRelativeBlockView {
         newObj.mCalBgCy.clone(mCalBgCy)
         newObj.mCalBgLen.clone(mCalBgLen)
         newObj.mCalBgW.clone(mCalBgW)
+        newObj.mEtName.setText(mEtName.text.toString())
         newObj.mCalBgRotation.clone(mCalBgRotation)
         newObj.mSpinnerStyle.clone(mSpinnerStyle)
         newObj.mSpinnerColor.clone(mSpinnerColor)
@@ -75,7 +85,8 @@ class DrawSquareBlockView : BaseRelativeBlockView {
             val color = mSpinnerColor.getSelectedColor()
             val style = mSpinnerStyle.getSelectedStyle()
             val rotation = mCalBgRotation.calculateResult()
-            role.drawRect(l, t, r, b, w, color, style, rotation)
+            val name = mEtName.text.toString()
+            role.drawRect(l, t, r, b, w, color, style, name, rotation)
         }
     }
 }

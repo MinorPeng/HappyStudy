@@ -1,5 +1,8 @@
 package com.hesheng1024.happystudy
 
+import java.util.*
+import kotlin.collections.HashMap
+
 /**
  *
  * @author hesheng1024
@@ -25,4 +28,16 @@ fun main(args: Array<String>) {
     var value: Float
     value = map.getOrElse("") { 1f }
     println(value)
+
+    println()
+
+    println(Calendar.getInstance().get(Calendar.HOUR))
+    println(Calendar.getInstance().get(Calendar.HOUR_OF_DAY))
+    println(Calendar.getInstance().get(Calendar.MINUTE))
+    println(Calendar.getInstance().get(Calendar.SECOND))
+    println(Calendar.getInstance().get(Calendar.YEAR))
+    println(Calendar.getInstance().get(Calendar.MONTH))
+    println(Calendar.getInstance().get(Calendar.DAY_OF_MONTH))
+    println(Calendar.getInstance().get(Calendar.DAY_OF_WEEK))
+    println(Calendar.getInstance().get(Calendar.DAY_OF_WEEK_IN_MONTH))
 }

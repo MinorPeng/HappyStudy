@@ -76,7 +76,7 @@ class ProgrammeModelImpl : IProgrammeModel {
         blocks.add(Block(Block.Category.CALCULATE, VarMinusBlockView(context)))
         blocks.add(Block(Block.Category.CALCULATE, VarMultiplyBlockView(context)))
         blocks.add(Block(Block.Category.CALCULATE, VarDivideBlockView(context)))
-
+        blocks.add(Block(Block.Category.CALCULATE, GetTimeBlockView(context)))
 
         blocks.add(Block(Block.Category.DRAW, DrawCircleBlockView(context)))
         blocks.add(Block(Block.Category.DRAW, DrawPointBlockView(context)))
@@ -149,6 +149,31 @@ class ProgrammeModelImpl : IProgrammeModel {
 
     override fun initDrawBlocks(context: Context): List<Block> {
         val blocks = ArrayList<Block>()
+        blocks.add(Block(Block.Category.CONTROL, CirculationNumBlockView(context)))
+        blocks.add(Block(Block.Category.CONTROL, CirculationUtilBlockView(context)))
+        blocks.add(Block(Block.Category.CONTROL, DeathCirculationBlockView(context)))
+        blocks.add(Block(Block.Category.CONTROL, IfBlockView(context)))
+        blocks.add(Block(Block.Category.CONTROL, IfElseBlockView(context)))
+        blocks.add(Block(Block.Category.CONTROL, WaitBlockView(context)))
+
+        blocks.add(Block(Block.Category.CALCULATE, AddBlockView(context)))
+        blocks.add(Block(Block.Category.CALCULATE, MinusBlockView(context)))
+        blocks.add(Block(Block.Category.CALCULATE, MultiplyBlockView(context)))
+        blocks.add(Block(Block.Category.CALCULATE, DivideBlockView(context)))
+        blocks.add(Block(Block.Category.CALCULATE, MoreThanBlockView(context)))
+        blocks.add(Block(Block.Category.CALCULATE, LessThanBlockView(context)))
+        blocks.add(Block(Block.Category.CALCULATE, EqualBlockView(context)))
+        blocks.add(Block(Block.Category.CALCULATE, AndBlockView(context)))
+        blocks.add(Block(Block.Category.CALCULATE, OrBlockView(context)))
+        blocks.add(Block(Block.Category.CALCULATE, NotBlockView(context)))
+
+        blocks.add(Block(Block.Category.CALCULATE, VarEqualBlockView(context)))
+        blocks.add(Block(Block.Category.CALCULATE, VarAddBlockView(context)))
+        blocks.add(Block(Block.Category.CALCULATE, VarMinusBlockView(context)))
+        blocks.add(Block(Block.Category.CALCULATE, VarMultiplyBlockView(context)))
+        blocks.add(Block(Block.Category.CALCULATE, VarDivideBlockView(context)))
+        blocks.add(Block(Block.Category.CALCULATE, GetTimeBlockView(context)))
+
         blocks.add(Block(Block.Category.DRAW, DrawCircleBlockView(context)))
         blocks.add(Block(Block.Category.DRAW, DrawPointBlockView(context)))
         blocks.add(Block(Block.Category.DRAW, DrawFillCircleBlockView(context)))

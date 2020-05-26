@@ -101,11 +101,11 @@ abstract class BaseLinearBlockView : LinearLayout, IBaseBlock {
 
     override fun inTopRectF(x: Float, y: Float): Boolean {
         return (x < right && x > left
-                && y < top + measuredHeight / 3 && y >= top - measuredHeight / 3 * 4)
+                && y <= top + measuredHeight / 3 && y > top)
     }
 
     override fun inBottomRectF(x: Float, y: Float): Boolean {
         return (x < right && x > left
-                && y <= bottom + measuredHeight / 3 * 4 && y > bottom - measuredHeight / 3)
+                && y < bottom && y >= bottom - measuredHeight / 3)
     }
 }

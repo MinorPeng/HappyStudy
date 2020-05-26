@@ -2,6 +2,7 @@ package com.hesheng1024.happystudy.custom.blocks.voice
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.text.InputType
 import android.util.AttributeSet
 import android.view.View
 import com.hesheng1024.happystudy.R
@@ -38,6 +39,7 @@ class IncreaseVoiceBlockView : BaseLinearBlockView {
     }
 
     private fun initView() {
+        mEt.inputType = InputType.TYPE_CLASS_NUMBER
     }
 
     override suspend fun onRun(role: IRoleView) {
