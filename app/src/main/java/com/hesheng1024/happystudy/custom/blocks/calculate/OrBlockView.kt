@@ -56,7 +56,7 @@ class OrBlockView : BaseLogicBlockView {
         return newObj
     }
 
-    override fun judgeResult(): Boolean {
+    override suspend fun judgeResult(): Boolean {
         return mLeftLogicBg.judgeResult() || mRightLogicBg.judgeResult()
     }
 }

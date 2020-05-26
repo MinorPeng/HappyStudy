@@ -3,6 +3,7 @@ package com.hesheng1024.happystudy.custom.blocks.calculate
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
+import com.hesheng1024.base.utils.logD
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.VariableMap
 import com.hesheng1024.happystudy.custom.blocks.BlockEditText
@@ -56,6 +57,7 @@ class VarAddBlockView : BaseCalculateBlockView {
         VariableMap[key]?.let {
             val value = it + mRightCalculateBg.calculateResult()
             VariableMap[key] = value
+            logD(msg = "get:$value")
             return value
         }
         VariableMap[key] = 0f

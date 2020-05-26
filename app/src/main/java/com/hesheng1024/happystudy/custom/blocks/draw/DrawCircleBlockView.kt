@@ -4,6 +4,7 @@ import android.content.Context
 import android.text.InputType
 import android.util.AttributeSet
 import android.view.View
+import com.hesheng1024.base.utils.logD
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.custom.blocks.BlockEditText
 import com.hesheng1024.happystudy.custom.blocks.base.BaseRelativeBlockView
@@ -81,6 +82,7 @@ class DrawCircleBlockView : BaseRelativeBlockView {
             val name = mEtName.text.toString()
             val color = mSpinnerColor.getSelectedColor()
             val style = mSpinnerStyle.getSelectedStyle()
+            logD(msg = "r:$r")
             role.drawCircle(cx, cy, r, w, color, style, name)
         }
     }

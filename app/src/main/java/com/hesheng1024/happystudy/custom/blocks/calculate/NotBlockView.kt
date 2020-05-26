@@ -53,7 +53,7 @@ class NotBlockView : BaseLogicBlockView {
         return newObj
     }
 
-    override fun judgeResult(): Boolean {
+    override suspend fun judgeResult(): Boolean {
         return !mLogicBg.judgeResult()
     }
 }

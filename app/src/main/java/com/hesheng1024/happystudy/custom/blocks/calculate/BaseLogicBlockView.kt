@@ -51,5 +51,5 @@ abstract class BaseLogicBlockView : BaseLinearBlockView {
         canvas.drawPath(path, paint)
     }
 
-    abstract fun judgeResult(): Boolean
+    abstract suspend fun judgeResult(): Boolean
 }

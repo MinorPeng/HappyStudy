@@ -465,8 +465,10 @@ class IfElseBlockView : BaseBlockViewGroup {
     }
 
     private suspend fun onChildIfRun(role: IRoleView) {
+        logD(msg = "on if")
         for (index in 0 until childCount) {
-            val child = getChildAt(0)
+            val child = getChildAt(index)
+            logD(msg = "if:$child")
             if (child != null && child.tag == ChildTag.TAG_CHILD_IF && child is IBaseBlock) {
                 child.onRun(role)
             }
@@ -474,8 +476,10 @@ class IfElseBlockView : BaseBlockViewGroup {
     }
 
     private suspend fun onChildElseRun(role: IRoleView) {
+        logD(msg = "on else")
         for (index in 0 until childCount) {
-            val child = getChildAt(0)
+            val child = getChildAt(index)
+            logD(msg = "else: $child")
             if (child != null && child.tag == ChildTag.TAG_CHILD_ELSE && child is IBaseBlock) {
                 child.onRun(role)
             }

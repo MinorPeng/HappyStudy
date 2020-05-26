@@ -144,7 +144,6 @@ class RoleViewGroup : FrameLayout, IRoleView {
         super.onDraw(canvas)
         canvas?.let {
             canvas.translate(mCenterP.x, mCenterP.y)
-            canvas.rotate(0f)
             for (shape in mShapeMap.values) {
                 when (shape) {
                     is DrawCircle -> {
@@ -336,12 +335,12 @@ class RoleViewGroup : FrameLayout, IRoleView {
         var nameStr = name
         val shape = mShapeMap[nameStr]
         if (shape is DrawCircle) {
-            shape.update(cx, cy, r, w, color, style)
+            shape.update(cx, -cy, r, w, color, style)
         } else {
             if (nameStr.isNullOrEmpty()) {
                 nameStr = getRandomStr()
             }
-            mShapeMap[nameStr] = DrawCircle(nameStr, cx, cy, r, w, color, style)
+            mShapeMap[nameStr] = DrawCircle(nameStr, cx, -cy, r, w, color, style)
         }
         invalidate()
     }
@@ -351,12 +350,12 @@ class RoleViewGroup : FrameLayout, IRoleView {
         var nameStr = name
         val shape = mShapeMap[nameStr]
         if (shape is DrawPoint) {
-            shape.update(cx, cy, r, color)
+            shape.update(cx, -cy, r, color)
         } else {
             if (nameStr.isNullOrEmpty()) {
                 nameStr = getRandomStr()
             }
-            mShapeMap[nameStr] = DrawPoint(nameStr, cx, cy, r, color)
+            mShapeMap[nameStr] = DrawPoint(nameStr, cx, -cy, r, color)
         }
         invalidate()
     }
@@ -369,12 +368,12 @@ class RoleViewGroup : FrameLayout, IRoleView {
         var nameStr = name
         val shape = mShapeMap[nameStr]
         if (shape is DrawRect) {
-            shape.update(x1, y1, x2, y2, w, color, style, rotation)
+            shape.update(x1, -y1, x2, -y2, w, color, style, rotation)
         } else {
             if (nameStr.isNullOrEmpty()) {
                 nameStr = getRandomStr()
             }
-            mShapeMap[nameStr] = DrawRect(nameStr, x1, y1, x2, y2, w, color, style, rotation)
+            mShapeMap[nameStr] = DrawRect(nameStr, x1, -y1, x2, -y2, w, color, style, rotation)
         }
         invalidate()
     }
@@ -387,12 +386,12 @@ class RoleViewGroup : FrameLayout, IRoleView {
         var nameStr = name
         val shape = mShapeMap[nameStr]
         if (shape is DrawLine) {
-            shape.update(startX, startY, endX, endY, w, color, rotation)
+            shape.update(startX, -startY, endX, -endY, w, color, rotation)
         } else {
             if (nameStr.isNullOrEmpty()) {
                 nameStr = getRandomStr()
             }
-            mShapeMap[nameStr] = DrawLine(nameStr, startX, startY, endX, endY, w, color, rotation)
+            mShapeMap[nameStr] = DrawLine(nameStr, startX, -startY, endX, -endY, w, color, rotation)
         }
         invalidate()
     }
@@ -405,12 +404,12 @@ class RoleViewGroup : FrameLayout, IRoleView {
         var nameStr = name
         val shape = mShapeMap[nameStr]
         if (shape is DrawTriangle) {
-            shape.update(x1, y1, x2, y2, x3, y3, w, color, style, rotation)
+            shape.update(x1, -y1, x2, -y2, x3, -y3, w, color, style, rotation)
         } else {
             if (nameStr.isNullOrEmpty()) {
                 nameStr = getRandomStr()
             }
-            mShapeMap[nameStr] = DrawTriangle(nameStr, x1, y1, x2, y2, x3, y3, w, color, style, rotation)
+            mShapeMap[nameStr] = DrawTriangle(nameStr, x1, -y1, x2, -y2, x3, -y3, w, color, style, rotation)
         }
         invalidate()
     }

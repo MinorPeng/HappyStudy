@@ -56,5 +56,5 @@ class AndBlockView : BaseLogicBlockView {
         return newObj
     }
 
-    override fun judgeResult(): Boolean = mLeftLogicBg.judgeResult() && mRightLogicBg.judgeResult()
+    override suspend fun judgeResult(): Boolean = mLeftLogicBg.judgeResult() && mRightLogicBg.judgeResult()
 }

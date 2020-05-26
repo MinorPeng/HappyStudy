@@ -50,5 +50,5 @@ class EqualBlockView : BaseLogicBlockView {
         return newObj
     }
 
-    override fun judgeResult(): Boolean = mLeftCalculateBg.calculateResult() == mRightCalculateBg.calculateResult()
+    override suspend fun judgeResult(): Boolean = mLeftCalculateBg.calculateResult() == mRightCalculateBg.calculateResult()
 }

@@ -77,7 +77,7 @@ class LogicBgBlockView : BaseLogicBlockView, View.OnDragListener {
         }
     }
 
-    override fun judgeResult(): Boolean {
+    override suspend fun judgeResult(): Boolean {
         val child = getChildAt(0)
         if (child != null && child is BaseLogicBlockView) {
             return child.judgeResult()

@@ -4,11 +4,15 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import androidx.appcompat.widget.AppCompatEditText
+import com.hesheng1024.base.utils.logD
 import com.hesheng1024.happystudy.R
 import com.hesheng1024.happystudy.VariableMap
 import com.hesheng1024.happystudy.custom.blocks.BlockEditText
 import com.hesheng1024.happystudy.custom.blocks.base.IBaseBlock
 import com.hesheng1024.happystudy.custom.role.IRoleView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 /**
  *
@@ -55,13 +59,17 @@ class VarEqualBlockView : BaseCalculateBlockView {
     override fun calculateResult(): Float {
         val key = mVarName.text.toString()
         VariableMap[key]?.let {
-            if (mRightCalculateBg.getChildAt(0) is AppCompatEditText) {
-                (mRightCalculateBg.getChildAt(0) as AppCompatEditText).setText(it.toString())
+            GlobalScope.launch(Dispatchers.Main) {
+                if (mRightCalculateBg.getChildAt(0) is AppCompatEditText) {
+                    (mRightCalculateBg.getChildAt(0) as AppCompatEditText).setText(it.toString())
+                }
             }
+            logD(msg = "get:$it")
             return it
         }
         val value = mRightCalculateBg.calculateResult()
         VariableMap[key] = value
+        logD(msg = "set:$value")
         return value
     }
 }
