@@ -16,6 +16,10 @@ class AImpl : A
 class AImpl1 : A
 
 fun main(args: Array<String>) {
+    println("1")
+    println("2")
+    println("3")
+    println("4")
     val str: A? = AImpl()
     val str1 = "str"
     str?.takeIf {
